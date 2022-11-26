@@ -1,0 +1,11 @@
+
+# used to place this config under a dictionary that matches the directory structure.  must be first line
+
+PredFull:
+  pfblock:
+    ks: 3
+  SqEx:
+    d: 16
+  CompoundConv:
+    rang: [3, 3, 5, 5, 7, 7, 9, 9]
+output_type: spectra

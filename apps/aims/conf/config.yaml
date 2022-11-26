@@ -1,0 +1,36 @@
+input:
+  search:
+    file: ${oc.env:HOME}/data/nist/tandem/SRM1950/SRM1950_lumos.parquet
+  query:
+    file: ${oc.env:HOME}/data/nist/tandem/SRM1950/SRM1950_lumos.parquet
+    # list of ids to search.  If not specified, search all
+    ids: [1363721, 1694961]
+    # alternatively, give the filename of a hitlist file that contains query ids
+    id_file:
+    # limit on the number of ids to search.  null searches everything
+    num:
+    # column name for query spectra (used for input that are pandas dataframes
+    column_name: spectrum
+  index:
+    name: SRM1950_lumos.spectrum
+    # if the filename is null, the name of the index will be used for the filename
+    file: ${oc.env:HOME}/data/nist/tandem/SRM1950/SRM1950_lumos.spectrum.pynndescent
+
+paths:
+  modules:
+    indices:
+      - massspec.utils.index
+
+search:
+  hitlist:
+    size: 600
+  score:
+    column_name: cosine_score
+  index_type:
+    name: DescentIndex  #  options are TanimotoIndex DescentIndex, and BruteForceIndex
+
+output:
+  csv:
+    file: SRM1950_lumos.spectrum.pynndescent.csv
+  pkl:
+    file: SRM1950_lumos.spectrum.pynndescent.pkl

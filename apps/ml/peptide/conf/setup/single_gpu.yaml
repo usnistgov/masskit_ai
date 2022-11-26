@@ -1,0 +1,14 @@
+
+# used to place this config under a dictionary that matches the directory structure.  must be first line
+
+num_nodes: 1  # number of compute nodes to run on
+gpus: 1  # number of gpus to use, or, if a list, which gpus to use
+reproducable_seed: null  # set random seed for all APIs.  If null, seed is selected randomly and give to subprocesses
+num_workers: 3   # number of data loader workers
+# if gpus is 1, set accelerator to null, otherwise ddp or ddp_spawn
+# ddp works better if you have num_workers >> 0
+accelerator: null
+# turn on traceback and NaN detection for debugging
+set_detect_anomaly: False
+plasma:
+  size: 12000000000

@@ -1,0 +1,14 @@
+
+input:
+  file: ${oc.env:HOME}/data/nist/ei/2020/replib_2020.parquet
+  column_name: spectrum
+  checkpoint: /home/lyg/source/msdc_services/apps/aims/resnet_ei_small_test_497cfe2e5147477aa4f644b98c5f3846_val_loss=0.2721_epoch=011.ckpt
+
+paths:
+  modules:
+    models:
+      - massspec_ml.spectrum.small_mol.models.small_mol_models
+
+output:
+  file: ${oc.env:HOME}/data/nist/ei/2020/replib_2020_hybrid.parquet
+  column_name: hybrid_fp

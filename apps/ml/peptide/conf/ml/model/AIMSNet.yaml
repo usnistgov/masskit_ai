@@ -1,0 +1,9 @@
+
+# used to place this config under a dictionary that matches the directory structure.  must be first line
+
+AIMSNet:
+  num_middle_layers: 1
+  fp_size: 1200
+output_type: search
+# function taking model and config used to modify model before transfer learning
+model_modifier: null

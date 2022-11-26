@@ -1,0 +1,16 @@
+input:
+  comparison:
+    file: search_nndescent_1950_600.pkl
+  ground_truth:
+    file: search_brute_1950_random.pkl
+
+comparison:
+  truth:
+    score:
+      threshold: 0.6
+
+output:
+  # comparison results
+  pkl: descent2brute.pkl
+  csv: descent2brute.csv
+

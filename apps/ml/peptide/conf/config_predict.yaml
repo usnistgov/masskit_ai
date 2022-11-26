@@ -1,0 +1,94 @@
+
+# the defaults list let you override settings using config files from subdirectories
+# for models, specify the model name on the left hand side (which corresponds to a subdirectory)
+# and the name on the right hand side specifies one of the config files in that subdirectory.
+# This lets you have different sets of options for a model
+
+# in the case of predict.py, the defaults will replace the configuration stored with the model
+
+defaults:
+  - input: 2022-04-18_nist # input data set
+  - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
+  - paths: standard  # places to look for data and code
+  - ms: tandem  # mass spec parameters
+  - _self_
+
+hydra:
+  run:
+    # working directory
+    dir: hydra_output
+
+
+# for ensembles, add a list to model_ensemble of paths to the checkpoints
+model_ensemble:
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_096c54b6e02d4f919fde55b7b7ccb515_val_loss=-0.8266_epoch=029.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_428b66a95c4a44249b8e6344bc51f39c_val_loss=-0.8262_epoch=029.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_5345d6fad7794f2b9b7f5e4e48cf5ee9_val_loss=-0.8283_epoch=026.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_546525c5b2e24efc92ee0c34b7761d38_val_loss=-0.8304_epoch=027.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_64329b05aebb49f5a172b556a23dfb5c_val_loss=-0.8269_epoch=026.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_748a542371e14fd3a56408eb2df343e5_val_loss=-0.8263_epoch=024.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_7949ae5616d445748020640273903fd0_val_loss=-0.8261_epoch=026.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_8772e5cef380470c90d3d0d6afefcb59_val_loss=-0.8268_epoch=029.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_a94922c3410449a4ae43089cd9b81458_val_loss=-0.8268_epoch=028.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_c2cd617637c34720aa1612f9f064828c_val_loss=-0.8313_epoch=028.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_c7f337f863e346e5a60432460bcc37a3_val_loss=-0.8254_epoch=029.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_ca39eff61ff94bafbe12a9f4321ae7e6_val_loss=-0.8285_epoch=029.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_cee25b0b241f46eaaabbc3d710e1fb2a_val_loss=-0.8290_epoch=024.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_df0f463a8e154a58af768318ce994a26_val_loss=-0.8263_epoch=026.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/NewDataSet2_e454ae8de395413cbdeef357f834d03a_val_loss=-0.8288_epoch=029.ckpt
+model_draws: 1  # number of draws per model
+num: 10  # number of spectra to predict
+dropout: False  # turn on dropout
+min_mz: 28 # minimum mz used to calculate the cosine score
+min_intensity: 0.1 # minimum intensity of predicted spectrum (out of 999)
+mz_window: 7  # window size for windowed noise filter.  0 = don't filter
+l2norm: False  # L2 normalize the predicted spectra
+predicted_spectrum_column: predicted_spectrum
+upres: True  # up resolution peptide spectra
+output_prefix: ${now:%Y-%m-%d}_predict  # name of the output file
+output_suffixes:  # different file types to write out
+  - pkl
+  - csv
+  - msp
+  - parquet
+dataloader: TandemArrowDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
+set_to_load: test  # data set to do predictions on
+
+# settings for create_peptide_library.py
+min_length: 5
+max_length: 30
+min_charge: 1
+max_charge: 8
+min_ev: 10
+max_ev: 60
+mod_list:
+  - Acetyl
+  - Methyl
+  - Gln->pyro-Glu
+  - Glu->pyro-Glu
+  - Oxidation
+  - Phospho
+  - Pyro-carbamidomethyl
+  - Carbamidomethyl
+  - Oxidation
+  - Deamidated
+
+
+# Information
+#
+# this configuration file is parsed by the hydra library.  See https://hydra.cc/ for info
+#
+# Notes:
+# - environment variables can be retrieved via ${oc.env:MY_ENV_VARIABLE} notation
+# - null values are translated to None values in python
+# - values within the specification can be accessed via ${my_top_level.my_config_value} notation
+#
+# - Some hydra terminology:
+#   - config:  a configuration file.  there are input configs arranged in a directory structure and one output config
+#   - config_group : A path to a set of configs.
+#       The path is relative to the containing config. It can be made absolute by prefixing it with a /.
+#        The path separator is / regardless of the operating system.
+#   - package : Where to place the content of the config within the output config. It is relative to the package of
+#     the containing config by default.
+#   - dot.notation: location of a key in the config
+#

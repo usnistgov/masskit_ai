@@ -1,0 +1,37 @@
+input:
+  search:
+    file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020_hybrid.parquet
+  query:
+    file: ${oc.env:HOME}/data/nist/ei/2020/replib_2020_hybrid.parquet
+    # list of ids to search.  If not specified, search all
+    ids:
+    # alternatively, give the filename of a hitlist file that contains query ids
+    id_file:
+    # limit on the number of ids to search.  null searches everything
+    num: 992
+    # column name for queries
+    column_name: hybrid_fp
+  index:
+    name: hybrid_fp
+    # if the filename is null, the name of the index will be used for the filename
+    file: ${oc.env:HOME}/data/nist/ei/2020/mainlib.hybrid.npy
+
+paths:
+  modules:
+    indices:
+      - massspec.utils.index
+
+search:
+  hitlist:
+    size: 500
+  row_ids:
+  score:
+    column_name: hybrid_score
+  index_type:
+    name: DotProductIndex  #  options are TanimotoIndex DescentIndex, and BruteForceIndex
+
+output:
+  csv:
+    file: search_hybrid_mainlib.csv
+  pkl:
+    file: search_hybrid_mainlib.pkl

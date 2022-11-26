@@ -1,0 +1,36 @@
+stages:
+  - build
+  - test
+  - deploy
+
+# Build Singularity container
+build:
+  stage: build
+  script:
+    - singularity build --fakeroot airi_calc.sif singularity.def
+  tags:
+    - linux
+    - singularity
+  artifacts:
+    paths:
+      - airi_calc.sif
+
+# Test Singularity container
+test:
+  stage: test
+  script:
+    - singularity exec airi_calc.sif airi_calc --smiles CCCC c1ccccc1
+    - ./airi_calc.sif --smiles CCCC c1ccccc1
+  tags:
+    - linux
+    - singularity
+
+
+# Push the image on the registry
+deploy:
+  stage: deploy
+  script:
+     - singularity push --docker-username "${CI_REGISTRY_USER}" --docker-password "${CI_REGISTRY_PASSWORD}" airi_calc.sif oras://"$CI_REGISTRY_IMAGE"/"$CI_PROJECT_NAME":"$CI_PIPELINE_IID"
+  tags:
+    - linux
+    - singularity

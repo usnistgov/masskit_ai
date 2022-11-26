@@ -1,0 +1,29 @@
+input:
+  library:
+    file: ${oc.env:HOME}/data/nist/tandem/SRM1950/SRM1950_lumos.parquet  
+    # number of rows to read from file. null means all
+    num: null
+    # column name used to retrieve the spectrum.  null is default
+    column_name: spectrum_fp
+    # column name used to retrieve the fingerprint count, if needed
+    column_count_name: spectrum_fp_count
+
+creation:
+  dimension: 2000
+  name: SRM1950_lumos.spectrum
+  index_type:
+    # the name of the index class to use
+    # options include TanimotoIndex, BruteForceIndex and DescentIndex
+    name: DescentIndex
+    # what is the input? spectrum or fingerprint
+    input_type: spectrum
+
+paths:
+  modules:
+    indices:
+      - massspec.utils.index
+
+output:
+  # pickled index filename.  if null, use creation.name to make the filename
+  file: ${oc.env:HOME}/data/nist/tandem/SRM1950/SRM1950_lumos.spectrum.pynndescent 
+

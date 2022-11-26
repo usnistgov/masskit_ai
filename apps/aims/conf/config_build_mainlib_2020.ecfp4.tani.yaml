@@ -1,0 +1,28 @@
+input:
+  library:
+    file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020.parquet
+    # number of rows to read from file. null means all
+    num: null
+    # column name used to retrieve the spectrum or fingerprint.  null is default
+    column_name: ecfp4
+    # column name used to retrieve the fingerprint count, if needed
+    column_count_name: ecfp4_count
+
+creation:
+  dimension: 4096
+  name: mainlib_2020.ecfp4.tani
+  index_type:
+    # the name of the index class to use
+    # options include TanimotoIndex, BruteForceIndex and DescentIndex
+    name: TanimotoIndex
+    # what is the input? spectrum or fingerprint
+    input_type: fingerprint
+paths:
+  modules:
+    indices:
+      - massspec.utils.index
+
+output:
+  # pickled index filename.  if null, use creation.name to make the filename
+  file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020.ecfp4.tani.npy
+

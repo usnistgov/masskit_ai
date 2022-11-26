@@ -1,0 +1,28 @@
+input:
+  library:
+    file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020_hybrid.parquet
+    # number of rows to read from file. null means all
+    num: null
+    # column name used to retrieve the spectrum or fingerprint.  null is default
+    column_name: hybrid_fp
+    # column name used to retrieve the fingerprint count, if needed
+    column_count_name:
+
+creation:
+  dimension: 1200
+  name: hybrid_fp
+  index_type:
+    # the name of the index class to use
+    # options include TanimotoIndex, BruteForceIndex and DescentIndex
+    name: DotProductIndex
+    # what is the input? spectrum or fingerprint
+    input_type: spectrum
+paths:
+  modules:
+    indices:
+      - massspec.utils.index
+
+output:
+  # pickled index filename.  if null, use creation.name to make the filename
+  file: ${oc.env:HOME}/data/nist/ei/2020/mainlib.hybrid.npy
+

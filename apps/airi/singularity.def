@@ -1,0 +1,28 @@
+Bootstrap: docker
+
+From: continuumio/miniconda3
+
+%files
+    airi airi/airi
+    setup.py airi/setup.py
+
+%post
+    apt-get update && apt-get -y upgrade
+    #Conda configuration of channels from .condarc file
+    conda config --file /.condarc --add channels defaults
+    conda config --file /.condarc --add channels conda-forge
+    conda update conda
+    conda install requests pandas xlrd
+    pip install ./airi
+    #List installed environments
+    conda list
+
+%runscript
+    exec airi_calc $@
+
+%labels
+    Author douglas.slotta@nist.gov
+    Version v1.0
+
+%help
+    A container for the command line python front-end of the NIST airi service. 

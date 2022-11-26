@@ -1,0 +1,79 @@
+
+# the defaults list let you override settings using config files from subdirectories
+# for models, specify the model name on the left hand side (which corresponds to a subdirectory)
+# and the name on the right hand side specifies one of the config files in that subdirectory.
+# This lets you have different sets of options for a model
+
+# in the case of predict.py, the defaults will replace the configuration stored with the model
+
+defaults:
+  - input: 2022-09-22_nonconsensus # input data set
+  - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
+  - paths: standard  # places to look for data and code
+  - ms: tandem  # mass spec parameters
+
+hydra:
+  run:
+    # working directory
+    dir: hydra_output
+
+
+# for ensembles, add a list to model_ensemble of paths to the checkpoints
+model_ensemble:
+  - ${oc.env:HOME}/data/nist/aiomics/models/run_bayes_training_d180c2d66c1c4596bee12c1e124e8594_val_loss=-0.8071_epoch=008.ckpt
+model_draws: 16  # number of draws per model
+num: 0  # number of spectra to predict
+dropout: False  # turn on dropout
+min_mz: 28 # minimum mz used to calculate the cosine score
+min_intensity: 0.1 # minimum intensity of predicted spectrum (out of 999)
+mz_window: 7  # window size for windowed noise filter.  0 = don't filter
+l2norm: False  # L2 normalize the predicted spectra
+predicted_spectrum_column: predicted_spectrum
+upres: True  # up resolution peptide spectra
+output_prefix: ${now:%Y-%m-%d}_predict_nonconsensus_valid_bayes  # name of the output file
+output_suffixes:  # different file types to write out
+  - pkl
+  - csv
+  - msp
+  - parquet
+dataloader: TandemArrowDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
+set_to_load: valid  # data set to do predictions on
+
+# settings for create_peptide_library.py
+min_length: 5
+max_length: 30
+min_charge: 1
+max_charge: 8
+min_ev: 10
+max_ev: 60
+mod_list:
+  - Acetyl
+  - Methyl
+  - Gln->pyro-Glu
+  - Glu->pyro-Glu
+  - Oxidation
+  - Phospho
+  - Pyro-carbamidomethyl
+  - Carbamidomethyl
+  - Oxidation
+  - Deamidated
+
+
+# Information
+#
+# this configuration file is parsed by the hydra library.  See https://hydra.cc/ for info
+#
+# Notes:
+# - environment variables can be retrieved via ${oc.env:MY_ENV_VARIABLE} notation
+# - null values are translated to None values in python
+# - values within the specification can be accessed via ${my_top_level.my_config_value} notation
+#
+# - Some hydra terminology:
+#   - config:  a configuration file.  there are input configs arranged in a directory structure and one output config
+#   - config_group : A path to a set of configs.
+#       The path is relative to the containing config. It can be made absolute by prefixing it with a /.
+#        The path separator is / regardless of the operating system.
+#   - package : Where to place the content of the config within the output config. It is relative to the package of
+#     the containing config by default.
+#   - dot.notation: location of a key in the config
+#

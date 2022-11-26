@@ -1,0 +1,5 @@
+
+# used to place this config under a dictionary that matches the directory structure.  must be first line
+
+dataloader: DataframeDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
+datamodule: XORDataModule

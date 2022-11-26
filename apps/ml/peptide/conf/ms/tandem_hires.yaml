@@ -1,0 +1,29 @@
+# @package _group_
+# used to place this config under a dictionary that matches the directory structure.  must be first line
+
+# typical hyperparameters associated with spectra datastructures.  Will be logged individually.
+bin_size: 0.05  # size of spectrum array bin in Daltons
+max_mz: 2000  # maximum mz value of spectrum array
+down_shift: 0.025  # shift m/z values downward by this value when creating spectrum array
+dataloader: TandemArrowDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
+datamodule: SpectrumDataModule
+take_max: False  # take the maximum intensity in each bin (otherwise use the sum)
+take_sqrt: False  # output of the model is the sqrt of the intensity
+# the columns to be loaded per data row in a Dataset
+columns:
+  - id
+  - charge
+  - peptide
+  - peptide_len
+  - nce
+  - ev
+  - mod_names
+  - mod_positions
+# the columns stored in a QueryDataset, used for sampling
+dataset_columns:
+  - id
+  - charge
+  - peptide
+  - peptide_len
+  - ev
+  - mod_names

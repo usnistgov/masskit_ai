@@ -1,0 +1,52 @@
+
+# used to place this config under a dictionary that matches the directory structure.  must be first line
+
+# places to look for files and classes
+
+
+# name of the directory to cache input files
+# if the file already exists in this cache directory, it won't be downloaded.
+cache_directory: ${oc.env:HOME}/.massspec_cache
+# directories where to search for cached data data
+search_path:
+  - /aiomics/massspec_cache
+  - ${oc.env:HOME}/.massspec_cache
+  - ${oc.env:HOME}/data/nist/aiomics
+  - ${oc.env:HOME}/data/nist/2020
+
+# modules to search for loss, model, logger, dataloader, and embedding classes
+modules:
+  losses:
+    - massspec_ml.pytorch.spectrum.spectrum_losses
+    - massspec_ml.pytorch.spectrum.small_mol.small_mol_losses
+  metrics:
+    - massspec_ml.pytorch.metrics
+  models:
+    - massspec_ml.pytorch.spectrum.peptide.models.aiomic
+    - massspec_ml.pytorch.spectrum.peptide.models.dense
+    - massspec_ml.pytorch.spectrum.peptide.models.flipyflopy
+    - massspec_ml.pytorch.spectrum.small_mol.models.small_mol_models
+  # paths to functions used to modify a model before retraining during transfer learning
+  model_modifiers:
+    - massspec_ml.pytorch.spectrum.peptide.models.aiomic
+  loggers:
+    - massspec_ml.pytorch.loggers
+  dataloaders:
+    - massspec_ml.pytorch.base_datasets
+    - massspec_ml.pytorch.spectrum.spectrum_datasets
+    - massspec_ml.pytorch.spectrum.small_mol.small_mol_datasets
+  datamodules:
+    - massspec_ml.pytorch.lightning
+    - massspec_ml.pytorch.spectrum.spectrum_lightning
+    - massspec_ml.pytorch.spectrum.small_mol.small_mol_lightning
+  lightning_modules:
+    - massspec_ml.pytorch.lightning
+    - massspec_ml.pytorch.spectrum.spectrum_lightning
+    - massspec_ml.pytorch.spectrum.small_mol.small_mol_lightning
+  embeddings:
+    - massspec_ml.pytorch.embed
+    - massspec_ml.pytorch.spectrum.spectrum_embed
+    - massspec_ml.pytorch.spectrum.peptide.peptide_embed
+  samplers:
+    - massspec_ml.pytorch.samplers
+    - massspec_ml.pytorch.spectrum.peptide.peptide_samplers

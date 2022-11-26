@@ -1,0 +1,86 @@
+
+# the defaults list let you override settings using config files from subdirectories
+# for models, specify the model name on the left hand side (which corresponds to a subdirectory)
+# and the name on the right hand side specifies one of the config files in that subdirectory.
+# This lets you have different sets of options for a model
+
+# in the case of predict.py, the defaults will replace the configuration stored with the model
+
+defaults:
+  - input: 2022-09-22_original  # input data set
+  - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
+  - paths: standard  # places to look for data and code
+  - ms: tandem  # mass spec parameters
+
+hydra:
+  run:
+    # working directory
+    dir: hydra_output
+
+
+# for ensembles, add a list to model_ensemble of paths to the checkpoints
+model_ensemble:
+  - ${oc.env:HOME}/data/nist/aiomics/models/lyg_original_nosqrt_09ae4ecff1804ee8847c2751a6cd5cb4_val_loss=-0.8173_epoch=054.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/lyg_original_nosqrt_3214294cd15a452f961a1c0b9405a5b6_val_loss=-0.8146_epoch=058.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/lyg_original_nosqrt_6d8d892e1a684bae95c7ebc4b6012a61_val_loss=-0.8149_epoch=051.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/lyg_original_nosqrt_731804b49a794e949b6fb08e0c2c76be_val_loss=-0.8159_epoch=052.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/lyg_original_nosqrt_75891dbe1493444eb61ed10b3d39266e_val_loss=-0.8182_epoch=055.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/lyg_original_nosqrt_8927fe90779344029cbf0ba9039d3a7d_val_loss=-0.8156_epoch=052.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/lyg_original_nosqrt_94fb36aa8e6447ee9c1c8ed98289ff54_val_loss=-0.8134_epoch=059.ckpt
+  - ${oc.env:HOME}/data/nist/aiomics/models/lyg_original_nosqrt_cd6fdf97f4d24795b3f63820f0d0b632_val_loss=-0.8151_epoch=050.ckpt
+model_draws: 1  # number of draws per model
+num: 0  # number of spectra to predict
+dropout: False  # turn on dropout
+min_mz: 28 # minimum mz used to calculate the cosine score
+min_intensity: 0.1 # minimum intensity of predicted spectrum (out of 999)
+mz_window: 7  # window size for windowed noise filter.  0 = don't filter
+l2norm: False  # L2 normalize the predicted spectra
+predicted_spectrum_column: predicted_spectrum
+upres: True  # up resolution peptide spectra
+output_prefix: ${now:%Y-%m-%d}_predict_original  # name of the output file
+output_suffixes:  # different file types to write out
+  - pkl
+  - csv
+  - msp
+  - parquet
+dataloader: TandemArrowDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
+set_to_load: test  # data set to do predictions on
+
+# settings for create_peptide_library.py
+min_length: 5
+max_length: 30
+min_charge: 1
+max_charge: 8
+min_ev: 10
+max_ev: 60
+mod_list:
+  - Acetyl
+  - Methyl
+  - Gln->pyro-Glu
+  - Glu->pyro-Glu
+  - Oxidation
+  - Phospho
+  - Pyro-carbamidomethyl
+  - Carbamidomethyl
+  - Oxidation
+  - Deamidated
+
+
+# Information
+#
+# this configuration file is parsed by the hydra library.  See https://hydra.cc/ for info
+#
+# Notes:
+# - environment variables can be retrieved via ${oc.env:MY_ENV_VARIABLE} notation
+# - null values are translated to None values in python
+# - values within the specification can be accessed via ${my_top_level.my_config_value} notation
+#
+# - Some hydra terminology:
+#   - config:  a configuration file.  there are input configs arranged in a directory structure and one output config
+#   - config_group : A path to a set of configs.
+#       The path is relative to the containing config. It can be made absolute by prefixing it with a /.
+#        The path separator is / regardless of the operating system.
+#   - package : Where to place the content of the config within the output config. It is relative to the package of
+#     the containing config by default.
+#   - dot.notation: location of a key in the config
+#

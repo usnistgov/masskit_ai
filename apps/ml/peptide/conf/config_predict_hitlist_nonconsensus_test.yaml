@@ -1,0 +1,55 @@
+
+# the defaults list let you override settings using config files from subdirectories
+# for models, specify the model name on the left hand side (which corresponds to a subdirectory)
+# and the name on the right hand side specifies one of the config files in that subdirectory.
+# This lets you have different sets of options for a model
+
+# in the case of predict.py, the defaults will replace the configuration stored with the model
+
+defaults:
+  - input: 2022-09-22_nonconsensus # input data set
+  - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
+  - paths: standard  # places to look for data and code
+  - ms: tandem  # mass spec parameters
+
+hydra:
+  run:
+    # working directory
+    dir: hydra_output
+
+
+# for ensembles, add a list to model_ensemble of paths to the checkpoints
+model_ensemble:
+  - ${oc.env:HOME}/data/nist/aiomics/models/lyg_consensus_7695c219cf3a42ecbc5eb2a33b528701_val_loss=-0.8514_epoch=057.ckpt
+model_draws: 1  # number of draws per model
+hitlist_in: ${oc.env:HOME}/data/nist/aiomics/mascot/2022-10-19_test_nonconsensus_hitlist.pkl
+num: 0  # number of spectra to predict
+dropout: False  # turn on dropout
+min_mz: 28 # minimum mz used to calculate the cosine score
+min_intensity: 0.1 # minimum intensity of predicted spectrum (out of 999)
+mz_window: 7  # window size for windowed noise filter.  0 = don't filter
+l2norm: False  # L2 normalize the predicted spectra
+predicted_spectrum_column: predicted_spectrum
+upres: True  # up resolution peptide spectra
+output_prefix: ${oc.env:HOME}/data/nist/aiomics/mascot/2022-10-19_test_nonconsensus_hitlist_predicted  # name of the output file
+set_to_load: test  # data set to do predictions on
+
+
+# Information
+#
+# this configuration file is parsed by the hydra library.  See https://hydra.cc/ for info
+#
+# Notes:
+# - environment variables can be retrieved via ${oc.env:MY_ENV_VARIABLE} notation
+# - null values are translated to None values in python
+# - values within the specification can be accessed via ${my_top_level.my_config_value} notation
+#
+# - Some hydra terminology:
+#   - config:  a configuration file.  there are input configs arranged in a directory structure and one output config
+#   - config_group : A path to a set of configs.
+#       The path is relative to the containing config. It can be made absolute by prefixing it with a /.
+#        The path separator is / regardless of the operating system.
+#   - package : Where to place the content of the config within the output config. It is relative to the package of
+#     the containing config by default.
+#   - dot.notation: location of a key in the config
+#

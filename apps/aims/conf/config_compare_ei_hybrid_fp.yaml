@@ -1,0 +1,20 @@
+input:
+  comparison:
+    file: ../../2022-05-28/10-46-45/search_hybrid_mainlib.pkl
+  ground_truth:
+    file: ../../2022-05-27/23-23-54/search_structure_mainlib.pkl
+
+comparison:
+  ground_truth:
+    score:
+      column_name: tanimoto
+      threshold: 0.2
+  comparison:
+    score:
+      column_name: hybrid_score
+
+output:
+  # comparison results
+  pkl: compare_hybrid_fp_structure.pkl
+  csv: compare_hybrid_fp_structure.csv
+

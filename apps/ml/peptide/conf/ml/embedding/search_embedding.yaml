@@ -1,0 +1,6 @@
+
+# used to place this config under a dictionary that matches the directory structure.  must be first line
+
+
+embedding_type: BasicEmbed
+channel_first: True  # is tensor format channel first (True for pytorch, False for tensorflow)

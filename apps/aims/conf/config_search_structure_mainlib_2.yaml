@@ -1,0 +1,39 @@
+input:
+  search:
+    file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020.parquet
+    where: 
+  query:
+    file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020.parquet
+    where: 
+    # list of ids to search.  If not specified, search all
+    ids:
+    # alternatively, give the filename of a hitlist file that contains query ids
+    id_file:
+    # limit on the number of ids to search.  null searches everything
+    num:
+    # column name for queries
+    column_name: ecfp4
+  index:
+    name: mainlib_2020.2.ecfp4.tani
+    # if the filename is null, the name of the index will be used for the filename
+    file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020.ecfp4.tani.npy
+
+paths:
+  modules:
+    indices:
+      - massspec.utils.index
+
+search:
+  hitlist:
+    size: 20
+  score:
+    column_name: tanimoto
+  index_type:
+    name: TanimotoIndex  #  options are TanimotoIndex DescentIndex, and BruteForceIndex
+  row_ids: True
+
+output:
+  csv:
+    file:
+  pkl:
+    file: search_structure_mainlib_2.pkl

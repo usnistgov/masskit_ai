@@ -1,0 +1,8 @@
+
+
+AIomicsRNN:
+    embed_dim: 128
+    hidden_size: 256
+    layers: 2
+    bidir: True
+output_type: spectra
