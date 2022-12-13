@@ -7,7 +7,7 @@ import json
 import hashlib
 import logging
 import sys
-from massspec.utils.hitlist import Hitlist
+from masskit.utils.hitlist import Hitlist
 
 """
 load one or more mspepsearch tsv files into a arrow table and put the result in an parquet file

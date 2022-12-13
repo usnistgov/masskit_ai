@@ -7,7 +7,7 @@ input:
 paths:
   modules:
     models:
-      - massspec_ml.spectrum.small_mol.models.small_mol_models
+      - masskit_ai.spectrum.small_mol.models.small_mol_models
 
 output:
   file: ${oc.env:HOME}/data/nist/ei/2020/replib_2020_hybrid.parquet

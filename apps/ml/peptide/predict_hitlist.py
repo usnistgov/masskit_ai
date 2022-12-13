@@ -3,19 +3,19 @@ from hitlist import Hitlist, PeptideIdentityScore
 
 from index import ArrowLibraryMap
 
-from massspec.utils.general import parse_filename, search_for_file
-from massspec_ml.pytorch.loggers import filter_pytorch_lightning_warnings
-from massspec_ml.pytorch.spectrum.spectrum_lightning import SpectrumLightningModule
+from masskit.utils.general import parse_filename, search_for_file
+from masskit_ai.loggers import filter_pytorch_lightning_warnings
+from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
 import hydra
 from omegaconf import DictConfig, open_dict
-from massspec_ml.pytorch.spectrum.spectrum_prediction import (
+from masskit_ai.spectrum.spectrum_prediction import (
     create_prediction_dataset,
     create_prediction_dataset_from_hitlist,
     single_spectrum_prediction, prep_model_for_prediction, finalize_prediction_dataset,
     upres_peptide_spectra, )
 from tqdm import tqdm
 import pytorch_lightning as pl
-from massspec.utils.files import load_mzTab
+from masskit.utils.files import load_mzTab
 import pyarrow.parquet as pq
 import pandas as pd
 

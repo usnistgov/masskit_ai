@@ -2,7 +2,7 @@ import pandas as pd
 import os
 from sys import exit
 from rdkit import Chem
-from massspec.small_molecule import threed
+from masskit.small_molecule import threed
 import json
 import argparse
 import logging

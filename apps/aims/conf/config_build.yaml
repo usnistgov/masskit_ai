@@ -21,7 +21,7 @@ creation:
 paths:
   modules:
     indices:
-      - massspec.utils.index
+      - masskit.utils.index
 
 output:
   # pickled index filename.  if null, use creation.name to make the filename

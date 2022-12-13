@@ -5,13 +5,13 @@ import pytorch_lightning as pl
 import torch
 import pyarrow as pa
 from pyarrow import plasma
-from massspec.utils.general import class_for_name
-from massspec_ml.pytorch.loggers import filter_pytorch_lightning_warnings, MSMLFlowLogger
-from massspec_ml.pytorch.spectrum.spectrum_lightning import SpectrumLightningModule
+from masskit.utils.general import class_for_name
+from masskit_ai.loggers import filter_pytorch_lightning_warnings, MSMLFlowLogger
+from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
 from omegaconf import DictConfig, open_dict
 import hydra
-from massspec_ml.pytorch.callbacks import ConcatenateIdLogs, ModelCheckpointOnStart
-from massspec_ml.pytorch.spectrum.peptide.peptide_callbacks import PeptideCB
+from masskit_ai.callbacks import ConcatenateIdLogs, ModelCheckpointOnStart
+from masskit_ai.spectrum.peptide.peptide_callbacks import PeptideCB
 from pytorch_lightning.callbacks.model_checkpoint import ModelCheckpoint
 import time
 import logging

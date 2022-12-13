@@ -1,8 +1,8 @@
 import argparse
-from massspec.utils.general import discounted_cumulative_gain
+from masskit.utils.general import discounted_cumulative_gain
 import sqlalchemy
-from massspec.data_specs.base_library import supported_library_types
-from massspec.data_specs.spectral_library import *
+from masskit.data_specs.base_library import supported_library_types
+from masskit.data_specs.spectral_library import *
 import numpy as np
 import pandas as pd
 import logging

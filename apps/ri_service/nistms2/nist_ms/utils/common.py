@@ -1,6 +1,6 @@
 import numpy as np
 from rdkit import DataStructs
-from massspec.config import TandemMLConfig
+from masskit.config import TandemMLConfig
 
 
 """

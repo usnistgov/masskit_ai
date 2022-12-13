@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import re
-from massspec.spectrum.small_molecule import init_spectrum
+from masskit.spectrum.small_molecule import init_spectrum
 
 
 float_match = r'[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?'  # regex used for matching floating point numbers

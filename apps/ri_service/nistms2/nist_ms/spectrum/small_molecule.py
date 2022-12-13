@@ -2,7 +2,7 @@ import numpy as np
 from rdkit import Chem
 from rdkit.Chem import DataStructs
 import re
-from massspec.config import EIMLConfig
+from masskit.config import EIMLConfig
 import scipy.stats as sts
 import scipy.special as spc
 from pspearman import *
@@ -12,7 +12,7 @@ import math
 import copy
 import random
 from scipy.stats import wald
-from massspec.utils.common import *
+from masskit.utils.common import *
 
 try:
     from numba import jit

@@ -2,10 +2,10 @@ import pandas as pd
 import numpy as np
 import argparse
 import sqlalchemy
-from massspec.data_specs.base_library import supported_library_types
-from massspec.data_specs.spectral_library import *
+from masskit.data_specs.base_library import supported_library_types
+from masskit.data_specs.spectral_library import *
 from rdkit import DataStructs
-from massspec.spectrum.spectrum import SpectralSearchConfig
+from masskit.spectrum.spectrum import SpectralSearchConfig
 
 
 """

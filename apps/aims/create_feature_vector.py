@@ -2,12 +2,12 @@ import hydra
 from hydra.utils import to_absolute_path
 import pyarrow as pa
 import pyarrow.parquet as pq
-from massspec.data_specs.schemas import set_field_int_metadata
-from massspec.utils.index import ArrowLibraryMap
-from massspec.utils.general import class_for_name, parse_filename
-from massspec_ml.pytorch.base_objects import ModelInput
-from massspec_ml.pytorch.spectrum.small_mol.small_mol_lightning import SearchLightningModule
-from massspec_ml.pytorch.spectrum.spectrum_lightning import SpectrumLightningModule
+from masskit.data_specs.schemas import set_field_int_metadata
+from masskit.utils.index import ArrowLibraryMap
+from masskit.utils.general import class_for_name, parse_filename
+from masskit_ai.base_objects import ModelInput
+from masskit_ai.spectrum.small_mol.small_mol_lightning import SearchLightningModule
+from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
 import numpy as np
 import torch
 

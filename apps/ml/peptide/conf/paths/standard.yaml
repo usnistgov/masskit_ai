@@ -17,36 +17,36 @@ search_path:
 # modules to search for loss, model, logger, dataloader, and embedding classes
 modules:
   losses:
-    - massspec_ml.pytorch.spectrum.spectrum_losses
-    - massspec_ml.pytorch.spectrum.small_mol.small_mol_losses
+    - masskit_ai.spectrum.spectrum_losses
+    - masskit_ai.spectrum.small_mol.small_mol_losses
   metrics:
-    - massspec_ml.pytorch.metrics
+    - masskit_ai.metrics
   models:
-    - massspec_ml.pytorch.spectrum.peptide.models.aiomic
-    - massspec_ml.pytorch.spectrum.peptide.models.dense
-    - massspec_ml.pytorch.spectrum.peptide.models.flipyflopy
-    - massspec_ml.pytorch.spectrum.small_mol.models.small_mol_models
+    - masskit_ai.spectrum.peptide.models.aiomic
+    - masskit_ai.spectrum.peptide.models.dense
+    - masskit_ai.spectrum.peptide.models.flipyflopy
+    - masskit_ai.spectrum.small_mol.models.small_mol_models
   # paths to functions used to modify a model before retraining during transfer learning
   model_modifiers:
-    - massspec_ml.pytorch.spectrum.peptide.models.aiomic
+    - masskit_ai.spectrum.peptide.models.aiomic
   loggers:
-    - massspec_ml.pytorch.loggers
+    - masskit_ai.loggers
   dataloaders:
-    - massspec_ml.pytorch.base_datasets
-    - massspec_ml.pytorch.spectrum.spectrum_datasets
-    - massspec_ml.pytorch.spectrum.small_mol.small_mol_datasets
+    - masskit_ai.base_datasets
+    - masskit_ai.spectrum.spectrum_datasets
+    - masskit_ai.spectrum.small_mol.small_mol_datasets
   datamodules:
-    - massspec_ml.pytorch.lightning
-    - massspec_ml.pytorch.spectrum.spectrum_lightning
-    - massspec_ml.pytorch.spectrum.small_mol.small_mol_lightning
+    - masskit_ai.lightning
+    - masskit_ai.spectrum.spectrum_lightning
+    - masskit_ai.spectrum.small_mol.small_mol_lightning
   lightning_modules:
-    - massspec_ml.pytorch.lightning
-    - massspec_ml.pytorch.spectrum.spectrum_lightning
-    - massspec_ml.pytorch.spectrum.small_mol.small_mol_lightning
+    - masskit_ai.lightning
+    - masskit_ai.spectrum.spectrum_lightning
+    - masskit_ai.spectrum.small_mol.small_mol_lightning
   embeddings:
-    - massspec_ml.pytorch.embed
-    - massspec_ml.pytorch.spectrum.spectrum_embed
-    - massspec_ml.pytorch.spectrum.peptide.peptide_embed
+    - masskit_ai.embed
+    - masskit_ai.spectrum.spectrum_embed
+    - masskit_ai.spectrum.peptide.peptide_embed
   samplers:
-    - massspec_ml.pytorch.samplers
-    - massspec_ml.pytorch.spectrum.peptide.peptide_samplers
+    - masskit_ai.samplers
+    - masskit_ai.spectrum.peptide.peptide_samplers

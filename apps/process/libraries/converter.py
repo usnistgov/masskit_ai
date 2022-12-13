@@ -1,9 +1,9 @@
 import logging
 import hydra
 from omegaconf import DictConfig
-from massspec.data_specs.spectral_library import *
-from massspec.utils.general import parse_filename
-from massspec.utils.index import ArrowLibraryMap
+from masskit.data_specs.spectral_library import *
+from masskit.utils.general import parse_filename
+from masskit.utils.index import ArrowLibraryMap
 import pyarrow as pa
 
 """

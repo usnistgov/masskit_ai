@@ -1,19 +1,19 @@
 import logging
 
-from massspec.utils.general import search_for_file
-from massspec_ml.pytorch.loggers import filter_pytorch_lightning_warnings
-from massspec_ml.pytorch.spectrum.spectrum_lightning import SpectrumLightningModule
+from masskit.utils.general import search_for_file
+from masskit_ai.loggers import filter_pytorch_lightning_warnings
+from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
 import hydra
 from pyarrow import plasma
 from omegaconf import DictConfig, open_dict
-from massspec_ml.pytorch.spectrum.spectrum_prediction import (
+from masskit_ai.spectrum.spectrum_prediction import (
     create_prediction_dataset,
     single_spectrum_prediction, prep_model_for_prediction, finalize_prediction_dataset,
     upres_peptide_spectra, )
 from tqdm import tqdm
 import pytorch_lightning as pl
 import builtins
-from massspec.utils.files import spectra_to_array
+from masskit.utils.files import spectra_to_array
 import pyarrow.parquet as pq
 
 

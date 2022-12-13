@@ -3,9 +3,9 @@ from rdkit.Chem import AllChem
 # from rdkit.Chem import rdFreeSASA
 from rdkit.Chem.rdMolTransforms import GetBondLength
 import numpy as np
-from massspec.small_molecule import utils
+from masskit.small_molecule import utils
 import unittest
-from massspec.config import EIMLConfig, SmallMolMLConfig
+from masskit.config import EIMLConfig, SmallMolMLConfig
 from math import *
 import quaternion
 from skimage.draw import line

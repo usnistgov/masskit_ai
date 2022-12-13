@@ -19,7 +19,7 @@ input:
 paths:
   modules:
     indices:
-      - massspec.utils.index
+      - masskit.utils.index
 
 search:
   hitlist:

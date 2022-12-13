@@ -2,7 +2,7 @@ import hydra
 import logging
 import pandas as pd
 from omegaconf import DictConfig, OmegaConf
-from massspec.utils.hitlist import CompareRecallDCG, Hitlist
+from masskit.utils.hitlist import CompareRecallDCG, Hitlist
 
 """
 compare search results for two searches
