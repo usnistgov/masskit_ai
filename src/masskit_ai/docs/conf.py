@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'massspec_ml'
+project = 'masskit_ai'
 # copyright = '2021, MSDC'
 html_show_copyright = False
 html_show_sphinx = False

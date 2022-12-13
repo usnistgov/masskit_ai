@@ -2,7 +2,7 @@
 
 * to build docs
   * use a virtual environment with sphinx, myst_parser, and nbsphinx installed, then run
-    * `cd libraries/src/massspec_ml/pytorch/docs`
+    * `cd libraries/src/masskit_ai/docs`
     * `sphinx-apidoc -o . ../`
     * `sphinx-build -b html . _build`
     * recursively copy the contents of the _build directory to the destination

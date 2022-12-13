@@ -5,19 +5,19 @@
 #### Local linux machine setup
 * [install anaconda](https://www.anaconda.com/products/individual) if not already installed.
 * then download and install the software libraries
-  * `mkdir ~/source; cd ~/source; git clone {url for the repository}`
-  * `cd msdc_services`
-  * `git checkout arrow`
+  * `git clone https://github.com/usnistgov/masskit.git`
+  * `git clone https://github.com/usnistgov/masskit_ai.git`
+  * `cd masskit`
   * `source environments/init_msml.sh`
   * `conda activate msml`
   * `cd libraries`
   * `python setup.py develop`
-  * `cd src/massspec/utils/`
+  * `cd src/masskit/utils/`
   * `python setup.py build_ext --inplace`
 
 ### Running training 
 #### Running training on a local linux machine
-* `cd ~/source/msdc_services/apps/ml/peptide` or wherever you have cloned msdc_services
+* `cd masskit_ai/apps/ml/peptide`
 * `git pull origin master` to pull in any changes to the library
 * configuration is managed by the hydra package. To configure, see [below](#configuration)
 * run training by executing `python train.py`
@@ -171,37 +171,37 @@ ml.bayesian_network.sample_nbr.
   * [hydra](https://hydra.cc/): configuration management
   * [rdkit](https://www.rdkit.org/): small molecule cheminformatics
 * MSDC Libraries
-  * [massspec](libraries/src/massspec): manipulation of mass spectra
-  * [massspec_ml/pytorch](libraries/src/massspec_ml/pytorch): mass spectral machine learning code
+  * [masskit](https://github.com/usnistgov/masskit): manipulation of mass spectra
+  * [masskit_ai](https://github.com/usnistgov/masskit_ai): mass spectral machine learning code
 * Architecture
   * pytorch_lightning.Trainer [apps/ml/peptide/train.py](apps/ml/peptide/train.py): overall driver of training process.
-    * SpectrumLightningModule [massspec_ml/pytorch/spectrum/spectrum_lightning.py](libraries/src/massspec_ml/pytorch/spectrum/spectrum_lightning.py) contains the train/valid/test
+    * SpectrumLightningModule [masskit_ai/spectrum/spectrum_lightning.py](../spectrum/spectrum_lightning.py) contains the train/valid/test
       loops.  Derived from pytorch_lightning.LightningModule, which in turn is derived from torch.nn.Module.
       * config (also hparams): configuration dictionary of type hydra.DictConfig.
-      * model: the model being trained. SpectrumModel [massspec_ml/pytorch/spectrum/spectrum_base_objects.py](libraries/src/massspec_ml/pytorch/spectrum/spectrum_base_objects.py) derived
+      * model: the model being trained. SpectrumModel [masskit_ai/spectrum/spectrum_base_objects.py](../spectrum/spectrum_base_objects.py) derived
         from torch.nn.Module.
         * input and output are namedtuples that allow for adding multiple inputs and outputs to the model.
         * configured using the hydra.DictConfig config.
-      * loss_function: loss function derived from BaseLoss [massspec_ml/pytorch/base_objects.py](libraries/src/massspec_ml/pytorch/base_objects.py]),
+      * loss_function: loss function derived from BaseLoss [masskit_ai/base_objects.py](../base_objects.py]),
         which is derived from torch.nn.Module. Takes the same namedtuples that are the input and output of the model.
-    * SpectrumDataModule [massspec_ml/pytorch/spectrum/spectrum_lightning.py](libraries/src/massspec_ml/pytorch/spectrum/spectrum_lightning.py) derived from 
+    * SpectrumDataModule [masskit_ai/spectrum/spectrum_lightning.py](../spectrum/spectrum_lightning.py) derived from 
       pytorch_lightning.LightningDataModule.
-      * creates TandemArrowDataset data loader [massspec_ml/pytorch/spectrum/spectrum_datasets.py](libraries/src/massspec_ml/pytorch/spectrum/spectrum_datasets.py) derived from BaseDataset,
+      * creates TandemArrowDataset data loader [masskit_ai/spectrum/spectrum_datasets.py](../spectrum/spectrum_datasets.py) derived from BaseDataset,
         which in turn is derived from torch.utils.data.DataLoader.
-        * embedding: input embeddings calculated by EmbedPeptide [massspec_ml/pytorch/spectrum/peptide/peptide_embed.py](libraries/src/massspec_ml/pytorch/spectrum/peptide/peptide_embed.py)
-        * store: dataframes are managed by ArrowLibraryMap (massspec/utils/index.py) and its base classes.
-          * integration with pandas dataframes provided by accessors defined in massspec/data_specs/spectral_library.py.
-    * PeptideCB [massspec_ml/pytorch/spectrum/peptide/peptide_callbacks.py](libraries/src/massspec_ml/pytorch/spectrum/peptide/peptide_callbacks.py): logging at the end of validation epoch. Derived from
+        * embedding: input embeddings calculated by EmbedPeptide [masskit_ai/spectrum/peptide/peptide_embed.py](../spectrum/peptide/peptide_embed.py)
+        * store: dataframes are managed by ArrowLibraryMap (masskit/utils/index.py) and its base classes.
+          * integration with pandas dataframes provided by accessors defined in masskit/data_specs/spectral_library.py.
+    * PeptideCB [masskit_ai/spectrum/peptide/peptide_callbacks.py](../spectrum/peptide/peptide_callbacks.py): logging at the end of validation epoch. Derived from
       pytorch_lightning.Callback.
-    * MSMLFlowLogger and MSTensorBoardLogger loggers [massspec_ml/pytorch/loggers.py](libraries/src/massspec_ml/pytorch/loggers.py).
+    * MSMLFlowLogger and MSTensorBoardLogger loggers [masskit_ai/loggers.py](../loggers.py).
 ### Custom models
-- Models are standard `torch.nn.Module`'s and derived from `SpectrumModel` in [massspec_ml/pytorch/spectrum/spectrum_base_objects.py](libraries/src/massspec_ml/pytorch/spectrum/spectrum_base_objects.py)
-  - modules within the models are derived from `SpectrumModule` in [massspec_ml/pytorch/spectrum/spectrum_base_objects.py](libraries/src/massspec_ml/pytorch/spectrum/spectrum_base_objects.py)
+- Models are standard `torch.nn.Module`'s and derived from `SpectrumModel` in [masskit_ai/spectrum/spectrum_base_objects.py](../spectrum/spectrum_base_objects.py)
+  - modules within the models are derived from `SpectrumModule` in [masskit_ai/spectrum/spectrum_base_objects.py](../spectrum/spectrum_base_objects.py)
   - both `SpectrumModel` and `SpectrumModule` should be initialized with the config dictionary and should
     pass the config dictionary into the initializer for their superclasses.  
 - To create a new model, subclass it from `SpectrumModel` and put it in an existing file in 
-  [massspec_ml/pytorch/spectrum/peptide/models](libraries/src/massspec_ml/pytorch/spectrum/peptide/models) or create a new file.  Let's call the new model `MyModel`. See 
-  [massspec_ml/pytorch/spectrum/peptide/models/dense.py](libraries/src/massspec_ml/pytorch/spectrum/peptide/models/dense.py) for a simple example of a model.
+  [masskit_ai/spectrum/peptide/models](../spectrum/peptide/models) or create a new file.  Let's call the new model `MyModel`. See 
+  [masskit_ai/spectrum/peptide/models/dense.py](../spectrum/peptide/models/dense.py) for a simple example of a model.
   - if you created a new file to hold the code for the model, append the filename to the configuration setting
     `modules.models` in [apps/ml/peptide/conf/paths/standard.yaml](apps/ml/peptide/conf/paths/standard.yaml)
 - Configuration
@@ -221,7 +221,7 @@ ml.bayesian_network.sample_nbr.
     - if you've created a new file for the model itself, then add the name of this new file to the list under `module.models:`
       in `config.yaml`.  This will tell the training program where to look for new models.
 - Model input
-  - the standard input to a model is a `namedtuple` called `ModelInput` defined in [massspec_ml/pytorch/base_objects.py](libraries/src/massspec_ml/pytorch/base_objects.py)
+  - the standard input to a model is a `namedtuple` called `ModelInput` defined in [masskit_ai/base_objects.py](../base_objects.py)
     It has 3 elements:
     - `x`: the input tensor of shape `(batch, self.channels, self.config.ml.embedding.max_len)` where `self.channels` is
       the size of the embedding and `self.config.ml.embedding.max_len` the maximum peptide length
@@ -233,7 +233,7 @@ ml.bayesian_network.sample_nbr.
   - `namedtuples` instead of dicts are used for input and output as there are some functions, like graph export,
     that won't work with dictionaries as they are not constant.  
 - Model output
-  - the standard output from a model is a `namedtuple` called `ModelOutput` defined in [massspec_ml/pytorch/base_objects.py](libraries/src/massspec_ml/pytorch/base_objects.py)
+  - the standard output from a model is a `namedtuple` called `ModelOutput` defined in [masskit_ai/base_objects.py](../base_objects.py)
     It has 2 elements:
     - `y_prime`: the predicted spectra of shape `(batch, ?, self.bins)`, where the second dimension are channels, usually one
       for intensity, and `self.bins` is the number of mz bins.
@@ -250,8 +250,8 @@ ml.bayesian_network.sample_nbr.
     across each boolean layer and pass it out of the model as the second argument of ModelOutput
   - use a loss that takes KL divergence, such as SpectrumCosineKLLoss or MSEKLLoss.
 ### Adding fields to the model input
-* create your own version of `ModelInput`, lets call it `MyModelInput` and place it in [massspec_ml/pytorch/base_objects.py](libraries/src/massspec_ml/pytorch/base_objects.py)
-  * subclass `TandemArrowDataset` in [massspec_ml/pytorch/spectrum/spectrum_datasets.py](libraries/src/massspec_ml/pytorch/spectrum/spectrum_datasets.py) and place the new
+* create your own version of `ModelInput`, lets call it `MyModelInput` and place it in [masskit_ai/base_objects.py](../base_objects.py)
+  * subclass `TandemArrowDataset` in [masskit_ai/spectrum/spectrum_datasets.py](../spectrum/spectrum_datasets.py) and place the new
     class, let's call it `MyDataSet`, in that file or another python file.
     * if you are creating a new python file, add it in [apps/ml/peptide/conf/paths/standard.yaml](apps/ml/peptide/conf/paths/standard.yaml) under `modules.dataloaders`
     * in the ms configuration you are using under `conf/ms`, set `dataloader:` to `MyDataSet`.
@@ -260,15 +260,15 @@ ml.bayesian_network.sample_nbr.
     moved into the GPU.  This later processing requires that the dictionary be flat and not nested, that is, each
     top level item in the dictionary should be vectorizable.
 * alternatively, add fields to `ModelInput`
-* data columns that may (or may not) be available from the dataframe are found in [massspec/data_specs/schemas.py](libraries/src/massspec/data_specs/schemas.py).
+* data columns that may (or may not) be available from the dataframe are found in masskit/data_specs/schemas.py.
   * add any necessary data columns to `ms.columns` configuration you are using under `conf/ms`
 ### Adding fields to the model output
-* create your own version of `ModelOutput`, let's call it `MyModelOuput` and place it in [massspec_ml/pytorch/base_objects.py](libraries/src/massspec_ml/pytorch/base_objects.py)
+* create your own version of `ModelOutput`, let's call it `MyModelOuput` and place it in [masskit_ai/base_objects.py](../base_objects.py)
   * modify your model to output `MyModelOuput`
 * alternatively, add fields to `ModelOutput`.  Do not modify the numeric index of any field
 ### Custom losses
 * losses are standard `torch.nn.Module`s and derived from `BaseLoss` in
-  [massspec_ml/pytorch/base_objects.py](libraries/src/massspec_ml/pytorch/base_objects.py)
+  [masskit_ai/base_objects.py](../base_objects.py)
 * The input to the losses are the `ModelInput` and `ModelOutput` as described above.  The reason
   to use these `namedtuples` is to give the loss functions access to all information fed to and returned
   by the models.
@@ -276,12 +276,12 @@ ml.bayesian_network.sample_nbr.
   intensity variances from the input and output.
 * to create your own loss:
   * subclass `BaseSpectrumLoss` or `BaseLoss` and place the loss, let's call it `MyLoss`,
-    in [massspec_ml/pytorch/spectrum/spectrum_losses.py](libraries/src/massspec_ml/pytorch/spectrum/spectrum_losses.py) or place it in its own file.
+    in [masskit_ai/spectrum/spectrum_losses.py](../spectrum/spectrum_losses.py) or place it in its own file.
   * if you created a new file to hold the code for the loss, append the filename to the configuration setting
     `modules.losses` in [apps/ml/peptide/conf/paths/standard.yaml](apps/ml/peptide/conf/paths/standard.yaml)
   * to use the loss, change `ml.loss.loss_function` in [apps/ml/peptide/conf/config.yaml](apps/ml/peptide/conf/config.yaml) to `MyLoss`.
 ### Custom metrics
-* Metrics are measures of model performance that is not a loss, although a metric can use a loss function. To create a custom metric, start with the base classes in [massspec_ml/pytorch/metrics.py](libraries/src/massspec_ml/pytorch/metrics.py)
+* Metrics are measures of model performance that is not a loss, although a metric can use a loss function. To create a custom metric, start with the base classes in [masskit_ai/metrics.py](../metrics.py)
 * from a loss
   * subclass `BaseLossMetric` to wrap an already existing loss specified by the parameter `loss_class`
 * from scratch
@@ -297,7 +297,7 @@ ml.bayesian_network.sample_nbr.
     * during valid, test, and train: `ml.metrics`
 ### Custom sampler
 * samplers allow weighted selection of input data to the network based on columns in the input data
-* the base class `BaseSampler` for samplers is defined in [massspec_ml/pytorch/samplers.py](libraries/src/massspec_ml/pytorch/samplers.py)
+* the base class `BaseSampler` for samplers is defined in [masskit_ai/samplers.py](../samplers.py)
   * to create a custom sampler, subclass `BaseSampler` and create a `probability()` method that computes an array where each element is the probability a corresponding row in the dataset is selected.
     * the probability does not have to be normalized
     * the fields available to probability() are the database fields listed in the configuration `ms.dataset_columns`, e.g. `self.dataset.data['peptide']`, `self.dataset.data['charge']`, `self.dataset.data['ev']`, `self.dataset.data['mod_names']`
