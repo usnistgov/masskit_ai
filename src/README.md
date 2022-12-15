@@ -1,1 +1,1 @@
-# massspec_ml
+# masskit_ai
