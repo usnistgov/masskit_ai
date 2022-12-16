@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to masskit_ai's documentation!
-====================================
+======================================
 
 .. toctree::
    :maxdepth: 4
