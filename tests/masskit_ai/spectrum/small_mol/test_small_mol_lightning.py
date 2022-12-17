@@ -26,7 +26,7 @@ def config():
     # return_val = {}
     # return_val['input'] = {'dev': {'where': ''}}
     GlobalHydra.instance().clear()
-    initialize(config_path="../../../../../apps/ml/peptide/conf", job_name="test_app")
+    initialize(config_path="../../../../apps/ml/peptide/conf", job_name="test_app")
     cfg = compose(config_name="config_search", overrides=["input=2022_tandem_search_test"])
     return cfg
 

@@ -1,4 +1,4 @@
-from general import class_for_name
+from masskit.utils.general import class_for_name
 from omegaconf import ListConfig
 import torch
 from masskit_ai.base_objects import ModelInput, ModelOutput

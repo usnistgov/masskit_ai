@@ -1,7 +1,7 @@
 import hashlib
-from arrow import load_from_plasma, save_to_plasma
-from fingerprints import ECFPFingerprint
-from hitlist import CosineScore, TanimotoScore
+from masskit.utils.arrow import load_from_plasma, save_to_plasma
+from masskit.utils.fingerprints import ECFPFingerprint
+from masskit.utils.hitlist import CosineScore, TanimotoScore
 from pyarrow import plasma
 from pyarrow.plasma import ObjectID
 from torch.utils.data import DataLoader
