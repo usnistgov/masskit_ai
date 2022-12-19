@@ -1,0 +1,930 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>masskit_ai package &#8212; masskit_ai 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+<link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+
+
+<script type="text/javascript" src="https://pages.nist.gov/leaveNotice/js/jquery.leaveNotice-nist.min.js"></script>
+<script>
+$(document).ready(function(){
+  // Mark external (non-nist.gov) A tags with class "external"
+  //If the adress start with https and ends with nist.gov
+  var re_nist = new RegExp('^https?:\/\/((^\/)*\.)*nist\\.gov(\/|$)');
+  //Regex to find address that start with https
+  var re_absolute_address = new RegExp('^((https?:)?\/\/)');
+  $("a").each(function(){
+    var url=$(this).attr('href');
+    if(re_nist.test(url) || !re_absolute_address.test(url)){
+      $(this).addClass('local');
+    }else{
+      //This a href appears to be external, so tag it
+      $(this).addClass('external');
+    }
+  });
+  // Add leaveNotice to external A elements
+  $('a.external').leaveNotice();
+});
+</script>
+<link rel="stylesheet" type="text/css" href="https://pages.nist.gov/leaveNotice/css/jquery.leaveNotice.css" />
+
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">masskit_ai package</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="masskit-ai-package">
+<h1>masskit_ai package<a class="headerlink" href="#masskit-ai-package" title="Permalink to this heading">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="masskit_ai.spectrum.html">masskit_ai.spectrum package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.html">masskit_ai.spectrum.peptide package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.html#module-masskit_ai.spectrum.peptide.peptide_callbacks">masskit_ai.spectrum.peptide.peptide_callbacks module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.html#module-masskit_ai.spectrum.peptide.peptide_constants">masskit_ai.spectrum.peptide.peptide_constants module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.html#module-masskit_ai.spectrum.peptide.peptide_embed">masskit_ai.spectrum.peptide.peptide_embed module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.html#module-masskit_ai.spectrum.peptide.peptide_samplers">masskit_ai.spectrum.peptide.peptide_samplers module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.html#module-masskit_ai.spectrum.peptide">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.small_mol.html">masskit_ai.spectrum.small_mol package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.html#module-masskit_ai.spectrum.small_mol.small_mol_datasets">masskit_ai.spectrum.small_mol.small_mol_datasets module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.html#module-masskit_ai.spectrum.small_mol.small_mol_lightning">masskit_ai.spectrum.small_mol.small_mol_lightning module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.html#module-masskit_ai.spectrum.small_mol.small_mol_losses">masskit_ai.spectrum.small_mol.small_mol_losses module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.html#module-masskit_ai.spectrum.small_mol">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_base_objects">masskit_ai.spectrum.spectrum_base_objects module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_datasets">masskit_ai.spectrum.spectrum_datasets module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_embed">masskit_ai.spectrum.spectrum_embed module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_lightning">masskit_ai.spectrum.spectrum_lightning module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_losses">masskit_ai.spectrum.spectrum_losses module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_losses_bayes">masskit_ai.spectrum.spectrum_losses_bayes module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_prediction">masskit_ai.spectrum.spectrum_prediction module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-masskit_ai.base_datasets">
+<span id="masskit-ai-base-datasets-module"></span><h2>masskit_ai.base_datasets module<a class="headerlink" href="#module-masskit_ai.base_datasets" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.base_datasets.BaseDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.base_datasets.</span></span><span class="sig-name descname"><span class="pre">BaseDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.base_datasets.BaseDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>abstract base class for NIST Dataset
+Notes: only one of these is created per GPU per epoch (or per entire run?)</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="masskit_ai.base_datasets.BaseDataset.data">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#masskit_ai.base_datasets.BaseDataset.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.base_datasets.BaseDataset.get_data_row">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_data_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.base_datasets.BaseDataset.get_data_row" title="Permalink to this definition">¶</a></dt>
+<dd><p>given the index, return corresponding data for the index</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.base_datasets.BaseDataset.get_x">
+<span class="sig-name descname"><span class="pre">get_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.base_datasets.BaseDataset.get_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>given the data row, return the input to the network</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.base_datasets.BaseDataset.get_y">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.base_datasets.BaseDataset.get_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>given the data row, return the target of the network</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.base_datasets.BaseDataset.init_copy">
+<span class="sig-name descname"><span class="pre">init_copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.base_datasets.BaseDataset.init_copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>initialize a copy of a Dataset.
+Pytorch lightning constructs Datasets in the main thread, then forks, so
+to initialize a Dataset, this funcion is called in the worker_init_fn</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>worker_id</strong> – worker id of the thread, defaults to 0</p></li>
+<li><p><strong>num_workers</strong> – number of workers total, defaults to 1</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.base_datasets.BaseDataset.to_pandas">
+<span class="sig-name descname"><span class="pre">to_pandas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.base_datasets.BaseDataset.to_pandas" title="Permalink to this definition">¶</a></dt>
+<dd><p>return data as pandas dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – not implemented</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.base_datasets.DataframeDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.base_datasets.</span></span><span class="sig-name descname"><span class="pre">DataframeDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.base_datasets.DataframeDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#masskit_ai.base_datasets.BaseDataset" title="masskit_ai.base_datasets.BaseDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDataset</span></code></a></p>
+<p>dataset for a dataframe</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.base_datasets.DataframeDataset.get_data_row">
+<span class="sig-name descname"><span class="pre">get_data_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.base_datasets.DataframeDataset.get_data_row" title="Permalink to this definition">¶</a></dt>
+<dd><p>given the index, return corresponding data for the index</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.base_datasets.DataframeDataset.get_y">
+<span class="sig-name descname"><span class="pre">get_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.base_datasets.DataframeDataset.get_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>given the data row, return the target of the network</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.base_datasets.DataframeDataset.to_pandas">
+<span class="sig-name descname"><span class="pre">to_pandas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.base_datasets.DataframeDataset.to_pandas" title="Permalink to this definition">¶</a></dt>
+<dd><p>return data as pandas dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – not implemented</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-masskit_ai.base_objects">
+<span id="masskit-ai-base-objects-module"></span><h2>masskit_ai.base_objects module<a class="headerlink" href="#module-masskit_ai.base_objects" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.base_objects.BaseLoss">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.base_objects.</span></span><span class="sig-name descname"><span class="pre">BaseLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.base_objects.BaseLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>abstract base class for losses
+loss is implemented as a pytorch module</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.base_objects.BaseLoss.forward">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="headerlink" href="#masskit_ai.base_objects.BaseLoss.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate the loss</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output</strong> – output dictionary from the model</p></li>
+<li><p><strong>batch</strong> – batch data from the dataloader</p></li>
+<li><p><strong>params</strong> – optional dictionary of parameters, such as epoch type</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>loss tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.base_objects.ModelInput">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.base_objects.</span></span><span class="sig-name descname"><span class="pre">ModelInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.base_objects.ModelInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="masskit_ai.base_objects.ModelInput.index">
+<span class="sig-name descname"><span class="pre">index</span></span><a class="headerlink" href="#masskit_ai.base_objects.ModelInput.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="masskit_ai.base_objects.ModelInput.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#masskit_ai.base_objects.ModelInput.x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="masskit_ai.base_objects.ModelInput.y">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#masskit_ai.base_objects.ModelInput.y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.base_objects.ModelOutput">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.base_objects.</span></span><span class="sig-name descname"><span class="pre">ModelOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_prime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.base_objects.ModelOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="masskit_ai.base_objects.ModelOutput.score">
+<span class="sig-name descname"><span class="pre">score</span></span><a class="headerlink" href="#masskit_ai.base_objects.ModelOutput.score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="masskit_ai.base_objects.ModelOutput.var">
+<span class="sig-name descname"><span class="pre">var</span></span><a class="headerlink" href="#masskit_ai.base_objects.ModelOutput.var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="masskit_ai.base_objects.ModelOutput.y_prime">
+<span class="sig-name descname"><span class="pre">y_prime</span></span><a class="headerlink" href="#masskit_ai.base_objects.ModelOutput.y_prime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-masskit_ai.callbacks">
+<span id="masskit-ai-callbacks-module"></span><h2>masskit_ai.callbacks module<a class="headerlink" href="#module-masskit_ai.callbacks" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.callbacks.ConcatenateIdLogs">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.callbacks.</span></span><span class="sig-name descname"><span class="pre">ConcatenateIdLogs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.callbacks.ConcatenateIdLogs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Callback</span></code></p>
+<p>used to concatenate log files created from each training worker thread</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.callbacks.ConcatenateIdLogs.on_train_epoch_end">
+<span class="sig-name descname"><span class="pre">on_train_epoch_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pl_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.callbacks.ConcatenateIdLogs.on_train_epoch_end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.callbacks.ModelCheckpointOnStart">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.callbacks.</span></span><span class="sig-name descname"><span class="pre">ModelCheckpointOnStart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.callbacks.ModelCheckpointOnStart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelCheckpoint</span></code></p>
+<p>used to save parameters before training begins</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.callbacks.ModelCheckpointOnStart.on_train_start">
+<span class="sig-name descname"><span class="pre">on_train_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pl_module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.callbacks.ModelCheckpointOnStart.on_train_start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-masskit_ai.embed">
+<span id="masskit-ai-embed-module"></span><h2>masskit_ai.embed module<a class="headerlink" href="#module-masskit_ai.embed" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.embed.BasicEmbed">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.embed.</span></span><span class="sig-name descname"><span class="pre">BasicEmbed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.embed.BasicEmbed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>base embedding class</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="masskit_ai.embed.BasicEmbed.channels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">channels</span></span><a class="headerlink" href="#masskit_ai.embed.BasicEmbed.channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of channels in the encoding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the number of channels</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.embed.BasicEmbed.embed">
+<span class="sig-name descname"><span class="pre">embed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.embed.BasicEmbed.embed" title="Permalink to this definition">¶</a></dt>
+<dd><p>call the requested embedding functions as listed in config.ml.embedding.embeddings</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> – the data row</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the concatenated one hot tensor of the embeddings</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.embed.BasicEmbed.list2one_hot">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list2one_hot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_classes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.embed.BasicEmbed.list2one_hot" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert a list of integers into a one hot tensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>list_in</strong> – the list of integers</p></li>
+<li><p><strong>num_classes</strong> – the number of classes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the one hot tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.embed.Embed">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.embed.</span></span><span class="sig-name descname"><span class="pre">Embed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.embed.Embed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#masskit_ai.embed.BasicEmbed" title="masskit_ai.embed.BasicEmbed"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasicEmbed</span></code></a></p>
+<p>generic embedding</p>
+<p>each embedding has a member function ending in _embed to create the embedding
+and another member function ending in _channels that gives the number of channels in the embedding
+both functions take a dict called “row”</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="masskit_ai.embed.Embed.channels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">channels</span></span><a class="headerlink" href="#masskit_ai.embed.Embed.channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of channels in the encoding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the number of channels</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.embed.Embed.embed">
+<span class="sig-name descname"><span class="pre">embed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.embed.Embed.embed" title="Permalink to this definition">¶</a></dt>
+<dd><p>call the requested embedding functions as listed in config.ml.embedding.embeddings</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> – the data row</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the concatenated one hot tensor of the embeddings</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.embed.EmbedXor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.embed.</span></span><span class="sig-name descname"><span class="pre">EmbedXor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.embed.EmbedXor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#masskit_ai.embed.Embed" title="masskit_ai.embed.Embed"><code class="xref py py-class docutils literal notranslate"><span class="pre">Embed</span></code></a></p>
+<p>embedding for toy xor network</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.embed.EmbedXor.xor_channels">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">xor_channels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.embed.EmbedXor.xor_channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>the number of nce channels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the number of nce_float channels</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.embed.EmbedXor.xor_embed">
+<span class="sig-name descname"><span class="pre">xor_embed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.embed.EmbedXor.xor_embed" title="Permalink to this definition">¶</a></dt>
+<dd><p>embed the nce as a single float value from 0 to 1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> – data record</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>FloatTensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-masskit_ai.lightning">
+<span id="masskit-ai-lightning-module"></span><h2>masskit_ai.lightning module<a class="headerlink" href="#module-masskit_ai.lightning" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.lightning.BaseDataModule">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.lightning.</span></span><span class="sig-name descname"><span class="pre">BaseDataModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.lightning.BaseDataModule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">LightningDataModule</span></code></p>
+<p>base class for data loading</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.lightning.BaseDataModule.create_loader">
+<span class="sig-name descname"><span class="pre">create_loader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">set_to_load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.lightning.BaseDataModule.create_loader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.lightning.BaseDataModule.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.lightning.BaseDataModule.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>called on every GPU</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stage</strong> – is set to “fit” or “test”</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>self</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.lightning.BaseDataModule.test_dataloader">
+<span class="sig-name descname"><span class="pre">test_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.lightning.BaseDataModule.test_dataloader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.lightning.BaseDataModule.train_dataloader">
+<span class="sig-name descname"><span class="pre">train_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.lightning.BaseDataModule.train_dataloader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.lightning.BaseDataModule.val_dataloader">
+<span class="sig-name descname"><span class="pre">val_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.lightning.BaseDataModule.val_dataloader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.lightning.XORDataModule">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.lightning.</span></span><span class="sig-name descname"><span class="pre">XORDataModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.lightning.XORDataModule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#masskit_ai.lightning.BaseDataModule" title="masskit_ai.lightning.BaseDataModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDataModule</span></code></a></p>
+<p>data loader for XOR toy network</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.lightning.XORDataModule.create_loader">
+<span class="sig-name descname"><span class="pre">create_loader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">set_to_load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.lightning.XORDataModule.create_loader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.lightning.get_pytorch_ranks">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.lightning.</span></span><span class="sig-name descname"><span class="pre">get_pytorch_ranks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.lightning.get_pytorch_ranks" title="Permalink to this definition">¶</a></dt>
+<dd><p>get ranks for this process when training in parallel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>is this training parallel?, world_rank, world_size, num_gpus, num_nodes, node_rank, local_rank, worker_id</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.lightning.log_worker_start">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.lightning.</span></span><span class="sig-name descname"><span class="pre">log_worker_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.lightning.log_worker_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>function for initializing the Dataset
+Notes: since we are handling the sharding ourselves, it’s necessary to disable adding of Distributed Sampler
+in Trainer by using replace_sampler_ddp=False</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>worker_id</strong> – worker rank</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.lightning.seed_worker">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.lightning.</span></span><span class="sig-name descname"><span class="pre">seed_worker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.lightning.seed_worker" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the random seed for this worker.  In future versions of pytorch lightning, can be replaced with
+pl_worker_init_function</p>
+</dd></dl>
+
+</section>
+<section id="module-masskit_ai.loggers">
+<span id="masskit-ai-loggers-module"></span><h2>masskit_ai.loggers module<a class="headerlink" href="#module-masskit_ai.loggers" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.loggers.MSMLFlowLogger">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.loggers.</span></span><span class="sig-name descname"><span class="pre">MSMLFlowLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.loggers.MSMLFlowLogger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MLFlowLogger</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.loggers.MSMLFlowLogger.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifacts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.loggers.MSMLFlowLogger.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>close the log, saving tensorboard artifacts if available to mlflow</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>artifacts</strong> – directory with artifact directries to log</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.loggers.MSMLFlowLogger.log_figure">
+<span class="sig-name descname"><span class="pre">log_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure_tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.loggers.MSMLFlowLogger.log_figure" title="Permalink to this definition">¶</a></dt>
+<dd><p>log a matplotlib figure as an artifact</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>figure_tag</strong> – name of the image</p></li>
+<li><p><strong>fig</strong> – the matplotlib figure</p></li>
+<li><p><strong>global_step</strong> – the epoch</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.loggers.MSMLFlowLogger.log_image_file">
+<span class="sig-name descname"><span class="pre">log_image_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.loggers.MSMLFlowLogger.log_image_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>log an image file, including animated gifs, or, if the logger does not support saving files,
+log an image of the matplotlib figure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> – matplotlib figure</p></li>
+<li><p><strong>filename</strong> – what to name the image</p></li>
+<li><p><strong>global_step</strong> – epoch</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.loggers.MSMLFlowLogger.log_params_from_omegaconf_dict">
+<span class="sig-name descname"><span class="pre">log_params_from_omegaconf_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.loggers.MSMLFlowLogger.log_params_from_omegaconf_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>recursively examine omegaconf object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>params</strong> – omegaconf object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.loggers.MSMLFlowLogger.log_params_to_mlflow">
+<span class="sig-name descname"><span class="pre">log_params_to_mlflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.loggers.MSMLFlowLogger.log_params_to_mlflow" title="Permalink to this definition">¶</a></dt>
+<dd><p>log typical experiment parameters to mlflow</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.loggers.MSMLFlowLogger.mlf_log_string">
+<span class="sig-name descname"><span class="pre">mlf_log_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.loggers.MSMLFlowLogger.mlf_log_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>log omegaconf to mlflow</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string_in</strong> – string to write</p></li>
+<li><p><strong>filename</strong> – name of the artifact file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.loggers.MSMLFlowLogger.mlf_set_tag">
+<span class="sig-name descname"><span class="pre">mlf_set_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.loggers.MSMLFlowLogger.mlf_set_tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a particular tag with the config value.  if null config value, then use process value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tag</strong> – the tag</p></li>
+<li><p><strong>config_value</strong> – the configuration value</p></li>
+<li><p><strong>process_value</strong> – the process value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.loggers.MSMLFlowLogger.mlf_setup_tags">
+<span class="sig-name descname"><span class="pre">mlf_setup_tags</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.loggers.MSMLFlowLogger.mlf_setup_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>create tags for logging as MLflow doesn’t set these standard mlflow tags</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.loggers.MSTensorBoardLogger">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.loggers.</span></span><span class="sig-name descname"><span class="pre">MSTensorBoardLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.loggers.MSTensorBoardLogger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorBoardLogger</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.loggers.MSTensorBoardLogger.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.loggers.MSTensorBoardLogger.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>close the logger, adding graph to the log.  currently disabled as there are multiple problems with
+using torch.jit.trace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.loggers.MSTensorBoardLogger.log_figure">
+<span class="sig-name descname"><span class="pre">log_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure_tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.loggers.MSTensorBoardLogger.log_figure" title="Permalink to this definition">¶</a></dt>
+<dd><p>log a matplotlib figure as an artifact</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>figure_tag</strong> – name of the image</p></li>
+<li><p><strong>fig</strong> – the matplotlib figure</p></li>
+<li><p><strong>global_step</strong> – the epoch</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.loggers.MSTensorBoardLogger.log_image_file">
+<span class="sig-name descname"><span class="pre">log_image_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.loggers.MSTensorBoardLogger.log_image_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>log a list of images as an animated gif, or, if the logger does not support animated gifs,
+log an image of the matplotlib figure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> – matplotlib figure</p></li>
+<li><p><strong>filename</strong> – what to name the image</p></li>
+<li><p><strong>global_step</strong> – epoch</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.loggers.filter_pytorch_lightning_warnings">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.loggers.</span></span><span class="sig-name descname"><span class="pre">filter_pytorch_lightning_warnings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.loggers.filter_pytorch_lightning_warnings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-masskit_ai.metrics">
+<span id="masskit-ai-metrics-module"></span><h2>masskit_ai.metrics module<a class="headerlink" href="#module-masskit_ai.metrics" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.metrics.BaseLossMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.metrics.</span></span><span class="sig-name descname"><span class="pre">BaseLossMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.metrics.BaseLossMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#masskit_ai.metrics.BaseMetric" title="masskit_ai.metrics.BaseMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseMetric</span></code></a></p>
+<p>base class for metrics</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.metrics.BaseLossMetric.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.metrics.BaseLossMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.metrics.BaseLossMetric.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.metrics.BaseLossMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>update the metric for each step.  This is automatically called by forward() and all the arguments to
+forward are given to update.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output</strong> – standard ModelOutput from model</p></li>
+<li><p><strong>batch</strong> – standard ModelInput batch information</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.metrics.BaseMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.metrics.</span></span><span class="sig-name descname"><span class="pre">BaseMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.metrics.BaseMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Metric</span></code></p>
+<p>base class for metrics</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.metrics.BaseMetric.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.metrics.BaseMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.metrics.BaseMetric.extract_spectra">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract_spectra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.metrics.BaseMetric.extract_spectra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the input and output to a model, extract the spectra</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output</strong> – model output</p></li>
+<li><p><strong>batch</strong> – model input</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>predicted spectra and true spectra as Tensors</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.metrics.BaseMetric.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.metrics.BaseMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>update during batch</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output</strong> – standard ModelOutput from model</p></li>
+<li><p><strong>batch</strong> – standard ModelInput batch information</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+<p>Note: in the current version of torchmetrics, update() is called <em>twice</em> on each step, once to aggregate the
+current step to the accumulators and second to call compute() on the values for the current step (the value
+of the accumulators is stashed and restored during this last process).  This is
+only done when compute_on_step is true.  In future versions of torchmetrics, this behavior will become
+optional: <a class="reference external" href="https://github.com/PyTorchLightning/metrics/issues/344">https://github.com/PyTorchLightning/metrics/issues/344</a>.  2021-09-07</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.metrics.KLMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.metrics.</span></span><span class="sig-name descname"><span class="pre">KLMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.metrics.KLMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#masskit_ai.metrics.BaseMetric" title="masskit_ai.metrics.BaseMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseMetric</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.metrics.KLMetric.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.metrics.KLMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.metrics.KLMetric.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.metrics.KLMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>update during batch</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output</strong> – standard ModelOutput from model</p></li>
+<li><p><strong>batch</strong> – standard ModelInput batch information</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+<p>Note: in the current version of torchmetrics, update() is called <em>twice</em> on each step, once to aggregate the
+current step to the accumulators and second to call compute() on the values for the current step (the value
+of the accumulators is stashed and restored during this last process).  This is
+only done when compute_on_step is true.  In future versions of torchmetrics, this behavior will become
+optional: <a class="reference external" href="https://github.com/PyTorchLightning/metrics/issues/344">https://github.com/PyTorchLightning/metrics/issues/344</a>.  2021-09-07</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.metrics.MSEMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.metrics.</span></span><span class="sig-name descname"><span class="pre">MSEMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.metrics.MSEMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#masskit_ai.metrics.BaseLossMetric" title="masskit_ai.metrics.BaseLossMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLossMetric</span></code></a></p>
+<p>standard mean squared error</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.metrics.SpectrumCosineMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.metrics.</span></span><span class="sig-name descname"><span class="pre">SpectrumCosineMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.metrics.SpectrumCosineMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#masskit_ai.metrics.BaseLossMetric" title="masskit_ai.metrics.BaseLossMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLossMetric</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.metrics.SpectrumMSEMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.metrics.</span></span><span class="sig-name descname"><span class="pre">SpectrumMSEMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.metrics.SpectrumMSEMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#masskit_ai.metrics.BaseLossMetric" title="masskit_ai.metrics.BaseLossMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLossMetric</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.metrics.SpectrumNormalNLLMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.metrics.</span></span><span class="sig-name descname"><span class="pre">SpectrumNormalNLLMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.metrics.SpectrumNormalNLLMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#masskit_ai.metrics.BaseLossMetric" title="masskit_ai.metrics.BaseLossMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLossMetric</span></code></a></p>
+</dd></dl>
+
+</section>
+<section id="module-masskit_ai.samplers">
+<span id="masskit-ai-samplers-module"></span><h2>masskit_ai.samplers module<a class="headerlink" href="#module-masskit_ai.samplers" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.samplers.BaseSampler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.samplers.</span></span><span class="sig-name descname"><span class="pre">BaseSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.samplers.BaseSampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>base class for sampler. used by each worker thread to select which records should be included in the epoch
+data for that worker.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.samplers.BaseSampler.probability">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">probability</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.samplers.BaseSampler.probability" title="Permalink to this definition">¶</a></dt>
+<dd><p>method to compute the probability of sampling a particular record</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array with the probability of sampling, from [0,1]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.samplers.DatasetFromSampler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.samplers.</span></span><span class="sig-name descname"><span class="pre">DatasetFromSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.samplers.DatasetFromSampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
+<p>Dataset to create indexes from <cite>Sampler</cite></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.samplers.DistributedSamplerWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.samplers.</span></span><span class="sig-name descname"><span class="pre">DistributedSamplerWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.samplers.DistributedSamplerWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">DistributedSampler</span></code></p>
+<p>Wrapper over <cite>Sampler</cite> for distributed training.
+Allows you to use any sampler in distributed mode.</p>
+<p>It is especially useful in conjunction with
+<cite>torch.nn.parallel.DistributedDataParallel</cite>. In such case, each
+process can pass a DistributedSamplerWrapper instance as a DataLoader
+sampler, and load a subset of subsampled data of the original dataset
+that is exclusive to it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sampler is assumed to be of constant size.</p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-masskit_ai">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-masskit_ai" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">masskit_ai package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.base_datasets">masskit_ai.base_datasets module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.base_objects">masskit_ai.base_objects module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.callbacks">masskit_ai.callbacks module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.embed">masskit_ai.embed module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.lightning">masskit_ai.lightning module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.loggers">masskit_ai.loggers module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.metrics">masskit_ai.metrics module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.samplers">masskit_ai.samplers module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/masskit_ai.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">masskit_ai package</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    </div>
+  </body>
+</html>
