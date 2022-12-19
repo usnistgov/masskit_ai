@@ -35,6 +35,7 @@ class SpectrumModule(torch.nn.Module):
 class SpectrumModel(SpectrumModule):
     """
     base class for spectral prediction models
+
     - the "output" from the model is a dictionary
       - output['y_prime'] contains a batch of predicted spectra
     - "batch" is the input to the model
@@ -42,6 +43,7 @@ class SpectrumModel(SpectrumModule):
       - each batch of spectra is a float 32 tensor of shape (batch, channel, mz_bins)
     - by convention, channel 0 are intensities, which are not necessarily scaled
     - channel 1 are standard deviations of the corresponding intensities
+    
     """
 
     def __init__(self, config):

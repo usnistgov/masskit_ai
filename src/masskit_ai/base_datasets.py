@@ -14,8 +14,7 @@ from masskit_ai.base_objects import ModelInput
 class BaseDataset(Dataset, ABC):
     """
     abstract base class for NIST Dataset
-    Notes:
-        - only one of these is created per GPU per epoch (or per entire run?)
+    Notes: only one of these is created per GPU per epoch (or per entire run?)
     """
 
     def __init__(self, store_in, config_in, set_to_load=None, output_column=None) -> None:

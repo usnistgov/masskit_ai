@@ -105,10 +105,10 @@ after every epoch, so this mechanism doesn't require the job to terminate normal
 Configuration is handled by [hydra](https://hydra.cc). Hydra uses the human-readable yaml format as input and 
 converts it into a dictionary-like object for use in python.  Using hydra organizes parameters,
 simplifies changing groups of settings, automates the logging of parameters, and allows for hyperparameter sweeps.  
-The hydra configuration can be found in [apps/ml/peptide/conf](apps/ml/peptide/conf) and its subdirectories.  The subdirectories,
+The hydra configuration can be found in [apps/ml/peptide/conf](../../../apps/ml/peptide/conf) and its subdirectories.  The subdirectories,
 which contain yaml files, are used to organize the configuration into logical submodules.  
 
-The top level configuration file is [apps/ml/peptide/conf/config.yaml](apps/ml/peptide/conf/config.yaml).  It has a `defaults` section that
+The top level configuration file is [apps/ml/peptide/conf/config.yaml](../../../apps/ml/peptide/conf/config.yaml).  It has a `defaults` section that
 includes yaml files from subdirectories:
 ```yaml
 defaults:
@@ -174,7 +174,7 @@ ml.bayesian_network.sample_nbr.
   * [masskit](https://github.com/usnistgov/masskit): manipulation of mass spectra
   * [masskit_ai](https://github.com/usnistgov/masskit_ai): mass spectral machine learning code
 * Architecture
-  * pytorch_lightning.Trainer [apps/ml/peptide/train.py](apps/ml/peptide/train.py): overall driver of training process.
+  * pytorch_lightning.Trainer [apps/ml/peptide/train.py](../../../apps/ml/peptide/train.py): overall driver of training process.
     * SpectrumLightningModule [masskit_ai/spectrum/spectrum_lightning.py](../spectrum/spectrum_lightning.py) contains the train/valid/test
       loops.  Derived from pytorch_lightning.LightningModule, which in turn is derived from torch.nn.Module.
       * config (also hparams): configuration dictionary of type hydra.DictConfig.
@@ -203,19 +203,19 @@ ml.bayesian_network.sample_nbr.
   [masskit_ai/spectrum/peptide/models](../spectrum/peptide/models) or create a new file.  Let's call the new model `MyModel`. See 
   [masskit_ai/spectrum/peptide/models/dense.py](../spectrum/peptide/models/dense.py) for a simple example of a model.
   - if you created a new file to hold the code for the model, append the filename to the configuration setting
-    `modules.models` in [apps/ml/peptide/conf/paths/standard.yaml](apps/ml/peptide/conf/paths/standard.yaml)
+    `modules.models` in [apps/ml/peptide/conf/paths/standard.yaml](../../../apps/ml/peptide/conf/paths/standard.yaml)
 - Configuration
   - `SpectrumModel` contains a `self.config` object.  This object is a dictionary-like object created
-    from the yaml files under [apps/ml/peptide/conf](apps/ml/peptide/conf) along with any command line settings.  By using this config
+    from the yaml files under [apps/ml/peptide/conf](../../../apps/ml/peptide/conf) along with any command line settings.  By using this config
     object, your parameters will automatically be logged and you can do automated sweeps.
   - use `self.config` to hold your configuration values.  To create the configuration for `MyModel`:
-    - create a yaml file called `MyModel.yaml` in the directory [apps/ml/peptide/conf/ml/model](apps/ml/peptide/conf/ml/model) with your configuration values in
-      it.  Use [apps/ml/peptide/conf/ml/model/DenseSpectrumNet.yaml](apps/ml/peptide/conf/ml/model/DenseSpectrumNet.yaml) as an example.
+    - create a yaml file called `MyModel.yaml` in the directory [apps/ml/peptide/conf/ml/model](../../../apps/ml/peptide/conf/ml/model) with your configuration values in
+      it.  Use [apps/ml/peptide/conf/ml/model/DenseSpectrumNet.yaml](../../../apps/ml/peptide/conf/ml/model/DenseSpectrumNet.yaml) as an example.
     - the top node of the configuration should be the name of the new class: `MyModel:`
     - make sure `# @package _group_` is the first line of the file.
     - then add configuration values to `MyMode.yaml` indented underneath `MyModel:`, such as `my_config: 123`.  You can then 
       reference it in the code for `MyModel` as `self.config.ml.model.MyModel.my_config`.
-  - to use the model for training, edit [apps/ml/peptide/conf/config.yaml](apps/ml/peptide/conf/config.yaml) by
+  - to use the model for training, edit [apps/ml/peptide/conf/config.yaml](../../../apps/ml/peptide/conf/config.yaml) by
     - changing the line that starts with `ml/model` in `defaults:` to have the value `MyModel`, that is, the name of the
       new configuration file.
     - if you've created a new file for the model itself, then add the name of this new file to the list under `module.models:`
@@ -253,7 +253,7 @@ ml.bayesian_network.sample_nbr.
 * create your own version of `ModelInput`, lets call it `MyModelInput` and place it in [masskit_ai/base_objects.py](../base_objects.py)
   * subclass `TandemArrowDataset` in [masskit_ai/spectrum/spectrum_datasets.py](../spectrum/spectrum_datasets.py) and place the new
     class, let's call it `MyDataSet`, in that file or another python file.
-    * if you are creating a new python file, add it in [apps/ml/peptide/conf/paths/standard.yaml](apps/ml/peptide/conf/paths/standard.yaml) under `modules.dataloaders`
+    * if you are creating a new python file, add it in [apps/ml/peptide/conf/paths/standard.yaml](../../../apps/ml/peptide/conf/paths/standard.yaml) under `modules.dataloaders`
     * in the ms configuration you are using under `conf/ms`, set `dataloader:` to `MyDataSet`.
   * override `__get_item__` in `MyDataSet` to add the additional field and return it as a `MyModelInput`
     Note that `__get_item__ `only returns one row of information -- in later processing this data is batched and 
@@ -278,8 +278,8 @@ ml.bayesian_network.sample_nbr.
   * subclass `BaseSpectrumLoss` or `BaseLoss` and place the loss, let's call it `MyLoss`,
     in [masskit_ai/spectrum/spectrum_losses.py](../spectrum/spectrum_losses.py) or place it in its own file.
   * if you created a new file to hold the code for the loss, append the filename to the configuration setting
-    `modules.losses` in [apps/ml/peptide/conf/paths/standard.yaml](apps/ml/peptide/conf/paths/standard.yaml)
-  * to use the loss, change `ml.loss.loss_function` in [apps/ml/peptide/conf/config.yaml](apps/ml/peptide/conf/config.yaml) to `MyLoss`.
+    `modules.losses` in [apps/ml/peptide/conf/paths/standard.yaml](../../../apps/ml/peptide/conf/paths/standard.yaml)
+  * to use the loss, change `ml.loss.loss_function` in [apps/ml/peptide/conf/config.yaml](../../../apps/ml/peptide/conf/config.yaml) to `MyLoss`.
 ### Custom metrics
 * Metrics are measures of model performance that is not a loss, although a metric can use a loss function. To create a custom metric, start with the base classes in [masskit_ai/metrics.py](../metrics.py)
 * from a loss

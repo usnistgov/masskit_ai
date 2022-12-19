@@ -28,28 +28,25 @@ class TandemArrowSearchDataset(SpectrumDataset):
     class for accessing a tandem dataframe of spectra
 
     How workers are set up requires some explanation:
+
     - if there is more than one gpu, each gpu has a corresponding main process.
     - the numbering of this gpu within a node is given by the environment variable LOCAL_RANK
     - if there is more than one node, the numbering of the node is given by the NODE_RANK environment variable
     - the number of nodes times the number of gpus is given by the WORLD_SIZE environment variable
     - the number of gpus on the current node can be found by parsing the PL_TRAINER_GPUS environment variable
-    - these environment variables are only available when doing ddp.  Otherwise sharding should be done using
-      id and num_workers in torch.utils.data.get_worker_info()
-
-    - each main process creates an instance of Dataset.  This instance is NOT initialized by worker_init_fn, only
-      the constructor.
+    - these environment variables are only available when doing ddp.  Otherwise sharding should be done using id and num_workers in torch.utils.data.get_worker_info()
+    - each main process creates an instance of Dataset.  This instance is NOT initialized by worker_init_fn, only the constructor.
     - each worker is created by forking the main process, giving each worker a copy of Dataset, already constructed.
       - each of these forked Datasets is initialized by worker_init_fn
       - the global torch.utils.data.get_worker_info() contains a reference to the forked Dataset and other info
       - these workers then take turns feeding minibatches into the training process
       - ***important*** since each worker is a copy, __init__() is only called once, only in the main process
     - the dataset in the main processes is used by other steps, such as the validation callback
-      - this means that if there is any important initialization done in worker_init_fn, it must explicitly be done
-        to the main process Dataset
-
+      - this means that if there is any important initialization done in worker_init_fn, it must explicitly be done to the main process Dataset
     - alternative sources of parameters:
        - global_rank = trainer.node_rank * trainer.nudatasetm_processes + process_idx
        - world_size = trainer.num_nodes * trainer.num_processes
+    
     """
 
     # todo: the where clauses come out of the config, but the filenames come from the constructor

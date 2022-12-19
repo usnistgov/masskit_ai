@@ -154,17 +154,14 @@ class LocalLinear(nn.Module):
 
 
 class ResNetBaseline(SpectrumModel):
-    """A PyTorch implementation of the ResNet Baseline
+    """
+    A PyTorch implementation of the ResNet Baseline
     From https://arxiv.org/abs/1909.04939
     Attributes
     ----------
-    sequence_length:
-        The size of the input sequence
-    self.config.ml.model.ResNetBaseline.mid_channels:
-        The 3 residual blocks will have as output channels:
-        [self.config.ml.model.ResNetBaseline.mid_channels, self.config.ml.model.ResNetBaseline.mid_channels * 2, self.config.ml.model.ResNetBaseline.mid_channels * 2]
-    self.config.ml.model.ResNetBaseline.fp_size:
-        The number of output classes
+    sequence_length: The size of the input sequence
+    self.config.ml.model.ResNetBaseline.mid_channels:The 3 residual blocks will have as output channels: [self.config.ml.model.ResNetBaseline.mid_channels, self.config.ml.model.ResNetBaseline.mid_channels * 2, self.config.ml.model.ResNetBaseline.mid_channels * 2]
+    self.config.ml.model.ResNetBaseline.fp_size:The number of output classes
     """
 
     def __init__(self, config) -> None:

@@ -12,6 +12,7 @@
 #
 import os
 import sys
+# autodoc requires explicit paths
 sys.path.insert(0, os.path.abspath('../..'))
 
 

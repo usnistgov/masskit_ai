@@ -63,11 +63,10 @@ def seed_worker():
 def log_worker_start(worker_id):
     """
     function for initializing the Dataset
+    Notes: since we are handling the sharding ourselves, it's necessary to disable adding of Distributed Sampler
+    in Trainer by using replace_sampler_ddp=False
 
     :param worker_id: worker rank
-    Notes:
-      - since we are handling the sharding ourselves, it's necessary to disable adding of Distributed Sampler
-       in Trainer by using replace_sampler_ddp=False
     """
     seed_worker()
 
