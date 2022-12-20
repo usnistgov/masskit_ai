@@ -24,6 +24,8 @@ hydra:
   output_subdir: ./logs
   sweep:
     dir: ./hydra_sweep
+  searchpath:
+    - file://../../../conf
 
 ml:
   batch_size: 20

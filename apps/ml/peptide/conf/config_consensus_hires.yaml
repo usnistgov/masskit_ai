@@ -7,7 +7,7 @@
 defaults:
   - input: 2022-09-22_consensus  # input data set
   - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
-  - logging: mlflow_server  # logging setup
+  - logging: mlflow_tensorboard_local  # logging setup
   - ml/model: FlipyFlopy  # model parameters.  model is searched for in paths.modules.models. The filename on the right hand side doesn't have to be the name of the model class.
   - ml/embedding: peptide_nist_mods  # embedding to use
   - ms: tandem_hires  # mass spec parameters
@@ -23,6 +23,8 @@ hydra:
   output_subdir: ./logs
   sweep:
     dir: ./hydra_sweep
+  searchpath:
+    - file://../../../conf
 
 ml:
   batch_size: 50
