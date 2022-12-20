@@ -74,28 +74,6 @@ $(document).ready(function(){
 <h1>Peptide Prediction Models<a class="headerlink" href="#peptide-prediction-models" title="Permalink to this heading">¶</a></h1>
 <section id="setup-for-training-peptide-prediction-models">
 <h2>Setup for training peptide prediction models<a class="headerlink" href="#setup-for-training-peptide-prediction-models" title="Permalink to this heading">¶</a></h2>
-<section id="initial-setup">
-<h3>Initial setup<a class="headerlink" href="#initial-setup" title="Permalink to this heading">¶</a></h3>
-<section id="local-linux-machine-setup">
-<h4>Local linux machine setup<a class="headerlink" href="#local-linux-machine-setup" title="Permalink to this heading">¶</a></h4>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.anaconda.com/products/individual">install anaconda</a> if not already installed.</p></li>
-<li><p>then download and install the software libraries</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/usnistgov/masskit.git</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/usnistgov/masskit_ai.git</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">masskit</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">environments/init_msml.sh</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">msml</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">libraries</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">develop</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">src/masskit/utils/</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">build_ext</span> <span class="pre">--inplace</span></code></p></li>
-</ul>
-</li>
-</ul>
-</section>
-</section>
 <section id="running-training">
 <h3>Running training<a class="headerlink" href="#running-training" title="Permalink to this heading">¶</a></h3>
 <section id="running-training-on-a-local-linux-machine">
@@ -160,7 +138,7 @@ after every epoch, so this mechanism doesn’t require the job to terminate norm
 <section id="creating-predictions-on-a-local-linux-machine">
 <h4>Creating predictions on a local linux machine<a class="headerlink" href="#creating-predictions-on-a-local-linux-machine" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">msml</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">masskit_ai</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/source/msdc_services/apps/ml/peptide</span></code> or wherever you have cloned msdc_services</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span> <span class="pre">master</span></code> to pull in any changes to the library</p></li>
 <li><p>prediction configuration is found in conf/config_predict.yaml.</p>
@@ -596,10 +574,6 @@ filenames of form <code class="docutils literal notranslate"><span class="pre">l
     <ul>
 <li><a class="reference internal" href="#">Peptide Prediction Models</a><ul>
 <li><a class="reference internal" href="#setup-for-training-peptide-prediction-models">Setup for training peptide prediction models</a><ul>
-<li><a class="reference internal" href="#initial-setup">Initial setup</a><ul>
-<li><a class="reference internal" href="#local-linux-machine-setup">Local linux machine setup</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#running-training">Running training</a><ul>
 <li><a class="reference internal" href="#running-training-on-a-local-linux-machine">Running training on a local linux machine</a></li>
 <li><a class="reference internal" href="#running-training-on-slurm-clusters">Running training on slurm clusters</a></li>

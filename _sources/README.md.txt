@@ -1,20 +1,6 @@
 # Peptide Prediction Models
 ## Setup for training peptide prediction models
 
-### Initial setup
-#### Local linux machine setup
-* [install anaconda](https://www.anaconda.com/products/individual) if not already installed.
-* then download and install the software libraries
-  * `git clone https://github.com/usnistgov/masskit.git`
-  * `git clone https://github.com/usnistgov/masskit_ai.git`
-  * `cd masskit`
-  * `source environments/init_msml.sh`
-  * `conda activate msml`
-  * `cd libraries`
-  * `python setup.py develop`
-  * `cd src/masskit/utils/`
-  * `python setup.py build_ext --inplace`
-
 ### Running training 
 #### Running training on a local linux machine
 * `cd masskit_ai/apps/ml/peptide`
@@ -58,7 +44,7 @@ after every epoch, so this mechanism doesn't require the job to terminate normal
 
 ### Creating predictions
 #### Creating predictions on a local linux machine
-* `conda activate msml`
+* `conda activate masskit_ai`
 * `cd ~/source/msdc_services/apps/ml/peptide` or wherever you have cloned msdc_services
 * `git pull origin master` to pull in any changes to the library
 * prediction configuration is found in conf/config_predict.yaml.  
