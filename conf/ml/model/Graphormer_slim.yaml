@@ -1,0 +1,41 @@
+
+#   optimizer adam   adam-betas '(0.9, 0.999)'   adam-eps 1e-8   clip-norm 5.0   weight-decay 0.01 \
+#   lr-scheduler polynomial_decay   power 1 
+#   lr 2e-4   end-learning-rate 1e-9 \
+#   batch-size 64 \
+#   fp16 \
+
+
+Graphormer:
+  # settings from cmd line, graphormer_slim_architecture, base_architecture
+  attention-dropout: 0.1
+  act-dropout: 0.1
+  dropout: 0.0
+  data-buffer-size: 20
+  encoder-layers: 12
+  encoder-embed-dim: 80
+  encoder-ffn-embed-dim: 80
+  encoder-attention-heads: 8
+  activation_fn: gelu
+  encoder_normalize_before: True
+  apply_graphormer_init: True
+  share_encoder_input_output_embed: False
+  no_token_positional_embeddings: False
+  pre_layernorm: False
+  # settings from GraphPredictionConfig
+  num_classes: 1
+  max_nodes: 128
+  # 512 * 9
+  num_atoms: 4608
+  # 512 * 3
+  num_edges: 1536
+  num_in_degree: 512
+  num_out_degree: 512
+  num_spatial: 512
+  num_edge_dis: 128
+  multi_hop_max_dist: 5
+  edge_type: multi_hop
+
+
+# remove head, true in fine-tuning
+# remove_head
