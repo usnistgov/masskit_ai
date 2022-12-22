@@ -1,5 +1,4 @@
 from masskit_ai.spectrum.spectrum_base_objects import BaseSpectrumLoss
-from masskit_ai.base_objects import BaseLoss
 import torch
 from torch import Tensor
 import torch.nn.functional as functional
@@ -102,35 +101,3 @@ class SpectrumNormalNLL(BaseSpectrumLoss):
         if torch.isnan(variance).any():
             raise FloatingPointError("variance contains a NaN")
         return torch.mean(variance.log()) + torch.mean(diff.square() / (variance + self.epsilon))
-
-
-"""
-base losses
-"""
-
-
-class MSELoss(BaseLoss):
-    """
-    mean square error
-    """
-
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-
-    def forward(self, output, batch, params=None) -> Tensor:
-        return_val = functional.mse_loss(output.y_prime, batch.y)
-        return return_val
-
-
-class MSEKLLoss(BaseLoss):
-    """
-    mean square error plus kl divergence
-    """
-
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-
-    def forward(self, output, batch, params=None) -> Tensor:
-        return_val = functional.mse_loss(output.y_prime, batch.y) + \
-                     output.score / self.config.input[params['loop']].num
-        return return_val

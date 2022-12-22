@@ -1,0 +1,4 @@
+embedding_type: EmbedXor
+channel_first: False  # is tensor format channel first (True for pytorch, False for tensorflow)
+embeddings:
+  - xor

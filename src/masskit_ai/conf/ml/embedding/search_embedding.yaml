@@ -1,0 +1,2 @@
+embedding_type: BasicEmbed
+channel_first: True  # is tensor format channel first (True for pytorch, False for tensorflow)

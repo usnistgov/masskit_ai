@@ -1,0 +1,2 @@
+dataloader: DataframeDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
+datamodule: XORDataModule

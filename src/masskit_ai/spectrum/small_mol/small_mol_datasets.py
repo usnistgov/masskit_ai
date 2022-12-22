@@ -1,15 +1,13 @@
-import hashlib
 from masskit.utils.arrow import load_from_plasma, save_to_plasma
 from masskit.utils.fingerprints import ECFPFingerprint
 from masskit.utils.hitlist import CosineScore, TanimotoScore
+import pyarrow as pa
 from pyarrow import plasma
-from pyarrow.plasma import ObjectID
-from torch.utils.data import DataLoader
+import pyarrow.parquet as pq
 import logging
 import numpy as np
 import torch
-from masskit.utils.index import ArrowLibraryMap, DescentIndex, TanimotoIndex
-from masskit_ai.base_datasets import BaseDataset
+from masskit.utils.index import ArrowLibraryMap, TanimotoIndex
 from masskit.data_specs.spectral_library import *
 from masskit.utils.general import class_for_name
 from masskit_ai.lightning import get_pytorch_ranks

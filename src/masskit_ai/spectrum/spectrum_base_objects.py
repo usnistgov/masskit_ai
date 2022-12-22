@@ -1,7 +1,7 @@
 from abc import abstractmethod
 import torch
 
-from masskit_ai.base_objects import BaseLoss
+from masskit_ai.base_losses import BaseLoss
 from masskit_ai.spectrum.peptide.peptide_constants import EPSILON
 from torch import Tensor
 from masskit.utils.general import class_for_name

@@ -1,0 +1,34 @@
+# what type of spectral library are we using?  Defined in base_library.py
+lib_type: TandemPepLib
+checkpoint_in: null  # if set, the name of the checkpoint file to load to continue training
+train:
+  # spectral_library can be a file, e.g. ${oc.env:data_tandem}/human_hcd_tryp_good.pkl.gz
+  # or an s3 bucket, s3://msdc-aiomics-data/human_hcd_tryp_good.pkl.gz
+  # or http/https: https://msdc-aiomics-data.s3.amazonaws.com/human_hcd_tryp_good.pkl.gz
+  spectral_library: ${oc.env:HOME}/data/nist/tandem/2020/hr_msms_nist.parquet
+  spectral_library_search: ${oc.env:HOME}/data/nist/tandem/2020/hr_msms_nist.parquet
+  spectral_library_search_index: ${oc.env:HOME}/data/nist/tandem/2020/hr_msms_nist.ecfp4.pynndescent
+  # the where setting is a list of tuples in string format, which corresponds to the tuple/list of tuples 
+  # fed into the "filters" parameter of pyarrow.parquet.read_table()
+  where: "[('set', '=', 'train'), ('instrument_type', '=', 'HCD')]"
+  where_search: "[('set', '=', 'train'), ('instrument_type', '=', 'HCD')]"
+  # number of datapoints in set. If null, compute
+  num: null
+  # if set, will log ids of training records to a file, one per epoch.
+  log_ids: False
+valid:
+  spectral_library: ${oc.env:HOME}/data/nist/tandem/SRM1950/SRM1950_lumos.parquet
+  spectral_library_search: ${oc.env:HOME}/data/nist/tandem/2020/hr_msms_nist.parquet
+  spectral_library_search_index: ${oc.env:HOME}/data/nist/tandem/2020/hr_msms_nist.ecfp4.pynndescent
+  where: "[('set', '=', 'test')]"
+  where_search: "[('set', '=', 'train'), ('instrument_type', '=', 'HCD')]"
+  # number of datapoints in set. If null, compute
+  num: null
+test:
+  spectral_library: ${oc.env:HOME}/data/nist/tandem/SRM1950/SRM1950_lumos.parquet
+  spectral_library_search: ${oc.env:HOME}/data/nist/tandem/2020/hr_msms_nist.parquet
+  spectral_library_search_index: ${oc.env:HOME}/data/nist/tandem/2020/hr_msms_nist.ecfp4.pynndescent
+  where: "[('set', '=', 'test')]"
+  where_search: "[('set', '=', 'train'), ('instrument_type', '=', 'HCD')]"
+  # number of datapoints in set. If null, compute
+  num: null

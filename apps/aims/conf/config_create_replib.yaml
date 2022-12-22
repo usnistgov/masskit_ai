@@ -12,3 +12,15 @@ paths:
 output:
   file: ${oc.env:HOME}/data/nist/ei/2020/replib_2020_hybrid.parquet
   column_name: hybrid_fp
+
+hydra:
+  run:
+    # working directory
+    dir: hydra_output/${hydra.job.name}/${now:%Y-%m-%d_%H-%M-%S}
+  output_subdir: hydra
+  sweep:
+    dir: hydra_sweep
+  searchpath:
+    - pkg://masskit_ai.conf
+  job:
+    chdir: True

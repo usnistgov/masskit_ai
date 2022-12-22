@@ -1,5 +1,5 @@
 from masskit_ai.spectrum.spectrum_base_objects import BaseSpectrumLoss
-from masskit_ai.base_objects import BaseLoss
+from masskit_ai.base_losses import BaseLoss
 import torch
 from torch import Tensor
 import torch.nn.functional as functional

@@ -26,3 +26,14 @@ output:
   # pickled index filename.  if null, use creation.name to make the filename
   file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020.ecfp4.pynndescent
 
+hydra:
+  run:
+    # working directory
+    dir: hydra_output/${hydra.job.name}/${now:%Y-%m-%d_%H-%M-%S}
+  output_subdir: hydra
+  sweep:
+    dir: hydra_sweep
+  searchpath:
+    - pkg://masskit_ai.conf
+  job:
+    chdir: True

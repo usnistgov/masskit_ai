@@ -304,7 +304,7 @@ class SpectrumDataModule(BaseDataModule):
             # cut up for the workers
             # note that DistributedSamplerWrapper requires that ddp be initialized via
             # torch.distributed.init_process_group, which is presumably called by pytorch lightning.
-            if self.config.setup.accelerator is not None:
+            if self.config.setup.gpus > 1:
                 pytorch_sampler = DistributedSamplerWrapper(pytorch_sampler)
 
             return torch.utils.data.DataLoader(

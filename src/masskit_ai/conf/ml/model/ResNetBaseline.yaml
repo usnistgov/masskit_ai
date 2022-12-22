@@ -1,0 +1,8 @@
+ResNetBaseline:
+  mid_channels: 4
+  fp_size: 512
+  more_blocks: False
+  mid_size: 1200
+output_type: search
+# function taking model and config used to modify model before transfer learning
+model_modifier: null

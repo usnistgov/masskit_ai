@@ -1,8 +1,6 @@
 import logging
-from hitlist import Hitlist, PeptideIdentityScore
-
-from index import ArrowLibraryMap
-
+from masskit.utils.hitlist import Hitlist, PeptideIdentityScore
+from masskit.utils.index import ArrowLibraryMap
 from masskit.utils.general import parse_filename, search_for_file
 from masskit_ai.loggers import filter_pytorch_lightning_warnings
 from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
@@ -11,8 +9,8 @@ from omegaconf import DictConfig, open_dict
 from masskit_ai.spectrum.spectrum_prediction import (
     create_prediction_dataset,
     create_prediction_dataset_from_hitlist,
-    single_spectrum_prediction, prep_model_for_prediction, finalize_prediction_dataset,
-    upres_peptide_spectra, )
+    single_spectrum_prediction, prep_model_for_prediction, finalize_prediction_dataset, )
+from masskit_ai.spectrum.peptide.peptide_prediction import upres_peptide_spectra
 from tqdm import tqdm
 import pytorch_lightning as pl
 from masskit.utils.files import load_mzTab

@@ -1,8 +1,0 @@
-
-# used to place this config under a dictionary that matches the directory structure.  must be first line
-
-
-embedding_type: EmbedXor
-channel_first: False  # is tensor format channel first (True for pytorch, False for tensorflow)
-embeddings:
-  - xor

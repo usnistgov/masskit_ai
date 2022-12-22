@@ -1,0 +1,6 @@
+SimpleNet:
+  num_middle_layers: 1
+  fp_size: 1024
+output_type: search
+# function taking model and config used to modify model before transfer learning
+model_modifier: null

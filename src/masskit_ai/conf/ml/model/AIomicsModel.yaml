@@ -1,0 +1,14 @@
+AIomicsModel:
+  dropout: 0
+  filtstart: 100
+  outin: [3, 4]
+  branches: 5
+  filtmid: [512, 512]
+  kss: [1, 2]
+  filtend: 0
+  CompoundConv:
+    rang: [1, 3, 5, 7, 9]
+  std: 0.0
+output_type: spectra
+# function taking model and config used to modify model before transfer learning
+model_modifier: test_modifier

@@ -1,18 +1,12 @@
 import pytest
 from pytest import approx
-import numpy as np
-import pyarrow.parquet as pq
 from pyarrow import plasma
-import torch
 import pytorch_lightning as pl
-from masskit_ai.spectrum.small_mol.small_mol_datasets import TandemArrowSearchDataset
 from masskit_ai.spectrum.small_mol.small_mol_lightning import SearchLightningModule, SmallMolSearchDataModule
 from masskit_ai.base_objects import ModelInput
-from masskit_ai.spectrum.spectrum_datasets import TandemArrowDataset
 import builtins
 from hydra import compose, initialize
 from hydra.core.global_hydra import GlobalHydra
-from omegaconf import OmegaConf
 
 
 @pytest.fixture(scope="session")
@@ -23,18 +17,17 @@ def start_plasma():
 
 @pytest.fixture()
 def config():
-    # return_val = {}
-    # return_val['input'] = {'dev': {'where': ''}}
     GlobalHydra.instance().clear()
-    initialize(config_path="../../../../apps/ml/peptide/conf", job_name="test_app")
-    cfg = compose(config_name="config_search", overrides=["input=2022_tandem_search_test"])
+    initialize(config_path='.', version_base=None)
+    cfg = compose(config_name="config_search", overrides=['input=2022_tandem_search_test'])
     return cfg
 
-@pytest.mark.skip(reason="need to set up to use test data.  also, uses gpu")
+@pytest.mark.skip(reason="need to set up to use test data and missing data/nist/tandem/SRM1950/SRM1950_lumos.ecfp4.pynndescent. also, uses gpu")
 def test_SearchLightningModule(config, start_plasma):
     model = SearchLightningModule(config)
     trainer = pl.Trainer(
-        gpus=1,
+        accelerator='gpu', 
+        devices=1,
         max_epochs=1,
         limit_train_batches=2,
     )

@@ -11,13 +11,21 @@ defaults:
   - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
   - paths: standard  # places to look for data and code
   - ms: tandem  # mass spec parameters
+  - override hydra/job_logging: default
+  - _self_
+
 
 hydra:
   run:
     # working directory
-    dir: hydra_output
+    dir: hydra_output/${hydra.job.name}/${now:%Y-%m-%d_%H-%M-%S}
+  output_subdir: hydra
+  sweep:
+    dir: hydra_sweep
   searchpath:
-    - file://../../../conf
+    - pkg://masskit_ai.conf
+  job:
+    chdir: True
 
 # for ensembles, add a list to model_ensemble of paths to the checkpoints
 model_ensemble:

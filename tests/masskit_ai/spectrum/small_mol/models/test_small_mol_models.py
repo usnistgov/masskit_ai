@@ -22,20 +22,18 @@ def start_plasma():
 
 @pytest.fixture()
 def config():
-    # return_val = {}
-    # return_val['input'] = {'dev': {'where': ''}}
     GlobalHydra.instance().clear()
-    initialize(config_path="../../../../apps/ml/peptide/conf", job_name="test_app")
-    cfg = compose(config_name="config_search", overrides=["input=2022_tandem_search_test", "ml/model=ResNetBaseline"])
+    initialize(config_path='..', version_base=None)
+    cfg = compose(config_name="config_search", overrides=['input=2022_tandem_search_test', "ml/model=ResNetBaseline"])
     return cfg
 
 @pytest.fixture()
 def ds(config, start_plasma):
-    ds = TandemArrowSearchDataset('data/SRM1950_lumos.parquet', config, 'test',
+    ds = TandemArrowSearchDataset('data/nist/tandem/srm/1950/SRM1950_lumos.parquet', config, 'test',
                                 store_search='libraries/tests/data/SRM1950_lumos.parquet')
     return ds
 
-@pytest.mark.skip(reason="uses gpu")
+@pytest.mark.skip(reason="uses gpu, missing libraries/tests/data/SRM1950_lumos.parquet")
 def test_SimpleModel(config, ds):
     y = torch.unsqueeze(ds.get_y(ds.get_data_row(0))[1], 0)
     x = ModelInput(x=ds.get_x(ds.get_data_row(0))[1], y=None, index=None)
@@ -45,7 +43,7 @@ def test_SimpleModel(config, ds):
     assert tuple(x.x.shape) == (2, model.bins)
     assert tuple(y_prime.shape) == (2, config.ml.model.SimpleModel.fp_size)
 
-@pytest.mark.skip(reason="uses gpu")
+@pytest.mark.skip(reason="uses gpu, missing libraries/tests/data/SRM1950_lumos.parquet")
 def test_AIMSNet(config, ds):
     y = torch.unsqueeze(ds.get_y(ds.get_data_row(0))[1], 0)
     x = ModelInput(x=ds.get_x(ds.get_data_row(0))[1], y=None, index=None)

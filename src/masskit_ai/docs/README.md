@@ -168,7 +168,7 @@ ml.bayesian_network.sample_nbr.
         from torch.nn.Module.
         * input and output are namedtuples that allow for adding multiple inputs and outputs to the model.
         * configured using the hydra.DictConfig config.
-      * loss_function: loss function derived from BaseLoss [masskit_ai/base_objects.py](../base_objects.py]),
+      * loss_function: loss function derived from BaseLoss [masskit_ai/base_losses.py](../base_losses.py]),
         which is derived from torch.nn.Module. Takes the same namedtuples that are the input and output of the model.
     * SpectrumDataModule [masskit_ai/spectrum/spectrum_lightning.py](../spectrum/spectrum_lightning.py) derived from 
       pytorch_lightning.LightningDataModule.
@@ -198,7 +198,6 @@ ml.bayesian_network.sample_nbr.
     - create a yaml file called `MyModel.yaml` in the directory [apps/ml/peptide/conf/ml/model](../../../apps/ml/peptide/conf/ml/model) with your configuration values in
       it.  Use [apps/ml/peptide/conf/ml/model/DenseSpectrumNet.yaml](../../../apps/ml/peptide/conf/ml/model/DenseSpectrumNet.yaml) as an example.
     - the top node of the configuration should be the name of the new class: `MyModel:`
-    - make sure `# @package _group_` is the first line of the file.
     - then add configuration values to `MyMode.yaml` indented underneath `MyModel:`, such as `my_config: 123`.  You can then 
       reference it in the code for `MyModel` as `self.config.ml.model.MyModel.my_config`.
   - to use the model for training, edit [apps/ml/peptide/conf/config.yaml](../../../apps/ml/peptide/conf/config.yaml) by

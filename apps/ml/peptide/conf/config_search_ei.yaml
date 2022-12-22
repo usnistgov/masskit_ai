@@ -12,7 +12,7 @@ defaults:
   - ml/embedding: search_embedding  # embedding to use
   - ms: ei_search  # mass spec parameters
   - paths: standard  # places to look for classes and data
-  - hydra/job_logging: default
+  - override hydra/job_logging: default
   - _self_
 
 experiment_name: default_name
@@ -20,12 +20,14 @@ experiment_name: default_name
 hydra:
   run:
     # working directory
-    dir: ./hydra_output
-  output_subdir: ./logs
+    dir: hydra_output/${hydra.job.name}/${now:%Y-%m-%d_%H-%M-%S}
+  output_subdir: hydra
   sweep:
-    dir: ./hydra_sweep
+    dir: hydra_sweep
   searchpath:
-    - file://../../../conf
+    - pkg://masskit_ai.conf
+  job:
+    chdir: True
 
 ml:
   batch_size: 20

@@ -29,6 +29,20 @@ search:
   index_type:
     name: DescentIndex  #  options are TanimotoIndex DescentIndex, and BruteForceIndex
 
+
+hydra:
+  run:
+    # working directory
+    dir: hydra_output/${hydra.job.name}/${now:%Y-%m-%d_%H-%M-%S}
+  output_subdir: hydra
+  sweep:
+    dir: hydra_sweep
+  searchpath:
+    - pkg://masskit_ai.conf
+  job:
+    chdir: True
+
+
 output:
   csv:
     file: SRM1950_lumos.spectrum.pynndescent.csv

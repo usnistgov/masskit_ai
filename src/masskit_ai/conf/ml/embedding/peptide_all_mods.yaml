@@ -1,0 +1,58 @@
+max_len: 40  # maximum length of embedding
+min_charge: 1  # the minimum charge in the embedding
+max_charge: 8  # the maximum charge in the embedding
+channel_first: True  # is tensor format channel first (True for pytorch, False for tensorflow)
+# which embedding class to use.  See peptide_embed.py for implementations
+embedding_type: EmbedPeptide  # embedding class, searched for in paths.modules.embeddings
+# which embeddings from embedding_type to use.
+# for EmbedPeptide, includes:
+# peptide: one hot encoding of peptide sequence
+# mods: one hot encoding of mods. List of mods is ml.embedding.peptide.mods
+# charge: one hot encoding of charge over [min_charge, max_charge]
+# charge_singleton: encode charge over a range of [0, 1]
+# nce: one hot encoding of nce_bins
+# nce_singleton: encode nce over a range of [0, 1]
+embeddings:
+  - peptide
+  - mods
+  - charge
+  - ev_singleton
+# named lists of nce bins, used in specifying the nce embedding
+# must include min and max value
+nce_bins: [0, 10, 20, 30, 40, 100]
+ev_range: [0, 10, 20, 30, 40, 50, 60, 70, 100]
+peptide:
+  mods:
+    - Carbamidomethyl
+    - Oxidation
+    - Deamidated
+    - Formyl
+    - Hex
+    - Gln->pyro-Glu
+    - Cation:Fe[III]
+    - Glu->pyro-Glu
+    - Cysteinylation
+    - Cation:Fe[II]
+    - Carbamyl
+    - Lys
+    - Lys-loss
+    - Cation:Na
+    - Arg
+    - Phospho
+    - Cation:Ca[II]
+    - Carboxy
+    - Dehydrated
+    - Pyro-carbamidomethyl
+    - Ammonia-loss
+    - Nitro
+    - Acetyl
+    - Dioxidation
+    - Methyl
+    - Trioxidation
+    - Sulfo
+    - Amidate
+    - Xlink:Disulfide
+    - Dehydrated
+    - Dimethyl
+    - Trimethyl
+

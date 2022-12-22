@@ -81,7 +81,7 @@ def setup_loggers(config, model, loader, artifacts):
 
 
 # to override the config file, use --config-name.  To override the config path, use --config-path
-@hydra.main(config_path="conf", config_name="config")
+@hydra.main(config_path="conf", config_name="config", version_base=None)
 def main(config: DictConfig):
 
     start_time = time.time()
@@ -122,7 +122,8 @@ def main(config: DictConfig):
             loggers, callbacks = setup_loggers(config, model, loader, artifacts)
             
             trainer = pl.Trainer(
-                gpus=config.setup.gpus,
+                accelerator=config.setup.accelerator, 
+                devices=config.setup.gpus,
                 num_nodes=config.setup.num_nodes,
                 detect_anomaly=set_detect_anomaly,
                 logger=loggers.values(),
@@ -146,7 +147,7 @@ def main(config: DictConfig):
             
             # train the model
             trainer = pl.Trainer(
-                gpus=config.setup.gpus,
+                devices=config.setup.gpus,
                 num_nodes=config.setup.num_nodes,
                 logger=loggers.values(),
                 max_epochs=config.ml.max_epochs,

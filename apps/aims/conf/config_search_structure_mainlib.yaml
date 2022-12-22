@@ -34,3 +34,15 @@ output:
     file: search_structure_mainlib.csv
   pkl:
     file: search_structure_mainlib.pkl
+
+hydra:
+  run:
+    # working directory
+    dir: hydra_output/${hydra.job.name}/${now:%Y-%m-%d_%H-%M-%S}
+  output_subdir: hydra
+  sweep:
+    dir: hydra_sweep
+  searchpath:
+    - pkg://masskit_ai.conf
+  job:
+    chdir: True

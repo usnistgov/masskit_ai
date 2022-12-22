@@ -1,0 +1,38 @@
+# typical hyperparameters associated with spectra datastructures.  Will be logged individually.
+bin_size: 0.1  # size of spectrum array bin in Daltons
+max_mz: 2000  # maximum mz value of spectrum array
+down_shift: 0.05  # shift m/z values downward by this value when creating spectrum array
+dataloader: TandemArrowSearchDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
+datamodule: SmallMolSearchDataModule
+lightning_module: SearchLightningModule
+take_max: False  # take the maximum intensity in each bin (otherwise use the sum)
+take_sqrt: False  # output of the model is the sqrt of the intensity
+search:
+  hitlist_size: 30  # the size of the hitlist if doing a search
+  epsilon: 0.5  # the score cutoff if doing a search
+# the columns to be loaded per data row in a Dataset
+columns:
+  - id
+  - charge
+  - nce
+  - ev
+  - ecfp4
+  - ecfp4_count
+  - intensity
+  - stddev
+  - product_massinfo
+  - mz
+  - precursor_intensity
+  - precursor_massinfo
+  - precursor_mz
+  - ion_mode
+# the columns stored in a QueryDataset, used for sampling
+dataset_columns:
+  - id
+  - charge
+  - nce
+  - ev
+  - ecfp4
+  - ecfp4_count
+  - ion_mode
+

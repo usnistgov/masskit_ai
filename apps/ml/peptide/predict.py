@@ -1,5 +1,4 @@
 import logging
-
 from masskit.utils.general import search_for_file
 from masskit_ai.loggers import filter_pytorch_lightning_warnings
 from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
@@ -8,8 +7,8 @@ from pyarrow import plasma
 from omegaconf import DictConfig, open_dict
 from masskit_ai.spectrum.spectrum_prediction import (
     create_prediction_dataset,
-    single_spectrum_prediction, prep_model_for_prediction, finalize_prediction_dataset,
-    upres_peptide_spectra, )
+    single_spectrum_prediction, prep_model_for_prediction, finalize_prediction_dataset, )
+from masskit_ai.spectrum.peptide.peptide_prediction import upres_peptide_spectra
 from tqdm import tqdm
 import pytorch_lightning as pl
 import builtins

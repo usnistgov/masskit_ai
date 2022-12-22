@@ -1,13 +1,10 @@
 import pytest
 from pytest import approx
-import numpy as np
-import pyarrow.parquet as pq
 from pyarrow import plasma
 from masskit_ai.spectrum.spectrum_datasets import TandemArrowDataset
 import builtins
 from hydra import compose, initialize
 from hydra.core.global_hydra import GlobalHydra
-from omegaconf import OmegaConf
 
 
 @pytest.fixture(scope="session")
@@ -18,11 +15,9 @@ def start_plasma():
 
 @pytest.fixture()
 def config():
-    # return_val = {}
-    # return_val['input'] = {'dev': {'where': ''}}
     GlobalHydra.instance().clear()
-    initialize(config_path="../../../../apps/ml/peptide/conf", job_name="test_app")
-    cfg = compose(config_name="config") # overrides=["db=mysql", "db.user=me"])
+    initialize(config_path='.', version_base=None)
+    cfg = compose(config_name="config")
     return cfg
 
 def test_TandemArrowDataset(config, start_plasma):

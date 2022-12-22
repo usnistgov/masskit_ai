@@ -12,19 +12,22 @@ defaults:
   - ml/embedding: peptide_nist_mods  # embedding to use
   - ms: tandem  # mass spec parameters
   - paths: standard  # places to look for classes and data
-  - hydra/job_logging: default
+  - override hydra/job_logging: default
+  - _self_
 
 experiment_name: lyg_consensus_bayes
 
 hydra:
   run:
     # working directory
-    dir: ./hydra_output
-  output_subdir: ./logs
+    dir: hydra_output/${hydra.job.name}/${now:%Y-%m-%d_%H-%M-%S}
+  output_subdir: hydra
   sweep:
-    dir: ./hydra_sweep
+    dir: hydra_sweep
   searchpath:
-    - file://../../../conf
+    - pkg://masskit_ai.conf
+  job:
+    chdir: True
 
 ml:
   batch_size: 100

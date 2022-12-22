@@ -1,0 +1,9 @@
+FlipyFlopy:
+  embedsz: 256
+  head: [16, 16, 64, None, None]
+  units: None
+  blocks: 9
+  filtend: 512
+  std: 0.01
+  klw: 0.0001
+  drop: 0.0

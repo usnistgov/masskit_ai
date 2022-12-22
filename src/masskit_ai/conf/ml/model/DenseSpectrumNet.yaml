@@ -1,0 +1,5 @@
+DenseSpectrumNet:
+  num_middle_layers: 2
+output_type: spectra
+# function taking model and config used to modify model before transfer learning
+model_modifier: null
