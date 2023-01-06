@@ -14,6 +14,7 @@ search_path:
 # modules to search for loss, model, logger, dataloader, and embedding classes
 modules:
   losses:
+    - masskit_ai.base_losses
     - masskit_ai.spectrum.spectrum_losses
     - masskit_ai.spectrum.small_mol.small_mol_losses
   metrics:
@@ -23,6 +24,7 @@ modules:
     - masskit_ai.spectrum.peptide.models.dense
     - masskit_ai.spectrum.peptide.models.flipyflopy
     - masskit_ai.spectrum.small_mol.models.small_mol_models
+    - masskit_ai.mol.small.models.gf
   # paths to functions used to modify a model before retraining during transfer learning
   model_modifiers:
     - masskit_ai.spectrum.peptide.models.aiomic
@@ -32,6 +34,7 @@ modules:
     - masskit_ai.base_datasets
     - masskit_ai.spectrum.spectrum_datasets
     - masskit_ai.spectrum.small_mol.small_mol_datasets
+    - masskit_ai.mol.mol_datasets
   datamodules:
     - masskit_ai.lightning
     - masskit_ai.spectrum.spectrum_lightning
@@ -44,6 +47,7 @@ modules:
     - masskit_ai.embed
     - masskit_ai.spectrum.spectrum_embed
     - masskit_ai.spectrum.peptide.peptide_embed
+    - masskit_ai.mol.mol_embed
   samplers:
     - masskit_ai.samplers
     - masskit_ai.spectrum.peptide.peptide_samplers

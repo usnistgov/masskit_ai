@@ -4,21 +4,14 @@ from omegaconf import ListConfig
 import pytorch_lightning as pl
 from masskit_ai.lightning import log_worker_start, BaseDataModule
 from masskit_ai.samplers import DistributedSamplerWrapper
+import torch
 from torch.utils.data import WeightedRandomSampler
 from urllib.parse import urlparse
 from urllib import request
 from pathlib import Path
-from masskit_ai.spectrum.peptide.peptide_embed import *
 from masskit.utils.general import class_for_name, search_for_file
 from masskit_ai.lightning import seed_worker
-from masskit_ai.spectrum.spectrum_datasets import TandemArrowDataset
-import pyarrow as pa
-from pyarrow import plasma
-from pyarrow.plasma import ObjectID
-from masskit.utils.index import ArrowLibraryMap
 import logging
-import hashlib
-import builtins
 
 try:
     import boto3
@@ -253,16 +246,16 @@ def log_worker_start_spectrum(worker_id):
 base class for spectra data modules
 """
 
-
 class SpectrumDataModule(BaseDataModule):
     """
     data loader for tandem spectra
     """
 
-    def __init__(self, config, worker_init_fn=log_worker_start_spectrum, *args, **kwargs):
+    def __init__(self, config, worker_init_fn=log_worker_start_spectrum, collate_fn=None, *args, **kwargs):
         """
         :param config: config object
         :param worker_init_fn: function called to initialize each worker thread
+        :param collate_fn: function to collate rows into batches
         Notes:
             - for each worker, a duplicate Dataset is created via forking.  Then worker_init_fn is called and in
               the global torch.utils.data.get_worker_info(), dataset points to the copied Dataset
@@ -374,4 +367,21 @@ class SpectrumDataModule(BaseDataModule):
             path = Path(spectral_library)
 
         return path
+
+    
+def collate_mols(batch):
+    
+    output = dict()
+
+    # since our custom Dataset's __getitem__ method returns dictionary
+    # the collate_fn function will receive list of dictionaries
+    for item in ['x', 'attn_bias', 'attn_edge_type', 'spatial_pos', 'in_degree', 'out_degree', 'edge_input']:
+        output[item] = torch.tensor([sample[item] for sample in batch], dtype=torch.long)
+    
+    return output
+
+
+class MolDataModule(SpectrumDataModule):
+    def __init__(self, config, worker_init_fn=log_worker_start_spectrum, collate_fn=collate_mols, *args, **kwargs):
+        super().__init__(config, worker_init_fn=worker_init_fn, collate_fn=collate_fn, *args, **kwargs)
 

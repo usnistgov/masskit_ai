@@ -17,12 +17,14 @@ class BaseDataset(Dataset, ABC):
     Notes: only one of these is created per GPU per epoch (or per entire run?)
     """
 
-    def __init__(self, store_in, config_in, set_to_load=None, output_column=None) -> None:
+    def __init__(self, store_in, config_in, set_to_load=None, output_column=None,
+                 columns=None) -> None:
         """
         :param store_in: name of data store
         :param config_in: configuration data
         :param set_to_load: which set to use, e.g. train, valid, test
         :param output_column: the name of the column to use for output
+        :param columns: columns to load from datastore
         """
         super().__init__()
         self.store = store_in
@@ -41,6 +43,13 @@ class BaseDataset(Dataset, ABC):
             self.output_column = config_in.ml.output_column
         else:
             self.output_column = output_column
+
+        if columns:
+            self.columns = columns
+        else:
+            self.columns = self.config.ms.columns
+
+        self._data = None
                     
         logging.debug(
             f"Dataset object in pid {os.getpid()} using db {store_in}"

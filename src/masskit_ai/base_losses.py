@@ -30,6 +30,7 @@ class BaseLoss(Module, ABC):
         """
         pass
 
+
 class MSELoss(BaseLoss):
     """
     mean square error
@@ -40,6 +41,20 @@ class MSELoss(BaseLoss):
 
     def forward(self, output, batch, params=None) -> Tensor:
         return_val = functional.mse_loss(output.y_prime, batch.y)
+        return return_val
+
+
+class L1Loss(BaseLoss):
+
+    """
+    l1 loss
+    """
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
+    def forward(self, output, batch, params=None) -> Tensor:
+        return_val = functional.l1_loss(output.y_prime, batch.y)
         return return_val
 
 

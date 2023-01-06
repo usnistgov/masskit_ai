@@ -1,0 +1,77 @@
+
+# the defaults list let you override settings using config files from subdirectories
+# for models, specify the model name on the left hand side (which corresponds to a subdirectory)
+# and the name on the right hand side specifies one of the config files in that subdirectory.
+# This lets you have different sets of options for a model
+
+defaults:
+  - input: 2017_ei  # input data set
+  - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
+  - logging: mlflow_tensorboard_local  # logging setup
+  - ml/model: Graphormer_slim  # model parameters.  model is searched for in paths.modules.models. The filename on the right hand side doesn't have to be the name of the model class.
+  - ml/embedding: prop_embedding  # embedding to use
+  - ms: ei_ri  # mass spec parameters
+  - paths: standard  # places to look for classes and data
+  - override hydra/job_logging: default
+  - _self_
+
+experiment_name: default_name
+
+hydra:
+  run:
+    # working directory
+    dir: hydra_output/${hydra.job.name}/${now:%Y-%m-%d_%H-%M-%S}
+  output_subdir: hydra
+  sweep:
+    dir: hydra_sweep
+  searchpath:
+    - pkg://masskit_ai.conf
+  job:
+    chdir: True
+
+ml:
+  batch_size: 100
+  transfer_learning: False  # perform transfer learning if input.checkpoint_in is set
+  limit_train_batches: 1.0  # limit number of training batches to n or a fraction. 1.0 is the default. useful for debugging
+  max_epochs: 30
+  shuffle: True  # whether to randomly shuffle the training set per dataset loader
+  # name of sampler function.  if no sampling required, set to null
+  sampler:
+  bayesian_network:
+    bayes: False  # use bayesian version of model if available
+    sample_nbr: 3  # number of samples taken per batch for bayesian models
+  loss:
+    loss_function: L1Loss  # SpectrumMSELoss  # loss function. searched in paths.modules.losses
+    sqrt_intensity: False  # take the square root of the intensity before computing the loss
+  metrics:
+    - L1Metric
+  valid_metrics:
+  train_metrics:
+  optimizer:
+    # optimizer from torch.optim
+    optimizer_function: Adam
+    lr: 5e-4  # learning rate
+  # the name of the output column in the dataset
+  output_column: experimental_ri
+  # used to set mixed precision training. 32 is normal and 16 is mixed precision
+  precision: 32
+
+
+# Information
+#
+# this configuration file is parsed by the hydra library.  See https://hydra.cc/ for info
+#
+# Notes:
+# - environment variables can be retrieved via ${oc.env:MY_ENV_VARIABLE} notation
+# - null values are translated to None values in python
+# - values within the specification can be accessed via ${my_top_level.my_config_value} notation
+#
+# - Some hydra terminology:
+#   - config:  a configuration file.  there are input configs arranged in a directory structure and one output config
+#   - config_group : A path to a set of configs.
+#       The path is relative to the containing config. It can be made absolute by prefixing it with a /.
+#        The path separator is / regardless of the operating system.
+#   - package : Where to place the content of the config within the output config. It is relative to the package of
+#     the containing config by default.
+#   - dot.notation: location of a key in the config
+#

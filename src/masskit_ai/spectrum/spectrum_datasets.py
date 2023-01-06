@@ -29,12 +29,7 @@ class SpectrumDataset(BaseDataset):
         :param set_to_load: which set to load, e.g. train, valid, test
         :param columns: columns to load.  otherwise, use ms.columns
         """
-        super().__init__(store_in, config_in, set_to_load)
-
-        if columns:
-            self.columns = columns
-        else:
-            self.columns = self.config.ms.columns
+        super().__init__(store_in, config_in, set_to_load, columns=columns)
 
     def get_y(self, data_row):
         shape = (1, int(self.config.ms.max_mz / self.config.ms.bin_size))

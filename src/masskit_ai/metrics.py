@@ -1,4 +1,5 @@
 from masskit_ai.spectrum.spectrum_losses import *
+from masskit_ai.base_losses import *
 from torchmetrics import Metric
 import torch
 
@@ -110,6 +111,15 @@ class MSEMetric(BaseLossMetric):
     """
     def __init__(self, config=None, *args, **kwargs):
         super().__init__(loss_class=MSELoss, config=config, *args, **kwargs)
+
+
+class L1Metric(BaseLossMetric):
+    """
+    standard l1
+    """
+    def __init__(self, config=None, *args, **kwargs):
+        super().__init__(loss_class=L1Loss, config=config, *args, **kwargs)
+
 
 class KLMetric(BaseMetric):
     def __init__(self, device='cuda', config=None):

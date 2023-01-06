@@ -6,6 +6,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch import Tensor
+from masskit_ai.base_objects import ModelOutput
+
+from masskit_ai.spectrum.spectrum_base_objects import SpectrumModel
 from . import algos
 
 from omegaconf import DictConfig
@@ -430,14 +433,6 @@ class BaseFairseqModel(nn.Module):
     def __init__(self):
         super().__init__()
         self._is_generation_fast = False
-
-    @classmethod
-    def add_args(cls, parser):
-        """Add model-specific arguments to the parser."""
-        dc = getattr(cls, "__dataclass", None)
-        if dc is not None:
-            # do not set defaults so that settings defaults from various architectures still works
-            gen_parser_from_dataclass(parser, dc(), delete_default=True)
 
     @classmethod
     def build_model(cls, args, task):
@@ -1403,6 +1398,52 @@ class GraphormerEncoder(FairseqEncoder):
         return state_dict
 
 
+class GraphormerModel(FairseqEncoderModel):
+    def __init__(self, config, encoder):
+        super().__init__(encoder)
+        self.args = config
+
+        if getattr(config, "apply_graphormer_init", False):
+            self.apply(init_graphormer_params)
+        self.encoder_embed_dim = config.encoder_embed_dim
+
+    def max_nodes(self):
+        return self.encoder.max_nodes
+
+    @classmethod
+    def build_model(cls, config):
+        """Build a new model instance."""
+        # make sure all arguments are present in older models
+        base_architecture(config)
+
+        if not safe_hasattr(config, "max_nodes"):
+            config.max_nodes = config.tokens_per_sample
+
+        logger.info(config)
+
+        encoder = GraphormerEncoder(config)
+        return cls(config, encoder)
+
+    def forward(self, batched_data, **kwargs):
+        return self.encoder(batched_data, **kwargs)
+
+
+class GraphormerWrapper(SpectrumModel):
+    """
+    class for wrapping graphformer in a standard SpectrumModel
+    """
+    def __init__(self, config):
+        super().__init__(config)
+        self.graphormer = GraphormerModel.build_model(config.ml.model.Graphormer_slim)
+
+    def total_params(self):
+        return sum(p.numel() for p in self.parameters() if p.requires_grad)
+
+    def forward(self, inp):
+        inp = inp[0]  # refer to input elements by index, not name.  otherwise tensorboard logger will not work
+        out = self.graphormer(inp)
+        return ModelOutput(out)
+
 
 def safe_hasattr(obj, k):
     """Returns True if the given key exists and is not None."""
@@ -1432,101 +1473,26 @@ def base_architecture(args):
     args.encoder_normalize_before = getattr(args, "encoder_normalize_before", True)
 
 
-class GraphormerModel(FairseqEncoderModel):
-    def __init__(self, args, encoder):
-        super().__init__(encoder)
-        self.args = args
+def graphormer_slim_architecture(config):
+    config.encoder_embed_dim = getattr(config, "encoder_embed_dim", 80)
 
-        if getattr(args, "apply_graphormer_init", False):
-            self.apply(init_graphormer_params)
-        self.encoder_embed_dim = args.encoder_embed_dim
+    config.encoder_layers = getattr(config, "encoder_layers", 12)
 
-    def max_nodes(self):
-        return self.encoder.max_nodes
+    config.encoder_attention_heads = getattr(config, "encoder_attention_heads", 8)
+    config.encoder_ffn_embed_dim = getattr(config, "encoder_ffn_embed_dim", 80)
 
-    @classmethod
-    def build_model(cls, args, task):
-        """Build a new model instance."""
-        # make sure all arguments are present in older models
-        base_architecture(args)
-
-        if not safe_hasattr(args, "max_nodes"):
-            args.max_nodes = args.tokens_per_sample
-
-        logger.info(args)
-
-        encoder = GraphormerEncoder(args)
-        return cls(args, encoder)
-
-    def forward(self, batched_data, **kwargs):
-        return self.encoder(batched_data, **kwargs)
-
-
-def graphormer_slim_architecture(args):
-    args.encoder_embed_dim = getattr(args, "encoder_embed_dim", 80)
-
-    args.encoder_layers = getattr(args, "encoder_layers", 12)
-
-    args.encoder_attention_heads = getattr(args, "encoder_attention_heads", 8)
-    args.encoder_ffn_embed_dim = getattr(args, "encoder_ffn_embed_dim", 80)
-
-    args.activation_fn = getattr(args, "activation_fn", "gelu")
-    args.encoder_normalize_before = getattr(args, "encoder_normalize_before", True)
-    args.apply_graphormer_init = getattr(args, "apply_graphormer_init", True)
-    args.share_encoder_input_output_embed = getattr(
-            args, "share_encoder_input_output_embed", False
+    config.activation_fn = getattr(config, "activation_fn", "gelu")
+    config.encoder_normalize_before = getattr(config, "encoder_normalize_before", True)
+    config.apply_graphormer_init = getattr(config, "apply_graphormer_init", True)
+    config.share_encoder_input_output_embed = getattr(
+            config, "share_encoder_input_output_embed", False
         )
-    args.no_token_positional_embeddings = getattr(
-        args, "no_token_positional_embeddings", False
+    config.no_token_positional_embeddings = getattr(
+        config, "no_token_positional_embeddings", False
     )
-    args.pre_layernorm = getattr(args, "pre_layernorm", False)
-    base_architecture(args)
+    config.pre_layernorm = getattr(config, "pre_layernorm", False)
+    base_architecture(config)
 
     # at this point call 
-    GraphormerModel.build_model(args)
+    GraphormerModel.build_model(config)
 
-
-# functions to convert pyg Data to the format used by graphormer
-# these use Cython functions in algos.pyx, so need to do "Cython algos.pyx"
-
-@torch.jit.script
-def convert_to_single_emb(x, offset: int = 512):
-    feature_num = x.size(1) if len(x.size()) > 1 else 1
-    feature_offset = 1 + torch.arange(0, feature_num * offset, offset, dtype=torch.long)
-    x = x + feature_offset
-    return x
-
-
-def preprocess_item(item):
-    edge_attr, edge_index, x = item.edge_attr, item.edge_index, item.x
-    N = x.size(0)
-    x = convert_to_single_emb(x)
-
-    # node adj matrix [N, N] bool
-    adj = torch.zeros([N, N], dtype=torch.bool)
-    adj[edge_index[0, :], edge_index[1, :]] = True
-
-    # edge feature here
-    if len(edge_attr.size()) == 1:
-        edge_attr = edge_attr[:, None]
-    attn_edge_type = torch.zeros([N, N, edge_attr.size(-1)], dtype=torch.long)
-    attn_edge_type[edge_index[0, :], edge_index[1, :]] = (
-        convert_to_single_emb(edge_attr) + 1
-    )
-
-    shortest_path_result, path = algos.floyd_warshall(adj.numpy())
-    max_dist = np.amax(shortest_path_result)
-    edge_input = algos.gen_edge_input(max_dist, path, attn_edge_type.numpy())
-    spatial_pos = torch.from_numpy((shortest_path_result)).long()
-    attn_bias = torch.zeros([N + 1, N + 1], dtype=torch.float)  # with graph token
-
-    # combine
-    item.x = x
-    item.attn_bias = attn_bias
-    item.attn_edge_type = attn_edge_type
-    item.spatial_pos = spatial_pos
-    item.in_degree = adj.long().sum(dim=1).view(-1)
-    item.out_degree = item.in_degree  # for undirected graph
-    item.edge_input = torch.from_numpy(edge_input).long()
-
-    return item
