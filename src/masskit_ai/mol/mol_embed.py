@@ -1,5 +1,6 @@
 import numpy as np
 import torch
+import logging
 from masskit_ai.embed import Embed
 from masskit_ai.mol.small.models import algos
 
@@ -206,3 +207,20 @@ class EmbedMol(Embed):
         """
         return 1
 
+    def embed(self, row):
+        """
+        call the requested embedding functions as listed in config.ml.embedding.embeddings
+
+        :param row: the data row
+        :return: the concatenated one hot tensor of the embeddings
+        """
+        try:
+            embeddings = [
+                getattr(self, func + "_embed")(row)
+                for func in self.config.ml.embedding.embeddings
+            ]
+        except KeyError as e:
+            logging.error(f"not able to find embedding: {e}")
+            raise
+        # todo: this is hardcoded to just return the mol embedding.  Needs to be a more abstract way to do this
+        return embeddings[0]

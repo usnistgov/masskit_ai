@@ -1414,12 +1414,12 @@ class GraphormerModel(FairseqEncoderModel):
     def build_model(cls, config):
         """Build a new model instance."""
         # make sure all arguments are present in older models
-        base_architecture(config)
+        # base_architecture(config)
 
-        if not safe_hasattr(config, "max_nodes"):
-            config.max_nodes = config.tokens_per_sample
+        # if not safe_hasattr(config, "max_nodes"):
+        #    config.max_nodes = config.tokens_per_sample
 
-        logger.info(config)
+        # logger.info(config)
 
         encoder = GraphormerEncoder(config)
         return cls(config, encoder)
@@ -1428,9 +1428,9 @@ class GraphormerModel(FairseqEncoderModel):
         return self.encoder(batched_data, **kwargs)
 
 
-class GraphormerWrapper(SpectrumModel):
+class Graphormer_slim(SpectrumModel):
     """
-    class for wrapping graphformer in a standard SpectrumModel
+    class for wrapping graphormer in a standard SpectrumModel
     """
     def __init__(self, config):
         super().__init__(config)

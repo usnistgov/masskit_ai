@@ -86,4 +86,4 @@ class MolPropDataset(BaseDataset):
         """
         given the data row, return the target of the network
         """
-        return data_row[self.config.output_column]
+        return data_row[self.config.ml.output_column]

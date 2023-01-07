@@ -3,6 +3,9 @@ from pytest import approx
 from masskit_ai.mol.mol_datasets import MolPropDataset
 from hydra import compose, initialize
 from hydra.core.global_hydra import GlobalHydra
+import pytorch_lightning as pl
+from masskit_ai.mol.small.models.gf import Graphormer_slim
+from masskit_ai.spectrum.spectrum_lightning import MolDataModule, SpectrumLightningModule
 
 @pytest.fixture()
 def config_ri():
@@ -16,3 +19,14 @@ def test_MolPropDataset(config_ri):
     assert ds.get_data_row(0)['name'] == "Urea, N,N-dimethyl-N'-propyl-N'-octyl-"
     ds2 = MolPropDataset('tests/data/mainlib_2017_trunc.parquet', config_ri, 'train')
     assert ds2.get_data_row(0)['name'] == "Urea, N,N-dimethyl-N'-propyl-N'-octyl-"
+
+def test_SearchLightningModule(config_ri):
+    model = SpectrumLightningModule(config_ri)
+    trainer = pl.Trainer(
+        accelerator='gpu', 
+        devices=1,
+        max_epochs=1,
+        limit_train_batches=2,
+    )
+    dm = MolDataModule(config_ri)
+    trainer.fit(model, datamodule=dm)
