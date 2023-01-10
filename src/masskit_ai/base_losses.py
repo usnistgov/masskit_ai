@@ -44,6 +44,13 @@ class MSELoss(BaseLoss):
         return return_val
 
 
+def get_namedtuple_dict(container, key):
+    if hasattr(container, key):
+        return getattr(container, key)
+    else:
+        return container.get(key)
+
+
 class L1Loss(BaseLoss):
 
     """
@@ -54,7 +61,7 @@ class L1Loss(BaseLoss):
         super().__init__(*args, **kwargs)
 
     def forward(self, output, batch, params=None) -> Tensor:
-        return_val = functional.l1_loss(output.y_prime, batch.y)
+        return_val = functional.l1_loss(output.y_prime, get_namedtuple_dict(batch, 'y'))
         return return_val
 
 

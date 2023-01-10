@@ -1440,9 +1440,8 @@ class Graphormer_slim(SpectrumModel):
         return sum(p.numel() for p in self.parameters() if p.requires_grad)
 
     def forward(self, inp):
-        inp = inp[0]  # refer to input elements by index, not name.  otherwise tensorboard logger will not work
         out = self.graphormer(inp)
-        return ModelOutput(out)
+        return ModelOutput(out[:, 0, :])
 
 
 def safe_hasattr(obj, k):

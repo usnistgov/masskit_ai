@@ -115,10 +115,11 @@ class BaseDataModule(pl.LightningDataModule):
     base class for data loading
     """
 
-    def __init__(self, config, worker_init_fn=log_worker_start, *args, **kwargs):
+    def __init__(self, config, worker_init_fn=log_worker_start, collate_fn=None, *args, **kwargs):
         """
         :param config: config object
         :param worker_init_fn: function called to initialize each worker thread
+        :param collate_fn: function used to collate batch
         Notes:
             - for each worker, a duplicate Dataset is created via forking.  Then worker_init_fn is called and in
               the global torch.utils.data.get_worker_info(), dataset points to the copied Dataset
@@ -126,6 +127,7 @@ class BaseDataModule(pl.LightningDataModule):
         super().__init__(*args, **kwargs)
         self.config = config
         self.worker_init_fn = worker_init_fn
+        self.collate_fn = collate_fn
 
     def setup(self, stage=None):
         """

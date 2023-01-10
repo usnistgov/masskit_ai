@@ -2,7 +2,7 @@
 bin_size: 1.0  # size of spectrum array bin in Daltons
 max_mz: 1200  # maximum mz value of spectrum array
 dataloader: MolPropDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
-datamodule: SpectrumDataModule
+datamodule: MolDataModule
 # the columns to be loaded per data row in a Dataset
 columns:
   - id

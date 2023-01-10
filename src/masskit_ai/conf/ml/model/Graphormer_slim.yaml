@@ -35,6 +35,7 @@ Graphormer_slim:
   num_edge_dis: 128
   multi_hop_max_dist: 5
   edge_type: multi_hop
+  spatial_pos_max: 1024
 
 
 # remove head, true in fine_tuning

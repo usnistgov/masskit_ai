@@ -4,8 +4,7 @@ from masskit_ai.mol.mol_datasets import MolPropDataset
 from hydra import compose, initialize
 from hydra.core.global_hydra import GlobalHydra
 import pytorch_lightning as pl
-from masskit_ai.mol.small.models.gf import Graphormer_slim
-from masskit_ai.spectrum.spectrum_lightning import MolDataModule, SpectrumLightningModule
+from masskit_ai.spectrum.spectrum_lightning import MolDataModule, SpectrumDataModule, SpectrumLightningModule
 
 @pytest.fixture()
 def config_ri():
@@ -15,9 +14,9 @@ def config_ri():
     return cfg
 
 def test_MolPropDataset(config_ri):
-    ds = MolPropDataset('tests/data/mainlib_2017_trunc.parquet', config_ri, 'train')
+    ds = MolPropDataset('data/mainlib_2017_trunc.parquet', config_ri, 'train')
     assert ds.get_data_row(0)['name'] == "Urea, N,N-dimethyl-N'-propyl-N'-octyl-"
-    ds2 = MolPropDataset('tests/data/mainlib_2017_trunc.parquet', config_ri, 'train')
+    ds2 = MolPropDataset('data/mainlib_2017_trunc.parquet', config_ri, 'train')
     assert ds2.get_data_row(0)['name'] == "Urea, N,N-dimethyl-N'-propyl-N'-octyl-"
 
 def test_SearchLightningModule(config_ri):
@@ -26,7 +25,9 @@ def test_SearchLightningModule(config_ri):
         accelerator='gpu', 
         devices=1,
         max_epochs=1,
-        limit_train_batches=2,
+        limit_train_batches=9,
+        limit_val_batches=9,
+        log_every_n_steps=3,
     )
-    dm = MolDataModule(config_ri)
+    dm =  MolDataModule(config_ri) # MolDataModule
     trainer.fit(model, datamodule=dm)
