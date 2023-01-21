@@ -12,7 +12,7 @@ Graphormer_slim:
   act_dropout: 0.1
   dropout: 0.0
   data_buffer_size: 20
-  encoder_layers: 12
+  encoder_layers: 6
   encoder_embed_dim: 80
   encoder_ffn_embed_dim: 80
   encoder_attention_heads: 8

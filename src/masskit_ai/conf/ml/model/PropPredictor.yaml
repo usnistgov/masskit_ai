@@ -1,0 +1,16 @@
+# path augmented transformer property predictor
+
+PropPredictor:
+  hidden_size: 160
+  agg_func: sum
+  n_heads: 1
+  d_k: 160
+  no_share: True
+  depth: 5
+  dropout: 0.0
+  self_attn: False
+  mask_neigh: False
+  max_path_length: 3
+  no_truncate: False
+  p_embed: True
+  ring_embed: True

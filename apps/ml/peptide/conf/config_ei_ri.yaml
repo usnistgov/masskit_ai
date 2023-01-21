@@ -5,10 +5,10 @@
 # This lets you have different sets of options for a model
 
 defaults:
-  - input: 2017_ri  # input data set
+  - input: 2017_ei_ri  # input data set
   - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
   - logging: mlflow_tensorboard_local  # logging setup
-  - ml/model: Graphormer_slim  # model parameters.  model is searched for in paths.modules.models. The filename on the right hand side doesn't have to be the name of the model class.
+  - ml/model: PropPredictor  # model parameters.  model is searched for in paths.modules.models. The filename on the right hand side doesn't have to be the name of the model class.
   - ml/embedding: prop_embedding  # embedding to use
   - ms: ei_ri  # mass spec parameters
   - paths: standard  # places to look for classes and data
@@ -35,7 +35,7 @@ setup:
     size: 100000
 
 ml:
-  batch_size: 256
+  batch_size: 64
   transfer_learning: False  # perform transfer learning if input.checkpoint_in is set
   limit_train_batches: 1.0  # limit number of training batches to n or a fraction. 1.0 is the default. useful for debugging
   max_epochs: 300
@@ -54,12 +54,14 @@ ml:
   train_metrics:
   optimizer:
     # optimizer from torch.optim
-    optimizer_function: AdamW
-    lr: 2e-4  # learning rate
+    optimizer_function: Adam
+    lr: 5e-4  # learning rate
   # the name of the output column in the dataset
   output_column: experimental_ri
   # used to set mixed precision training. 32 is normal and 16 is mixed precision
   precision: 32
+  # use pinned memory for transferring tensors from cpu to gpu.  if tensors already in gpu, will throw error
+  pin_memory: True
 
 
 # Information

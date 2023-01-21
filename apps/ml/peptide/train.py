@@ -107,8 +107,13 @@ def main(config: DictConfig):
         create_experiment_name(config)
 
         # set up data loader and model
+        collate_fn_factory = class_for_name(config.paths.modules.dataloaders, config.ms.get('collate_fn_factory', None))
+        if collate_fn_factory is not None:
+            collate_fn = collate_fn_factory(config)
+        else:
+            collate_fn = None
         loader = class_for_name(config.paths.modules.datamodules,
-                                config.ms.datamodule)(config)
+                                config.ms.datamodule)(config, collate_fn=collate_fn)
         # set up lightning module
         lightning_module = class_for_name(config.paths.modules.lightning_modules,
                                 config.ms.get("lightning_module", "SpectrumLightningModule"))
@@ -157,12 +162,13 @@ def main(config: DictConfig):
                 limit_train_batches=config.ml.limit_train_batches,
                 limit_val_batches=config.ml.get('limit_val_batches', 1.0),
                 precision=precision,
-                detect_anomaly=set_detect_anomaly
+                detect_anomaly=set_detect_anomaly,
+                gradient_clip_val=config.ml.get('gradient_clip_val', None),
             )
             trainer.fit(model, datamodule=loader)
 
         # close the loggers. make sure last logger in the list is the one that saves the artifacts
-        for logger in trainer.logger._logger_iterable:
+        for logger in trainer.loggers:
             # save the best model as an artifact
             if isinstance(logger, MSMLFlowLogger):
                 for callback in trainer.callbacks:

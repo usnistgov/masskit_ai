@@ -1,5 +1,4 @@
-embedding_type: EmbedMol
-channel_first: False  # is tensor format channel first (True for pytorch, False for tensorflow)
+embedding_type: EmbedPATNMol
 embeddings:
-  - mol
+  - mol_path
 

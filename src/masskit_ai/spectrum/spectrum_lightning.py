@@ -2,9 +2,10 @@ from abc import ABC
 import importlib
 from omegaconf import ListConfig
 import pytorch_lightning as pl
-from masskit_ai.lightning import log_worker_start, BaseDataModule
+from masskit_ai.lightning import BaseDataModule
 from masskit_ai.samplers import DistributedSamplerWrapper
 import torch
+from torch.optim.lr_scheduler import ReduceLROnPlateau, MultiStepLR
 from torch.utils.data import WeightedRandomSampler
 from urllib.parse import urlparse
 from urllib import request
@@ -97,9 +98,20 @@ class BaseSpectrumLightningModule(pl.LightningModule, ABC):
         return self.validation_test_step(batch, batch_idx, 'test')
 
     def configure_optimizers(self):
-        return getattr(importlib.import_module('torch.optim'),
-                       self.config.ml.optimizer.optimizer_function)(self.model.parameters(),
-                                                                    lr=self.config.ml.optimizer.lr)
+        optimizer = getattr(
+            importlib.import_module('torch.optim'),
+            self.config.ml.optimizer.optimizer_function
+            )(self.model.parameters(), lr=self.config.ml.optimizer.lr)
+        # scheduler = ReduceLROnPlateau(optimizer, factor=0.1, patience=8)
+        # scheduler =  MultiStepLR(optimizer, milestones=[25,50,75,100,125,150,175,200], gamma=0.33)
+
+        return {
+            "optimizer": optimizer,
+            # "lr_scheduler": {
+            #     "scheduler": scheduler,
+            #     "monitor": "val_loss",
+            #     },
+            }
 
     # lightning appears to be in the process of redoing logging, and this function will
     # throw an exceptions with some versions of lightning
@@ -306,7 +318,7 @@ class SpectrumDataModule(BaseDataModule):
                 batch_size=self.config.ml.batch_size,
                 worker_init_fn=self.worker_init_fn,
                 collate_fn=self.collate_fn,
-                pin_memory=True,
+                pin_memory=self.config.ml.get('pin_memory', True),
                 sampler=pytorch_sampler
             )
         else:
@@ -317,7 +329,7 @@ class SpectrumDataModule(BaseDataModule):
                 batch_size=self.config.ml.batch_size,
                 worker_init_fn=self.worker_init_fn,
                 collate_fn=self.collate_fn,
-                pin_memory=True
+                pin_memory=self.config.ml.get('pin_memory', True)
             ) for subset in subsets]
             
     def get_subsets(self, set_to_load):
@@ -369,154 +381,4 @@ class SpectrumDataModule(BaseDataModule):
             path = Path(spectral_library)
 
         return path
-
-    
-def collate_mols(batch):
-    
-    output = dict()
-
-    # since our custom Dataset's __getitem__ method returns dictionary
-    # the collate_fn function will receive list of dictionaries
-    for item in ['x', 'attn_bias', 'attn_edge_type', 'spatial_pos', 'in_degree', 'out_degree', 'edge_input']:
-        output[item] = torch.tensor([sample[item] for sample in batch], dtype=torch.long)
-    
-    return output
-
-
-# collating code to make molecule data have the same shape
-
-def pad_1d_unsqueeze(x, padlen):
-    x = x + 1  # pad id = 0
-    xlen = x.size(0)
-    if xlen < padlen:
-        new_x = x.new_zeros([padlen], dtype=x.dtype)
-        new_x[:xlen] = x
-        x = new_x
-    return x.unsqueeze(0)
-
-
-def pad_2d_unsqueeze(x, padlen):
-    x = x + 1  # pad id = 0
-    xlen, xdim = x.size()
-    if xlen < padlen:
-        new_x = x.new_zeros([padlen, xdim], dtype=x.dtype)
-        new_x[:xlen, :] = x
-        x = new_x
-    return x.unsqueeze(0)
-
-
-def pad_attn_bias_unsqueeze(x, padlen):
-    xlen = x.size(0)
-    if xlen < padlen:
-        new_x = x.new_zeros([padlen, padlen], dtype=x.dtype).fill_(float("-inf"))
-        new_x[:xlen, :xlen] = x
-        new_x[xlen:, :xlen] = 0
-        x = new_x
-    return x.unsqueeze(0)
-
-
-def pad_edge_type_unsqueeze(x, padlen):
-    xlen = x.size(0)
-    if xlen < padlen:
-        new_x = x.new_zeros([padlen, padlen, x.size(-1)], dtype=x.dtype)
-        new_x[:xlen, :xlen, :] = x
-        x = new_x
-    return x.unsqueeze(0)
-
-
-def pad_spatial_pos_unsqueeze(x, padlen):
-    x = x + 1
-    xlen = x.size(0)
-    if xlen < padlen:
-        new_x = x.new_zeros([padlen, padlen], dtype=x.dtype)
-        new_x[:xlen, :xlen] = x
-        x = new_x
-    return x.unsqueeze(0)
-
-
-def pad_3d_unsqueeze(x, padlen1, padlen2, padlen3):
-    x = x + 1
-    xlen1, xlen2, xlen3, xlen4 = x.size()
-    if xlen1 < padlen1 or xlen2 < padlen2 or xlen3 < padlen3:
-        new_x = x.new_zeros([padlen1, padlen2, padlen3, xlen4], dtype=x.dtype)
-        new_x[:xlen1, :xlen2, :xlen3, :] = x
-        x = new_x
-    return x.unsqueeze(0)
-
-
-
-def mol_collator(config):
-    max_node = config.ml.model.Graphormer_slim.max_nodes
-    multi_hop_max_dist = config.ml.model.Graphormer_slim.multi_hop_max_dist
-    spatial_pos_max = config.ml.model.Graphormer_slim.spatial_pos_max
-
-    def inner_func(items):
-        items = [item for item in items if item is not None and item.x['x'].size(0) <= max_node]
-        try:
-            items = [
-                (
-                    item.index,
-                    item.x['attn_bias'],
-                    item.x['attn_edge_type'],
-                    item.x['spatial_pos'],
-                    item.x['in_degree'],
-                    item.x['out_degree'],
-                    item.x['x'],
-                    item.x['edge_input'][:, :, :multi_hop_max_dist, :],
-                    torch.Tensor([item.y]),
-                )
-                for item in items
-            ]
-        except TypeError:
-            raise
-        (
-            indexes,
-            attn_biases,
-            attn_edge_types,
-            spatial_poses,
-            in_degrees,
-            out_degrees,
-            xs,
-            edge_inputs,
-            ys,
-        ) = zip(*items)
-
-        for idx, _ in enumerate(attn_biases):
-            attn_biases[idx][1:, 1:][spatial_poses[idx] >= spatial_pos_max] = float("-inf")
-        max_node_num = max(i.size(0) for i in xs)
-        max_dist = max(i.size(-2) for i in edge_inputs)
-        y = torch.unsqueeze(torch.cat(ys) / 10000.0, dim=-1)
-        x = torch.cat([pad_2d_unsqueeze(i, max_node_num) for i in xs])
-        edge_input = torch.cat(
-            [pad_3d_unsqueeze(i, max_node_num, max_node_num, max_dist) for i in edge_inputs]
-        )
-        attn_bias = torch.cat(
-            [pad_attn_bias_unsqueeze(i, max_node_num + 1) for i in attn_biases]
-        )
-        attn_edge_type = torch.cat(
-            [pad_edge_type_unsqueeze(i, max_node_num) for i in attn_edge_types]
-        )
-        spatial_pos = torch.cat(
-            [pad_spatial_pos_unsqueeze(i, max_node_num) for i in spatial_poses]
-        )
-        in_degree = torch.cat([pad_1d_unsqueeze(i, max_node_num) for i in in_degrees])
-
-        return dict(
-            index=torch.LongTensor(indexes),
-            attn_bias=attn_bias,
-            attn_edge_type=attn_edge_type,
-            spatial_pos=spatial_pos,
-            in_degree=in_degree,
-            out_degree=in_degree,  # for undirected graph
-            x=x,
-            edge_input=edge_input,
-            y=y,
-        )
-
-    return inner_func
-
-
-class MolDataModule(SpectrumDataModule):
-    def __init__(self, config, worker_init_fn=log_worker_start_spectrum, collate_fn=mol_collator, *args, **kwargs):
-        super().__init__(config, worker_init_fn=worker_init_fn, collate_fn=collate_fn(config), *args, **kwargs)
 

@@ -3,6 +3,8 @@ import torch
 import logging
 from masskit_ai.embed import Embed
 from masskit_ai.mol.small.models import algos
+from masskit_ai.mol.small.models import path_utils
+
 
 x_map = {
     'atomic_num':
@@ -174,9 +176,9 @@ def preprocess_item(item):
     return return_item
 
 
-class EmbedMol(Embed):
+class EmbedGraphormerMol(Embed):
     """
-    rdkit mol embedding
+    Embedding of mol for Graphormer
     """
 
     def __init__(self, config):
@@ -184,19 +186,74 @@ class EmbedMol(Embed):
 
     def mol_embed(self, row):
         """
-        embed the nce as a one hot tensor
+        embed a processed mol
 
         :param row: data record
         :return: one hot tensor
         """
 
+        item = None
         if row['mol'] is not None:
-            item = from_mol(row['mol'])
-            item = preprocess_item(item)
-        else:
-            item = None
+            try:
+                item = from_mol(row['mol'])
+                item = preprocess_item(item)
+            except ValueError as e:
+                logging.info(f'{e}: unable to create embedding for {row}')
         
         return item
+
+    @staticmethod
+    def mol_channels(self):
+        """
+        the number of mol channels
+
+        :return: the number of mol channels
+        """
+        return 1
+
+    def embed(self, row):
+        """
+        call the requested embedding functions as listed in config.ml.embedding.embeddings
+
+        :param row: the data row
+        :return: the concatenated one hot tensor of the embeddings
+        """
+        try:
+            embeddings = [
+                getattr(self, func + "_embed")(row)
+                for func in self.config.ml.embedding.embeddings
+            ]
+        except KeyError as e:
+            logging.error(f"not able to find embedding: {e}")
+            raise
+        # todo: this is hardcoded to just return the mol embedding.  Needs to be a more abstract way to do this
+        return embeddings[0]
+
+
+class EmbedPATNMol(Embed):
+    """
+    Embedding for PATN PropPredictor
+    """
+
+    def __init__(self, config):
+        super().__init__(config)
+
+    def mol_path_embed(self, row):
+        """
+        embed the nce as a one hot tensor
+
+        :param row: data record
+        :return: one hot tensor
+        """
+        mol = row['mol']
+        n_atoms = mol.GetNumAtoms()
+
+        path_input, path_mask = path_utils.get_path_input(
+            [mol], [row['shortest_paths']], n_atoms, self.config.ml.model.PropPredictor, output_tensor=False)
+        path_input = path_input.squeeze(0)  # Remove batch dimension
+        path_mask = path_mask.squeeze(0)  # Remove batch dimension
+
+        return mol, n_atoms, path_input, path_mask
 
     @staticmethod
     def mol_channels(self):

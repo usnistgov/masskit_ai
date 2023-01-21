@@ -1,17 +1,15 @@
-# typical hyperparameters associated with spectra datastructures.  Will be logged individually.
-bin_size: 1.0  # size of spectrum array bin in Daltons
-max_mz: 1200  # maximum mz value of spectrum array
 dataloader: MolPropDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
-datamodule: MolDataModule
+datamodule: SpectrumDataModule
+collate_fn_factory: patn_collator # closure to generate collate_fn that collates a batch
 # the columns to be loaded per data row in a Dataset
 columns:
   - id
   - mol
   - experimental_ri
+  - shortest_paths
 # the columns stored in a QueryDataset, used for sampling
 dataset_columns:
   - id
   - mol
   - experimental_ri
   - set
-

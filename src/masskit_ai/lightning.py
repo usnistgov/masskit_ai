@@ -186,5 +186,5 @@ class XORDataModule(BaseDataModule):
             num_workers=self.config.setup.num_workers,
             batch_size=self.config.ml.batch_size,
             worker_init_fn=self.worker_init_fn,
-            pin_memory=True
+            pin_memory=self.config.ml.get('pin_memory', True)
         )
