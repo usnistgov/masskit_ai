@@ -24,7 +24,7 @@ modules:
     - masskit_ai.spectrum.peptide.models.dense
     - masskit_ai.spectrum.peptide.models.flipyflopy
     - masskit_ai.spectrum.small_mol.models.small_mol_models
-    - masskit_ai.mol.small.models.gf
+    # - masskit_ai.mol.small.models.gf
     - masskit_ai.mol.small.models.patn
   # paths to functions used to modify a model before retraining during transfer learning
   model_modifiers:

@@ -9,8 +9,10 @@ from torch import Tensor
 from masskit_ai.base_objects import ModelOutput
 
 from masskit_ai.spectrum.spectrum_base_objects import SpectrumModel
-from . import algos
-
+try:
+    from masskit_ai.mol.small.models import algos
+except ImportError:
+    pass
 from omegaconf import DictConfig
 
 logger = logging.getLogger(__name__)

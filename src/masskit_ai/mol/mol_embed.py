@@ -2,7 +2,10 @@ import numpy as np
 import torch
 import logging
 from masskit_ai.embed import Embed
-from masskit_ai.mol.small.models import algos
+try:
+    from masskit_ai.mol.small.models import algos
+except ImportError:
+    pass
 from masskit_ai.mol.small.models import path_utils
 
 
