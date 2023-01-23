@@ -84,6 +84,7 @@ class PropPredictor(SpectrumModel):
         mol_h = self.aggregate_atom_h(atom_h, scope)
         mol_h = nn.ReLU()(self.W_p_h(mol_h))
         mol_o = self.W_p_o(mol_h)
+        mol_o = mol_o.squeeze(-1)
 
         if not output_attn:
             return ModelOutput(mol_o)

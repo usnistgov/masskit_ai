@@ -1,5 +1,7 @@
 # path augmented transformer property predictor
-
+#  -cuda -data data/mainlib2020 -loss_type mae -max_grad_norm 10 -batch_size 50 -num_epochs 100 
+# -output_dir output_test/$SLURM_JOB_NAME -n_rounds 5 -model_type transformer -hidden_size 160 -p_embed -ring_embed
+# -max_path_length 3 -lr 5e-4 -no_share -n_heads 1 -d_k 160 -dropout 0.2 
 PropPredictor:
   hidden_size: 160
   agg_func: sum
@@ -7,7 +9,7 @@ PropPredictor:
   d_k: 160
   no_share: True
   depth: 5
-  dropout: 0.0
+  dropout: 0.2
   self_attn: False
   mask_neigh: False
   max_path_length: 3
