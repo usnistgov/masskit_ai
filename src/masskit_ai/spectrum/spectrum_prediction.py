@@ -1,5 +1,4 @@
 import copy
-
 import numpy as np
 import torch
 from masskit.spectrum.spectrum import HiResSpectrum, MassInfo, AccumulatorSpectrum
@@ -7,39 +6,8 @@ from masskit_ai.spectrum.spectrum_datasets import TandemDataframeDataset
 from masskit_ai.spectrum.spectrum_lightning import SpectrumDataModule
 
 
-# todo: this class was added for backward compatibility when loading jsonpickle.  remove in future version.
-class PredictedSpectrum(AccumulatorSpectrum):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-
-def apply_dropout(model):
-    """
-    for use by torch apply to turn on dropout in a model in eval mode.
-
-    :param model: the model
-    """
-    if type(model) == torch.nn.Dropout:
-        model.train()
-
-
-def prep_model_for_prediction(model, dropout=False, cpu=False):
-    """
-    prepare the model for inference
-
-    :param model: the model
-    :param dropout: should dropout be turned on?
-    :param model: place model on cpu?
-    """
-    if cpu:
-        model.cpu()
-    model.eval()  # eval mode turns off training flag in all layers of model
-    if dropout:  # optionally turn dropout back on
-        model.model.apply(apply_dropout)
-
-
 def create_prediction_dataset(model, set_to_load='test', dataloader='TandemArrowDataset', num=0, copy_annotations=True,
-                              predicted_spectrum_column='predicted_spectrum', return_singleton=True):
+                              predicted_column='predicted_spectrum', return_singleton=True, **kwargs):
     """
     Create pandas dataframe(s) that contains experimental spectra and can be used for predicting spectra
     each dataframe corresponds to a single validation/test/train set.
@@ -49,7 +17,7 @@ def create_prediction_dataset(model, set_to_load='test', dataloader='TandemArrow
     :param model: the model to use to predict spectrum
     :param num: the number of spectra to predict (0 = all)
     :param copy_annotations: copy annotations and precursor from experimental spectra to predicted spectra
-    :param predicted_spectrum_column: name of the column containing the predicted spectrum
+    :param predicted_column: name of the column containing the predicted spectrum
     :param return_singleton: if there is only one dataframe, don't return lists
     :return: list of dataframes for doing predictions, list of dataset objects
     """
@@ -61,17 +29,17 @@ def create_prediction_dataset(model, set_to_load='test', dataloader='TandemArrow
     loaders = SpectrumDataModule(model.config).create_loader(set_to_load)
     if isinstance(loaders, list):
         dfs = [x.dataset.to_pandas() for x in loaders]
-        datasets = [x.dataset for x in loaders]
+        datasets = loaders
     else:
         dfs = [loaders.dataset.to_pandas()]
-        datasets = [loaders.dataset]
+        datasets = [loaders]
     # truncate list of spectra if requested
     if num > 0:
         for i in range(len(dfs)):
             dfs[i] = dfs[i].drop(dfs[i].index[num:])
     # the final predicted spectra.  Will be a consensus of predicted_spectrum_list
     for df in dfs:
-        df[predicted_spectrum_column] = [
+        df[predicted_column] = [
             AccumulatorSpectrum(mz=mz, tolerance=tolerance)
             for _ in range(len(df.index))
         ]
@@ -81,8 +49,8 @@ def create_prediction_dataset(model, set_to_load='test', dataloader='TandemArrow
         # copy annotations and precursor
         if copy_annotations:
             for row in df.itertuples():
-                getattr(row, predicted_spectrum_column).precursor = copy.deepcopy(row.spectrum.precursor)
-                getattr(row, predicted_spectrum_column).props = copy.deepcopy(row.spectrum.props)
+                getattr(row, predicted_column).precursor = copy.deepcopy(row.spectrum.precursor)
+                getattr(row, predicted_column).props = copy.deepcopy(row.spectrum.props)
 
     if return_singleton and len(dfs) == 1:
         return dfs[0], datasets[0]
@@ -90,7 +58,7 @@ def create_prediction_dataset(model, set_to_load='test', dataloader='TandemArrow
         return dfs, datasets
 
 def create_prediction_dataset_from_hitlist(model, hitlist, experimental_tablemap, set_to_load='test', num=0, copy_annotations=False,
-                              predicted_spectrum_column='predicted_spectrum', return_singleton=True,
+                              predicted_column='predicted_spectrum', return_singleton=True, **kwargs
                               ):
     """
     Create pandas dataframe(s) that contains experimental spectra and can be used for predicting spectra
@@ -102,7 +70,7 @@ def create_prediction_dataset_from_hitlist(model, hitlist, experimental_tablemap
     :param experimental_spectra: TableMap containing the experimental spectra, used to get eV
     :param num: the number of spectra to predict (0 = all)
     :param copy_annotations: copy annotations and precursor from experimental spectra to predicted spectra
-    :param predicted_spectrum_column: name of the column containing the predicted spectrum
+    :param predicted_column: name of the column containing the predicted spectrum
     :param return_singleton: if there is only one dataframe, don't return lists
     :return: list of dataframes for doing predictions, list of dataset objects
     """
@@ -114,7 +82,7 @@ def create_prediction_dataset_from_hitlist(model, hitlist, experimental_tablemap
     if num > 0:
         df = df.drop(df.index[num:])
     # the final predicted spectra.  Will be a consensus of predicted_spectrum_list
-    df[predicted_spectrum_column] = [
+    df[predicted_column] = [
         AccumulatorSpectrum(mz=mz, tolerance=tolerance)
         for _ in range(len(df.index))
         ]
@@ -128,19 +96,19 @@ def create_prediction_dataset_from_hitlist(model, hitlist, experimental_tablemap
         # change to use tablemap and insert experimental spectrum
     if copy_annotations:
         for row in df.itertuples():
-            getattr(row, predicted_spectrum_column).precursor = copy.deepcopy(row.spectrum.precursor)
-            getattr(row, predicted_spectrum_column).props = copy.deepcopy(row.spectrum.props)
+            getattr(row, predicted_column).precursor = copy.deepcopy(row.spectrum.precursor)
+            getattr(row, predicted_column).props = copy.deepcopy(row.spectrum.props)
     else:
         for row in df.itertuples():
             # copy the precursor but set the props from columns
-            getattr(row, predicted_spectrum_column).precursor = copy.deepcopy(row.spectrum.precursor)
-            getattr(row, predicted_spectrum_column).charge = row.charge
-            getattr(row, predicted_spectrum_column).mod_names = copy.deepcopy(row.mod_names)
-            getattr(row, predicted_spectrum_column).mod_positions = copy.deepcopy(row.mod_positions)
-            getattr(row, predicted_spectrum_column).peptide = copy.deepcopy(row.peptide)
-            getattr(row, predicted_spectrum_column).peptide_len = len(row.peptide)
-            getattr(row, predicted_spectrum_column).ev = row.ev
-            getattr(row, predicted_spectrum_column).nce = row.nce
+            getattr(row, predicted_column).precursor = copy.deepcopy(row.spectrum.precursor)
+            getattr(row, predicted_column).charge = row.charge
+            getattr(row, predicted_column).mod_names = copy.deepcopy(row.mod_names)
+            getattr(row, predicted_column).mod_positions = copy.deepcopy(row.mod_positions)
+            getattr(row, predicted_column).peptide = copy.deepcopy(row.peptide)
+            getattr(row, predicted_column).peptide_len = len(row.peptide)
+            getattr(row, predicted_column).ev = row.ev
+            getattr(row, predicted_column).nce = row.nce
 
     
     dataset = TandemDataframeDataset(df, model.config, set_to_load)
@@ -151,8 +119,8 @@ def create_prediction_dataset_from_hitlist(model, hitlist, experimental_tablemap
         return [df], [dataset]
 
 
-def single_spectrum_prediction(model, dataset_element, max_intensity_in=999, cpu=False,
-                               take_sqrt=False, l2norm=False):
+def single_spectrum_prediction(model, dataset_element, max_intensity_in=999, device=None,
+                               take_sqrt=False, l2norm=False, **kwargs):
     """
     predict a single spectrum
 
@@ -169,8 +137,8 @@ def single_spectrum_prediction(model, dataset_element, max_intensity_in=999, cpu
     mz, tolerance = create_mz_tolerance(model)
     
     with torch.no_grad():
-        if cpu:
-            value = torch.unsqueeze(dataset_element.x, dim=0).cpu()
+        if device is not None:
+            value = torch.unsqueeze(dataset_element.x, dim=0).to(device=device)
         else:
             value = torch.unsqueeze(dataset_element.x, dim=0)
         output = model(dataset_element._replace(x=value))
@@ -202,23 +170,23 @@ def create_mz_tolerance(model):
     return mz, tolerance
 
 
-def finalize_prediction_dataset(df, predicted_spectrum_column='predicted_spectrum', min_intensity=0.1, mz_window=7,
-                                max_mz=0, min_mz=0):
+def finalize_prediction_dataset(df, predicted_column='predicted_spectrum', min_intensity=0.1, mz_window=7,
+                                max_mz=0, min_mz=0, **kwargs):
     """
     do final processing on the predicted spectra
 
     :param df: dataframe containing spectra
-    :param predicted_spectrum_column:  name of the predicted spectrum column
+    :param predicted_column:  name of the predicted spectrum column
     :param min_intensity: the minimum intensity of the predicted spectra
     :param mz_window: half size of mz_window for filtering.  0 = no filtering
     :param max_mz: maximum mz value for calculating cosine score.  0 means don't filter
     :param min_mz: the minimum mz value for calculation the cosine score
     """
     for j in range(len(df.index)):
-        df[predicted_spectrum_column].iat[j].finalize()
-        df[predicted_spectrum_column].iat[j].props = copy.deepcopy(df["spectrum"].iat[j].props)
-        df[predicted_spectrum_column].iat[j].precursor = copy.deepcopy(df["spectrum"].iat[j].precursor)
-        df[predicted_spectrum_column].iat[j].filter(min_intensity=min_intensity, inplace=True)
-        df[predicted_spectrum_column].iat[j].products.windowed_filter(inplace=True, mz_window=mz_window)
+        df[predicted_column].iat[j].finalize()
+        df[predicted_column].iat[j].props = copy.deepcopy(df["spectrum"].iat[j].props)
+        df[predicted_column].iat[j].precursor = copy.deepcopy(df["spectrum"].iat[j].precursor)
+        df[predicted_column].iat[j].filter(min_intensity=min_intensity, inplace=True)
+        df[predicted_column].iat[j].products.windowed_filter(inplace=True, mz_window=mz_window)
         df["cosine_score"].iat[j] = df["spectrum"].iat[j].cosine_score(
-            df[predicted_spectrum_column].iat[j].filter(max_mz=max_mz, min_mz=min_mz), tiebreaker='mz')
+            df[predicted_column].iat[j].filter(max_mz=max_mz, min_mz=min_mz), tiebreaker='mz')

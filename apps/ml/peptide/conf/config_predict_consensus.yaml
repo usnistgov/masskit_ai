@@ -44,7 +44,7 @@ min_mz: 28 # minimum mz used to calculate the cosine score
 min_intensity: 0.1 # minimum intensity of predicted spectrum (out of 999)
 mz_window: 7  # window size for windowed noise filter.  0 = don't filter
 l2norm: False  # L2 normalize the predicted spectra
-predicted_spectrum_column: predicted_spectrum
+predicted_column: predicted_spectrum
 upres: True  # up resolution peptide spectra
 output_prefix: ${now:%Y-%m-%d}_predict_consensus  # name of the output file
 output_suffixes:  # different file types to write out

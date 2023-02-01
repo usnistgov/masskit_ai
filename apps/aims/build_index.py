@@ -11,7 +11,7 @@ create index for spectral searching
 """
 
 
-@hydra.main(config_path="conf", config_name="config_build")
+@hydra.main(config_path="conf", config_name="config_build", version_base=None)
 def build_index_app(config: DictConfig) -> None:
 
     # load the library as a LibraryMap

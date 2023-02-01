@@ -7,9 +7,9 @@ from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
 import hydra
 from omegaconf import DictConfig, open_dict
 from masskit_ai.spectrum.spectrum_prediction import (
-    create_prediction_dataset,
     create_prediction_dataset_from_hitlist,
-    single_spectrum_prediction, prep_model_for_prediction, finalize_prediction_dataset, )
+    single_spectrum_prediction, finalize_prediction_dataset, )
+from masskit_ai.prediction import prep_model_for_prediction
 from masskit_ai.spectrum.peptide.peptide_prediction import upres_peptide_spectra
 from tqdm import tqdm
 import pytorch_lightning as pl
@@ -25,7 +25,7 @@ todo:
 """
 
 
-@hydra.main(config_path="conf", config_name="config_predict_hitlist")
+@hydra.main(config_path="conf", config_name="config_predict_hitlist", version_base=None)
 def main(config):
 
     pl.seed_everything(config.setup.reproducable_seed)
@@ -57,7 +57,7 @@ def main(config):
                                                                    set_to_load=config.set_to_load,
                                                                    num=config.num,
                                                                    copy_annotations=False,
-                                                                   predicted_spectrum_column=config.predicted_spectrum_column, 
+                                                                   predicted_column=config.predicted_column, 
                                                                    return_singleton=True
                                                                    )
             first_model = False
@@ -68,18 +68,18 @@ def main(config):
             # predict spectra with multiple draws
             for _ in range(config.model_draws):
                 new_spectrum = single_spectrum_prediction(model, dataset[k], take_sqrt=config.ms.take_sqrt, l2norm=config.get('l2norm', False))
-                df[config.predicted_spectrum_column].iat[k].add(new_spectrum)
+                df[config.predicted_column].iat[k].add(new_spectrum)
 
         # create the consensus, including stddev
     finalize_prediction_dataset(df, 
-                                predicted_spectrum_column=config.predicted_spectrum_column,
+                                predicted_column=config.predicted_column,
                                 min_intensity=config.min_intensity, 
                                 mz_window=config.mz_window,
                                 max_mz=max_mz, 
                                 min_mz=config.min_mz
                                 )
     if config.get("upres", False):
-        upres_peptide_spectra(df, predicted_spectrum_column=config.predicted_spectrum_column, max_mz=max_mz, min_mz=config.min_mz)
+        upres_peptide_spectra(df, predicted_column=config.predicted_column, max_mz=max_mz, min_mz=config.min_mz)
 
     hitlist = Hitlist(df) 
     PeptideIdentityScore().score(hitlist)

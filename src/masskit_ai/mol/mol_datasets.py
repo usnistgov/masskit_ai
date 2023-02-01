@@ -253,6 +253,8 @@ def patn_collator(config):
         # batch_path_masks = batch_path_masks.to(device=device)
         mol_graphs = mol_graph.MolGraph(batch_mols, batch_path_inputs, batch_path_masks)
         # todo: get rid of normalization hack
+        if y[0] == None:
+            y = (0.0,)
         y = torch.tensor(y, dtype=torch.float32, device=device)/10000.0
         index = torch.tensor(index, dtype=torch.int64, device=device)
         return ModelInput(x=mol_graphs, y=y, index=index)

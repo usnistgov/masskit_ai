@@ -13,7 +13,7 @@ Use an ML model to create a feature vector column in a parquet file
 """
 
 
-@hydra.main(config_path="conf", config_name="config_create")
+@hydra.main(config_path="conf", config_name="config_create", version_base=None)
 def create_feature_vector_app(config):
     
     # Allow files relative to original execution directory

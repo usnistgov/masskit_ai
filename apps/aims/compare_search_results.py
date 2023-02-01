@@ -9,7 +9,7 @@ compare search results for two searches
 """
 
 
-@hydra.main(config_path="conf", config_name="config_compare")
+@hydra.main(config_path="conf", config_name="config_compare", version_base=None)
 def compare_search_results_app(config: DictConfig) -> None:
 
     compare_hitlist = Hitlist().load(config.input.comparison.file)

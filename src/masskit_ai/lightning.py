@@ -188,3 +188,20 @@ class XORDataModule(BaseDataModule):
             worker_init_fn=self.worker_init_fn,
             pin_memory=self.config.ml.get('pin_memory', True)
         )
+
+def setup_datamodule(config):
+    """
+    set up a datamodule from config using specified collate_fn factory
+    
+    :param config: configuration
+    """
+    collate_fn_factory = class_for_name(config.paths.modules.dataloaders, config.ms.get('collate_fn_factory', None))
+    if collate_fn_factory is not None:
+        collate_fn = collate_fn_factory(config)
+    else:
+        collate_fn = None
+    loader = class_for_name(config.paths.modules.datamodules,
+                                config.ms.datamodule)(config, collate_fn=collate_fn)
+                            
+    return loader
+

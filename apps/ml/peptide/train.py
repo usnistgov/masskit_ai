@@ -6,6 +6,7 @@ import torch
 import pyarrow as pa
 from pyarrow import plasma
 from masskit.utils.general import class_for_name
+from masskit_ai.lightning import setup_datamodule
 from masskit_ai.loggers import filter_pytorch_lightning_warnings, MSMLFlowLogger
 from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
 from omegaconf import DictConfig, open_dict
@@ -107,13 +108,7 @@ def main(config: DictConfig):
         create_experiment_name(config)
 
         # set up data loader and model
-        collate_fn_factory = class_for_name(config.paths.modules.dataloaders, config.ms.get('collate_fn_factory', None))
-        if collate_fn_factory is not None:
-            collate_fn = collate_fn_factory(config)
-        else:
-            collate_fn = None
-        loader = class_for_name(config.paths.modules.datamodules,
-                                config.ms.datamodule)(config, collate_fn=collate_fn)
+        loader = setup_datamodule(config)
         # set up lightning module
         lightning_module = class_for_name(config.paths.modules.lightning_modules,
                                 config.ms.get("lightning_module", "SpectrumLightningModule"))
@@ -181,7 +176,6 @@ def main(config: DictConfig):
             logger.close(artifacts=artifacts)
 
     logging.info(f"elapsed wall clock time={time.time() - start_time} sec")
-
 
 if __name__ == "__main__":
     filter_pytorch_lightning_warnings()

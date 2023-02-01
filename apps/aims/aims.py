@@ -22,7 +22,7 @@ from the first search.
 """
 
 
-@hydra.main(config_path="conf", config_name="config")
+@hydra.main(config_path="conf", config_name="config", version_base=None)
 def aims_app(config: DictConfig) -> None:
     # Allow files relative to original execution directory
     search_file = to_absolute_path(config.input.search.file)

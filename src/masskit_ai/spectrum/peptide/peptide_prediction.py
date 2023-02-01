@@ -25,14 +25,14 @@ def upres_peptide_spectrum(predicted_spectrum, theoretical_spectrum):
     predicted_spectrum.precursor_mass_info = copy.deepcopy(theoretical_spectrum.precursor.mass_info)
     
     
-def upres_peptide_spectra(df, predicted_spectrum_column=None, theoretical_spectrum_column=None, ion_types=None,
+def upres_peptide_spectra(df, predicted_column=None, theoretical_spectrum_column=None, ion_types=None,
                           max_mz=0, min_mz=0):
     """
     take a dataframe with predicted spectra, generate matching theoretical spectra, and upres
     matching peaks 
 
     :param df: the dataframe
-    :param predicted_spectrum_column: name of the column containing predicted spectra, defaults to None
+    :param predicted_column: name of the column containing predicted spectra, defaults to None
     :param theoretical_spectrum_column: name of the column to contain theoretical spectra, defaults to None
     :param ion_types: ion types to use when generating theoretical spectra, defaults to None
     :param max_mz: maximum mz value for calculating cosine score.  0 means don't filter
@@ -40,14 +40,14 @@ def upres_peptide_spectra(df, predicted_spectrum_column=None, theoretical_spectr
     """
     if theoretical_spectrum_column is None:
         theoretical_spectrum_column = "theoretical_spectrum"
-    if predicted_spectrum_column is None:
-        predicted_spectrum_column = "predicted_spectrum"
+    if predicted_column is None:
+        predicted_column = "predicted_spectrum"
         
     add_theoretical_spectra(df, theoretical_spectrum_column=theoretical_spectrum_column, ion_types=ion_types)
     
     for j in range(len(df.index)):
-        upres_peptide_spectrum(df[predicted_spectrum_column].iat[j], df[theoretical_spectrum_column].iat[j])
+        upres_peptide_spectrum(df[predicted_column].iat[j], df[theoretical_spectrum_column].iat[j])
         df["cosine_score"].iat[j] = df["spectrum"].iat[j].cosine_score(
-            df[predicted_spectrum_column].iat[j].filter(max_mz=max_mz, min_mz=min_mz), tiebreaker='mz')
+            df[predicted_column].iat[j].filter(max_mz=max_mz, min_mz=min_mz), tiebreaker='mz')
 
 

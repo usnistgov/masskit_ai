@@ -10,7 +10,7 @@ command line for creating a theoretical peptide spectra library for pretraining
 """
 
 
-@hydra.main(config_path="conf", config_name="config_predict")
+@hydra.main(config_path="conf", config_name="config_predict", version_base=None)
 def main(config):
 
     df = generate_peptide_library(num=config.num, min_length=config.min_length, max_length=config.max_length,

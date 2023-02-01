@@ -52,3 +52,6 @@ modules:
   samplers:
     - masskit_ai.samplers
     - masskit_ai.spectrum.peptide.peptide_samplers
+  prediction:
+    - masskit_ai.spectrum.spectrum_prediction
+    - masskit_ai.mol.mol_prediction
