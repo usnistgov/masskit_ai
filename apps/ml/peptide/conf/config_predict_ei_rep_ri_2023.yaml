@@ -7,7 +7,7 @@
 # in the case of predict.py, the defaults will replace the configuration stored with the model
 
 defaults:
-  - input: 2023_ei_ri # input data set
+  - input: 2023_ei_rep_ri # input data set
   - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
   - paths: standard  # places to look for data and code
   - ms: ei_ri  # mass spec parameters
@@ -42,7 +42,7 @@ model_draws: 1  # number of draws per model
 num: 0 # number of values to predict
 dropout: False  # turn on dropout
 predicted_column: predicted_ri
-output_prefix: ${oc.env:HOME}/data/nist/airi/predict_ei_ri_2023  # name of the output file
+output_prefix: ${oc.env:HOME}/data/nist/airi/predict_rep_ri_2023  # name of the output file
 output_suffixes:  # different file types to write out
   - pkl
   - csv

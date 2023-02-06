@@ -20,7 +20,11 @@
             "request": "launch",
             "cwd": "${workspaceFolder}/apps/ml/peptide",
             "program": "predict.py",
-            "args": ["--config-name","config_predict_ei_ri_2023","setup.num_workers=0"],
+            "args": [
+                "--config-name","config_predict_ei_ri_2023",
+                "setup.num_workers=0",
+                "num=100",
+            ],
             "console": "integratedTerminal",
             "justMyCode": true
         }
