@@ -1,5 +1,5 @@
 dataloader: MolPropDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
-datamodule: SpectrumDataModule
+datamodule: MasskitDataModule
 collate_fn_factory: patn_collator # closure to generate collate_fn that collates a batch
 # the columns to be loaded per data row in a Dataset
 columns:

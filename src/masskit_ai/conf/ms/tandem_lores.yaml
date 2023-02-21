@@ -3,7 +3,7 @@ bin_size: 0.1  # size of spectrum array bin in Daltons
 max_mz: 2000  # maximum mz value of spectrum array
 down_shift: 0.05  # shift m/z values downward by this value when creating spectrum array to center the bins
 dataloader: TandemArrowDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
-datamodule: SpectrumDataModule
+datamodule: MasskitDataModule
 take_max: False  # take the maximum intensity in each bin (otherwise use the sum)
 take_sqrt: False  # output of the model is the sqrt of the intensity
 # the columns to be loaded

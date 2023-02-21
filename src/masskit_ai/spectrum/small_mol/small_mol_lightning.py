@@ -2,16 +2,16 @@ from masskit.utils.general import class_for_name
 from omegaconf import ListConfig
 import torch
 from masskit_ai.base_objects import ModelInput, ModelOutput
-from masskit_ai.spectrum.spectrum_lightning import BaseSpectrumLightningModule, SpectrumDataModule, log_worker_start_spectrum
-import logging
+from masskit_ai.spectrum.spectrum_lightning import BaseSpectrumLightningModule
+from masskit_ai.lightning import log_worker_start, MasskitDataModule
 
 
-class SmallMolSearchDataModule(SpectrumDataModule):
+class SmallMolSearchDataModule(MasskitDataModule):
     """
     data loader for tandem small molecule search
     """
 
-    def __init__(self, config, worker_init_fn=log_worker_start_spectrum, *args, **kwargs):
+    def __init__(self, config, worker_init_fn=log_worker_start, *args, **kwargs):
         """
         :param config: config object
         :param worker_init_fn: function called to initialize each worker thread

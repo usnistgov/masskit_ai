@@ -3,7 +3,7 @@ import numpy as np
 import torch
 from masskit.spectrum.spectrum import HiResSpectrum, MassInfo, AccumulatorSpectrum
 from masskit_ai.spectrum.spectrum_datasets import TandemDataframeDataset
-from masskit_ai.spectrum.spectrum_lightning import SpectrumDataModule
+from masskit_ai.lightning import MasskitDataModule
 
 
 def create_prediction_dataset(model, set_to_load='test', dataloader='TandemArrowDataset', num=0, copy_annotations=True,
@@ -26,7 +26,7 @@ def create_prediction_dataset(model, set_to_load='test', dataloader='TandemArrow
     model.config.ms.columns = None
     mz, tolerance = create_mz_tolerance(model)
 
-    loaders = SpectrumDataModule(model.config).create_loader(set_to_load)
+    loaders = MasskitDataModule(model.config).create_loader(set_to_load)
     if isinstance(loaders, list):
         dfs = [x.dataset.to_pandas() for x in loaders]
         datasets = loaders

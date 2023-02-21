@@ -207,7 +207,7 @@ but then quickly filters it down to the subset that is needed.
     https://github.com/pytorch/pytorch/blob/e3d75b8475a1668a02ac4a23c160b7aee8ebb3d3/torch/csrc/api/src/data/samplers/distributed.cpp#L15
     https://github.com/pytorch/pytorch/blob/b2e79ed5ecabcf4be299dc2ed085223ab5c22fd7/torch/csrc/api/include/torch/data/samplers/distributed.h#L54
   - it doesn't appear that there is an easy way for the dataset to get the information in the sampler (or the
-   dataloader). This can be worked around in SpectrumDataModule.create_loader() where the sampler and dataset is created
+   dataloader). This can be worked around in MasskitDataModule.create_loader() where the sampler and dataset is created
    by creating a dict that matches worker_id to index start stop by examining the contents of each sampler
    private variable indices_.  This is suboptimal as this is a private value and may not even be available in python.
    dict is then passed to the sampler on construction. 
@@ -222,7 +222,7 @@ but then quickly filters it down to the subset that is needed.
   - table can be apparently loaded directly from plasma, e.g. table = plasma_client.get(table_id, timeout_ms=4000)
   - plan
     - create a subclass of BaseDataset that works the same way as TandemDataset
-    - create a variant of SpectrumDataModule in spectrum_lightning.py that has a with clause that starts up a plasma
+    - create a variant of MasskitDataModule in spectrum_lightning.py that has a with clause that starts up a plasma
       server.  Put the plasma socket into config.
     - question: is createloader called once?  if not, the plasma creation need to be moved elsewhere.
 """

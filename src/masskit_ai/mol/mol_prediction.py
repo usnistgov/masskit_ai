@@ -1,6 +1,5 @@
 import torch
 from masskit.accumulator import AccumulatorProperty
-from masskit_ai.spectrum.spectrum_lightning import SpectrumDataModule
 from masskit_ai.lightning import setup_datamodule
 
 

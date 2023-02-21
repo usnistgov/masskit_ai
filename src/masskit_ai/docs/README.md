@@ -170,7 +170,7 @@ ml.bayesian_network.sample_nbr.
         * configured using the hydra.DictConfig config.
       * loss_function: loss function derived from BaseLoss [masskit_ai/base_losses.py](../base_losses.py]),
         which is derived from torch.nn.Module. Takes the same namedtuples that are the input and output of the model.
-    * SpectrumDataModule [masskit_ai/spectrum/spectrum_lightning.py](../spectrum/spectrum_lightning.py) derived from 
+    * MasskitDataModule [masskit_ai/spectrum/spectrum_lightning.py](../spectrum/spectrum_lightning.py) derived from 
       pytorch_lightning.LightningDataModule.
       * creates TandemArrowDataset data loader [masskit_ai/spectrum/spectrum_datasets.py](../spectrum/spectrum_datasets.py) derived from BaseDataset,
         which in turn is derived from torch.utils.data.DataLoader.

@@ -5,7 +5,9 @@ from masskit_ai.mol.mol_datasets import MolPropDataset
 from hydra import compose, initialize
 from hydra.core.global_hydra import GlobalHydra
 import pytorch_lightning as pl
-from masskit_ai.spectrum.spectrum_lightning import SpectrumDataModule, SpectrumLightningModule
+from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
+from masskit_ai.lightning import MasskitDataModule
+
 
 @pytest.fixture()
 def config_ri():
