@@ -1,19 +1,10 @@
 import pytest
 from pytest import approx
-from pyarrow import plasma
 import pytorch_lightning as pl
 from masskit_ai.spectrum.small_mol.small_mol_lightning import SearchLightningModule, SmallMolSearchDataModule
 from masskit_ai.base_objects import ModelInput
-import builtins
 from hydra import compose, initialize
 from hydra.core.global_hydra import GlobalHydra
-
-
-@pytest.fixture(scope="session")
-def start_plasma():
-    with plasma.start_plasma_store(8000000000) as ps:
-        builtins.instance_settings = {'plasma': {'socket': ps[0], 'pid': ps[1].pid}}
-        yield ps
 
 @pytest.fixture()
 def config():
@@ -23,7 +14,7 @@ def config():
     return cfg
 
 @pytest.mark.skip(reason="need to set up to use test data and missing data/nist/tandem/SRM1950/SRM1950_lumos.ecfp4.pynndescent. also, uses gpu")
-def test_SearchLightningModule(config, start_plasma):
+def test_SearchLightningModule(config):
     model = SearchLightningModule(config)
     trainer = pl.Trainer(
         accelerator='gpu', 

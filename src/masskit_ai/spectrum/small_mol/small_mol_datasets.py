@@ -1,18 +1,12 @@
-from masskit.utils.arrow import load_from_plasma, save_to_plasma
 from masskit.utils.fingerprints import ECFPFingerprint
-from masskit.utils.hitlist import CosineScore, TanimotoScore
 import pyarrow as pa
-from pyarrow import plasma
-import pyarrow.parquet as pq
-import logging
 import numpy as np
 import torch
 from masskit.utils.index import ArrowLibraryMap, TanimotoIndex
 from masskit.data_specs.spectral_library import *
-from masskit.utils.general import class_for_name
 from masskit_ai.lightning import get_pytorch_ranks
-import builtins
 from masskit_ai.spectrum.spectrum_datasets import SpectrumDataset
+from masskit.utils.arrow import save_to_arrow
 
 """
 pytorch datasets for spectra.
@@ -62,9 +56,6 @@ class TandemArrowSearchDataset(SpectrumDataset):
         
         # filename of the search datastore
         self.store_search = store_search
-        # the search TableMap
-        self.data_search = None
-        # set up where clause
         
         if self.config.input[self.set_to_load].where is not None:
             self.filters = eval(self.config.input[self.set_to_load].where)
@@ -75,51 +66,50 @@ class TandemArrowSearchDataset(SpectrumDataset):
         else:
             self.filters_search = None
 
-        # plasma client
-        self.client = None
-        
+        self._data = None
+        self._data_search = None
+        self._index = None
+        self._row2id = None
+        self._row2id_search = None
+
         # if multiple nodes and gpus, slice the data with equal slices to each gpu
         is_parallel, world_rank, world_size, num_gpus, num_nodes, node_rank, local_rank, worker_id = get_pytorch_ranks()
         if is_parallel:
             raise NotImplementedError('distributed training not yet implemented')
         #    where += f" AND ROWID % {world_size} = {world_rank}"
 
-    def init_plasma(self):
-        """
-        used for lazy initialization of plasma client.  Since lightning copies dataset objects on forking, if a client is in
-        in the original process, then it will be deleted in the copied process when replaced with a new copy of the client
-        causing the any corresponding objects in the plasma store to be deleted as they are refcounted by connection.  So
-        we only create the client when we need to get the data.
-        """
-        if "instance_settings" in dir(builtins) and 'plasma' in builtins.instance_settings and 'socket' in builtins.instance_settings['plasma']:
-            self.client  = plasma.connect(builtins.instance_settings['plasma']['socket'])
+    @property
+    def data(self):
+        if self._data is None:
+            table = save_to_arrow(self.store, columns=self.columns, filters=self.filters)
+            self._data = ArrowLibraryMap(table)
+        return self._data
+    
+    @property
+    def data_search(self):
+        if self._data_search is None:
+            table = save_to_arrow(self.store_search, columns=self.columns, filters=self.filters_search)
+            self._data_search = ArrowLibraryMap(table)
+        return self._data_search
 
-            data_out = save_to_plasma(self.client, self.store, self.columns, self.filters)
-            if data_out:
-                self.data = data_out
-            else:
-                logging.info("init TandemArrowDataset without loading from plasma")
-            
-            data_out = save_to_plasma(self.client, self.store_search, self.columns, self.filters_search)
-            if data_out:
-                self.data_search = data_out
-            else:
-                logging.info("init TandemArrowDataset without loading from plasma")    
-                
-        else:
-            self.data = ArrowLibraryMap.from_parquet(self.store, columns=self.columns, filters=self.filters)
-            self.data_search = ArrowLibraryMap.from_parquet(self.store_search, columns=self.columns, filters=self.filters_search)
+    @property
+    def index(self):
+        if self._index is None:
+            self._index = TanimotoIndex(fingerprint_factory=ECFPFingerprint)
+            self._index.load(self.config.input[self.set_to_load].spectral_library_search_index)
+        return self._index
 
-        # initialize the search index
-        
-        # ${env:HOME}/data/nist/ei/2020/mainlib_2020.ecfp4.tani.npy
-        # mainlib_2020.ecfp4.tani
-        self.index = TanimotoIndex(fingerprint_factory=ECFPFingerprint)
-        self.index.load(self.config.input[self.set_to_load].spectral_library_search_index)
-        
-        # need id list without filters to convert row hits found in DescentIndex into ids
-        self.row2id = pq.read_table(self.store, columns=['id'])['id'].to_numpy()
-        self.row2id_search = pq.read_table(self.store_search, columns=['id'])['id'].to_numpy()
+    @property
+    def row2id(self):
+        if self._row2id is None:
+            self._row2id = self.data.to_arrow()['id'].to_numpy()
+        return self._row2id
+    
+    @property
+    def row2id_search(self):
+        if self._row2id_search is None:
+            self._row2id_search = self.data_search.to_arrow()['id'].to_numpy()
+        return self._row2id_search
 
     def __len__(self) -> int:
         """
@@ -128,11 +118,6 @@ class TandemArrowSearchDataset(SpectrumDataset):
 
         :return: number of rows (which is the number of queries)
         """
-        # we do lazy initialization of the plasma client due to the copying lightning does of datasets
-        if self.client is None:
-            id_list = pq.read_table(self.store, columns=['id'], filters=self.filters)
-            return len(id_list)
-
         return len(self.data)
 
     def get_data_row(self, index):
@@ -146,9 +131,6 @@ class TandemArrowSearchDataset(SpectrumDataset):
         - query and hit are spectra, tanimoto is float
         - 
         """
-        # we do lazy initialization of the plasma client due to the copying lightning does of datasets
-        if self.client is None:
-            self.init_plasma()
         # get fingerprint from store
         query = self.data.getitem_by_row(index)
         fp = query['ecfp4']

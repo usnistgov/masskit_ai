@@ -1,17 +1,8 @@
 import pytest
 from pytest import approx
-from pyarrow import plasma
 from masskit_ai.spectrum.small_mol.small_mol_datasets import TandemArrowSearchDataset
-import builtins
 from hydra import compose, initialize
 from hydra.core.global_hydra import GlobalHydra
-
-
-@pytest.fixture(scope="session")
-def start_plasma():
-    with plasma.start_plasma_store(1000000000) as ps:
-        builtins.instance_settings = {'plasma': {'socket': ps[0], 'pid': ps[1].pid}}
-        yield ps
 
 @pytest.fixture()
 def config():
@@ -21,7 +12,7 @@ def config():
     return cfg
 
 @pytest.mark.skip(reason="needs data/nist/tandem/SRM1950/SRM1950_lumos.ecfp4.pynndescent")
-def test_TandemArrowSearchDataset(config, start_plasma):
+def test_TandemArrowSearchDataset(config):
     ds = TandemArrowSearchDataset('libraries/tests/data/SRM1950_lumos.parquet', config, 'test',
                                   store_search='libraries/tests/data/SRM1950_lumos.parquet')
     row_with_hits = ds.get_data_row(0)

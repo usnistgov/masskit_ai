@@ -1,15 +1,10 @@
-from masskit.utils.arrow import save_to_plasma
-from pyarrow import plasma
 import pyarrow.parquet as pq
-import logging
 import numpy as np
 import torch
-from masskit.utils.index import ArrowLibraryMap
 from masskit_ai.base_datasets import BaseDataset, DataframeDataset
 from masskit.data_specs.spectral_library import *
-from masskit.utils.general import class_for_name
 from masskit_ai.lightning import get_pytorch_ranks
-import builtins
+from masskit.utils.arrow import save_to_arrow
 
 """
 pytorch datasets for spectra.
@@ -102,34 +97,11 @@ class TandemArrowDataset(SpectrumDataset):
         else:
             self.filters = None
 
-        # plasma client
-        self.client = None
-
         # if multiple nodes and gpus, slice the data with equal slices to each gpu
         is_parallel, world_rank, world_size, num_gpus, num_nodes, node_rank, local_rank, worker_id = get_pytorch_ranks()
         if is_parallel:
             raise NotImplementedError('distributed training not yet implemented')
         #    where += f" AND ROWID % {world_size} = {world_rank}"
-
-    def init_plasma(self):
-        """
-        used for lazy initialization of plasma client.  Since lightning copies dataset objects on forking, if a client is in
-        in the original process, then it will be deleted in the copied process when replaced with a new copy of the client
-        causing the any corresponding objects in the plasma store to be deleted as they are refcounted by connection.  So
-        we only create the client when we need to get the data.
-        """
-        if "instance_settings" in dir(builtins) and 'plasma' in builtins.instance_settings and 'socket' in builtins.instance_settings['plasma']:
-            self.client  = plasma.connect(builtins.instance_settings['plasma']['socket'])
-
-            data_out = save_to_plasma(self.client, self.store, self.columns, self.filters)
-            if data_out:
-                self.data = data_out
-            else:
-                logging.info("init TandemArrowDataset without loading from plasma")
-                            
-        else:
-            self.client = self.store
-            self.data = ArrowLibraryMap.from_parquet(self.store, columns=self.columns, filters=self.filters)
 
     def get_column(self, column):
         """
@@ -147,23 +119,13 @@ class TandemArrowDataset(SpectrumDataset):
 
         :return: number of rows
         """
-        if self.client is None:
-            id_list = pq.read_table(self.store, columns=['id'], filters=self.filters)
-            return len(id_list)
-
         return len(self.data)
 
     @property
     def data(self):
-        if self.client is None:
-            self.init_plasma()
+        if self._data is None:
+            self._data = save_to_arrow(self.store, columns=self.columns, filters=self.filters)
         return self._data
-
-    @data.setter
-    def data(self, value):
-        if self.client is None:
-            self.init_plasma()
-        self._data = value
         
     def to_pandas(self):
         return self.data.to_pandas()
@@ -213,17 +175,5 @@ but then quickly filters it down to the subset that is needed.
    dict is then passed to the sampler on construction. 
   - it's still not clear where the sampler is set up to get the right indices per worker. I don't see how it can be in
     create_loader().  Is the sampler adjusted after the fact?
-- due to the above problem, we likely have to resort to a plasma store, see
-  https://github.com/apache/arrow/blob/master/python/examples/plasma/sorting/sort_df.py
-  for an example.  The plasma store will hold a shared memory copy of the pyarrow table.
-  - note that there has to be one plasma store per compute node (or perhaps per GPU)
-  - see https://github.com/apache/arrow/blob/72c71a1b44ec35f1c5575cac6c8e096f12b40973/python/pyarrow/plasma.py#L82
-    how to start plasma from python.  Note that you should use a with statement to ensure cleanup
-  - table can be apparently loaded directly from plasma, e.g. table = plasma_client.get(table_id, timeout_ms=4000)
-  - plan
-    - create a subclass of BaseDataset that works the same way as TandemDataset
-    - create a variant of MasskitDataModule in spectrum_lightning.py that has a with clause that starts up a plasma
-      server.  Put the plasma socket into config.
-    - question: is createloader called once?  if not, the plasma creation need to be moved elsewhere.
 """
 

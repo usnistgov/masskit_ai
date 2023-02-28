@@ -1,24 +1,11 @@
 import pytest
 from pytest import approx
-import numpy as np
-import pyarrow.parquet as pq
-from pyarrow import plasma
 from masskit_ai.spectrum.small_mol.small_mol_datasets import TandemArrowSearchDataset
 from masskit_ai.spectrum.small_mol.models.small_mol_models import *
 import torch
 from masskit_ai.base_objects import ModelInput
-from masskit_ai.spectrum.spectrum_datasets import TandemArrowDataset
-import builtins
 from hydra import compose, initialize
 from hydra.core.global_hydra import GlobalHydra
-from omegaconf import OmegaConf
-
-
-@pytest.fixture(scope="session")
-def start_plasma():
-    with plasma.start_plasma_store(1000000000) as ps:
-        builtins.instance_settings = {'plasma': {'socket': ps[0], 'pid': ps[1].pid}}
-        yield ps
 
 @pytest.fixture()
 def config():
@@ -28,7 +15,7 @@ def config():
     return cfg
 
 @pytest.fixture()
-def ds(config, start_plasma):
+def ds(config):
     ds = TandemArrowSearchDataset('data/nist/tandem/srm/1950/SRM1950_lumos.parquet', config, 'test',
                                 store_search='libraries/tests/data/SRM1950_lumos.parquet')
     return ds

@@ -1,4 +1,3 @@
-from abc import abstractmethod
 import torch
 from masskit.utils.arrow import save_to_arrow
 from masskit_ai.base_datasets import BaseDataset

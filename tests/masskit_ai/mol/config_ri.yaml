@@ -29,11 +29,6 @@ hydra:
   job:
     chdir: True
 
-# turn off plasma
-setup:
-  plasma:
-    size: 100000
-
 ml:
   batch_size: 50
   transfer_learning: False  # perform transfer learning if input.checkpoint_in is set
