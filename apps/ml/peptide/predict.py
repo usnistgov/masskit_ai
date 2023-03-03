@@ -5,7 +5,6 @@ from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
 import hydra
 from masskit_ai.prediction import prep_model_for_prediction
 from masskit_ai.spectrum.peptide.peptide_prediction import upres_peptide_spectra
-import builtins
 import pytorch_lightning as pl
 from masskit.utils.files import spectra_to_array
 import pyarrow.parquet as pq

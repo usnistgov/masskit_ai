@@ -7,7 +7,7 @@
 # in the case of predict.py, the defaults will replace the configuration stored with the model
 
 defaults:
-  - input: 2022-09-22_consensus # input data set
+  - input: 2022_consensus # input data set
   - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
   - paths: standard  # places to look for data and code
   - ms: tandem  # mass spec parameters
@@ -37,7 +37,7 @@ model_ensemble:
   - ${oc.env:HOME}/data/nist/aiomics/models/lyg_consensus_a8ce50c4a7fd48b1801369b421f75e24_val_loss=-0.8458_epoch=052.ckpt
   - ${oc.env:HOME}/data/nist/aiomics/models/lyg_consensus_cad2758d28814053ab3156430b14b0ec_val_loss=-0.8484_epoch=053.ckpt
 model_draws: 1  # number of draws per model
-hitlist_in: ${oc.env:HOME}/data/nist/aiomics/mq/test_combined_hitlist.pkl
+hitlist_in: ${oc.env:HOME}/data/nist/rebuttal/rebuttal_test_hitlist.pkl
 num: 0  # number of spectra to predict
 dropout: False  # turn on dropout
 min_mz: 28 # minimum mz used to calculate the cosine score
@@ -46,8 +46,8 @@ mz_window: 7  # window size for windowed noise filter.  0 = don't filter
 l2norm: False  # L2 normalize the predicted spectra
 predicted_column: predicted_spectrum
 upres: True  # up resolution peptide spectra
-output_prefix: ${oc.env:HOME}/data/nist/aiomics/mq/${now:%Y-%m-%d}_consensus_valid_combined_hitlist  # name of the output file
-set_to_load: valid  # data set to do predictions on
+output_prefix: ${oc.env:HOME}/data/nist/rebuttal/rebuttal_test_hitlist_predicted  # name of the output file
+set_to_load: test  # data set to do predictions on
 
 
 # Information
