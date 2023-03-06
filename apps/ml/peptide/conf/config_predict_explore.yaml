@@ -39,7 +39,7 @@ mz_window: 7  # window size for windowed noise filter.  0 = don't filter
 l2norm: False  # L2 normalize the predicted spectra
 predicted_column: predicted_spectrum
 upres: True  # up resolution peptide spectra
-output_prefix: ${oc.env:HOME}/data/nist/rebuttal/rebuttal_test  # name of the output file
+output_prefix: ${oc.env:HOME}/data/nist/aiomics/rebuttal/rebuttal_test  # name of the output file
 output_suffixes:  # different file types to write out
   - pkl
   - csv

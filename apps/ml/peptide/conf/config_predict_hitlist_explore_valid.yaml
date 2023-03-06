@@ -30,7 +30,7 @@ hydra:
 model_ensemble:
   - ${oc.env:HOME}/data/nist/aiomics/models/lyg_rebuttal_166c872328264874a818bd1f4ad178ac_val_loss=-0.8471_epoch=043.ckpt
 model_draws: 1  # number of draws per model
-hitlist_in: ${oc.env:HOME}/data/nist/rebuttal/rebuttal_test_hitlist.pkl
+hitlist_in: ${oc.env:HOME}/data/nist/aiomics/rebuttal/rebuttal_validation_hitlist.pkl
 num: 0  # number of spectra to predict
 dropout: False  # turn on dropout
 min_mz: 28 # minimum mz used to calculate the cosine score
@@ -39,7 +39,7 @@ mz_window: 7  # window size for windowed noise filter.  0 = don't filter
 l2norm: False  # L2 normalize the predicted spectra
 predicted_column: predicted_spectrum
 upres: True  # up resolution peptide spectra
-output_prefix: ${oc.env:HOME}/data/nist/rebuttal/rebuttal_validation_hitlist_predicted  # name of the output file
+output_prefix: ${oc.env:HOME}/data/nist/aiomics/rebuttal/rebuttal_validation_hitlist_predicted  # name of the output file
 set_to_load: valid  # data set to do predictions on
 
 

@@ -137,12 +137,8 @@ def single_spectrum_prediction(model, dataset_element, max_intensity_in=999, dev
     mz, tolerance = create_mz_tolerance(model)
     
     with torch.no_grad():
-        if device is not None:
-            value = torch.unsqueeze(dataset_element.x, dim=0).to(device=device)
-        else:
-            value = torch.unsqueeze(dataset_element.x, dim=0)
-        output = model(dataset_element._replace(x=value))
-        intensity = output.y_prime[0, 0, :].detach().numpy()
+        output = model([dataset_element.x.to(device=device)])
+        intensity = output.y_prime[0, 0, :].detach().cpu().numpy()
         if take_sqrt:
             intensity = np.square(intensity)
         if max_intensity_in != 0:

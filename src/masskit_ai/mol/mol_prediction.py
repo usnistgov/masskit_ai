@@ -48,7 +48,7 @@ def create_molprop_prediction_dataset(model, set_to_load='test', dataloader='Mol
         return dfs, datasets
 
 
-def single_molprop_prediction(model, dataset_element, **kwargs):
+def single_molprop_prediction(model, dataset_element, device=None, **kwargs):
     """
     predict a single spectrum
 
@@ -58,7 +58,7 @@ def single_molprop_prediction(model, dataset_element, **kwargs):
     """
     
     with torch.no_grad():
-        output = model([dataset_element.x])
+        output = model([dataset_element.x.to(device)])
         property = output.y_prime[0].item() * 10000.0
     return property
 
