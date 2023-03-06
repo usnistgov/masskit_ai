@@ -17,14 +17,15 @@ class SpectrumDataset(BaseDataset):
     """
     Base spectrum dataset
     """
-    def __init__(self, store_in, config_in, set_to_load, columns=None) -> None:
+    def __init__(self, store_in, config_in, set_to_load, output_column=None, columns=None) -> None:
         """
         :param store_in: data store
         :param config_in: configuration data
         :param set_to_load: which set to load, e.g. train, valid, test
+        :param output_column: the name of the column to use for output
         :param columns: columns to load.  otherwise, use ms.columns
         """
-        super().__init__(store_in, config_in, set_to_load, columns=columns)
+        super().__init__(store_in, config_in, set_to_load, output_column=output_column, columns=columns)
 
     def get_y(self, data_row):
         shape = (1, int(self.config.ms.max_mz / self.config.ms.bin_size))
@@ -46,14 +47,16 @@ class SpectrumDataset(BaseDataset):
 
 class TandemDataframeDataset(SpectrumDataset, DataframeDataset):
     
-    def __init__(self, store_in, config_in, set_to_load, columns=None) -> None:
+    def __init__(self, store_in, config_in, set_to_load, output_column=None, columns=None) -> None:
         """
         :param store_in: data store
         :param config_in: configuration data
         :param set_to_load: which set to load, e.g. train, valid, test
         :param columns: columns to load.  otherwise, use ms.columns
+        :param output_column: the name of the column to use for output
         """
-        super().__init__(store_in, config_in, set_to_load)
+        SpectrumDataset.__init__(self, store_in, config_in, set_to_load, output_column=output_column, columns=columns)
+        DataframeDataset.__init__(self, store_in, config_in, set_to_load, output_column=output_column, columns=columns)
 
 
 class TandemArrowDataset(SpectrumDataset):
