@@ -9,6 +9,7 @@ import pytorch_lightning as pl
 from masskit.utils.files import spectra_to_array
 import pyarrow.parquet as pq
 import torch
+from tqdm import tqdm
 
 # set up matplotlib to use a non-interactive back end
 try:
@@ -65,7 +66,7 @@ def main(config):
         prep_model_for_prediction(model, config.dropout)
 
         for j in range(len(dfs)):
-            for idx, singleton_batch in enumerate(datasets[j]):
+            for idx, singleton_batch in enumerate(tqdm(datasets[j])):
                 if config.num is not None and config.num > 0 and idx >= config.num:
                     break
                 # predict spectra with multiple draws
