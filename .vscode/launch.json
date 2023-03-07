@@ -27,6 +27,20 @@
             ],
             "console": "integratedTerminal",
             "justMyCode": true
+        },
+        {
+            "name": "Python: predict_hitlist.py",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/apps/ml/peptide",
+            "program": "predict_hitlist.py",
+            "args": [
+                "--config-name","config_predict_hitlist_explore_test",
+                "setup.num_workers=0",
+                "num=100",
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true
         }
 
     ]

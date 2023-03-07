@@ -16,6 +16,7 @@ import pytorch_lightning as pl
 from masskit.utils.files import load_mzTab
 import pyarrow.parquet as pq
 import pandas as pd
+import torch
 
 """
 Program to add experimental and predicted spectra to a hitlist
@@ -28,6 +29,7 @@ todo:
 @hydra.main(config_path="conf", config_name="config_predict_hitlist", version_base=None)
 def main(config):
 
+    device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     pl.seed_everything(config.setup.reproducable_seed)
 
     first_model = True  # is this the first model in the ensemble?
@@ -38,6 +40,7 @@ def main(config):
         if filename is None:
             raise ValueError(f'model {config.model_ensemble[i]} is not found')
         model = SpectrumLightningModule.load_from_checkpoint(filename)
+        model.to(device=device)
         # replace parts of the model configuration to use the configuration for this program
         model.config.input = config.input
         model.config.setup = config.setup
@@ -64,11 +67,18 @@ def main(config):
             max_mz = model.config.ms.max_mz
         prep_model_for_prediction(model, config.dropout)
 
-        for k in tqdm(range(len(df.index))):
+        for idx, singleton_batch in enumerate(tqdm(dataset)):
+            if config.num is not None and config.num > 0 and idx >= config.num:
+                break
             # predict spectra with multiple draws
             for _ in range(config.model_draws):
-                new_spectrum = single_spectrum_prediction(model, dataset[k], take_sqrt=config.ms.take_sqrt, l2norm=config.get('l2norm', False))
-                df[config.predicted_column].iat[k].add(new_spectrum)
+                singleton_batch = singleton_batch._replace(x=torch.unsqueeze(singleton_batch.x, dim=0))
+                new_spectrum = single_spectrum_prediction(model,
+                                                          singleton_batch, 
+                                                          take_sqrt=config.ms.get('take_sqrt', False), 
+                                                          l2norm=config.get('l2norm', False),
+                                                          device=device)
+                df[config.predicted_column].iat[idx].add(new_spectrum)
 
         # create the consensus, including stddev
     finalize_prediction_dataset(df, 

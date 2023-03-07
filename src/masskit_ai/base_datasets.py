@@ -125,14 +125,14 @@ class DataframeDataset(BaseDataset):
     """
     dataset for a dataframe
     """
-    def __init__(self, store_in, config_in, set_to_load=None, output_column=None) -> None:
+    def __init__(self, store_in, config_in, set_to_load=None, output_column=None, columns=None) -> None:
         """
         :param store_in: data store
         :param config_in: configuration data
         :param set_to_load: which set to load, e.g. train, valid, test
         :param output_column: the name ouf the column to use for output
         """
-        super().__init__(store_in, config_in, set_to_load=set_to_load, output_column=output_column)
+        super().__init__(store_in, config_in, set_to_load=set_to_load, output_column=output_column, columns=columns)
         self.data = store_in
 
     def to_pandas(self):
