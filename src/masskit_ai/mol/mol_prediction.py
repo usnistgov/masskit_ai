@@ -58,7 +58,7 @@ def single_molprop_prediction(model, dataset_element, device=None, **kwargs):
     """
     
     with torch.no_grad():
-        output = model([dataset_element.x.to(device)])
+        output = model([dataset_element.x]) # no .to(device) as this is a python molGraph handled in collate_fn
         property = output.y_prime[0].item() * 10000.0
     return property
 
