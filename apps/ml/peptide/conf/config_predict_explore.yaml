@@ -9,6 +9,7 @@
 defaults:
   - input: 2022_consensus # input data set
   - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
+  - logging: mlflow_tensorboard_local  # logging setup
   - paths: standard  # places to look for data and code
   - ms: tandem  # mass spec parameters
   - override hydra/job_logging: default
@@ -55,17 +56,7 @@ min_charge: 1
 max_charge: 8
 min_ev: 10
 max_ev: 60
-mod_list:
-  - Acetyl
-  - Methyl
-  - Gln->pyro-Glu
-  - Glu->pyro-Glu
-  - Oxidation
-  - Phospho
-  - Pyro-carbamidomethyl
-  - Carbamidomethyl
-  - Oxidation
-  - Deamidated
+mod_list: Acetyl,Methyl,Gln->pyro-Glu,Glu->pyro-Glu,Oxidation,Phospho,Pyro-carbamidomethyl,Carbamidomethyl,Oxidation,Deamidated
 
 
 # Information
