@@ -59,7 +59,8 @@ def main(config):
             dfs, datasets = create_prediction_dataset(
                 model, config.set_to_load, config.dataloader, num=config.num,
                 predicted_column=config.predicted_column,
-                return_singleton=False,
+                return_singleton=False, no_spectra=config.get('no_spectra', False),
+                copy_annotations=config.get('copy_annotations', True)
             )
             first_model = False
             max_mz = model.config.ms.get("max_mz", 2000)
@@ -80,14 +81,19 @@ def main(config):
 
     for j in range(len(dfs)):
         # create the consensus, including stddev
-        finalize_prediction_dataset(dfs[j], predicted_column=config.predicted_column,
-                                    min_intensity=config.get('min_intensity', 0), mz_window=config.get('mz_window',7),
-                                    max_mz=max_mz, min_mz=config.get('min_mz', 0))
+        finalize_prediction_dataset(dfs[j], 
+                                    predicted_column=config.predicted_column,
+                                    min_intensity=config.get('min_intensity', 0), 
+                                    mz_window=config.get('mz_window',7),
+                                    max_mz=max_mz, 
+                                    min_mz=config.get('min_mz', 0),
+                                    copy_annotations=config.get('copy_annotations', True))
 
         if prediction_type == 'spectrum':
             if config.get("upres", False):
                 upres_peptide_spectra(dfs[j], predicted_column=config.predicted_column, max_mz=max_mz, min_mz=config.min_mz)
-            logging.info(f'mean cosine score for set {j} is {dfs[j]["cosine_score"].mean()}')
+            if "cosine_score" in dfs[j].columns:
+                logging.info(f'mean cosine score for set {j} is {dfs[j]["cosine_score"].mean()}')
 
         # write out the predictions
         ending = "" if len(dfs) == 1 else f"_{j}"
@@ -105,6 +111,10 @@ def main(config):
             if "msp" in config.output_suffixes:
                 logging.info(f'saving {config.output_prefix}{ending}.msp')
                 dfs[j].lib.to_msp(f"{config.output_prefix}{ending}.msp", spectrum_column='predicted_spectrum', annotate=True)
+            if "mgf" in config.output_suffixes:
+                logging.info(f'saving {config.output_prefix}{ending}.mgf')
+                dfs[j].lib.to_mgf(f"{config.output_prefix}{ending}.mgf", spectrum_column='predicted_spectrum')
+
 
 
 if __name__ == "__main__":

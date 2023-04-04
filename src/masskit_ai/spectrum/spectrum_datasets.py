@@ -28,21 +28,25 @@ class SpectrumDataset(BaseDataset):
         super().__init__(store_in, config_in, set_to_load, output_column=output_column, columns=columns)
 
     def get_y(self, data_row):
-        shape = (1, int(self.config.ms.max_mz / self.config.ms.bin_size))
-        spectra = np.zeros(shape, dtype=np.float32)
-        query = data_row[self.output_column]
-        query.products.ions2array(
-            spectra,
-            0,
-            bin_size=self.config.ms.bin_size,
-            down_shift=self.config.ms.down_shift,
-            intensity_norm=np.max(query.products.intensity),
-            channel_first=self.config.ml.embedding.channel_first,
-            take_max=self.config.ms.take_max,
-            take_sqrt=self.config.ms.get('take_sqrt', False),
-        )
-        # spectra = np.squeeze(spectra)
-        return torch.from_numpy(np.asarray(spectra))
+        if self.output_column in data_row:
+            shape = (1, int(self.config.ms.max_mz / self.config.ms.bin_size))
+            spectra = np.zeros(shape, dtype=np.float32)
+            query = data_row[self.output_column]
+            query.products.ions2array(
+                spectra,
+                0,
+                bin_size=self.config.ms.bin_size,
+                down_shift=self.config.ms.down_shift,
+                intensity_norm=np.max(query.products.intensity),
+                channel_first=self.config.ml.embedding.channel_first,
+                take_max=self.config.ms.take_max,
+                take_sqrt=self.config.ms.get('take_sqrt', False),
+            )
+            # spectra = np.squeeze(spectra)
+            return torch.from_numpy(np.asarray(spectra))
+        else:
+            # used for datasets that don't contain experimental spectra
+            return 0
 
 
 class TandemDataframeDataset(SpectrumDataset, DataframeDataset):

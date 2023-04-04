@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
     
         {
             "name": "Python: train.py",
@@ -50,12 +51,11 @@
             "cwd": "${workspaceFolder}/apps/ml/peptide",
             "program": "predict.py",
             "args": [
-                "--config-name","config_predict_explore",
+                "--config-name","config_predict_peptide_digest",
                 "setup.num_workers=0",
                 "num=100",
-                "output_prefix=test_digest_predicted",
-                "input.train.spectral_library=${workspaceFolder:masskit}/apps/process/libraries/test_digest.parquet",
-                "input.test.spectral_library=${workspaceFolder:masskit}/apps/process/libraries/test_digest.parquet",
+                "input.train.spectral_library=${userHome}/data/nist/aiomics/rebuttal/peptide_digest.parquet",
+                "input.test.spectral_library=${userHome}/data/nist/aiomics/rebuttal/peptide_digest.parquet",
             ],
             "console": "integratedTerminal",
         }

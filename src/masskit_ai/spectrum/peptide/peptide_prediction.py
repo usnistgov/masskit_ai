@@ -47,7 +47,8 @@ def upres_peptide_spectra(df, predicted_column=None, theoretical_spectrum_column
     
     for j in range(len(df.index)):
         upres_peptide_spectrum(df[predicted_column].iat[j], df[theoretical_spectrum_column].iat[j])
-        df["cosine_score"].iat[j] = df["spectrum"].iat[j].cosine_score(
-            df[predicted_column].iat[j].filter(max_mz=max_mz, min_mz=min_mz), tiebreaker='mz')
+        if 'spectrum' in df.columns:
+            df["cosine_score"].iat[j] = df["spectrum"].iat[j].cosine_score(
+                df[predicted_column].iat[j].filter(max_mz=max_mz, min_mz=min_mz), tiebreaker='mz')
 
 

@@ -2,12 +2,13 @@ import copy
 import numpy as np
 import torch
 from masskit.spectrum.spectrum import HiResSpectrum, MassInfo, AccumulatorSpectrum
+from masskit.peptide.spectrum_generator import create_peptide_name
 from masskit_ai.spectrum.spectrum_datasets import TandemDataframeDataset
 from masskit_ai.lightning import MasskitDataModule
 
 
 def create_prediction_dataset(model, set_to_load='test', dataloader='TandemArrowDataset', num=0, copy_annotations=True,
-                              predicted_column='predicted_spectrum', return_singleton=True, **kwargs):
+                              predicted_column='predicted_spectrum', return_singleton=True, no_spectra=False, **kwargs):
     """
     Create pandas dataframe(s) that contains experimental spectra and can be used for predicting spectra
     each dataframe corresponds to a single validation/test/train set.
@@ -19,6 +20,7 @@ def create_prediction_dataset(model, set_to_load='test', dataloader='TandemArrow
     :param copy_annotations: copy annotations and precursor from experimental spectra to predicted spectra
     :param predicted_column: name of the column containing the predicted spectrum
     :param return_singleton: if there is only one dataframe, don't return lists
+    :param no_spectra: don't convert spectra into the dataset dataframes
     :return: list of dataframes for doing predictions, list of dataset objects
     """
     if dataloader is not None:
@@ -27,6 +29,12 @@ def create_prediction_dataset(model, set_to_load='test', dataloader='TandemArrow
     mz, tolerance = create_mz_tolerance(model)
 
     loaders = MasskitDataModule(model.config).create_loader(set_to_load)
+    # hack to turn off spectrum conversion.  This is used for libraries seeded with fasta2peptide, which have no spectra
+    if no_spectra:
+        for x in loaders:
+            x.dataset.data.conversions=None
+            x.dataset.data.column_name=None
+
     if isinstance(loaders, list):
         dfs = [x.dataset.to_pandas() for x in loaders]
         datasets = loaders
@@ -44,13 +52,44 @@ def create_prediction_dataset(model, set_to_load='test', dataloader='TandemArrow
             for _ in range(len(df.index))
         ]
         # the cosine score
-        df["cosine_score"] = None
+        if 'spectrum' in df.columns:
+            df["cosine_score"] = None
 
         # copy annotations and precursor
         if copy_annotations:
             for row in df.itertuples():
                 getattr(row, predicted_column).precursor = copy.deepcopy(row.spectrum.precursor)
                 getattr(row, predicted_column).props = copy.deepcopy(row.spectrum.props)
+        else:
+            for row in df.itertuples():
+                # TODO: copying rows to a spectrum object dict should be a method of the spectrum, which might have a molecule type.
+                if 'precursor_mz' in df.columns:
+                    getattr(row, predicted_column).precursor = getattr(row, predicted_column).precursor_class(
+                        row.precursor_mz, 
+                        mass_info=MassInfo(0.0, "ppm", "monoisotopic")
+                    )
+                if 'charge' in row._fields:
+                    getattr(row, predicted_column).charge = row.charge
+                if 'mod_names' in row._fields:
+                    getattr(row, predicted_column).mod_names = copy.deepcopy(row.mod_names)
+                if 'mod_positions' in row._fields:
+                    getattr(row, predicted_column).mod_positions = copy.deepcopy(row.mod_positions)
+                if 'peptide' in row._fields:
+                    getattr(row, predicted_column).peptide = copy.deepcopy(row.peptide)
+                if 'peptide' in row._fields:
+                    getattr(row, predicted_column).peptide_len = len(row.peptide)
+                if 'ev' in row._fields:
+                    getattr(row, predicted_column).ev = row.ev
+                if 'nce' in row._fields:
+                    getattr(row, predicted_column).nce = row.nce                
+                if 'id' in row._fields:
+                    getattr(row, predicted_column).id = row.id
+                if 'name' in row._fields and row.name is not None:
+                    getattr(row, predicted_column).name = row.name
+                #TODO: naming method should be method of peptide spectrum
+                elif set(['peptide', 'nce', 'charge', 'mod_names', 'mod_positions']).issubset(set(row._fields)):
+                    getattr(row, predicted_column).name = create_peptide_name(row.peptide, row.charge,
+                                                                               row.mod_names, row.mod_positions, row.nce)
 
     if return_singleton and len(dfs) == 1:
         return dfs[0], datasets[0]
@@ -167,7 +206,7 @@ def create_mz_tolerance(model):
 
 
 def finalize_prediction_dataset(df, predicted_column='predicted_spectrum', min_intensity=0.1, mz_window=7,
-                                max_mz=0, min_mz=0, **kwargs):
+                                max_mz=0, min_mz=0, copy_annotations=True, **kwargs):
     """
     do final processing on the predicted spectra
 
@@ -177,12 +216,15 @@ def finalize_prediction_dataset(df, predicted_column='predicted_spectrum', min_i
     :param mz_window: half size of mz_window for filtering.  0 = no filtering
     :param max_mz: maximum mz value for calculating cosine score.  0 means don't filter
     :param min_mz: the minimum mz value for calculation the cosine score
+    :param copy_annotations: copy annotations and precursor from experimental spectra to predicted spectra
     """
     for j in range(len(df.index)):
         df[predicted_column].iat[j].finalize()
-        df[predicted_column].iat[j].props = copy.deepcopy(df["spectrum"].iat[j].props)
-        df[predicted_column].iat[j].precursor = copy.deepcopy(df["spectrum"].iat[j].precursor)
+        if copy_annotations:
+            df[predicted_column].iat[j].props = copy.deepcopy(df["spectrum"].iat[j].props)
+            df[predicted_column].iat[j].precursor = copy.deepcopy(df["spectrum"].iat[j].precursor)
         df[predicted_column].iat[j].filter(min_intensity=min_intensity, inplace=True)
         df[predicted_column].iat[j].products.windowed_filter(inplace=True, mz_window=mz_window)
-        df["cosine_score"].iat[j] = df["spectrum"].iat[j].cosine_score(
-            df[predicted_column].iat[j].filter(max_mz=max_mz, min_mz=min_mz), tiebreaker='mz')
+        if 'spectrum' in df.columns:
+            df["cosine_score"].iat[j] = df["spectrum"].iat[j].cosine_score(
+                df[predicted_column].iat[j].filter(max_mz=max_mz, min_mz=min_mz), tiebreaker='mz')

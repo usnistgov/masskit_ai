@@ -40,14 +40,16 @@ mz_window: 7  # window size for windowed noise filter.  0 = don't filter
 l2norm: False  # L2 normalize the predicted spectra
 predicted_column: predicted_spectrum
 upres: True  # up resolution peptide spectra
-output_prefix: ${oc.env:HOME}/data/nist/aiomics/rebuttal/rebuttal_test  # name of the output file
+output_prefix: ${oc.env:HOME}/data/nist/aiomics/rebuttal/peptide_digest_library  # name of the output file
 output_suffixes:  # different file types to write out
-  - pkl
+  - mgf
   - csv
   - msp
   - parquet
 dataloader: TandemArrowDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
 set_to_load: test  # data set to do predictions on
+no_spectra: True  # dataset does not have spectra
+copy_annotations: False  # copy annotations and precursor from experimental spectrum
 
 # settings for create_peptide_library.py
 min_length: 5
