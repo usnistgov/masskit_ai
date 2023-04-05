@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Recipes &#8212; masskit_ai 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Masskit_ai use and architecture" href="README.html" />
+<link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+
+
+<script type="text/javascript" src="https://pages.nist.gov/leaveNotice/js/jquery.leaveNotice-nist.min.js"></script>
+<script>
+$(document).ready(function(){
+  // Mark external (non-nist.gov) A tags with class "external"
+  //If the adress start with https and ends with nist.gov
+  var re_nist = new RegExp('^https?:\/\/((^\/)*\.)*nist\\.gov(\/|$)');
+  //Regex to find address that start with https
+  var re_absolute_address = new RegExp('^((https?:)?\/\/)');
+  $("a").each(function(){
+    var url=$(this).attr('href');
+    if(re_nist.test(url) || !re_absolute_address.test(url)){
+      $(this).addClass('local');
+    }else{
+      //This a href appears to be external, so tag it
+      $(this).addClass('external');
+    }
+  });
+  // Add leaveNotice to external A elements
+  $('a.external').leaveNotice();
+});
+</script>
+<link rel="stylesheet" type="text/css" href="https://pages.nist.gov/leaveNotice/css/jquery.leaveNotice.css" />
+
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="README.html" title="Masskit_ai use and architecture"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Recipes</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="recipes">
+<h1>Recipes<a class="headerlink" href="#recipes" title="Permalink to this heading">¶</a></h1>
+<section id="spectral-library-generation">
+<h2>Spectral library generation<a class="headerlink" href="#spectral-library-generation" title="Permalink to this heading">¶</a></h2>
+<section id="peptide-library-to-spectral-library">
+<h3>Peptide library to spectral library<a class="headerlink" href="#peptide-library-to-spectral-library" title="Permalink to this heading">¶</a></h3>
+<p>To generate a library of peptides, which is typically the first step in generating a peptide
+spectral library, use the program <code class="docutils literal notranslate"><span class="pre">predict.py</span></code>. This program takes a peptide library in parquet
+format and generates a spectral library using an AI network.  The peptide library can be generated using
+<a class="reference external" href="https://pages.nist.gov/masskit/recipes.html#library-generation">fasta2peptide.py</a>.
+The configuration for this program is contained in the <code class="docutils literal notranslate"><span class="pre">conf/config_predict_peptide_digest.yaml</span></code>
+file in the same directory as <code class="docutils literal notranslate"><span class="pre">predict.py</span></code>.</p>
+<ul class="simple">
+<li><p>to change the name of the input file, specify <code class="docutils literal notranslate"><span class="pre">input.test.spectral_library=myfilename.parquet</span></code> on the
+command line.</p></li>
+<li><p>the prefix of the output file(s) is specified using <code class="docutils literal notranslate"><span class="pre">output_prefix=myfilename</span></code> on
+the command line.</p>
+<ul>
+<li><p>the program outputs the following formats <a class="reference external" href="https://chemdata.nist.gov/dokuwiki/lib/exe/fetch.php?media=chemdata:nist17:nistms_ver23man.pdf">msp</a> (NIST Text Format of Individual Spectra), <a class="reference external" href="http://www.matrixscience.com/help/data_file_help.html#GEN">mgf</a>, csv, and pkl (pickled pandas dataframe) by setting <code class="docutils literal notranslate"><span class="pre">output_suffixes=[mgf,csv]</span></code></p></li>
+</ul>
+</li>
+<li><p>the program supports the following options:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">min_intensity=0.1</span></code> is the minimum intensity to predict (out of a max of 999)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">min_mz=28</span></code> is the minimum mz value for predicted ions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num=0</span></code> is the number of spectra to predict, 0 = all</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model_ensemble=[lyg_rebuttal_166c872328264874a818bd1f4ad178ac_val_loss=-0.8471_epoch=043.ckpt]</span></code> is a list of AI networks to use for prediction</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">upres:</span> <span class="pre">True</span></code> perform upresolution on the spectra</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Recipes</a><ul>
+<li><a class="reference internal" href="#spectral-library-generation">Spectral library generation</a><ul>
+<li><a class="reference internal" href="#peptide-library-to-spectral-library">Peptide library to spectral library</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="README.html"
+                          title="previous chapter">Masskit_ai use and architecture</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/recipes.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="README.html" title="Masskit_ai use and architecture"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Recipes</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    </div>
+  </body>
+</html>

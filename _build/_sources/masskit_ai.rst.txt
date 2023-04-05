@@ -1,0 +1,85 @@
+masskit\_ai package
+===================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   masskit_ai.spectrum
+
+Submodules
+----------
+
+masskit\_ai.base\_datasets module
+---------------------------------
+
+.. automodule:: masskit_ai.base_datasets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.base\_objects module
+--------------------------------
+
+.. automodule:: masskit_ai.base_objects
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.callbacks module
+----------------------------
+
+.. automodule:: masskit_ai.callbacks
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.embed module
+------------------------
+
+.. automodule:: masskit_ai.embed
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.lightning module
+----------------------------
+
+.. automodule:: masskit_ai.lightning
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.loggers module
+--------------------------
+
+.. automodule:: masskit_ai.loggers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.metrics module
+--------------------------
+
+.. automodule:: masskit_ai.metrics
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.samplers module
+---------------------------
+
+.. automodule:: masskit_ai.samplers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai
+   :members:
+   :undoc-members:
+   :show-inheritance:
