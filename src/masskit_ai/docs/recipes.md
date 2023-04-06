@@ -21,4 +21,4 @@ the command line.
   * `min_mz=28` is the minimum mz value for predicted ions
   * `num=0` is the number of spectra to predict, 0 = all
   * `model_ensemble=[lyg_rebuttal_166c872328264874a818bd1f4ad178ac_val_loss=-0.8471_epoch=043.ckpt]` is a list of AI networks to use for prediction
-  * `upres: True` perform upresolution on the spectra
+  * `upres:True` perform upresolution on the spectra

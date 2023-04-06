@@ -12,6 +12,8 @@
 #
 import os
 import sys
+import re
+
 # autodoc requires explicit paths
 sys.path.insert(0, os.path.abspath('../..'))
 
@@ -25,7 +27,7 @@ html_show_sphinx = False
 author = 'MSDC'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = re.sub('^v', '', os.popen('git describe --tags').read().strip())
 
 
 # -- General configuration ---------------------------------------------------
@@ -53,7 +55,7 @@ templates_path = ['_templates']
 # Suppress autodoc imports
 autodoc_mock_imports = ['pyarrow', 'rdkit', 'pandas', 'arrow', 'torch', 'masskit', 
 'pytorch_lightning', 'omegaconf', 'general', 'fingerprints', 'mlflow',
-'torchmetrics', 'hitlist', 'modules']
+'torchmetrics', 'hitlist', 'modules', 'tqdm']
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
