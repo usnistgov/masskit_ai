@@ -6,18 +6,10 @@ import pandas as pd
 import pytorch_lightning as pl
 import torch
 from omegaconf import open_dict
-from masskit.utils.general import class_for_name, search_for_file
+from masskit.utils.general import class_for_name, get_file
 from torch.utils.data import WeightedRandomSampler
 from masskit_ai.samplers import DistributedSamplerWrapper
 from omegaconf import ListConfig
-from urllib import request
-from pathlib import Path
-from urllib.parse import urlparse
-try:
-    import boto3
-except ImportError:
-    logging.debug("Unable to import boto3")
-    boto3 = None
 try:
     import resource
 except ImportError:
@@ -335,40 +327,13 @@ class MasskitDataModule(BaseDataModule):
 
         subsets = []
         for spectral_library in spectral_libraries:
-            path = self.get_dataset_path(spectral_library)
+            path = get_file(spectral_library, self.config.paths.cache_directory, self.config.paths.search_path)
             logging.debug(
                 f"MasskitDataModule create_loader for {set_to_load} called for db {path}"
             )
             subsets.append(class_for_name(self.config.paths.modules.dataloaders,
                                     self.config.ms.dataloader)(path, self.config, set_to_load))
         return subsets
-
-    def get_dataset_path(self, spectral_library):
-        """
-        for a given spectral_library, return the path (downloading file if necessary)
-
-        :param spectral_library: name of the spectral library
-        :return: path
-        """
-        url = urlparse(spectral_library, allow_fragments=False)
-        if url.scheme in ["s3", "http", "https"]:
-            path = search_for_file(url.path.lstrip("/"), self.config.paths.search_path)
-            # if the file doesn't exist in the cache, download it
-            if path is None or not path.is_file():
-                path = Path(self.config.paths.cache_directory, url.path.lstrip("/"))
-                path.parent.mkdir(
-                    parents=True, exist_ok=True
-                )  # make the cache directory
-                if url.scheme == "s3":
-                    s3 = boto3.client("s3")
-                    with open(path, "wb") as f:
-                        s3.download_fileobj(url.netloc, url.path.lstrip("/"), f)
-                else:
-                    request.urlretrieve(spectral_library, path)
-        else:
-            path = Path(spectral_library)
-
-        return path
 
 
 # alias use for older pickle files.  to be removed.

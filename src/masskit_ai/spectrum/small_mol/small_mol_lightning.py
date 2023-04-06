@@ -1,4 +1,4 @@
-from masskit.utils.general import class_for_name
+from masskit.utils.general import class_for_name, get_file
 from omegaconf import ListConfig
 import torch
 from masskit_ai.base_objects import ModelInput, ModelOutput
@@ -27,8 +27,8 @@ class SmallMolSearchDataModule(MasskitDataModule):
             raise NotImplementedError('multiple datasets not supported for SmallMolSearchDataModule')
 
         subsets = []
-        path = self.get_dataset_path(self.config.input[set_to_load].spectral_library)
-        path_search = self.get_dataset_path(self.config.input[set_to_load].spectral_library_search)
+        path = get_file(self.config.input[set_to_load].spectral_library, self.config.paths.cache_directory, self.config.paths.search_path)
+        path_search = get_file(self.config.input[set_to_load].spectral_library_search, self.config.paths.cache_directory, self.config.paths.search_path)
         subsets.append(class_for_name(self.config.paths.modules.dataloaders,
                                 self.config.ms.dataloader)(path, self.config, set_to_load, store_search=path_search))
         return subsets
