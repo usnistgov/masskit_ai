@@ -25,8 +25,7 @@ __pycache__/
 libraries/build/
 # sphinx document build directories
 _build/
-**/docs/*.rst
-!**/docs/index.rst
+**/docs/sources/
 **/docs/Makefile
 **/docs/make.bat
 # data files
