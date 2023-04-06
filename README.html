@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Peptide Prediction Models &#8212; masskit_ai 0.1 documentation</title>
+    <title>Masskit_ai use and architecture &#8212; masskit_ai 0.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/nature.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -17,6 +17,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Recipes" href="recipes.html" />
     <link rel="prev" title="Welcome to masskit_ai’s documentation!" href="index.html" />
 <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
   <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
@@ -58,10 +59,13 @@ $(document).ready(function(){
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="recipes.html" title="Recipes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
           <a href="index.html" title="Welcome to masskit_ai’s documentation!"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Peptide Prediction Models</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Masskit_ai use and architecture</a></li> 
       </ul>
     </div>  
 
@@ -70,8 +74,8 @@ $(document).ready(function(){
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="peptide-prediction-models">
-<h1>Peptide Prediction Models<a class="headerlink" href="#peptide-prediction-models" title="Permalink to this heading">¶</a></h1>
+  <section id="masskit-ai-use-and-architecture">
+<h1>Masskit_ai use and architecture<a class="headerlink" href="#masskit-ai-use-and-architecture" title="Permalink to this heading">¶</a></h1>
 <section id="setup-for-training-peptide-prediction-models">
 <h2>Setup for training peptide prediction models<a class="headerlink" href="#setup-for-training-peptide-prediction-models" title="Permalink to this heading">¶</a></h2>
 <section id="running-training">
@@ -96,34 +100,6 @@ $(document).ready(function(){
 </li>
 </ul>
 </section>
-<section id="running-training-on-slurm-clusters">
-<h4>Running training on slurm clusters<a class="headerlink" href="#running-training-on-slurm-clusters" title="Permalink to this heading">¶</a></h4>
-<ul>
-<li><p>to launch multiple jobs, create a shell script.</p>
-<ul>
-<li><p>this will run train.py the same way as you run it from the command line, but as a batch job.  To do this, create a
-shell script called, for example, my_script.sh that looks something like:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!/bin/bash
-<span class="c1">#</span>
-<span class="c1">#SBATCH --time=72:00:00</span>
-<span class="c1">#SBATCH --partition=batch</span>
-<span class="c1">#SBATCH --gres=gpu:1</span>
-<span class="c1">#SBATCH --mem-per-cpu=10000</span>
-<span class="c1">#SBATCH -c 3</span>
-
-<span class="nb">source</span> ~/.bashrc
-python train.py <span class="p">&amp;</span>&gt; mylog.log
-</pre></div>
-</div>
-</li>
-<li><p>You can put anything you want into this shell script, including command line options to train.py.  Submit it as
-a job using <code class="docutils literal notranslate"><span class="pre">sbatch</span> <span class="pre">my_script.sh</span></code> and monitor it using <code class="docutils literal notranslate"><span class="pre">squeue</span></code>.  To kill it use <code class="docutils literal notranslate"><span class="pre">scancel</span> <span class="pre">1234</span></code> where 1234
-is the job number returned by sbatch.  mylog.log will have the same output as you see when running interactively
-and you can view it using <code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-f</span> <span class="pre">mylog.log</span></code>.</p></li>
-</ul>
-</li>
-</ul>
-</section>
 <section id="output-models">
 <h4>Output models<a class="headerlink" href="#output-models" title="Permalink to this heading">¶</a></h4>
 <p>When using mlflow, each run will be given a run id.  On the mlflow server, all runs will be listed under the
@@ -139,7 +115,7 @@ after every epoch, so this mechanism doesn’t require the job to terminate norm
 <h4>Creating predictions on a local linux machine<a class="headerlink" href="#creating-predictions-on-a-local-linux-machine" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">masskit_ai</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/source/msdc_services/apps/ml/peptide</span></code> or wherever you have cloned msdc_services</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">masskit_ai/apps/ml/peptide</span></code> or wherever you have cloned msdc_services</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span> <span class="pre">master</span></code> to pull in any changes to the library</p></li>
 <li><p>prediction configuration is found in conf/config_predict.yaml.</p>
 <ul>
@@ -157,45 +133,6 @@ shape as the first model.</p></li>
 </ul>
 </li>
 <li><p>output will be placed in the working directory, e.g. <code class="docutils literal notranslate"><span class="pre">hydra_output</span></code></p></li>
-</ul>
-</section>
-<section id="creating-predictions-on-slurm-clusters">
-<h4>Creating predictions on slurm clusters<a class="headerlink" href="#creating-predictions-on-slurm-clusters" title="Permalink to this heading">¶</a></h4>
-<ul>
-<li><p>prediction configuration is found in conf/config_predict.yaml.</p>
-<ul class="simple">
-<li><p>put the checkpoint of the model to use in prediction as an entry under <code class="docutils literal notranslate"><span class="pre">model_ensemble:</span></code></p></li>
-<li><p>additional checkpoints can be listed under <code class="docutils literal notranslate"><span class="pre">model_ensemble:</span></code> but they have to take the same input and output
-shape as the first model.</p></li>
-<li><p>the number of draws per model is given by <code class="docutils literal notranslate"><span class="pre">model_draws:</span></code>.</p></li>
-<li><p>if you are using dropout in prediction, set <code class="docutils literal notranslate"><span class="pre">dropout:</span></code> to True.</p></li>
-<li><p>the output file name prefix is set by <code class="docutils literal notranslate"><span class="pre">output_prefix</span></code>.  File extensions will be added to the prefix.</p></li>
-</ul>
-</li>
-<li><p>create a shell script to run the prediction program</p>
-<ul>
-<li><p>this will run predict.py the same way as you run it from the command line, but as a batch job.  To do this, create a
-shell script called, for example, my_predict_script.sh that looks something like:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!/bin/bash
-<span class="c1">#</span>
-<span class="c1">#SBATCH --time=72:00:00</span>
-<span class="c1">#SBATCH --partition=batch</span>
-<span class="c1">#SBATCH --gres=gpu:1</span>
-<span class="c1">#SBATCH --mem-per-cpu=3500</span>
-<span class="c1">#SBATCH -c 5</span>
-
-<span class="nb">source</span> ~/.bashrc
-
-python predict.py <span class="p">&amp;</span>&gt; my_predict_log.log
-</pre></div>
-</div>
-</li>
-<li><p>You can put anything you want into this shell script, including command line options to predict.py.  Submit it as
-a job using <code class="docutils literal notranslate"><span class="pre">sbatch</span> <span class="pre">my_predict_script.sh</span></code> and monitor it using <code class="docutils literal notranslate"><span class="pre">squeue</span></code>.  To kill it use <code class="docutils literal notranslate"><span class="pre">scancel</span> <span class="pre">1234</span></code> where 1234
-is the job number returned by sbatch.  my_predict_log.log will have the same output as you see when running interactively
-and you can view it using <code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-f</span> <span class="pre">my_predict_log.log</span></code>.</p></li>
-</ul>
-</li>
 </ul>
 </section>
 </section>
@@ -300,11 +237,11 @@ from torch.nn.Module.</p>
 <li><p>configured using the hydra.DictConfig config.</p></li>
 </ul>
 </li>
-<li><p>loss_function: loss function derived from BaseLoss <span class="xref myst">masskit_ai/base_objects.py</span>,
+<li><p>loss_function: loss function derived from BaseLoss <span class="xref myst">masskit_ai/base_losses.py</span>,
 which is derived from torch.nn.Module. Takes the same namedtuples that are the input and output of the model.</p></li>
 </ul>
 </li>
-<li><p>SpectrumDataModule <a class="reference download internal" download="" href="_downloads/b946b530d832f6f7b4dd197e40c9c979/spectrum_lightning.py"><span class="xref download myst">masskit_ai/spectrum/spectrum_lightning.py</span></a> derived from
+<li><p>MasskitDataModule <a class="reference download internal" download="" href="_downloads/b946b530d832f6f7b4dd197e40c9c979/spectrum_lightning.py"><span class="xref download myst">masskit_ai/spectrum/spectrum_lightning.py</span></a> derived from
 pytorch_lightning.LightningDataModule.</p>
 <ul>
 <li><p>creates TandemArrowDataset data loader <a class="reference download internal" download="" href="_downloads/2af7fa6c35a7a346ea3209256c1724b9/spectrum_datasets.py"><span class="xref download myst">masskit_ai/spectrum/spectrum_datasets.py</span></a> derived from BaseDataset,
@@ -344,7 +281,7 @@ pass the config dictionary into the initializer for their superclasses.</p></li>
 <a class="reference download internal" download="" href="_downloads/76cd3fcfdd7335b64737773e231ab781/dense.py"><span class="xref download myst">masskit_ai/spectrum/peptide/models/dense.py</span></a> for a simple example of a model.</p>
 <ul>
 <li><p>if you created a new file to hold the code for the model, append the filename to the configuration setting
-<code class="docutils literal notranslate"><span class="pre">modules.models</span></code> in <a class="reference download internal" download="" href="_downloads/d608e7a804e0c5f352403f7552fdf9e6/standard.yaml"><span class="xref download myst">apps/ml/peptide/conf/paths/standard.yaml</span></a></p></li>
+<code class="docutils literal notranslate"><span class="pre">modules.models</span></code> in <span class="xref myst">apps/ml/peptide/conf/paths/standard.yaml</span></p></li>
 </ul>
 </li>
 <li><p>Configuration</p>
@@ -355,9 +292,8 @@ object, your parameters will automatically be logged and you can do automated sw
 <li><p>use <code class="docutils literal notranslate"><span class="pre">self.config</span></code> to hold your configuration values.  To create the configuration for <code class="docutils literal notranslate"><span class="pre">MyModel</span></code>:</p>
 <ul>
 <li><p>create a yaml file called <code class="docutils literal notranslate"><span class="pre">MyModel.yaml</span></code> in the directory <span class="xref myst">apps/ml/peptide/conf/ml/model</span> with your configuration values in
-it.  Use <a class="reference download internal" download="" href="_downloads/b95886f3435a53e09b6fc6af62042906/DenseSpectrumNet.yaml"><span class="xref download myst">apps/ml/peptide/conf/ml/model/DenseSpectrumNet.yaml</span></a> as an example.</p></li>
+it.  Use <span class="xref myst">apps/ml/peptide/conf/ml/model/DenseSpectrumNet.yaml</span> as an example.</p></li>
 <li><p>the top node of the configuration should be the name of the new class: <code class="docutils literal notranslate"><span class="pre">MyModel:</span></code></p></li>
-<li><p>make sure <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">&#64;package</span> <span class="pre">_group_</span></code> is the first line of the file.</p></li>
 <li><p>then add configuration values to <code class="docutils literal notranslate"><span class="pre">MyMode.yaml</span></code> indented underneath <code class="docutils literal notranslate"><span class="pre">MyModel:</span></code>, such as <code class="docutils literal notranslate"><span class="pre">my_config:</span> <span class="pre">123</span></code>.  You can then
 reference it in the code for <code class="docutils literal notranslate"><span class="pre">MyModel</span></code> as <code class="docutils literal notranslate"><span class="pre">self.config.ml.model.MyModel.my_config</span></code>.</p></li>
 </ul>
@@ -429,12 +365,12 @@ across each boolean layer and pass it out of the model as the second argument of
 <li><p>subclass <code class="docutils literal notranslate"><span class="pre">TandemArrowDataset</span></code> in <a class="reference download internal" download="" href="_downloads/2af7fa6c35a7a346ea3209256c1724b9/spectrum_datasets.py"><span class="xref download myst">masskit_ai/spectrum/spectrum_datasets.py</span></a> and place the new
 class, let’s call it <code class="docutils literal notranslate"><span class="pre">MyDataSet</span></code>, in that file or another python file.</p>
 <ul>
-<li><p>if you are creating a new python file, add it in <a class="reference download internal" download="" href="_downloads/d608e7a804e0c5f352403f7552fdf9e6/standard.yaml"><span class="xref download myst">apps/ml/peptide/conf/paths/standard.yaml</span></a> under <code class="docutils literal notranslate"><span class="pre">modules.dataloaders</span></code></p></li>
+<li><p>if you are creating a new python file, add it in <span class="xref myst">apps/ml/peptide/conf/paths/standard.yaml</span> under <code class="docutils literal notranslate"><span class="pre">modules.dataloaders</span></code></p></li>
 <li><p>in the ms configuration you are using under <code class="docutils literal notranslate"><span class="pre">conf/ms</span></code>, set <code class="docutils literal notranslate"><span class="pre">dataloader:</span></code> to <code class="docutils literal notranslate"><span class="pre">MyDataSet</span></code>.</p></li>
 </ul>
 </li>
 <li><p>override <code class="docutils literal notranslate"><span class="pre">__get_item__</span></code> in <code class="docutils literal notranslate"><span class="pre">MyDataSet</span></code> to add the additional field and return it as a <code class="docutils literal notranslate"><span class="pre">MyModelInput</span></code>
-Note that <code class="docutils literal notranslate"><span class="pre">__get_item__</span> </code>only returns one row of information – in later processing this data is batched and
+Note that <code class="docutils literal notranslate"><span class="pre">__get_item__</span></code> only returns one row of information – in later processing this data is batched and
 moved into the GPU.  This later processing requires that the dictionary be flat and not nested, that is, each
 top level item in the dictionary should be vectorizable.</p></li>
 </ul>
@@ -462,7 +398,7 @@ top level item in the dictionary should be vectorizable.</p></li>
 <h3>Custom losses<a class="headerlink" href="#custom-losses" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>losses are standard <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code>s and derived from <code class="docutils literal notranslate"><span class="pre">BaseLoss</span></code> in
-<a class="reference download internal" download="" href="_downloads/49723e2f79d153f358464349752a96e7/base_objects.py"><span class="xref download myst">masskit_ai/base_objects.py</span></a></p></li>
+<a class="reference download internal" download="" href="_downloads/508e5477e017eef5d1ccfd6b89cd2577/base_losses.py"><span class="xref download myst">masskit_ai/base_objects.py</span></a></p></li>
 <li><p>The input to the losses are the <code class="docutils literal notranslate"><span class="pre">ModelInput</span></code> and <code class="docutils literal notranslate"><span class="pre">ModelOutput</span></code> as described above.  The reason
 to use these <code class="docutils literal notranslate"><span class="pre">namedtuples</span></code> is to give the loss functions access to all information fed to and returned
 by the models.</p></li>
@@ -473,7 +409,7 @@ intensity variances from the input and output.</p></li>
 <li><p>subclass <code class="docutils literal notranslate"><span class="pre">BaseSpectrumLoss</span></code> or <code class="docutils literal notranslate"><span class="pre">BaseLoss</span></code> and place the loss, let’s call it <code class="docutils literal notranslate"><span class="pre">MyLoss</span></code>,
 in <a class="reference download internal" download="" href="_downloads/ff37c96c3c2eca614d0669a3a31d451a/spectrum_losses.py"><span class="xref download myst">masskit_ai/spectrum/spectrum_losses.py</span></a> or place it in its own file.</p></li>
 <li><p>if you created a new file to hold the code for the loss, append the filename to the configuration setting
-<code class="docutils literal notranslate"><span class="pre">modules.losses</span></code> in <a class="reference download internal" download="" href="_downloads/d608e7a804e0c5f352403f7552fdf9e6/standard.yaml"><span class="xref download myst">apps/ml/peptide/conf/paths/standard.yaml</span></a></p></li>
+<code class="docutils literal notranslate"><span class="pre">modules.losses</span></code> in <span class="xref myst">apps/ml/peptide/conf/paths/standard.yaml</span></p></li>
 <li><p>to use the loss, change <code class="docutils literal notranslate"><span class="pre">ml.loss.loss_function</span></code> in <a class="reference download internal" download="" href="_downloads/27e83e64fadc39150756c7693586ed50/config.yaml"><span class="xref download myst">apps/ml/peptide/conf/config.yaml</span></a> to <code class="docutils literal notranslate"><span class="pre">MyLoss</span></code>.</p></li>
 </ul>
 </li>
@@ -572,17 +508,15 @@ filenames of form <code class="docutils literal notranslate"><span class="pre">l
   <div>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">Peptide Prediction Models</a><ul>
+<li><a class="reference internal" href="#">Masskit_ai use and architecture</a><ul>
 <li><a class="reference internal" href="#setup-for-training-peptide-prediction-models">Setup for training peptide prediction models</a><ul>
 <li><a class="reference internal" href="#running-training">Running training</a><ul>
 <li><a class="reference internal" href="#running-training-on-a-local-linux-machine">Running training on a local linux machine</a></li>
-<li><a class="reference internal" href="#running-training-on-slurm-clusters">Running training on slurm clusters</a></li>
 <li><a class="reference internal" href="#output-models">Output models</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#creating-predictions">Creating predictions</a><ul>
 <li><a class="reference internal" href="#creating-predictions-on-a-local-linux-machine">Creating predictions on a local linux machine</a></li>
-<li><a class="reference internal" href="#creating-predictions-on-slurm-clusters">Creating predictions on slurm clusters</a></li>
 </ul>
 </li>
 </ul>
@@ -615,6 +549,11 @@ filenames of form <code class="docutils literal notranslate"><span class="pre">l
     <p class="topless"><a href="index.html"
                           title="previous chapter">Welcome to masskit_ai’s documentation!</a></p>
   </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="recipes.html"
+                          title="next chapter">Recipes</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -646,10 +585,13 @@ filenames of form <code class="docutils literal notranslate"><span class="pre">l
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="recipes.html" title="Recipes"
+             >next</a> |</li>
+        <li class="right" >
           <a href="index.html" title="Welcome to masskit_ai’s documentation!"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Peptide Prediction Models</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Masskit_ai use and architecture</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

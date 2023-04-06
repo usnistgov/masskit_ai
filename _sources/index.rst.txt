@@ -12,6 +12,7 @@ Welcome to masskit_ai's documentation!
    :glob:
 
    README
+   recipes
 
 .. automodule:: modules
     :members:
