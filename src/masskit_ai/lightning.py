@@ -327,7 +327,7 @@ class MasskitDataModule(BaseDataModule):
 
         subsets = []
         for spectral_library in spectral_libraries:
-            path = get_file(spectral_library, self.config.paths.cache_directory, self.config.paths.search_path)
+            path = get_file(spectral_library, self.config.paths.cache_directory, self.config.paths.search_path, tgz_extension='.parquet')
             logging.debug(
                 f"MasskitDataModule create_loader for {set_to_load} called for db {path}"
             )

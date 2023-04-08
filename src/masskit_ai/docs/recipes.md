@@ -20,5 +20,5 @@ the command line.
   * `min_intensity=0.1` is the minimum intensity to predict (out of a max of 999)
   * `min_mz=28` is the minimum mz value for predicted ions
   * `num=0` is the number of spectra to predict, 0 = all
-  * `model_ensemble=[lyg_rebuttal_166c872328264874a818bd1f4ad178ac_val_loss=-0.8471_epoch=043.ckpt]` is a list of AI networks to use for prediction
+  * `model_ensemble=[https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/aiomics_model.tgz]` is a list of AI networks to use for prediction
   * `upres:True` perform upresolution on the spectra

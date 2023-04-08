@@ -30,14 +30,14 @@ input.train.where: null
 
 # for ensembles, add a list to model_ensemble of paths to the checkpoints
 model_ensemble:
-  - ${oc.env:HOME}/data/nist/airi/models/patn_07f906f2ee414c47bd39d81f4b1b0e9a_val_loss=0.0028_epoch=080.ckpt
-  - ${oc.env:HOME}/data/nist/airi/models/patn_2daf02200d3043fba7e7acd6b2bfdd74_val_loss=0.0029_epoch=083.ckpt
-  - ${oc.env:HOME}/data/nist/airi/models/patn_97d60bdd6de540318f2fc14779dd61ec_val_loss=0.0029_epoch=102.ckpt
-  - ${oc.env:HOME}/data/nist/airi/models/patn_a2c511021e6d47f09f51b43b6bf8e04a_val_loss=0.0029_epoch=089.ckpt
-  - ${oc.env:HOME}/data/nist/airi/models/patn_c13df3ec55d44968b7098e8ea476ec16_val_loss=0.0029_epoch=088.ckpt
-  - ${oc.env:HOME}/data/nist/airi/models/patn_cab768f4d82a467c9595d44d660b27b4_val_loss=0.0029_epoch=097.ckpt
-  - ${oc.env:HOME}/data/nist/airi/models/patn_d2b9224a96194e85aa1e0781536405bb_val_loss=0.0030_epoch=088.ckpt
-  - ${oc.env:HOME}/data/nist/airi/models/patn_ea9ba8350a4d461ca0714c2a098c78c5_val_loss=0.0029_epoch=089.ckpt
+  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_1.zip
+  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_2.zip
+  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_3.zip
+  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_4.zip
+  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_5.zip
+  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_6.zip
+  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_7.zip
+  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_8.zip
 model_draws: 1  # number of draws per model
 num: 0 # number of values to predict
 dropout: False  # turn on dropout

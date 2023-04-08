@@ -28,7 +28,7 @@ hydra:
 
 # for ensembles, add a list to model_ensemble of paths to the checkpoints
 model_ensemble:
-  - ${oc.env:HOME}/data/nist/aiomics/models/lyg_rebuttal_166c872328264874a818bd1f4ad178ac_val_loss=-0.8471_epoch=043.ckpt
+  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/aiomics_model.tgz
 model_draws: 1  # number of draws per model
 hitlist_in: ${oc.env:HOME}/data/nist/aiomics/rebuttal/rebuttal_validation_hitlist.pkl
 num: 0  # number of spectra to predict

@@ -27,8 +27,14 @@ class SmallMolSearchDataModule(MasskitDataModule):
             raise NotImplementedError('multiple datasets not supported for SmallMolSearchDataModule')
 
         subsets = []
-        path = get_file(self.config.input[set_to_load].spectral_library, self.config.paths.cache_directory, self.config.paths.search_path)
-        path_search = get_file(self.config.input[set_to_load].spectral_library_search, self.config.paths.cache_directory, self.config.paths.search_path)
+        path = get_file(self.config.input[set_to_load].spectral_library,
+                        self.config.paths.cache_directory,
+                        self.config.paths.search_path,
+                        tgz_extension='.parquet')
+        path_search = get_file(self.config.input[set_to_load].spectral_library_search,
+                               self.config.paths.cache_directory,
+                               self.config.paths.search_path,
+                               tgz_extension='.parquet')
         subsets.append(class_for_name(self.config.paths.modules.dataloaders,
                                 self.config.ms.dataloader)(path, self.config, set_to_load, store_search=path_search))
         return subsets

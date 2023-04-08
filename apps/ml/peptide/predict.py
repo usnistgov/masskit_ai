@@ -1,5 +1,5 @@
 import logging
-from masskit.utils.general import class_for_name, search_for_file
+from masskit.utils.general import class_for_name, get_file
 from masskit_ai.loggers import filter_pytorch_lightning_warnings
 from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
 import hydra
@@ -43,7 +43,7 @@ def main(config):
         config.get("single_prediction", "single_spectrum_prediction"))
 
     for i in range(len(config.model_ensemble)):
-        filename = search_for_file(config.model_ensemble[i], config.paths.search_path)
+        filename = get_file(config.model_ensemble[i], search_path=config.paths.search_path, tgz_extension='.ckpt')
         if filename is None:
             raise ValueError(f'model {config.model_ensemble[i]} is not found')
         model = SpectrumLightningModule.load_from_checkpoint(filename)
