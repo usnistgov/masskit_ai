@@ -58,6 +58,17 @@
                 "input.test.spectral_library=${userHome}/data/nist/aiomics/rebuttal/peptide_digest.parquet",
             ],
             "console": "integratedTerminal",
+        },
+        {
+            "name": "Python: predict.py fasta 2",
+            "type": "python",
+            "request": "launch",
+            "cwd": "/home/lyg/data/uniprot/explorable_proteome",
+            "program": "${workspaceFolder}/src/masskit_ai/apps/ml/peptide/predict.py",
+            "args": [
+                "input.test.spectral_library=test.parquet", "output_prefix=predict_test","output_suffixes=[mgf]"
+            ],
+            "console": "integratedTerminal",
         }
 
     ]

@@ -24,7 +24,7 @@ hydra:
   searchpath:
     - pkg://masskit_ai.conf
   job:
-    chdir: True
+    chdir: False
 
 # for ensembles, add a list to model_ensemble of paths to the checkpoints
 model_ensemble:

@@ -5,11 +5,11 @@
 ### Peptide library to spectral library
 
 To generate a library of peptides, which is typically the first step in generating a peptide
-spectral library, use the program `predict.py`. This program takes a peptide library in parquet
+spectral library, use the program `predict`. This program takes a peptide library in parquet
 format and generates a spectral library using an AI network.  The peptide library can be generated using
-[fasta2peptide.py](https://pages.nist.gov/masskit/recipes.html#library-generation).
-The configuration for this program is contained in the `conf/config_predict_peptide_digest.yaml`
-file in the same directory as `predict.py`.
+[fasta2peptide](https://pages.nist.gov/masskit/recipes.html#library-generation).
+The default configuration for this program is contained in
+`masskit_ai/src/masskit_ai/apps/ml/peptide/conf/config_predict.yaml`.
 
 * to change the name of the input file, specify `input.test.spectral_library=myfilename.parquet` on the
 command line.
@@ -22,3 +22,5 @@ the command line.
   * `num=0` is the number of spectra to predict, 0 = all
   * `model_ensemble=[https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/aiomics_model.tgz]` is a list of AI networks to use for prediction
   * `upres:True` perform upresolution on the spectra
+
+An example command line: `predict input.test.spectral_library=uniprot_peptides.parquet output_prefix=uniprot_peptides output_suffixes=[mgf,msp]`

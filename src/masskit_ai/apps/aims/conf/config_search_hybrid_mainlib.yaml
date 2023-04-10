@@ -46,4 +46,4 @@ output:
   searchpath:
     - pkg://masskit_ai.conf
   job:
-    chdir: True
+    chdir: False

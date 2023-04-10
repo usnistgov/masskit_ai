@@ -24,7 +24,7 @@ hydra:
   searchpath:
     - pkg://masskit_ai.conf
   job:
-    chdir: True
+    chdir: False
 
 input.train.where: null
 

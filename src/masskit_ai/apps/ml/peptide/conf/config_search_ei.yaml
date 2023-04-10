@@ -27,7 +27,7 @@ hydra:
   searchpath:
     - pkg://masskit_ai.conf
   job:
-    chdir: True
+    chdir: False
 
 ml:
   batch_size: 20
