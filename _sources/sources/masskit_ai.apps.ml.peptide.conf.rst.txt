@@ -1,0 +1,10 @@
+masskit\_ai.apps.ml.peptide.conf package
+========================================
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai.apps.ml.peptide.conf
+   :members:
+   :undoc-members:
+   :show-inheritance:

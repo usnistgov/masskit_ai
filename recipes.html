@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Recipes &#8212; masskit_ai 1.0.0 documentation</title>
+    <title>Recipes &#8212; masskit_ai 1.0.0-4-ga9d2296 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/nature.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -60,7 +60,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="README.html" title="Masskit_ai use and architecture"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-4-ga9d2296 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Recipes</a></li> 
       </ul>
     </div>  
@@ -77,11 +77,11 @@ $(document).ready(function(){
 <section id="peptide-library-to-spectral-library">
 <h3>Peptide library to spectral library<a class="headerlink" href="#peptide-library-to-spectral-library" title="Permalink to this heading">¶</a></h3>
 <p>To generate a library of peptides, which is typically the first step in generating a peptide
-spectral library, use the program <code class="docutils literal notranslate"><span class="pre">predict.py</span></code>. This program takes a peptide library in parquet
+spectral library, use the program <code class="docutils literal notranslate"><span class="pre">predict</span></code>. This program takes a peptide library in parquet
 format and generates a spectral library using an AI network.  The peptide library can be generated using
-<a class="reference external" href="https://pages.nist.gov/masskit/recipes.html#library-generation">fasta2peptide.py</a>.
-The configuration for this program is contained in the <code class="docutils literal notranslate"><span class="pre">conf/config_predict_peptide_digest.yaml</span></code>
-file in the same directory as <code class="docutils literal notranslate"><span class="pre">predict.py</span></code>.</p>
+<a class="reference external" href="https://pages.nist.gov/masskit/recipes.html#library-generation">fasta2peptide</a>.
+The default configuration for this program is contained in
+<code class="docutils literal notranslate"><span class="pre">masskit_ai/src/masskit_ai/apps/ml/peptide/conf/config_predict.yaml</span></code>.</p>
 <ul class="simple">
 <li><p>to change the name of the input file, specify <code class="docutils literal notranslate"><span class="pre">input.test.spectral_library=myfilename.parquet</span></code> on the
 command line.</p></li>
@@ -96,11 +96,12 @@ the command line.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">min_intensity=0.1</span></code> is the minimum intensity to predict (out of a max of 999)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">min_mz=28</span></code> is the minimum mz value for predicted ions</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">num=0</span></code> is the number of spectra to predict, 0 = all</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">model_ensemble=[lyg_rebuttal_166c872328264874a818bd1f4ad178ac_val_loss=-0.8471_epoch=043.ckpt]</span></code> is a list of AI networks to use for prediction</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model_ensemble=[https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/aiomics_model.tgz]</span></code> is a list of AI networks to use for prediction</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">upres:True</span></code> perform upresolution on the spectra</p></li>
 </ul>
 </li>
 </ul>
+<p>An example command line: <code class="docutils literal notranslate"><span class="pre">predict</span> <span class="pre">input.test.spectral_library=uniprot_peptides.parquet</span> <span class="pre">output_prefix=uniprot_peptides</span> <span class="pre">output_suffixes=[mgf,msp]</span></code></p>
 </section>
 </section>
 </section>
@@ -163,7 +164,7 @@ the command line.</p>
         <li class="right" >
           <a href="README.html" title="Masskit_ai use and architecture"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-4-ga9d2296 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Recipes</a></li> 
       </ul>
     </div>

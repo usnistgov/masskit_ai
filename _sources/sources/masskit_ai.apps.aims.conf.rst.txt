@@ -1,0 +1,10 @@
+masskit\_ai.apps.aims.conf package
+==================================
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai.apps.aims.conf
+   :members:
+   :undoc-members:
+   :show-inheritance:

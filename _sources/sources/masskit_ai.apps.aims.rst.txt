@@ -1,0 +1,53 @@
+masskit\_ai.apps.aims package
+=============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   masskit_ai.apps.aims.conf
+
+Submodules
+----------
+
+masskit\_ai.apps.aims.aims module
+---------------------------------
+
+.. automodule:: masskit_ai.apps.aims.aims
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.apps.aims.build\_index module
+-----------------------------------------
+
+.. automodule:: masskit_ai.apps.aims.build_index
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.apps.aims.compare\_search\_results module
+-----------------------------------------------------
+
+.. automodule:: masskit_ai.apps.aims.compare_search_results
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.apps.aims.create\_feature\_vector module
+----------------------------------------------------
+
+.. automodule:: masskit_ai.apps.aims.create_feature_vector
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai.apps.aims
+   :members:
+   :undoc-members:
+   :show-inheritance:

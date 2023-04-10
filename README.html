@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Masskit_ai use and architecture &#8212; masskit_ai 1.0.0 documentation</title>
+    <title>Masskit_ai use and architecture &#8212; masskit_ai 1.0.0-4-ga9d2296 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/nature.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -64,7 +64,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="index.html" title="Welcome to masskit_ai’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-4-ga9d2296 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Masskit_ai use and architecture</a></li> 
       </ul>
     </div>  
@@ -144,7 +144,7 @@ converts it into a dictionary-like object for use in python.  Using hydra organi
 simplifies changing groups of settings, automates the logging of parameters, and allows for hyperparameter sweeps.<br />
 The hydra configuration can be found in <span class="xref myst">apps/ml/peptide/conf</span> and its subdirectories.  The subdirectories,
 which contain yaml files, are used to organize the configuration into logical submodules.</p>
-<p>The top level configuration file is <a class="reference download internal" download="" href="_downloads/27e83e64fadc39150756c7693586ed50/config.yaml"><span class="xref download myst">apps/ml/peptide/conf/config.yaml</span></a>.  It has a <code class="docutils literal notranslate"><span class="pre">defaults</span></code> section that
+<p>The top level configuration file is <span class="xref myst">apps/ml/peptide/conf/config.yaml</span>.  It has a <code class="docutils literal notranslate"><span class="pre">defaults</span></code> section that
 includes yaml files from subdirectories:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2021-04-20_nist</span><span class="w">  </span><span class="c1"># input data </span><span class="w"></span>
@@ -224,7 +224,7 @@ ml.bayesian_network.sample_nbr.</p>
 </li>
 <li><p>Architecture</p>
 <ul>
-<li><p>pytorch_lightning.Trainer <a class="reference download internal" download="" href="_downloads/2c23b6084ee051eca850fb69a22eab04/train.py"><span class="xref download myst">apps/ml/peptide/train.py</span></a>: overall driver of training process.</p>
+<li><p>pytorch_lightning.Trainer <span class="xref myst">apps/ml/peptide/train.py</span>: overall driver of training process.</p>
 <ul>
 <li><p>SpectrumLightningModule <a class="reference download internal" download="" href="_downloads/b946b530d832f6f7b4dd197e40c9c979/spectrum_lightning.py"><span class="xref download myst">masskit_ai/spectrum/spectrum_lightning.py</span></a> contains the train/valid/test
 loops.  Derived from pytorch_lightning.LightningModule, which in turn is derived from torch.nn.Module.</p>
@@ -298,7 +298,7 @@ it.  Use <span class="xref myst">apps/ml/peptide/conf/ml/model/DenseSpectrumNet.
 reference it in the code for <code class="docutils literal notranslate"><span class="pre">MyModel</span></code> as <code class="docutils literal notranslate"><span class="pre">self.config.ml.model.MyModel.my_config</span></code>.</p></li>
 </ul>
 </li>
-<li><p>to use the model for training, edit <a class="reference download internal" download="" href="_downloads/27e83e64fadc39150756c7693586ed50/config.yaml"><span class="xref download myst">apps/ml/peptide/conf/config.yaml</span></a> by</p>
+<li><p>to use the model for training, edit <span class="xref myst">apps/ml/peptide/conf/config.yaml</span> by</p>
 <ul>
 <li><p>changing the line that starts with <code class="docutils literal notranslate"><span class="pre">ml/model</span></code> in <code class="docutils literal notranslate"><span class="pre">defaults:</span></code> to have the value <code class="docutils literal notranslate"><span class="pre">MyModel</span></code>, that is, the name of the
 new configuration file.</p></li>
@@ -410,7 +410,7 @@ intensity variances from the input and output.</p></li>
 in <a class="reference download internal" download="" href="_downloads/ff37c96c3c2eca614d0669a3a31d451a/spectrum_losses.py"><span class="xref download myst">masskit_ai/spectrum/spectrum_losses.py</span></a> or place it in its own file.</p></li>
 <li><p>if you created a new file to hold the code for the loss, append the filename to the configuration setting
 <code class="docutils literal notranslate"><span class="pre">modules.losses</span></code> in <span class="xref myst">apps/ml/peptide/conf/paths/standard.yaml</span></p></li>
-<li><p>to use the loss, change <code class="docutils literal notranslate"><span class="pre">ml.loss.loss_function</span></code> in <a class="reference download internal" download="" href="_downloads/27e83e64fadc39150756c7693586ed50/config.yaml"><span class="xref download myst">apps/ml/peptide/conf/config.yaml</span></a> to <code class="docutils literal notranslate"><span class="pre">MyLoss</span></code>.</p></li>
+<li><p>to use the loss, change <code class="docutils literal notranslate"><span class="pre">ml.loss.loss_function</span></code> in <span class="xref myst">apps/ml/peptide/conf/config.yaml</span> to <code class="docutils literal notranslate"><span class="pre">MyLoss</span></code>.</p></li>
 </ul>
 </li>
 </ul>
@@ -590,7 +590,7 @@ filenames of form <code class="docutils literal notranslate"><span class="pre">l
         <li class="right" >
           <a href="index.html" title="Welcome to masskit_ai’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-4-ga9d2296 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Masskit_ai use and architecture</a></li> 
       </ul>
     </div>

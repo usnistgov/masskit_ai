@@ -1,0 +1,69 @@
+masskit\_ai.apps.ml.peptide package
+===================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   masskit_ai.apps.ml.peptide.conf
+
+Submodules
+----------
+
+masskit\_ai.apps.ml.peptide.create\_peptide\_library module
+-----------------------------------------------------------
+
+.. automodule:: masskit_ai.apps.ml.peptide.create_peptide_library
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.apps.ml.peptide.experimental\_divide module
+-------------------------------------------------------
+
+.. automodule:: masskit_ai.apps.ml.peptide.experimental_divide
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.apps.ml.peptide.experimental\_join module
+-----------------------------------------------------
+
+.. automodule:: masskit_ai.apps.ml.peptide.experimental_join
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.apps.ml.peptide.predict module
+------------------------------------------
+
+.. automodule:: masskit_ai.apps.ml.peptide.predict
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.apps.ml.peptide.predict\_hitlist module
+---------------------------------------------------
+
+.. automodule:: masskit_ai.apps.ml.peptide.predict_hitlist
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.apps.ml.peptide.train module
+----------------------------------------
+
+.. automodule:: masskit_ai.apps.ml.peptide.train
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai.apps.ml.peptide
+   :members:
+   :undoc-members:
+   :show-inheritance:

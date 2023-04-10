@@ -1,0 +1,19 @@
+masskit\_ai.apps package
+========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   masskit_ai.apps.aims
+   masskit_ai.apps.ml
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai.apps
+   :members:
+   :undoc-members:
+   :show-inheritance:
