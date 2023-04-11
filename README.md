@@ -19,11 +19,10 @@ Masskit AI is a Python package that uses the [Masskit](https://github.com/usnist
 
 ## Installation
 
-On a Linux, Windows or macOS computer that has [Anaconda](https://www.anaconda.com/) and [Git](https://git-scm.com/) installed
+On a Linux or macOS computer that has [Anaconda](https://www.anaconda.com/) and [Git](https://git-scm.com/) installed
 
 - first install [Masskit](https://github.com/usnistgov/masskit).
-- change to a directory that will hold the masskit_ai repository
-- run `conda activate masskit_ai`
+- change to a directory that will hold the masskit_ai directory
 - run `git clone https://github.com/usnistgov/masskit_ai.git`
 - run `cd masskit_ai`
 - run `pip install -e .`
