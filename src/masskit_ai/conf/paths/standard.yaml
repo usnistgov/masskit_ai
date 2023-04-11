@@ -3,11 +3,11 @@
 
 # name of the directory to cache input files
 # if the file already exists in this cache directory, it won't be downloaded.
-cache_directory: ${oc.env:HOME}/.masskit_cache
+cache_directory: ~/.masskit_cache
 # directories where to search for cached data data
 search_path:
   - /aiomics/massspec_cache
-  - ${oc.env:HOME}/.masskit_cache
+  - ~/.masskit_cache
 
 # modules to search for loss, model, logger, dataloader, and embedding classes
 modules:

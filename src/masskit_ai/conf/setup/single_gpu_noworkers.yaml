@@ -1,0 +1,9 @@
+num_nodes: 1  # number of compute nodes to run on
+gpus: 1  # number of gpus to use, or, if a list, which gpus to use
+reproducable_seed: null  # set random seed for all APIs.  If null, seed is selected randomly and give to subprocesses
+num_workers: 0   # number of data loader workers
+# gpu default otherwise ddp or ddp_spawn
+# ddp works better if you have num_workers >> 0
+accelerator: gpu
+# turn on traceback and NaN detection for debugging
+set_detect_anomaly: False

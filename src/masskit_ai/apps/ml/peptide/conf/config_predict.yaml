@@ -8,7 +8,7 @@
 
 defaults:
   - input: 2022_consensus # input data set
-  - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
+  - setup: single_gpu_noworkers  # experiment setup parameters that are not typical hyperparameters
   - logging: mlflow_tensorboard_local  # logging setup
   - paths: standard  # places to look for data and code
   - ms: tandem  # mass spec parameters
