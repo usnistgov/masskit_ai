@@ -73,6 +73,6 @@ def finalize_molprop_prediction_dataset(df, predicted_column='predicted_property
     for j in range(len(df.index)):
         accumulator = df[predicted_column].iat[j]
         accumulator.finalize()
-        df[predicted_column].iat[j] = accumulator.mean
-        df[predicted_column + '_stddev'].iat[j] = accumulator.stddev
+        df[predicted_column].iat[j] = accumulator.predicted_mean
+        df[predicted_column + '_stddev'].iat[j] = accumulator.predicted_stddev
     df[predicted_column] = df[predicted_column].astype(float)

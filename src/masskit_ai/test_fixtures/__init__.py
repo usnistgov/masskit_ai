@@ -25,7 +25,7 @@ def config_predict_peptide(predicted_human_uniprot_trunc_parquet, create_peptide
                       overrides=[f"input.test.spectral_library={create_peptide_parquet_file}",
                                  f"output_prefix={predicted_human_uniprot_trunc_parquet}",
                                  "output_suffixes=[parquet,msp]",
-                                 "num=5"])
+                                 "num=6"])
         return cfg
 
 @pytest.fixture(scope="session")
