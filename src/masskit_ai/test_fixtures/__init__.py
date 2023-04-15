@@ -24,11 +24,11 @@ def config_predict_peptide(predicted_human_uniprot_trunc_parquet, create_peptide
         cfg = compose(config_name="config_predict",
                       overrides=[f"input.test.spectral_library={create_peptide_parquet_file}",
                                  f"output_prefix={predicted_human_uniprot_trunc_parquet}",
-                                 "output_suffixes=[parquet,msp]",
+                                 "output_suffixes=[arrow,msp]",
                                  "num=6"])
         return cfg
 
 @pytest.fixture(scope="session")
-def create_predicted_peptide_parquet_file(config_predict_peptide):
+def create_predicted_peptide_arrow_file(config_predict_peptide):
     predict.main(config_predict_peptide)
     return config_predict_peptide.output_prefix+"."+config_predict_peptide.output_suffixes[0], config_predict_peptide.output_prefix+"."+config_predict_peptide.output_suffixes[1]

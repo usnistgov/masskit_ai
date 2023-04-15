@@ -42,10 +42,8 @@ predicted_column: predicted_spectrum
 upres: True  # up resolution peptide spectra
 output_prefix: ${oc.env:HOME}/data/nist/aiomics/rebuttal/rebuttal_test  # name of the output file
 output_suffixes:  # different file types to write out
-  - pkl
-  - csv
   - msp
-  - parquet
+  - arrow
 dataloader: TandemArrowDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
 set_to_load: test  # data set to do predictions on
 
