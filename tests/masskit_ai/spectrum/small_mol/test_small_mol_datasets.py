@@ -8,7 +8,10 @@ from hydra.core.global_hydra import GlobalHydra
 def config():
     GlobalHydra.instance().clear()
     initialize(config_path='.', version_base=None)
-    cfg = compose(config_name="config_search", overrides=['input=2022_tandem_search_test'])
+    cfg = compose(config_name="config_search", 
+                  overrides=['input=2022_tandem_search_test',
+                             'setup.num_workers=0'
+                             ])
     return cfg
 
 @pytest.mark.skip(reason="needs data/nist/tandem/SRM1950/SRM1950_lumos.ecfp4.pynndescent")

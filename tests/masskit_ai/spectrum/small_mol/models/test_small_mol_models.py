@@ -11,7 +11,11 @@ from hydra.core.global_hydra import GlobalHydra
 def config():
     GlobalHydra.instance().clear()
     initialize(config_path='..', version_base=None)
-    cfg = compose(config_name="config_search", overrides=['input=2022_tandem_search_test', "ml/model=ResNetBaseline"])
+    cfg = compose(config_name="config_search",
+                  overrides=['input=2022_tandem_search_test',
+                              "ml/model=ResNetBaseline",
+                              'setup.num_workers=0',
+                              ])
     return cfg
 
 @pytest.fixture()

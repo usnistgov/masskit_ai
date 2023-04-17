@@ -17,6 +17,7 @@ def config_ri():
         'input.train.where=null',
         'input.valid.spectral_library=data/mainlib_2017_path_trunc.parquet',
         'input.valid.where=null',
+        'setup.num_workers=0',
     ])
     return cfg
 
