@@ -1,0 +1,19 @@
+masskit\_ai.conf.ml package
+===========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   masskit_ai.conf.ml.embedding
+   masskit_ai.conf.ml.model
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai.conf.ml
+   :members:
+   :undoc-members:
+   :show-inheritance:

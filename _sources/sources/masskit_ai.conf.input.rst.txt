@@ -1,0 +1,10 @@
+masskit\_ai.conf.input package
+==============================
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai.conf.input
+   :members:
+   :undoc-members:
+   :show-inheritance:

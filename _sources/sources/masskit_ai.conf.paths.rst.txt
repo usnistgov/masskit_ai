@@ -1,0 +1,10 @@
+masskit\_ai.conf.paths package
+==============================
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai.conf.paths
+   :members:
+   :undoc-members:
+   :show-inheritance:

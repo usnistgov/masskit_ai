@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>masskit_ai.spectrum.peptide package &#8212; masskit_ai 1.0.0-7-g2f1e04c documentation</title>
+    <title>masskit_ai.spectrum.peptide package &#8212; masskit_ai 1.0.0-20-gde6df15 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -56,7 +56,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-7-g2f1e04c documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.spectrum.peptide package</a></li> 
       </ul>
     </div>  
@@ -233,15 +233,13 @@ $(document).ready(function(){
 <span id="masskit-ai-spectrum-peptide-peptide-prediction-module"></span><h2>masskit_ai.spectrum.peptide.peptide_prediction module<a class="headerlink" href="#module-masskit_ai.spectrum.peptide.peptide_prediction" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="masskit_ai.spectrum.peptide.peptide_prediction.upres_peptide_spectra">
-<span class="sig-prename descclassname"><span class="pre">masskit_ai.spectrum.peptide.peptide_prediction.</span></span><span class="sig-name descname"><span class="pre">upres_peptide_spectra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predicted_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theoretical_spectrum_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ion_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_mz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_mz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.peptide.peptide_prediction.upres_peptide_spectra" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.spectrum.peptide.peptide_prediction.</span></span><span class="sig-name descname"><span class="pre">upres_peptide_spectra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ion_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_mz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_mz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.peptide.peptide_prediction.upres_peptide_spectra" title="Permalink to this definition">¶</a></dt>
 <dd><p>take a dataframe with predicted spectra, generate matching theoretical spectra, and upres
 matching peaks</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> – the dataframe</p></li>
-<li><p><strong>predicted_column</strong> – name of the column containing predicted spectra, defaults to None</p></li>
-<li><p><strong>theoretical_spectrum_column</strong> – name of the column to contain theoretical spectra, defaults to None</p></li>
+<li><p><strong>df</strong> – list of spectra</p></li>
 <li><p><strong>ion_types</strong> – ion types to use when generating theoretical spectra, defaults to None</p></li>
 <li><p><strong>max_mz</strong> – maximum mz value for calculating cosine score.  0 means don’t filter</p></li>
 <li><p><strong>min_mz</strong> – the minimum mz value for calculation the cosine score</p></li>
@@ -252,14 +250,14 @@ matching peaks</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="masskit_ai.spectrum.peptide.peptide_prediction.upres_peptide_spectrum">
-<span class="sig-prename descclassname"><span class="pre">masskit_ai.spectrum.peptide.peptide_prediction.</span></span><span class="sig-name descname"><span class="pre">upres_peptide_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicted_spectrum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theoretical_spectrum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.peptide.peptide_prediction.upres_peptide_spectrum" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.spectrum.peptide.peptide_prediction.</span></span><span class="sig-name descname"><span class="pre">upres_peptide_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicted_spectrum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ion_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.peptide.peptide_prediction.upres_peptide_spectrum" title="Permalink to this definition">¶</a></dt>
 <dd><p>match a theoretical peptide spectrum to a predicted spectrum and copy over the theoretical mz values to
 the predicted spectrum. If there are more than one matches to a predicted spectrum, don’t match</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>predicted_spectrum</strong> – the predicted spectrum</p></li>
-<li><p><strong>theoretical_spectrum</strong> – the theoretical spectrum</p></li>
+<li><p><strong>ion_types</strong> – ion types to use when generating theoretical spectra, defaults to None</p></li>
 </ul>
 </dd>
 </dl>
@@ -382,7 +380,7 @@ the predicted spectrum. If there are more than one matches to a predicted spectr
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-7-g2f1e04c documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.spectrum.peptide package</a></li> 
       </ul>
     </div>

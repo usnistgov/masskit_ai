@@ -1,0 +1,10 @@
+masskit\_ai.conf.logging package
+================================
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai.conf.logging
+   :members:
+   :undoc-members:
+   :show-inheritance:

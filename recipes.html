@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Recipes &#8212; masskit_ai 1.0.0-7-g2f1e04c documentation</title>
+    <title>Recipes &#8212; masskit_ai 1.0.0-20-gde6df15 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/nature.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -60,7 +60,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="README.html" title="Masskit_ai use and architecture"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-7-g2f1e04c documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Recipes</a></li> 
       </ul>
     </div>  
@@ -85,23 +85,23 @@ The default configuration for this program is contained in
 <ul class="simple">
 <li><p>to change the name of the input file, specify <code class="docutils literal notranslate"><span class="pre">input.test.spectral_library=myfilename.parquet</span></code> on the
 command line.</p></li>
-<li><p>the prefix of the output file(s) is specified using <code class="docutils literal notranslate"><span class="pre">output_prefix=myfilename</span></code> on
+<li><p>the prefix of the output file(s) is specified using <code class="docutils literal notranslate"><span class="pre">predict.output_prefix=myfilename</span></code> on
 the command line.</p>
 <ul>
-<li><p>the program outputs the following formats <a class="reference external" href="https://chemdata.nist.gov/dokuwiki/lib/exe/fetch.php?media=chemdata:nist17:nistms_ver23man.pdf">msp</a> (NIST Text Format of Individual Spectra), <a class="reference external" href="http://www.matrixscience.com/help/data_file_help.html#GEN">mgf</a>, csv, and pkl (pickled pandas dataframe) by setting <code class="docutils literal notranslate"><span class="pre">output_suffixes=[mgf,csv]</span></code></p></li>
+<li><p>the program outputs the following formats <a class="reference external" href="https://chemdata.nist.gov/dokuwiki/lib/exe/fetch.php?media=chemdata:nist17:nistms_ver23man.pdf">msp</a> (NIST Text Format of Individual Spectra), <a class="reference external" href="http://www.matrixscience.com/help/data_file_help.html#GEN">mgf</a>, csv, and pkl (pickled pandas dataframe) by setting <code class="docutils literal notranslate"><span class="pre">predict.output_suffixes=[mgf,csv]</span></code></p></li>
 </ul>
 </li>
 <li><p>the program supports the following options:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">min_intensity=0.1</span></code> is the minimum intensity to predict (out of a max of 999)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">min_mz=28</span></code> is the minimum mz value for predicted ions</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">num=0</span></code> is the number of spectra to predict, 0 = all</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">model_ensemble=[https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/aiomics_model.tgz]</span></code> is a list of AI networks to use for prediction</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">upres:True</span></code> perform upresolution on the spectra</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">predict.min_intensity=0.1</span></code> is the minimum intensity to predict (out of a max of 999)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">predict.min_mz=28</span></code> is the minimum mz value for predicted ions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">predict.num=0</span></code> is the number of spectra to predict, 0 = all</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">predict.model_ensemble=[https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/aiomics_model.tgz]</span></code> is a list of AI networks to use for prediction</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">predict.upres=True</span></code> perform upresolution on the spectra</p></li>
 </ul>
 </li>
 </ul>
-<p>An example command line: <code class="docutils literal notranslate"><span class="pre">predict</span> <span class="pre">input.test.spectral_library=uniprot_peptides.parquet</span> <span class="pre">output_prefix=uniprot_peptides</span> <span class="pre">output_suffixes=[mgf,msp]</span></code></p>
+<p>An example command line: <code class="docutils literal notranslate"><span class="pre">predict</span> <span class="pre">input.test.spectral_library=uniprot_peptides.parquet</span> <span class="pre">predict.output_prefix=uniprot_peptides</span> <span class="pre">predict.output_suffixes=[mgf,msp]</span></code></p>
 </section>
 </section>
 </section>
@@ -164,7 +164,7 @@ the command line.</p>
         <li class="right" >
           <a href="README.html" title="Masskit_ai use and architecture"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-7-g2f1e04c documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Recipes</a></li> 
       </ul>
     </div>

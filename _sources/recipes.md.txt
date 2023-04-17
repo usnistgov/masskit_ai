@@ -13,14 +13,14 @@ The default configuration for this program is contained in
 
 * to change the name of the input file, specify `input.test.spectral_library=myfilename.parquet` on the
 command line.
-* the prefix of the output file(s) is specified using `output_prefix=myfilename` on
+* the prefix of the output file(s) is specified using `predict.output_prefix=myfilename` on
 the command line.
-  * the program outputs the following formats [msp](https://chemdata.nist.gov/dokuwiki/lib/exe/fetch.php?media=chemdata:nist17:nistms_ver23man.pdf) (NIST Text Format of Individual Spectra), [mgf](http://www.matrixscience.com/help/data_file_help.html#GEN), csv, and pkl (pickled pandas dataframe) by setting `output_suffixes=[mgf,csv]`
+  * the program outputs the following formats [msp](https://chemdata.nist.gov/dokuwiki/lib/exe/fetch.php?media=chemdata:nist17:nistms_ver23man.pdf) (NIST Text Format of Individual Spectra), [mgf](http://www.matrixscience.com/help/data_file_help.html#GEN), csv, and pkl (pickled pandas dataframe) by setting `predict.output_suffixes=[mgf,csv]`
 * the program supports the following options:
-  * `min_intensity=0.1` is the minimum intensity to predict (out of a max of 999)
-  * `min_mz=28` is the minimum mz value for predicted ions
-  * `num=0` is the number of spectra to predict, 0 = all
-  * `model_ensemble=[https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/aiomics_model.tgz]` is a list of AI networks to use for prediction
-  * `upres:True` perform upresolution on the spectra
+  * `predict.min_intensity=0.1` is the minimum intensity to predict (out of a max of 999)
+  * `predict.min_mz=28` is the minimum mz value for predicted ions
+  * `predict.num=0` is the number of spectra to predict, 0 = all
+  * `predict.model_ensemble=[https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/aiomics_model.tgz]` is a list of AI networks to use for prediction
+  * `predict.upres=True` perform upresolution on the spectra
 
-An example command line: `predict input.test.spectral_library=uniprot_peptides.parquet output_prefix=uniprot_peptides output_suffixes=[mgf,msp]`
+An example command line: `predict input.test.spectral_library=uniprot_peptides.parquet predict.output_prefix=uniprot_peptides predict.output_suffixes=[mgf,msp]`

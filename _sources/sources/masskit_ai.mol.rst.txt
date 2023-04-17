@@ -1,0 +1,45 @@
+masskit\_ai.mol package
+=======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   masskit_ai.mol.small
+
+Submodules
+----------
+
+masskit\_ai.mol.mol\_datasets module
+------------------------------------
+
+.. automodule:: masskit_ai.mol.mol_datasets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.mol.mol\_embed module
+---------------------------------
+
+.. automodule:: masskit_ai.mol.mol_embed
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.mol.mol\_prediction module
+--------------------------------------
+
+.. automodule:: masskit_ai.mol.mol_prediction
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai.mol
+   :members:
+   :undoc-members:
+   :show-inheritance:

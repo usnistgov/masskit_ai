@@ -1,0 +1,913 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>masskit_ai.mol.small.models package &#8212; masskit_ai 1.0.0-20-gde6df15 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+
+
+<script type="text/javascript" src="https://pages.nist.gov/leaveNotice/js/jquery.leaveNotice-nist.min.js"></script>
+<script>
+$(document).ready(function(){
+  // Mark external (non-nist.gov) A tags with class "external"
+  //If the adress start with https and ends with nist.gov
+  var re_nist = new RegExp('^https?:\/\/((^\/)*\.)*nist\\.gov(\/|$)');
+  //Regex to find address that start with https
+  var re_absolute_address = new RegExp('^((https?:)?\/\/)');
+  $("a").each(function(){
+    var url=$(this).attr('href');
+    if(re_nist.test(url) || !re_absolute_address.test(url)){
+      $(this).addClass('local');
+    }else{
+      //This a href appears to be external, so tag it
+      $(this).addClass('external');
+    }
+  });
+  // Add leaveNotice to external A elements
+  $('a.external').leaveNotice();
+});
+</script>
+<link rel="stylesheet" type="text/css" href="https://pages.nist.gov/leaveNotice/css/jquery.leaveNotice.css" />
+
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">masskit_ai.mol.small.models package</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="masskit-ai-mol-small-models-package">
+<h1>masskit_ai.mol.small.models package<a class="headerlink" href="#masskit-ai-mol-small-models-package" title="Permalink to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="masskit-ai-mol-small-models-algos-module">
+<h2>masskit_ai.mol.small.models.algos module<a class="headerlink" href="#masskit-ai-mol-small-models-algos-module" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-masskit_ai.mol.small.models.gf">
+<span id="masskit-ai-mol-small-models-gf-module"></span><h2>masskit_ai.mol.small.models.gf module<a class="headerlink" href="#module-masskit_ai.mol.small.models.gf" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.BaseFairseqModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">BaseFairseqModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Base class for fairseq models.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.BaseFairseqModel.build_model">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.build_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a new model instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.BaseFairseqModel.extract_features">
+<span class="sig-name descname"><span class="pre">extract_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.extract_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to <em>forward</em> but only return features.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.BaseFairseqModel.get_normalized_probs">
+<span class="sig-name descname"><span class="pre">get_normalized_probs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_probs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.get_normalized_probs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get normalized probabilities (or log probs) from a net’s output.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.BaseFairseqModel.get_normalized_probs_scriptable">
+<span class="sig-name descname"><span class="pre">get_normalized_probs_scriptable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_probs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.get_normalized_probs_scriptable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scriptable helper function for get_normalized_probs in ~BaseFairseqModel</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.BaseFairseqModel.get_targets">
+<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.get_targets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get targets from either the sample or the net’s output.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.BaseFairseqModel.hub_models">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hub_models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.hub_models" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.BaseFairseqModel.make_generation_fast_">
+<span class="sig-name descname"><span class="pre">make_generation_fast_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.make_generation_fast_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Legacy entry point to optimize model for faster generation.
+Prefer <a href="#id1"><span class="problematic" id="id2">prepare_for_inference_</span></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.BaseFairseqModel.max_positions">
+<span class="sig-name descname"><span class="pre">max_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.max_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum length supported by the model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.BaseFairseqModel.prepare_for_inference_">
+<span class="sig-name descname"><span class="pre">prepare_for_inference_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">omegaconf.DictConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.prepare_for_inference_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare model for inference.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.BaseFairseqModel.prepare_for_onnx_export_">
+<span class="sig-name descname"><span class="pre">prepare_for_onnx_export_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.prepare_for_onnx_export_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make model exportable via ONNX trace.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.BaseFairseqModel.set_num_updates">
+<span class="sig-name descname"><span class="pre">set_num_updates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_updates</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.set_num_updates" title="Permalink to this definition">¶</a></dt>
+<dd><p>State from trainer to pass along to model at every update.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqDropout">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">FairseqDropout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqDropout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqDropout.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqDropout.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqDropout.make_generation_fast_">
+<span class="sig-name descname"><span class="pre">make_generation_fast_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retain_dropout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retain_dropout_modules</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqDropout.make_generation_fast_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqEncoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">FairseqEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Base class for encoders.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqEncoder.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_tokens</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_lengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqEncoder.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>src_tokens (LongTensor): tokens in the source language of shape</dt><dd><p><cite>(batch, src_len)</cite></p>
+</dd>
+<dt>src_lengths (LongTensor): lengths of each source sentence of shape</dt><dd><p><cite>(batch)</cite></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqEncoder.forward_non_torchscript">
+<span class="sig-name descname"><span class="pre">forward_non_torchscript</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqEncoder.forward_non_torchscript" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqEncoder.forward_torchscript">
+<span class="sig-name descname"><span class="pre">forward_torchscript</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqEncoder.forward_torchscript" title="Permalink to this definition">¶</a></dt>
+<dd><p>A TorchScript-compatible version of forward.</p>
+<p>Encoders which use additional arguments may want to override
+this method for TorchScript compatibility.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqEncoder.max_positions">
+<span class="sig-name descname"><span class="pre">max_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqEncoder.max_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum input length supported by the encoder.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqEncoder.reorder_encoder_out">
+<span class="sig-name descname"><span class="pre">reorder_encoder_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoder_out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_order</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqEncoder.reorder_encoder_out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reorder encoder output according to <cite>new_order</cite>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>encoder_out: output from the <code class="docutils literal notranslate"><span class="pre">forward()</span></code> method
+new_order (LongTensor): desired order</p>
+</dd>
+<dt>Returns:</dt><dd><p><cite>encoder_out</cite> rearranged according to <cite>new_order</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqEncoder.set_num_updates">
+<span class="sig-name descname"><span class="pre">set_num_updates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_updates</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqEncoder.set_num_updates" title="Permalink to this definition">¶</a></dt>
+<dd><p>State from trainer to pass along to model at every update.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqEncoder.upgrade_state_dict_named">
+<span class="sig-name descname"><span class="pre">upgrade_state_dict_named</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqEncoder.upgrade_state_dict_named" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upgrade old state dicts to work with newer code.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqEncoderModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">FairseqEncoderModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqEncoderModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel" title="masskit_ai.mol.small.models.gf.BaseFairseqModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseFairseqModel</span></code></a></p>
+<p>Base class for encoder-only models.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>encoder (FairseqEncoder): the encoder</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqEncoderModel.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_tokens</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_lengths</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqEncoderModel.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the forward pass for a encoder-only model.</p>
+<p>Feeds a batch of tokens through the encoder to generate features.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>src_tokens (LongTensor): input tokens of shape <cite>(batch, src_len)</cite>
+src_lengths (LongTensor): source sentence lengths of shape <cite>(batch)</cite></p>
+</dd>
+<dt>Returns:</dt><dd><p>the encoder’s output, typically of shape <cite>(batch, src_len, features)</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqEncoderModel.get_normalized_probs">
+<span class="sig-name descname"><span class="pre">get_normalized_probs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_probs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqEncoderModel.get_normalized_probs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get normalized probabilities (or log probs) from a net’s output.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.FairseqEncoderModel.max_positions">
+<span class="sig-name descname"><span class="pre">max_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.FairseqEncoderModel.max_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum length supported by the model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphAttnBias">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">GraphAttnBias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphAttnBias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Compute attention bias for each head.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphAttnBias.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batched_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphAttnBias.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphNodeFeature">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">GraphNodeFeature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphNodeFeature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Compute node features for each node in the graph.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphNodeFeature.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batched_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphNodeFeature.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerEncoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">GraphormerEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqEncoder" title="masskit_ai.mol.small.models.gf.FairseqEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">FairseqEncoder</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerEncoder.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batched_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perturb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masked_tokens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">unused</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerEncoder.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>src_tokens (LongTensor): tokens in the source language of shape</dt><dd><p><cite>(batch, src_len)</cite></p>
+</dd>
+<dt>src_lengths (LongTensor): lengths of each source sentence of shape</dt><dd><p><cite>(batch)</cite></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerEncoder.max_nodes">
+<span class="sig-name descname"><span class="pre">max_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerEncoder.max_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum output length supported by the encoder.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerEncoder.reset_output_layer_parameters">
+<span class="sig-name descname"><span class="pre">reset_output_layer_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerEncoder.reset_output_layer_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerEncoder.upgrade_state_dict_named">
+<span class="sig-name descname"><span class="pre">upgrade_state_dict_named</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerEncoder.upgrade_state_dict_named" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upgrade old state dicts to work with newer code.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerGraphEncoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">GraphormerGraphEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerGraphEncoder.build_graphormer_graph_encoder_layer">
+<span class="sig-name descname"><span class="pre">build_graphormer_graph_encoder_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embedding_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ffn_embedding_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_attention_heads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attention_dropout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation_dropout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_noise</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qn_block_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_layernorm</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoder.build_graphormer_graph_encoder_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerGraphEncoder.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batched_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perturb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_state_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_embeddings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attn_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoder.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">GraphormerGraphEncoderLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer.build_fc1">
+<span class="sig-name descname"><span class="pre">build_fc1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_noise</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qn_block_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer.build_fc1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer.build_fc2">
+<span class="sig-name descname"><span class="pre">build_fc2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_noise</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qn_block_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer.build_fc2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer.build_self_attention">
+<span class="sig-name descname"><span class="pre">build_self_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embed_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_attention_heads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">self_attention</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_noise</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qn_block_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer.build_self_attention" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">self_attn_bias</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">self_attn_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">self_attn_padding_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>LayerNorm is applied either before or after the self-attention/ffn
+modules similar to the original Transformer implementation.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">GraphormerModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqEncoderModel" title="masskit_ai.mol.small.models.gf.FairseqEncoderModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">FairseqEncoderModel</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerModel.build_model">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerModel.build_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a new model instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerModel.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batched_data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerModel.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the forward pass for a encoder-only model.</p>
+<p>Feeds a batch of tokens through the encoder to generate features.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>src_tokens (LongTensor): input tokens of shape <cite>(batch, src_len)</cite>
+src_lengths (LongTensor): source sentence lengths of shape <cite>(batch)</cite></p>
+</dd>
+<dt>Returns:</dt><dd><p>the encoder’s output, typically of shape <cite>(batch, src_len, features)</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.GraphormerModel.max_nodes">
+<span class="sig-name descname"><span class="pre">max_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.GraphormerModel.max_nodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.Graphormer_slim">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">Graphormer_slim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.Graphormer_slim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_base_objects.SpectrumModel" title="masskit_ai.spectrum.spectrum_base_objects.SpectrumModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectrumModel</span></code></a></p>
+<p>class for wrapping graphormer in a standard SpectrumModel</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.Graphormer_slim.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.Graphormer_slim.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.Graphormer_slim.total_params">
+<span class="sig-name descname"><span class="pre">total_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.Graphormer_slim.total_params" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.LayerDropModuleList">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">LayerDropModuleList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.LayerDropModuleList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleList</span></code></p>
+<p>A LayerDrop implementation based on <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.ModuleList</span></code>.</p>
+<p>We refresh the choice of which layers to drop every time we iterate
+over the LayerDropModuleList instance. During evaluation we always
+iterate over all layers.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layers</span> <span class="o">=</span> <span class="n">LayerDropList</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">modules</span><span class="o">=</span><span class="p">[</span><span class="n">layer1</span><span class="p">,</span> <span class="n">layer2</span><span class="p">,</span> <span class="n">layer3</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>  <span class="c1"># this might iterate over layers 1 and 3</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>  <span class="c1"># this might iterate over all layers</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>  <span class="c1"># this might not iterate over any layers</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Args:</dt><dd><p>p (float): probability of dropping out each layer
+modules (iterable, optional): an iterable of modules to add</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.LayerNorm">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">LayerNorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">normalized_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elementwise_affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.LayerNorm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.MultiheadAttention">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">MultiheadAttention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.MultiheadAttention" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Multi-headed attention.</p>
+<p>See “Attention Is All You Need” for more details.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.MultiheadAttention.apply_sparse_mask">
+<span class="sig-name descname"><span class="pre">apply_sparse_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attn_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bsz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.MultiheadAttention.apply_sparse_mask" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.MultiheadAttention.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attn_bias</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_padding_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attn_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">before_softmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_head_weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.MultiheadAttention.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input shape: Time x Batch x Channel</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>key_padding_mask (ByteTensor, optional): mask to exclude</dt><dd><p>keys that are pads, of shape <cite>(batch, src_len)</cite>, where
+padding elements are indicated by 1s.</p>
+</dd>
+<dt>need_weights (bool, optional): return the attention weights,</dt><dd><p>averaged over heads (default: False).</p>
+</dd>
+<dt>attn_mask (ByteTensor, optional): typically used to</dt><dd><p>implement causal attention, where the mask prevents the
+attention from looking forward in time (default: None).</p>
+</dd>
+<dt>before_softmax (bool, optional): return the raw attention</dt><dd><p>weights and values before the attention softmax.</p>
+</dd>
+<dt>need_head_weights (bool, optional): return the attention</dt><dd><p>weights for each head. Implies <em>need_weights</em>. Default:
+return the average attention weights over all heads.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.MultiheadAttention.prepare_for_onnx_export_">
+<span class="sig-name descname"><span class="pre">prepare_for_onnx_export_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.MultiheadAttention.prepare_for_onnx_export_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.MultiheadAttention.reset_parameters">
+<span class="sig-name descname"><span class="pre">reset_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.MultiheadAttention.reset_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.MultiheadAttention.upgrade_state_dict_named">
+<span class="sig-name descname"><span class="pre">upgrade_state_dict_named</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.MultiheadAttention.upgrade_state_dict_named" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.base_architecture">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">base_architecture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.base_architecture" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.check_type">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">check_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.check_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.gelu">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">gelu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.gelu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.gelu_accurate">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">gelu_accurate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.gelu_accurate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.get_activation_fn">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">get_activation_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.get_activation_fn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the activation function corresponding to <cite>activation</cite></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.graphormer_slim_architecture">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">graphormer_slim_architecture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.graphormer_slim_architecture" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.init_graphormer_params">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">init_graphormer_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.init_graphormer_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the weights specific to the Graphormer Model.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.init_params">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">init_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_layers</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.init_params" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.quant_noise">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">quant_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.quant_noise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wraps modules and applies quantization noise to the weights for
+subsequent quantization with Iterative Product Quantization as
+described in “Training with Quantization Noise for Extreme Model Compression”</p>
+<dl class="simple">
+<dt>Args:</dt><dd><ul class="simple">
+<li><p>module: nn.Module</p></li>
+<li><p>p: amount of Quantization Noise</p></li>
+<li><p>block_size: size of the blocks for subsequent quantization with iPQ</p></li>
+</ul>
+</dd>
+<dt>Remarks:</dt><dd><ul class="simple">
+<li><p>Module weights must have the right sizes wrt the block size</p></li>
+<li><p>Only Linear, Embedding and Conv2d modules are supported for the moment</p></li>
+<li><p>For more detail on how to quantize by blocks with convolutional weights,
+see “And the Bit Goes Down: Revisiting the Quantization of Neural Networks”</p></li>
+<li><p>We implement the simplest form of noise here as stated in the paper
+which consists in randomly dropping blocks</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.relu_squared">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">relu_squared</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.relu_squared" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.safe_hasattr">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">safe_hasattr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.safe_hasattr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the given key exists and is not None.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.softmax">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.gf.</span></span><span class="sig-name descname"><span class="pre">softmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onnx_trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.softmax" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-masskit_ai.mol.small.models.model_utils">
+<span id="masskit-ai-mol-small-models-model-utils-module"></span><h2>masskit_ai.mol.small.models.model_utils module<a class="headerlink" href="#module-masskit_ai.mol.small.models.model_utils" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.model_utils.compute_max_atoms">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.model_utils.</span></span><span class="sig-name descname"><span class="pre">compute_max_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.model_utils.compute_max_atoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the scopes for a batch of molecules, computes max atoms.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.model_utils.convert_to_2D">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.model_utils.</span></span><span class="sig-name descname"><span class="pre">convert_to_2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.model_utils.convert_to_2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert back to 2D</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>input: A tensor of shape [batch size, max padding, # features]
+scope: A list of start/length indices for the molecules</p>
+</dd>
+<dt>Returns:</dt><dd><p>A matrix of size [# atoms, # features]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.model_utils.convert_to_3D">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.model_utils.</span></span><span class="sig-name descname"><span class="pre">convert_to_3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">self_attn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.model_utils.convert_to_3D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the input to a 3D batch matrix</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>input: A tensor of shape [# atoms, # features]
+scope: A list of start/length indices for the molecules
+max_atoms: The maximum number of atoms for padding purposes</p>
+</dd>
+<dt>Returns:</dt><dd><p>A matrix of size [batch_size, max atoms, # features]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-masskit_ai.mol.small.models.mol_features">
+<span id="masskit-ai-mol-small-models-mol-features-module"></span><h2>masskit_ai.mol.small.models.mol_features module<a class="headerlink" href="#module-masskit_ai.mol.small.models.mol_features" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_features.bt_index_to_float">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.mol_features.</span></span><span class="sig-name descname"><span class="pre">bt_index_to_float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bt_index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_features.bt_index_to_float" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_features.get_atom_features">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.mol_features.</span></span><span class="sig-name descname"><span class="pre">get_atom_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_features.get_atom_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an atom object, returns a numpy array of features.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_features.get_bond_features">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.mol_features.</span></span><span class="sig-name descname"><span class="pre">get_bond_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bond</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bt_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_features.get_bond_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an bond object, returns a numpy array of features.</p>
+<p>bond can be None, in which case returns default features for a non-bond.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_features.get_bt_feature">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.mol_features.</span></span><span class="sig-name descname"><span class="pre">get_bt_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bond_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_features.get_bt_feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a one-hot vector representing the bond_type.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_features.get_bt_index">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.mol_features.</span></span><span class="sig-name descname"><span class="pre">get_bt_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bond_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_features.get_bt_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the feature index for a particular bond type.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>bond_type: Either a rdchem bond type object (can be None) or a float</dt><dd><p>representing the bond type</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_features.get_path_bond_feature">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.mol_features.</span></span><span class="sig-name descname"><span class="pre">get_path_bond_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bond</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_features.get_path_bond_feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a rdkit bond object, returns the bond features for that bond.</p>
+<p>When the given input is none, returns a 0-vector</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_features.onek_unk_encoding">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.mol_features.</span></span><span class="sig-name descname"><span class="pre">onek_unk_encoding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_features.onek_unk_encoding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a one-hot encoding of the given feature.</p>
+</dd></dl>
+
+</section>
+<section id="module-masskit_ai.mol.small.models.mol_graph">
+<span id="masskit-ai-mol-small-models-mol-graph-module"></span><h2>masskit_ai.mol.small.models.mol_graph module<a class="headerlink" href="#module-masskit_ai.mol.small.models.mol_graph" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_graph.Atom">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.mol_graph.</span></span><span class="sig-name descname"><span class="pre">Atom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rd_atom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_dummy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_graph.Atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_graph.Atom.add_bond">
+<span class="sig-name descname"><span class="pre">add_bond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bond</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_graph.Atom.add_bond" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_graph.Bond">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.mol_graph.</span></span><span class="sig-name descname"><span class="pre">Bond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_atom_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_atom_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rd_bond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_graph.Bond" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_graph.MolGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.mol_graph.</span></span><span class="sig-name descname"><span class="pre">MolGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rd_mols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_graph.MolGraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_graph.MolGraph.get_atom_inputs">
+<span class="sig-name descname"><span class="pre">get_atom_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_tensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_graph.MolGraph.get_atom_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs only the atom inputs for the batch of molecules.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_graph.MolGraph.get_graph_inputs">
+<span class="sig-name descname"><span class="pre">get_graph_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_tensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_graph.MolGraph.get_graph_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs the graph inputs for the conv net.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>A tuple of tensors/numpy arrays that contains the input to the GCN.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_graph.MolGraph.get_n_atoms">
+<span class="sig-name descname"><span class="pre">get_n_atoms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_graph.MolGraph.get_n_atoms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_graph.Molecule">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.mol_graph.</span></span><span class="sig-name descname"><span class="pre">Molecule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_graph.Molecule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.mol_graph.Molecule.get_bond">
+<span class="sig-name descname"><span class="pre">get_bond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom_2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.mol_graph.Molecule.get_bond" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-masskit_ai.mol.small.models.path_utils">
+<span id="masskit-ai-mol-small-models-path-utils-module"></span><h2>masskit_ai.mol.small.models.path_utils module<a class="headerlink" href="#module-masskit_ai.mol.small.models.path_utils" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.path_utils.get_num_path_features">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.path_utils.</span></span><span class="sig-name descname"><span class="pre">get_num_path_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.path_utils.get_num_path_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of path features for the model.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.path_utils.get_path_atoms">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.path_utils.</span></span><span class="sig-name descname"><span class="pre">get_path_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointer_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_path_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">self_attn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.path_utils.get_path_atoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a pair of atom indices, returns the list of atoms on the path.</p>
+<dl>
+<dt>Args:</dt><dd><p>atom_1: The start atom on the path.
+atom_2: The end atom on the path.
+paths_dict: A mapping from atom pairs to paths.
+pointer_dict: A mapping from atom pairs to truncated paths. The values</p>
+<blockquote>
+<div><p>of the dict is the atom ending the truncated path</p>
+</div></blockquote>
+<p>max_path_length: The maximum path length to return.
+truncate: Boolean determining whether or not paths above the max length</p>
+<blockquote>
+<div><p>should be truncated (returned as no path)</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.path_utils.get_path_features">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.path_utils.</span></span><span class="sig-name descname"><span class="pre">get_path_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rd_mol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_path_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_embed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.path_utils.get_path_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a feature array for the path.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>rd_mol: The rdkit mol object, used to extract features.
+path_atoms: A list of atoms in the path. If no path exist, empty array.
+path_length: The length of the path.
+max_path_length: The maximum length of the path considered.
+p_embed: Whether or not to use position embedding.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.path_utils.get_path_input">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.path_utils.</span></span><span class="sig-name descname"><span class="pre">get_path_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shortest_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_tensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.path_utils.get_path_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.path_utils.get_ring_features">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.path_utils.</span></span><span class="sig-name descname"><span class="pre">get_ring_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom_pair</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.path_utils.get_ring_features" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.path_utils.merge_path_inputs">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.path_utils.</span></span><span class="sig-name descname"><span class="pre">merge_path_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.path_utils.merge_path_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge path input matrices. Does not create CUDA tensors intentionally</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.path_utils.ordered_pair">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.path_utils.</span></span><span class="sig-name descname"><span class="pre">ordered_pair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.path_utils.ordered_pair" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-masskit_ai.mol.small.models.patn">
+<span id="masskit-ai-mol-small-models-patn-module"></span><h2>masskit_ai.mol.small.models.patn module<a class="headerlink" href="#module-masskit_ai.mol.small.models.patn" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.patn.MolTransformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.patn.</span></span><span class="sig-name descname"><span class="pre">MolTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.patn.MolTransformer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.patn.MolTransformer.avg_attn">
+<span class="sig-name descname"><span class="pre">avg_attn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attn_probs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_heads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_sz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_atoms</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.patn.MolTransformer.avg_attn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.patn.MolTransformer.compute_attn_probs">
+<span class="sig-name descname"><span class="pre">compute_attn_probs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attn_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attn_mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.patn.MolTransformer.compute_attn_probs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.patn.MolTransformer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mol_graph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.patn.MolTransformer.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.patn.MolTransformer.get_attn_input">
+<span class="sig-name descname"><span class="pre">get_attn_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_atoms</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.patn.MolTransformer.get_attn_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.patn.PropPredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.patn.</span></span><span class="sig-name descname"><span class="pre">PropPredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.patn.PropPredictor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_base_objects.SpectrumModel" title="masskit_ai.spectrum.spectrum_base_objects.SpectrumModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectrumModel</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.patn.PropPredictor.aggregate_atom_h">
+<span class="sig-name descname"><span class="pre">aggregate_atom_h</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.patn.PropPredictor.aggregate_atom_h" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.patn.PropPredictor.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_attn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.patn.PropPredictor.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-masskit_ai.mol.small.models">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-masskit_ai.mol.small.models" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">masskit_ai.mol.small.models package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#masskit-ai-mol-small-models-algos-module">masskit_ai.mol.small.models.algos module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.gf">masskit_ai.mol.small.models.gf module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.model_utils">masskit_ai.mol.small.models.model_utils module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.mol_features">masskit_ai.mol.small.models.mol_features module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.mol_graph">masskit_ai.mol.small.models.mol_graph module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.path_utils">masskit_ai.mol.small.models.path_utils module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.patn">masskit_ai.mol.small.models.patn module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.small.models">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/sources/masskit_ai.mol.small.models.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">masskit_ai.mol.small.models package</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    </div>
+  </body>
+</html>

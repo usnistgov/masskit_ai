@@ -1,0 +1,69 @@
+masskit\_ai.mol.small.models package
+====================================
+
+Submodules
+----------
+
+masskit\_ai.mol.small.models.algos module
+-----------------------------------------
+
+.. automodule:: masskit_ai.mol.small.models.algos
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.mol.small.models.gf module
+--------------------------------------
+
+.. automodule:: masskit_ai.mol.small.models.gf
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.mol.small.models.model\_utils module
+------------------------------------------------
+
+.. automodule:: masskit_ai.mol.small.models.model_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.mol.small.models.mol\_features module
+-------------------------------------------------
+
+.. automodule:: masskit_ai.mol.small.models.mol_features
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.mol.small.models.mol\_graph module
+----------------------------------------------
+
+.. automodule:: masskit_ai.mol.small.models.mol_graph
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.mol.small.models.path\_utils module
+-----------------------------------------------
+
+.. automodule:: masskit_ai.mol.small.models.path_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+masskit\_ai.mol.small.models.patn module
+----------------------------------------
+
+.. automodule:: masskit_ai.mol.small.models.patn
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai.mol.small.models
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,10 @@
+masskit\_ai.conf.ml.embedding package
+=====================================
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai.conf.ml.embedding
+   :members:
+   :undoc-members:
+   :show-inheritance:

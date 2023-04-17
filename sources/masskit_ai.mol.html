@@ -1,0 +1,454 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>masskit_ai.mol package &#8212; masskit_ai 1.0.0-20-gde6df15 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+
+
+<script type="text/javascript" src="https://pages.nist.gov/leaveNotice/js/jquery.leaveNotice-nist.min.js"></script>
+<script>
+$(document).ready(function(){
+  // Mark external (non-nist.gov) A tags with class "external"
+  //If the adress start with https and ends with nist.gov
+  var re_nist = new RegExp('^https?:\/\/((^\/)*\.)*nist\\.gov(\/|$)');
+  //Regex to find address that start with https
+  var re_absolute_address = new RegExp('^((https?:)?\/\/)');
+  $("a").each(function(){
+    var url=$(this).attr('href');
+    if(re_nist.test(url) || !re_absolute_address.test(url)){
+      $(this).addClass('local');
+    }else{
+      //This a href appears to be external, so tag it
+      $(this).addClass('external');
+    }
+  });
+  // Add leaveNotice to external A elements
+  $('a.external').leaveNotice();
+});
+</script>
+<link rel="stylesheet" type="text/css" href="https://pages.nist.gov/leaveNotice/css/jquery.leaveNotice.css" />
+
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">masskit_ai.mol package</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="masskit-ai-mol-package">
+<h1>masskit_ai.mol package<a class="headerlink" href="#masskit-ai-mol-package" title="Permalink to this heading">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="masskit_ai.mol.small.html">masskit_ai.mol.small package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.mol.small.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.small.models.html">masskit_ai.mol.small.models package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.small.models.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.small.models.html#masskit-ai-mol-small-models-algos-module">masskit_ai.mol.small.models.algos module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.small.models.html#module-masskit_ai.mol.small.models.gf">masskit_ai.mol.small.models.gf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.small.models.html#module-masskit_ai.mol.small.models.model_utils">masskit_ai.mol.small.models.model_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.small.models.html#module-masskit_ai.mol.small.models.mol_features">masskit_ai.mol.small.models.mol_features module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.small.models.html#module-masskit_ai.mol.small.models.mol_graph">masskit_ai.mol.small.models.mol_graph module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.small.models.html#module-masskit_ai.mol.small.models.path_utils">masskit_ai.mol.small.models.path_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.small.models.html#module-masskit_ai.mol.small.models.patn">masskit_ai.mol.small.models.patn module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.small.models.html#module-masskit_ai.mol.small.models">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.mol.small.html#module-masskit_ai.mol.small">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-masskit_ai.mol.mol_datasets">
+<span id="masskit-ai-mol-mol-datasets-module"></span><h2>masskit_ai.mol.mol_datasets module<a class="headerlink" href="#module-masskit_ai.mol.mol_datasets" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_datasets.MolPropDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_datasets.</span></span><span class="sig-name descname"><span class="pre">MolPropDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_datasets.MolPropDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="masskit_ai.html#masskit_ai.base_datasets.BaseDataset" title="masskit_ai.base_datasets.BaseDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDataset</span></code></a></p>
+<p>class for accessing a dataframe of small molecule and properties</p>
+<p>How workers are set up requires some explanation:</p>
+<ul class="simple">
+<li><p>if there is more than one gpu, each gpu has a corresponding main process.</p></li>
+<li><p>the numbering of this gpu within a node is given by the environment variable LOCAL_RANK</p></li>
+<li><p>if there is more than one node, the numbering of the node is given by the NODE_RANK environment variable</p></li>
+<li><p>the number of nodes times the number of gpus is given by the WORLD_SIZE environment variable</p></li>
+<li><p>the number of gpus on the current node can be found by parsing the PL_TRAINER_GPUS environment variable</p></li>
+<li><p>these environment variables are only available when doing ddp.  Otherwise sharding should be done using id and num_workers in torch.utils.data.get_worker_info()</p></li>
+<li><p>each main process creates an instance of Dataset.  This instance is NOT initialized by worker_init_fn, only the constructor.</p></li>
+<li><p>each worker is created by forking the main process, giving each worker a copy of Dataset, already constructed.
+- each of these forked Datasets is initialized by worker_init_fn
+- the global torch.utils.data.get_worker_info() contains a reference to the forked Dataset and other info
+- these workers then take turns feeding minibatches into the training process
+- <strong>*important*</strong> since each worker is a copy, __init__() is only called once, only in the main process</p></li>
+<li><p>the dataset in the main processes is used by other steps, such as the validation callback
+- this means that if there is any important initialization done in worker_init_fn, it must explicitly be done to the main process Dataset</p></li>
+<li><dl class="simple">
+<dt>alternative sources of parameters:</dt><dd><ul>
+<li><p>global_rank = trainer.node_rank * trainer.nudatasetm_processes + process_idx</p></li>
+<li><p>world_size = trainer.num_nodes * trainer.num_processes</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="py property">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_datasets.MolPropDataset.data">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#masskit_ai.mol.mol_datasets.MolPropDataset.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_datasets.MolPropDataset.get_column">
+<span class="sig-name descname"><span class="pre">get_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_datasets.MolPropDataset.get_column" title="Permalink to this definition">¶</a></dt>
+<dd><p>retrieve a column from the parquet file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>column</strong> – the column to retrieve</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_datasets.MolPropDataset.get_data_row">
+<span class="sig-name descname"><span class="pre">get_data_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_datasets.MolPropDataset.get_data_row" title="Permalink to this definition">¶</a></dt>
+<dd><p>given the index, return corresponding data for the index</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_datasets.MolPropDataset.get_y">
+<span class="sig-name descname"><span class="pre">get_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_datasets.MolPropDataset.get_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>given the data row, return the target of the network</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_datasets.MolPropDataset.to_pandas">
+<span class="sig-name descname"><span class="pre">to_pandas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_datasets.MolPropDataset.to_pandas" title="Permalink to this definition">¶</a></dt>
+<dd><p>return data as pandas dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – not implemented</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_datasets.graphormer_collator">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_datasets.</span></span><span class="sig-name descname"><span class="pre">graphormer_collator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_datasets.graphormer_collator" title="Permalink to this definition">¶</a></dt>
+<dd><p>collation function factory for graphormer</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_datasets.pad_1d_unsqueeze">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_datasets.</span></span><span class="sig-name descname"><span class="pre">pad_1d_unsqueeze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padlen</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_datasets.pad_1d_unsqueeze" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_datasets.pad_2d_unsqueeze">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_datasets.</span></span><span class="sig-name descname"><span class="pre">pad_2d_unsqueeze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padlen</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_datasets.pad_2d_unsqueeze" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_datasets.pad_3d_unsqueeze">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_datasets.</span></span><span class="sig-name descname"><span class="pre">pad_3d_unsqueeze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padlen1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padlen2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padlen3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_datasets.pad_3d_unsqueeze" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_datasets.pad_attn_bias_unsqueeze">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_datasets.</span></span><span class="sig-name descname"><span class="pre">pad_attn_bias_unsqueeze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padlen</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_datasets.pad_attn_bias_unsqueeze" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_datasets.pad_edge_type_unsqueeze">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_datasets.</span></span><span class="sig-name descname"><span class="pre">pad_edge_type_unsqueeze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padlen</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_datasets.pad_edge_type_unsqueeze" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_datasets.pad_spatial_pos_unsqueeze">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_datasets.</span></span><span class="sig-name descname"><span class="pre">pad_spatial_pos_unsqueeze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padlen</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_datasets.pad_spatial_pos_unsqueeze" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_datasets.patn_collator">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_datasets.</span></span><span class="sig-name descname"><span class="pre">patn_collator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_datasets.patn_collator" title="Permalink to this definition">¶</a></dt>
+<dd><p>collation function factory for PATN</p>
+</dd></dl>
+
+</section>
+<section id="module-masskit_ai.mol.mol_embed">
+<span id="masskit-ai-mol-mol-embed-module"></span><h2>masskit_ai.mol.mol_embed module<a class="headerlink" href="#module-masskit_ai.mol.mol_embed" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_embed.EmbedGraphormerMol">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_embed.</span></span><span class="sig-name descname"><span class="pre">EmbedGraphormerMol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_embed.EmbedGraphormerMol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="masskit_ai.html#masskit_ai.embed.Embed" title="masskit_ai.embed.Embed"><code class="xref py py-class docutils literal notranslate"><span class="pre">Embed</span></code></a></p>
+<p>Embedding of mol for Graphormer</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_embed.EmbedGraphormerMol.embed">
+<span class="sig-name descname"><span class="pre">embed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_embed.EmbedGraphormerMol.embed" title="Permalink to this definition">¶</a></dt>
+<dd><p>call the requested embedding functions as listed in config.ml.embedding.embeddings</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> – the data row</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the concatenated one hot tensor of the embeddings</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_embed.EmbedGraphormerMol.mol_channels">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mol_channels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_embed.EmbedGraphormerMol.mol_channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>the number of mol channels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the number of mol channels</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_embed.EmbedGraphormerMol.mol_embed">
+<span class="sig-name descname"><span class="pre">mol_embed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_embed.EmbedGraphormerMol.mol_embed" title="Permalink to this definition">¶</a></dt>
+<dd><p>embed a processed mol</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> – data record</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>one hot tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_embed.EmbedPATNMol">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_embed.</span></span><span class="sig-name descname"><span class="pre">EmbedPATNMol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_embed.EmbedPATNMol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="masskit_ai.html#masskit_ai.embed.Embed" title="masskit_ai.embed.Embed"><code class="xref py py-class docutils literal notranslate"><span class="pre">Embed</span></code></a></p>
+<p>Embedding for PATN PropPredictor</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_embed.EmbedPATNMol.embed">
+<span class="sig-name descname"><span class="pre">embed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_embed.EmbedPATNMol.embed" title="Permalink to this definition">¶</a></dt>
+<dd><p>call the requested embedding functions as listed in config.ml.embedding.embeddings</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> – the data row</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the concatenated one hot tensor of the embeddings</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_embed.EmbedPATNMol.mol_channels">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mol_channels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_embed.EmbedPATNMol.mol_channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>the number of mol channels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the number of mol channels</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_embed.EmbedPATNMol.mol_path_embed">
+<span class="sig-name descname"><span class="pre">mol_path_embed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_embed.EmbedPATNMol.mol_path_embed" title="Permalink to this definition">¶</a></dt>
+<dd><p>embed the nce as a one hot tensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> – data record</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>one hot tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_embed.convert_to_single_emb">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_embed.</span></span><span class="sig-name descname"><span class="pre">convert_to_single_emb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">512</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_embed.convert_to_single_emb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_embed.from_mol">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_embed.</span></span><span class="sig-name descname"><span class="pre">from_mol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_embed.from_mol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a mol to a <code class="xref py py-class docutils literal notranslate"><span class="pre">torch_geometric.data.Data</span></code> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mol</strong> – an rdkit molecule</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_embed.preprocess_item">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_embed.</span></span><span class="sig-name descname"><span class="pre">preprocess_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_embed.preprocess_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-masskit_ai.mol.mol_prediction">
+<span id="masskit-ai-mol-mol-prediction-module"></span><h2>masskit_ai.mol.mol_prediction module<a class="headerlink" href="#module-masskit_ai.mol.mol_prediction" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_prediction.create_molprop_prediction_dataset">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_prediction.</span></span><span class="sig-name descname"><span class="pre">create_molprop_prediction_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_to_load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'test'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataloader</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolPropDataset'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predicted_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'predicted_property'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_singleton</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_prediction.create_molprop_prediction_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create pandas dataframe(s) that contains mols and can predict a property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataloader</strong> – name of the dataloader class, e.g. TandemArrowDataset</p></li>
+<li><p><strong>set_to_load</strong> – name of the set to use, e.g. “valid”, “test”, “train”</p></li>
+<li><p><strong>model</strong> – the model to use to predict spectrum</p></li>
+<li><p><strong>num</strong> – the number of spectra to predict (0 = all)</p></li>
+<li><p><strong>predicted_column</strong> – name of the column containing the predicted spectrum</p></li>
+<li><p><strong>return_singleton</strong> – if there is only one dataframe, don’t return lists</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of dataframes for doing predictions, list of dataset objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_prediction.finalize_molprop_prediction_dataset">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_prediction.</span></span><span class="sig-name descname"><span class="pre">finalize_molprop_prediction_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predicted_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'predicted_property'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_prediction.finalize_molprop_prediction_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>do final processing on the predicted spectra</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – dataframe containing spectra</p></li>
+<li><p><strong>predicted_column</strong> – name of the predicted spectrum column</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.mol_prediction.single_molprop_prediction">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.mol_prediction.</span></span><span class="sig-name descname"><span class="pre">single_molprop_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.mol_prediction.single_molprop_prediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>predict a single spectrum</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – the prediction model</p></li>
+<li><p><strong>dataset_element</strong> – dataset element</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the predicted spectrum</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-masskit_ai.mol">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-masskit_ai.mol" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">masskit_ai.mol package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.mol_datasets">masskit_ai.mol.mol_datasets module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.mol_embed">masskit_ai.mol.mol_embed module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.mol_prediction">masskit_ai.mol.mol_prediction module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.mol">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/sources/masskit_ai.mol.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">masskit_ai.mol package</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    </div>
+  </body>
+</html>

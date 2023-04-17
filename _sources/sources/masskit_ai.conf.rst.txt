@@ -1,6 +1,19 @@
 masskit\_ai.conf package
 ========================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   masskit_ai.conf.input
+   masskit_ai.conf.logging
+   masskit_ai.conf.ml
+   masskit_ai.conf.ms
+   masskit_ai.conf.paths
+   masskit_ai.conf.setup
+
 Module contents
 ---------------
 

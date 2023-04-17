@@ -1,0 +1,18 @@
+masskit\_ai.mol.small package
+=============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   masskit_ai.mol.small.models
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai.mol.small
+   :members:
+   :undoc-members:
+   :show-inheritance:

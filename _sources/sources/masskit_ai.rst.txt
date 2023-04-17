@@ -9,7 +9,9 @@ Subpackages
 
    masskit_ai.apps
    masskit_ai.conf
+   masskit_ai.mol
    masskit_ai.spectrum
+   masskit_ai.test_fixtures
 
 Submodules
 ----------

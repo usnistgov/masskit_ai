@@ -1,0 +1,10 @@
+masskit\_ai.conf.setup package
+==============================
+
+Module contents
+---------------
+
+.. automodule:: masskit_ai.conf.setup
+   :members:
+   :undoc-members:
+   :show-inheritance:
