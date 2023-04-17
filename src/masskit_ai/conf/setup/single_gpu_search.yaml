@@ -4,6 +4,6 @@ reproducable_seed: null  # set random seed for all APIs.  If null, seed is selec
 num_workers: 4   # number of data loader workers
 # gpu default, otherwise ddp or ddp_spawn
 # ddp works better if you have num_workers >> 0
-accelerator: gpu
+accelerator: auto
 # turn on traceback and NaN detection for debugging
 set_detect_anomaly: False

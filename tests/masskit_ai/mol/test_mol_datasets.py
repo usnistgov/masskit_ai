@@ -27,7 +27,7 @@ def test_MolPropDataset(config_ri):
 def test_SearchLightningModule(config_ri):
     model = SpectrumLightningModule(config_ri)
     trainer = pl.Trainer(
-        accelerator='gpu', 
+        accelerator='auto', 
         devices=1,
         max_epochs=1,
         limit_train_batches=9,

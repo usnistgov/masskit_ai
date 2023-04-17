@@ -17,7 +17,7 @@ def config():
 def test_SearchLightningModule(config):
     model = SearchLightningModule(config)
     trainer = pl.Trainer(
-        accelerator='gpu', 
+        accelerator='auto', 
         devices=1,
         max_epochs=1,
         limit_train_batches=2,

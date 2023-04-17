@@ -25,7 +25,7 @@ class PeptideSpectrumPredictor(Predictor):
         if "msp" in self.config.predict.output_suffixes:
             self.msp = open(f"{config.predict.output_prefix}.msp", "w")
         if "mgf" in self.config.predict.output_suffixes:
-            self.mgf = open(f"{config.predict.output_prefix}.mgf")
+            self.mgf = open(f"{config.predict.output_prefix}.mgf", "w")
 
     def create_dataloaders(self, model):
         """
@@ -152,8 +152,10 @@ class PeptideSpectrumPredictor(Predictor):
             writer.write_table(table)
         if "msp" in self.config.predict.output_suffixes:
             spectra_to_msp(self.msp, items, annotate=True)
+            self.msp.flush()
         if "mgf" in self.config.predict.output_suffixes:
             spectra_to_mgf(self.mgf, items)
+            self.mgf.flush()
 
 
 def create_prediction_dataset_from_hitlist(model, hitlist, experimental_tablemap, set_to_load='test', num=0, copy_annotations=False,
