@@ -8,13 +8,14 @@ from masskit_ai.spectrum.peptide.peptide_prediction import upres_peptide_spectru
 from masskit_ai.spectrum.spectrum_datasets import TandemDataframeDataset
 from masskit_ai.lightning import MasskitDataModule
 from masskit.peptide.encoding import calc_precursor_mz
+from masskit_ai import _device
 import pyarrow as pa
 from masskit.utils.files import spectra_to_array, spectra_to_msp, spectra_to_mgf
 
 class PeptideSpectrumPredictor(Predictor):
 
-    def __init__(self, config=None, batch_size=50000, device=None, *args, **kwargs):
-        super().__init__(config=config, batch_size=batch_size, device=device, *args, **kwargs)
+    def __init__(self, config=None, row_batch_size=50000, device=None, *args, **kwargs):
+        super().__init__(config=config, row_batch_size=row_batch_size, device=device, *args, **kwargs)
         self.max_mz=None
         self.mz = None
         self.tolerance = None
@@ -59,9 +60,9 @@ class PeptideSpectrumPredictor(Predictor):
         table_map = loader.dataset.data
 
         if self.config.predict.num is not None and self.config.predict.num > 0:
-            end = min(start+self.batch_size, self.config.predict.num, len(table_map))
+            end = min(start+self.row_batch_size, self.config.predict.num, len(table_map))
         else:
-            end = min(start+self.batch_size, len(table_map))
+            end = min(start+self.row_batch_size, len(table_map))
 
         for i in range(start, end):
             row = table_map.getitem_by_row(i)
@@ -87,7 +88,7 @@ class PeptideSpectrumPredictor(Predictor):
         l2norm=self.config.predict.get('l2norm', False)
         
         with torch.no_grad():
-            output = model([torch.unsqueeze(dataset_element.x, 0).to(device=self.device)])
+            output = model([torch.unsqueeze(dataset_element.x, 0).to(device=_device)])
             intensity = output.y_prime[0, 0, :].detach().cpu().numpy()
             if take_sqrt:
                 intensity = np.square(intensity)

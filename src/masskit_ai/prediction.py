@@ -4,10 +4,10 @@ from abc import ABC, abstractmethod
 from masskit.utils.general import get_file
 from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
 class Predictor(ABC):
-    def __init__(self, config=None, batch_size=50000, device=None, *args, **kwargs):
+    def __init__(self, config=None, row_batch_size=50000, device=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.config = config
-        self.batch_size = batch_size
+        self.row_batch_size = row_batch_size
         if device is None:
             self.device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
         else:
@@ -41,7 +41,7 @@ class Predictor(ABC):
         if filename is None:
             raise ValueError(f'model {model_name} is not found')
         model = SpectrumLightningModule.load_from_checkpoint(filename)
-        model.to(device=self.device)
+        # model.to(device=self.device)
         # replace parts of the model configuration to use the configuration for this program
         model.config.input = self.config.input
         model.config.setup = self.config.setup
@@ -57,11 +57,11 @@ class Predictor(ABC):
         pass
 
     @abstractmethod
-    def create_dataloaders(self, model, set_to_load='test', num=0):
+    def create_dataloaders(self, model):
         pass
 
     @abstractmethod
-    def single_prediction(self, model, dataset_element, max_intensity_in=999, device=None):
+    def single_prediction(self, model, dataset_element):
         pass
 
     @abstractmethod

@@ -3,7 +3,7 @@ train:
   # spectral_library can be a file, e.g. ${oc.env:data_tandem}/human_hcd_tryp_good.pkl.gz
   # or an s3 bucket, s3://msdc-aiomics-data/human_hcd_tryp_good.pkl.gz
   # or http/https: https://msdc-aiomics-data.s3.amazonaws.com/human_hcd_tryp_good.pkl.gz
-  spectral_library: ${oc.env:HOME}/data/nist/aiomics/rebuttal/train.parquet
+  spectral_library: ${oc.env:HOME}/data/nist/aiomics/rebuttal/training.parquet
   # spectral_library: https://msdc-aiomics-data.s3.amazonaws.com/2021-05-24_00_HmAll.db
   # the where setting is a list of tuples in string format, which corresponds to the tuple/list of tuples 
   # fed into the "filters" parameter of pyarrow.parquet.read_table()

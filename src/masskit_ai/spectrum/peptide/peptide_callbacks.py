@@ -41,10 +41,10 @@ class PeptideCB(pl.Callback):
                 # predict the spectra using the model
                 pl_module.eval()
                 # send the input tensors to the gpu
-                for key in batch._fields:
-                    value = getattr(batch, key)
-                    if isinstance(value, torch.Tensor):
-                        batch = batch._replace(**{key: value.to(pl_module.device)})
+                # for key in batch._fields:
+                #     value = getattr(batch, key)
+                #     if isinstance(value, torch.Tensor):
+                #         batch = batch._replace(**{key: value.to(pl_module.device)})
                 predicted_spectra = pl_module(batch)
                 pl_module.train()
                 predicted_spectra = predicted_spectra.y_prime[

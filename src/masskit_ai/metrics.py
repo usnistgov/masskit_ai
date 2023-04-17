@@ -70,9 +70,13 @@ class BaseLossMetric(BaseMetric):
             self.negate = -1.0
         else:
             self.negate = 1.0
-        self.add_state("metric_sum", default=torch.tensor(0.0, dtype=torch.float64, device=self.metric_device),
+        # self.add_state("metric_sum", default=torch.tensor(0.0, dtype=torch.float64, device=self.metric_device),
+        #                dist_reduce_fx="sum")
+        # self.add_state("total", default=torch.tensor(0, device=self.metric_device), dist_reduce_fx="sum")
+        self.add_state("metric_sum", default=torch.tensor(0.0, dtype=torch.float64),
                        dist_reduce_fx="sum")
-        self.add_state("total", default=torch.tensor(0, device=self.metric_device), dist_reduce_fx="sum")
+        self.add_state("total", default=torch.tensor(0), dist_reduce_fx="sum")
+
         self.loss = loss_class(config=config)
 
     def update(self, output, batch):
