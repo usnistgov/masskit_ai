@@ -28,35 +28,36 @@ hydra:
   job:
     chdir: False
 
-# for ensembles, add a list to model_ensemble of paths to the checkpoints
-model_ensemble:
-  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/aiomics_model.tgz
-model_draws: 1  # number of draws per model
-num: 0  # number of spectra to predict
-dropout: False  # turn on dropout
-min_mz: 28 # minimum mz used to calculate the cosine score
-min_intensity: 0.1 # minimum intensity of predicted spectrum (out of 999)
-mz_window: 7  # window size for windowed noise filter.  0 = don't filter
-l2norm: False  # L2 normalize the predicted spectra
-predicted_column: predicted_spectrum
-upres: True  # up resolution peptide spectra
-output_prefix: ${oc.env:HOME}/data/nist/aiomics/rebuttal/rebuttal_test  # name of the output file
-output_suffixes:  # different file types to write out
-  - pkl
-  - csv
-  - msp
-  - parquet
-dataloader: TandemArrowDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
-set_to_load: test  # data set to do predictions on
+predict:
+  # for ensembles, add a list to model_ensemble of paths to the checkpoints
+  model_ensemble:
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/aiomics_model.tgz
+  model_draws: 1  # number of draws per model
+  num: 0  # number of spectra to predict
+  dropout: False  # turn on dropout
+  min_mz: 28 # minimum mz used to calculate the cosine score
+  min_intensity: 0.1 # minimum intensity of predicted spectrum (out of 999)
+  mz_window: 7  # window size for windowed noise filter.  0 = don't filter
+  l2norm: False  # L2 normalize the predicted spectra
+  predicted_column: predicted_spectrum
+  upres: True  # up resolution peptide spectra
+  output_prefix: ${oc.env:HOME}/data/nist/aiomics/rebuttal/rebuttal_test  # name of the output file
+  output_suffixes:  # different file types to write out
+    - pkl
+    - csv
+    - msp
+    - parquet
+  dataloader: TandemArrowDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
+  set_to_load: test  # data set to do predictions on
 
-# settings for create_peptide_library.py
-min_length: 5
-max_length: 30
-min_charge: 1
-max_charge: 8
-min_ev: 10
-max_ev: 60
-mod_list: Acetyl#Methyl#Gln->pyro-Glu#Glu->pyro-Glu#Oxidation#Phospho#Pyro-carbamidomethyl#Carbamidomethyl#Oxidation#Deamidated
+  # settings for create_peptide_library.py
+  min_length: 5
+  max_length: 30
+  min_charge: 1
+  max_charge: 8
+  min_ev: 10
+  max_ev: 60
+  mod_list: Acetyl#Methyl#Gln->pyro-Glu#Glu->pyro-Glu#Oxidation#Phospho#Pyro-carbamidomethyl#Carbamidomethyl#Oxidation#Deamidated
 
 
 # Information

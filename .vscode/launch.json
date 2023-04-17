@@ -53,7 +53,7 @@
             "args": [
                 "--config-name","config_predict_peptide_digest",
                 "setup.num_workers=0",
-                "num=100",
+                "predict.num=100",
                 "input.train.spectral_library=${userHome}/data/nist/aiomics/rebuttal/peptide_digest.parquet",
                 "input.test.spectral_library=${userHome}/data/nist/aiomics/rebuttal/peptide_digest.parquet",
             ],
@@ -66,7 +66,7 @@
             "cwd": "/home/lyg/data/uniprot/explorable_proteome",
             "program": "${workspaceFolder}/src/masskit_ai/apps/ml/peptide/predict.py",
             "args": [
-                "input.test.spectral_library=test.parquet", "output_prefix=predict_test","output_suffixes=[mgf]"
+                "input.test.spectral_library=test.parquet", "predict.output_prefix=predict_test","predict.output_suffixes=[mgf]"
             ],
             "console": "integratedTerminal",
         }

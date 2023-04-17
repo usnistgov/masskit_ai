@@ -28,30 +28,31 @@ hydra:
 
 input.train.where: null
 
-# for ensembles, add a list to model_ensemble of paths to the checkpoints
-model_ensemble:
-  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_1.zip
-  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_2.zip
-  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_3.zip
-  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_4.zip
-  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_5.zip
-  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_6.zip
-  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_7.zip
-  - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_8.zip
-model_draws: 1  # number of draws per model
-num: 0 # number of values to predict
-dropout: False  # turn on dropout
-predicted_column: predicted_ri
-output_prefix: ${oc.env:HOME}/data/nist/airi/predict_ri_2023  # name of the output file
-output_suffixes:  # different file types to write out
-  - pkl
-  - csv
-dataloader: MolPropDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
-set_to_load: train  # data set to do predictions on
-prediction_type: molprop
-create_prediction_dataset: create_molprop_prediction_dataset
-finalize_prediction_dataset: finalize_molprop_prediction_dataset
-single_prediction: single_molprop_prediction
+predict:
+  # for ensembles, add a list to model_ensemble of paths to the checkpoints
+  model_ensemble:
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_1.zip
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_2.zip
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_3.zip
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_4.zip
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_5.zip
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_6.zip
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_7.zip
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_8.zip
+  model_draws: 1  # number of draws per model
+  num: 0 # number of values to predict
+  dropout: False  # turn on dropout
+  predicted_column: predicted_ri
+  output_prefix: ${oc.env:HOME}/data/nist/airi/predict_ri_2023  # name of the output file
+  output_suffixes:  # different file types to write out
+    - pkl
+    - csv
+  dataloader: MolPropDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
+  set_to_load: train  # data set to do predictions on
+  prediction_type: molprop
+  create_prediction_dataset: create_molprop_prediction_dataset
+  finalize_prediction_dataset: finalize_molprop_prediction_dataset
+  single_prediction: single_molprop_prediction
 
 # Information
 #

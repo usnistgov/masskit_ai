@@ -33,7 +33,7 @@ class Predictor(ABC):
         if cpu:
             model.cpu()
         model.eval()  # eval mode turns off training flag in all layers of model
-        if self.config.dropout:  # optionally turn dropout back on
+        if self.config.predict.dropout:  # optionally turn dropout back on
             model.model.apply(self.apply_dropout)
 
     def load_model(self, model_name):

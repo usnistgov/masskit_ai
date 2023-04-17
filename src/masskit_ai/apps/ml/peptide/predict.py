@@ -26,18 +26,18 @@ def main(config):
 
     # find prediction apis
     # there are separate function instead of one class to simplify use from a jupyter notebook
-    # prediction_type = config.get("prediction_type", "spectrum")
+    # prediction_type = config.predict.get("prediction_type", "spectrum")
     # create_prediction_dataset = class_for_name(config.paths.modules.prediction,
-    #     config.get("create_prediction_dataset", "create_prediction_dataset"))
+    #     config.predict.get("create_prediction_dataset", "create_prediction_dataset"))
     # finalize_prediction_dataset = class_for_name(config.paths.modules.prediction,
-    #     config.get("finalize_prediction_dataset", "finalize_prediction_dataset"))
+    #     config.predict.get("finalize_prediction_dataset", "finalize_prediction_dataset"))
     # single_prediction = class_for_name(config.paths.modules.prediction,
-    #     config.get("single_prediction", "single_spectrum_prediction"))
+    #     config.predict.get("single_prediction", "single_spectrum_prediction"))
     
     predictor = PeptideSpectrumPredictor(config, batch_size=2)
 
     # get the first model in order to load the datasets
-    loaded_model = config.model_ensemble[0]
+    loaded_model = config.predict.model_ensemble[0]
     model = predictor.load_model(loaded_model)
     #  get the dataloaders
     dataloaders = predictor.create_dataloaders(model)
@@ -49,15 +49,15 @@ def main(config):
         while True:
             spectra = predictor.get_items(dataloader, start)
             # iterate through the models
-            for i in range(len(config.model_ensemble)):
-                if loaded_model != config.model_ensemble[i]:
-                    loaded_model = config.model_ensemble[i]
+            for i in range(len(config.predict.model_ensemble)):
+                if loaded_model != config.predict.model_ensemble[i]:
+                    loaded_model = config.predict.model_ensemble[i]
                     model = predictor.load_model(loaded_model)
 
                 # iterate through the singletons
                 for idx in range(len(spectra)):
                     # predict spectra with multiple draws
-                    for _ in range(config.model_draws):
+                    for _ in range(config.predict.model_draws):
                         # do the prediction
                         new_item = predictor.single_prediction(model, dataloader.dataset[start + idx])
                         spectra[idx].add(new_item)

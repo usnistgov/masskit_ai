@@ -18,13 +18,13 @@ class PeptideSpectrumPredictor(Predictor):
         self.max_mz=None
         self.mz = None
         self.tolerance = None
-        self.max_intensity = self.config.get("max_intensity", 999.0)
-        if "arrow" in self.config.output_suffixes:
-            self.arrow = pa.OSFile(f'{config.output_prefix}.arrow', 'wb')
-        if "msp" in self.config.output_suffixes:
-            self.msp = open(f"{config.output_prefix}.msp", "w")
-        if "mgf" in self.config.output_suffixes:
-            self.mgf = open(f"{config.output_prefix}.mgf")
+        self.max_intensity = self.config.predict.get("max_intensity", 999.0)
+        if "arrow" in self.config.predict.output_suffixes:
+            self.arrow = pa.OSFile(f'{config.predict.output_prefix}.arrow', 'wb')
+        if "msp" in self.config.predict.output_suffixes:
+            self.msp = open(f"{config.predict.output_prefix}.msp", "w")
+        if "mgf" in self.config.predict.output_suffixes:
+            self.mgf = open(f"{config.predict.output_prefix}.mgf")
 
     def create_dataloaders(self, model):
         """
@@ -33,12 +33,12 @@ class PeptideSpectrumPredictor(Predictor):
         :param model: the model to use to predict spectrum
         :return: list of dataloader objects
         """
-        model.config.ms.dataloader = self.config.dataloader
+        model.config.ms.dataloader = self.config.predict.dataloader
         model.config.ms.columns = None
         self.mz, self.tolerance = self.create_mz_tolerance(model)
         self.max_mz = model.config.ms.get("max_mz", 2000)
 
-        loaders = MasskitDataModule(model.config).create_loader(self.config.set_to_load)
+        loaders = MasskitDataModule(model.config).create_loader(self.config.predict.set_to_load)
 
         if isinstance(loaders, list):
             datasets = loaders
@@ -58,8 +58,8 @@ class PeptideSpectrumPredictor(Predictor):
         spectra = []
         table_map = loader.dataset.data
 
-        if self.config.num is not None and self.config.num > 0:
-            end = min(start+self.batch_size, self.config.num, len(table_map))
+        if self.config.predict.num is not None and self.config.predict.num > 0:
+            end = min(start+self.batch_size, self.config.predict.num, len(table_map))
         else:
             end = min(start+self.batch_size, len(table_map))
 
@@ -84,7 +84,7 @@ class PeptideSpectrumPredictor(Predictor):
         """
         # send input to model, adding a batch dimension
         take_sqrt=self.config.ms.get('take_sqrt', False)
-        l2norm=self.config.get('l2norm', False)
+        l2norm=self.config.predict.get('l2norm', False)
         
         with torch.no_grad():
             output = model([torch.unsqueeze(dataset_element.x, 0).to(device=self.device)])
@@ -122,10 +122,10 @@ class PeptideSpectrumPredictor(Predictor):
         :param dataset: dataset containing experimental spectra
         :param start: position of the start of the batch
         """
-        min_intensity=self.config.get('min_intensity', 0), 
-        mz_window=self.config.get('mz_window',7),
-        min_mz=self.config.get('min_mz', 0),
-        upres=self.config.get("upres", False)
+        min_intensity=self.config.predict.get('min_intensity', 0), 
+        mz_window=self.config.predict.get('mz_window',7),
+        min_mz=self.config.predict.get('min_mz', 0),
+        upres=self.config.predict.get("upres", False)
         
         for j in range(len(items)):
             items[j].finalize()
@@ -145,13 +145,13 @@ class PeptideSpectrumPredictor(Predictor):
         
         :param items: the spectra to write
         """
-        if "arrow" in self.config.output_suffixes:
-            table = spectra_to_array(items, write_starts_stops=self.config.get("upres", False))
+        if "arrow" in self.config.predict.output_suffixes:
+            table = spectra_to_array(items, write_starts_stops=self.config.predict.get("upres", False))
             writer = pa.RecordBatchFileWriter(self.arrow, table.schema)
             writer.write_table(table)
-        if "msp" in self.config.output_suffixes:
+        if "msp" in self.config.predict.output_suffixes:
             spectra_to_msp(self.msp, items, annotate=True)
-        if "mgf" in self.config.output_suffixes:
+        if "mgf" in self.config.predict.output_suffixes:
             spectra_to_mgf(self.mgf, items)
 
 
