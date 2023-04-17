@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 import importlib
 import pytorch_lightning as pl
 import torch
@@ -29,6 +29,8 @@ class BaseSpectrumLightningModule(pl.LightningModule, ABC):
                                             self.config.ml.loss.loss_function
                                             )(config=self.config)
 
+        self.validation_step_outputs = []
+        self.test_step_outputs = []
         # create a list of metrics
         # for training
         self.train_metrics = {}
@@ -72,10 +74,10 @@ class BaseSpectrumLightningModule(pl.LightningModule, ABC):
         :param dataloader_idx: which dataloader is being used (None if just one)
         :return: loss
         """
-        return self.validation_test_step(batch, batch_idx, 'valid')
+        return self.validation_test_step(batch, batch_idx, 'valid', self.validation_step_outputs)
 
     def test_step(self, batch, batch_idx):
-        return self.validation_test_step(batch, batch_idx, 'test')
+        return self.validation_test_step(batch, batch_idx, 'test', self.test_step_outputs)
 
     def configure_optimizers(self):
         optimizer = getattr(
@@ -118,7 +120,7 @@ class BaseSpectrumLightningModule(pl.LightningModule, ABC):
         # self.logger.log_metrics({"loss": loss.item()})
         return loss
 
-    def training_epoch_end(self, outputs):
+    def on_train_epoch_end(self):
         # progress_bar_dict was removed from lightning
         # output = f"Epoch {self.trainer.current_epoch}: train loss={float(self.trainer.progress_bar_dict['loss']):g}"
         # self.trainer.progress_bar_callback.main_progress_bar.write(output)
@@ -140,20 +142,30 @@ class BaseSpectrumLightningModule(pl.LightningModule, ABC):
             outputs = [outputs]
         losses = []
         for i, output in enumerate(outputs):
-            losses.append(torch.stack(output).mean().item())
-        self.log(f'{loop}_loss', losses[0])
+            losses.append(torch.cat(output, dim=0).mean().item())
+        self.log(f'{loop}_loss', losses[0], prog_bar=True)
         for i in range(1, len(losses)):
-            self.log(f'{loop}_loss_{i}', losses[i])
+            self.log(f'{loop}_loss_{i}', losses[i], prog_bar=True)
         output = f"Epoch {self.trainer.current_epoch}: {loop} loss={','.join([f'{x:g}' for x in losses])}"
-        self.trainer.progress_bar_callback.main_progress_bar.write(output)
+        # self.trainer.progress_bar_callback.main_progress_bar.write(output)
         for metric, metric_function in self.valid_metrics.items():
             metric_function.reset()
 
-    def validation_epoch_end(self, outputs):
-        self.validation_test_epoch_end(outputs, 'val')
+    def on_validation_epoch_end(self):
+        self.validation_test_epoch_end(self.validation_step_outputs, 'val')
+        self.validation_step_outputs.clear()
 
-    def test_epoch_end(self, outputs):
-        self.validation_test_epoch_end(outputs, 'test')
+    def on_test_epoch_end(self):
+        self.validation_test_epoch_end(self.test_step_outputs, 'test')
+        self.test_step_outputs.clear()
+
+    @abstractmethod
+    def validation_test_step(self, batch, batch_idx, loop, outputs):
+        pass
+
+    @abstractmethod
+    def training_step(self, batch, batch_idx):
+        pass
 
 
 class SpectrumLightningModule(BaseSpectrumLightningModule):
@@ -185,23 +197,26 @@ class SpectrumLightningModule(BaseSpectrumLightningModule):
             self.log(f'training_' + metric, metric_value, prog_bar=True, on_step=True, on_epoch=False)
         return loss
 
-    def validation_test_step(self, batch, batch_idx, loop):
+    def validation_test_step(self, batch, batch_idx, loop, outputs):
         """
         step shared with test and validation loops
 
         :param batch: batch
         :param batch_idx: index into data for batch
         :param loop: the name of the loop
+        :param outputs: the list containing outputs
         :return: loss
         """
         if self.config.ml.bayesian_network.bayes:
             loss = 0.0
             for step in range(self.config.ml.bayesian_network.sample_nbr):
                 output = self.model(batch)
+                outputs.append(output.y_prime)
                 loss += self.calc_loss(output, batch, params={'loop': loop})
             loss /= self.config.ml.bayesian_network.sample_nbr
         else:
             output = self.model(batch)
+            outputs.append(output.y_prime)
             loss = self.calc_loss(output, batch, params={'loop': loop})
 
         for metric, metric_function in self.valid_metrics.items():
