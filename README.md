@@ -26,3 +26,11 @@ On a Linux or macOS computer that has [Anaconda](https://www.anaconda.com/) and 
 - run `git clone https://github.com/usnistgov/masskit_ai.git`
 - run `cd masskit_ai`
 - run `pip install -e .`
+
+On a Windows computer that has [Anaconda](https://www.anaconda.com/) installed,
+run the following from the Anaconda prompt:
+
+- first install [Masskit](https://github.com/usnistgov/masskit).
+- Download the masskit_ai windows wheel file from the
+[Releases](https://github.com/usnistgov/masskit_ai/releases) page.
+- run `pip install masskit_ai-1.0.1-py3-none-any.whl` in the directory to which you downloaded the file.
