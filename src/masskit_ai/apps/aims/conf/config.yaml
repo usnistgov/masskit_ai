@@ -1,8 +1,8 @@
 input:
   search:
-    file: ${oc.env:HOME}/data/nist/tandem/SRM1950/SRM1950_lumos.parquet
+    file: ~/data/nist/tandem/SRM1950/SRM1950_lumos.parquet
   query:
-    file: ${oc.env:HOME}/data/nist/tandem/SRM1950/SRM1950_lumos.parquet
+    file: ~/data/nist/tandem/SRM1950/SRM1950_lumos.parquet
     # list of ids to search.  If not specified, search all
     ids: [1363721, 1694961]
     # alternatively, give the filename of a hitlist file that contains query ids
@@ -14,7 +14,7 @@ input:
   index:
     name: SRM1950_lumos.spectrum
     # if the filename is null, the name of the index will be used for the filename
-    file: ${oc.env:HOME}/data/nist/tandem/SRM1950/SRM1950_lumos.spectrum.pynndescent
+    file: ~/data/nist/tandem/SRM1950/SRM1950_lumos.spectrum.pynndescent
 
 paths:
   modules:

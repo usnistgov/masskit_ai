@@ -1,6 +1,6 @@
 
 input:
-  file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020.parquet
+  file: ~/data/nist/ei/2020/mainlib_2020.parquet
   column_name: spectrum
   checkpoint: /home/lyg/source/msdc_services/apps/aims/2022-05-25_lyg_ResNetBaseline_SearchLoss_ffe6b85c21b4433193261e854ee9c41d_val_loss=0.2114_epoch=006.ckpt
 
@@ -10,7 +10,7 @@ paths:
       - masskit_ai.spectrum.small_mol.models.small_mol_models
 
 output:
-  file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020_hybrid_1.parquet
+  file: ~/data/nist/ei/2020/mainlib_2020_hybrid_1.parquet
   column_name: hybrid_fp
 
 hydra:

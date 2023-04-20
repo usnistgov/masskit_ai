@@ -31,7 +31,7 @@ predict:
   model_ensemble:
     - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/aiomics_model.tgz
   model_draws: 1  # number of draws per model
-  hitlist_in: ${oc.env:HOME}/data/nist/aiomics/rebuttal/rebuttal_validation_hitlist.pkl
+  hitlist_in: ~/data/nist/aiomics/rebuttal/rebuttal_validation_hitlist.pkl
   num: 0  # number of spectra to predict
   dropout: False  # turn on dropout
   min_mz: 28 # minimum mz used to calculate the cosine score
@@ -40,7 +40,7 @@ predict:
   l2norm: False  # L2 normalize the predicted spectra
   predicted_column: predicted_spectrum
   upres: True  # up resolution peptide spectra
-  output_prefix: ${oc.env:HOME}/data/nist/aiomics/rebuttal/rebuttal_validation_hitlist_predicted  # name of the output file
+  output_prefix: ~/data/nist/aiomics/rebuttal/rebuttal_validation_hitlist_predicted  # name of the output file
   set_to_load: valid  # data set to do predictions on
 
 

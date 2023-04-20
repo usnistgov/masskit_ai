@@ -1,3 +1,4 @@
+from pathlib import Path
 import hydra
 from hydra.utils import to_absolute_path
 import pyarrow as pa
@@ -17,14 +18,14 @@ Use an ML model to create a feature vector column in a parquet file
 def create_feature_vector_app(config):
     
     # Allow files relative to original execution directory
-    parquet_file = to_absolute_path(config.input.file)
+    parquet_file = Path(to_absolute_path(config.input.file)).expanduser()
 
     # load the library as a LibraryMap
     table = pq.read_table(parquet_file)
     annotation_map = ArrowLibraryMap(table)
 
     # lightning module has to be configurable
-    model = SearchLightningModule.load_from_checkpoint(config.input.checkpoint)
+    model = SearchLightningModule.load_from_checkpoint(Path(config.input.checkpoint).expanduser())
     model.eval()  # eval mode turns off training flag in all layers of model
 
     feature_vectors = []
@@ -61,7 +62,7 @@ def create_feature_vector_app(config):
     i = table.schema.get_field_index(config.output.column_name)
     table = table.cast(table.schema.set(i, table.schema.field(i).with_metadata({"fp_size": feature_vector_size.to_bytes(8, byteorder='big')})))
 
-    pq.write_table(table, config.output.file, row_group_size=5000)
+    pq.write_table(table, Path(config.output.file).expanduser(), row_group_size=5000)
     
 if __name__ == "__main__":
     create_feature_vector_app()

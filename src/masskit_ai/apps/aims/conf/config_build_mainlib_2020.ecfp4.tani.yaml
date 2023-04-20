@@ -1,6 +1,6 @@
 input:
   library:
-    file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020.parquet
+    file: ~/data/nist/ei/2020/mainlib_2020.parquet
     # number of rows to read from file. null means all
     num: null
     # column name used to retrieve the spectrum or fingerprint.  null is default
@@ -24,7 +24,7 @@ paths:
 
 output:
   # pickled index filename.  if null, use creation.name to make the filename
-  file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020.ecfp4.tani.npy
+  file: ~/data/nist/ei/2020/mainlib_2020.ecfp4.tani.npy
 
 hydra:
   run:

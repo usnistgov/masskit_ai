@@ -1,3 +1,4 @@
+from pathlib import Path
 import hydra
 import logging
 from omegaconf import DictConfig, OmegaConf
@@ -20,7 +21,7 @@ def build_index_app(config: DictConfig) -> None:
         if x is not None:
             columns.append(x)
     library_map = ArrowLibraryMap(
-        pq.read_table(config.input.library.file),
+        pq.read_table(Path(config.input.library.file).expanduser()),
         column_name=config.input.library.column_name, num=config.input.library.num)
 
     # initialize the index
@@ -33,7 +34,7 @@ def build_index_app(config: DictConfig) -> None:
         index.create(library_map)
 
     # save the index to the file
-    index.save(file=config.output.file)
+    index.save(Path(file=config.output.file).expanduser())
 
 
 if __name__ == "__main__":

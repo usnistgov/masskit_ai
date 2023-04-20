@@ -1,6 +1,6 @@
 input:
   library:
-    file: ${oc.env:HOME}/data/nist/tandem/2020/hr_msms_nist.parquet
+    file: ~/data/nist/tandem/2020/hr_msms_nist.parquet
     # number of rows to read from file. null means all
     num: null
     # column name used to retrieve the spectrum or fingerprint.  null is default
@@ -24,7 +24,7 @@ paths:
 
 output:
   # pickled index filename.  if null, use creation.name to make the filename
-  file: ${oc.env:HOME}/data/nist/tandem/2020/hr_msms_nist.ecfp4.pynndescent
+  file: ~/data/nist/tandem/2020/hr_msms_nist.ecfp4.pynndescent
 
 hydra:
   run:

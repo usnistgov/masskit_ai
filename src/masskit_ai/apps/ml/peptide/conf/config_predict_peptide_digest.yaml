@@ -41,7 +41,7 @@ predict:
   l2norm: False  # L2 normalize the predicted spectra
   predicted_column: predicted_spectrum
   upres: True  # up resolution peptide spectra
-  output_prefix: ${oc.env:HOME}/data/nist/aiomics/rebuttal/peptide_digest_library  # name of the output file
+  output_prefix: ~/data/nist/aiomics/rebuttal/peptide_digest_library  # name of the output file
   output_suffixes:  # different file types to write out
     - mgf
     - csv

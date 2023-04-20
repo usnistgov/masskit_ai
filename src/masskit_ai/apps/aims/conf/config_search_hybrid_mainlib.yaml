@@ -1,8 +1,8 @@
 input:
   search:
-    file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020_hybrid.parquet
+    file: ~/data/nist/ei/2020/mainlib_2020_hybrid.parquet
   query:
-    file: ${oc.env:HOME}/data/nist/ei/2020/replib_2020_hybrid.parquet
+    file: ~/data/nist/ei/2020/replib_2020_hybrid.parquet
     # list of ids to search.  If not specified, search all
     ids:
     # alternatively, give the filename of a hitlist file that contains query ids
@@ -14,7 +14,7 @@ input:
   index:
     name: hybrid_fp
     # if the filename is null, the name of the index will be used for the filename
-    file: ${oc.env:HOME}/data/nist/ei/2020/mainlib.hybrid.npy
+    file: ~/data/nist/ei/2020/mainlib.hybrid.npy
 
 paths:
   modules:

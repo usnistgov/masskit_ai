@@ -1,3 +1,4 @@
+from pathlib import Path
 import random
 import timeit
 import hydra
@@ -25,9 +26,9 @@ from the first search.
 @hydra.main(config_path="conf", config_name="config", version_base=None)
 def aims_app(config: DictConfig) -> None:
     # Allow files relative to original execution directory
-    search_file = to_absolute_path(config.input.search.file)
-    query_file = to_absolute_path(config.input.query.file)
-    index_file = to_absolute_path(config.input.index.file)
+    search_file = Path(to_absolute_path(config.input.search.file)).expanduser()
+    query_file = Path(to_absolute_path(config.input.query.file)).expanduser()
+    index_file = Path(to_absolute_path(config.input.index.file)).expanduser()
 
     # load the library as a LibraryMap
     search_map = ArrowLibraryMap(pq.read_table(search_file))
@@ -114,9 +115,9 @@ def aims_app(config: DictConfig) -> None:
 
     # write out hitlist as csv or pandas dataframe.
     if config.output.pkl.file:
-        hitlist.save(config.output.pkl.file)
+        hitlist.save(Path(config.output.pkl.file).expanduser())
     if config.output.csv.file:
-        hitlist.to_pandas().to_csv(config.output.csv.file)
+        hitlist.to_pandas().to_csv(Path(config.output.csv.file).expanduser())
 
 
 if __name__ == "__main__":

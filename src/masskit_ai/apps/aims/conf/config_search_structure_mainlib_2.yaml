@@ -1,9 +1,9 @@
 input:
   search:
-    file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020.parquet
+    file: ~/data/nist/ei/2020/mainlib_2020.parquet
     where: 
   query:
-    file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020.parquet
+    file: ~/data/nist/ei/2020/mainlib_2020.parquet
     where: 
     # list of ids to search.  If not specified, search all
     ids:
@@ -16,7 +16,7 @@ input:
   index:
     name: mainlib_2020.2.ecfp4.tani
     # if the filename is null, the name of the index will be used for the filename
-    file: ${oc.env:HOME}/data/nist/ei/2020/mainlib_2020.ecfp4.tani.npy
+    file: ~/data/nist/ei/2020/mainlib_2020.ecfp4.tani.npy
 
 paths:
   modules:

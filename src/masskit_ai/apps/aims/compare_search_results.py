@@ -1,3 +1,4 @@
+from pathlib import Path
 import hydra
 import logging
 import pandas as pd
@@ -12,17 +13,17 @@ compare search results for two searches
 @hydra.main(config_path="conf", config_name="config_compare", version_base=None)
 def compare_search_results_app(config: DictConfig) -> None:
 
-    compare_hitlist = Hitlist().load(config.input.comparison.file)
-    ground_truth_hitlist = Hitlist().load(config.input.ground_truth.file)
+    compare_hitlist = Hitlist().load(Path(config.input.comparison.file).expanduser())
+    ground_truth_hitlist = Hitlist().load(Path(config.input.ground_truth.file).expanduser())
 
     comparison_operator = CompareRecallDCG(comparison_score=config.comparison.comparison.score.column_name,
                                            truth_score=config.comparison.ground_truth.score.column_name)
     comparison = comparison_operator(compare_hitlist, ground_truth_hitlist)
 
     if config.output.pkl:
-        comparison.to_pickle(config.output.pkl)
+        comparison.to_pickle(Path(config.output.pkl).expanduser())
     if config.output.csv:
-        comparison.to_csv(config.output.csv)
+        comparison.to_csv(Path(config.output.csv).expanduser())
 
     # filter out hits to queries that hit noise
     comparison = comparison[comparison['truth_max_score'] >= config.comparison.ground_truth.score.threshold]
