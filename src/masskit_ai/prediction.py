@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from masskit.utils.general import get_file
 from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
 class Predictor(ABC):
-    def __init__(self, config=None, row_batch_size=50000, device=None, *args, **kwargs):
+    def __init__(self, config=None, row_batch_size=25000, device=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.config = config
         self.row_batch_size = row_batch_size

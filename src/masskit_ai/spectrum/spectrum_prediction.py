@@ -14,7 +14,7 @@ from masskit.utils.files import spectra_to_array, spectra_to_msp, spectra_to_mgf
 
 class PeptideSpectrumPredictor(Predictor):
 
-    def __init__(self, config=None, row_batch_size=50000, device=None, *args, **kwargs):
+    def __init__(self, config=None, row_batch_size=25000, device=None, *args, **kwargs):
         super().__init__(config=config, row_batch_size=row_batch_size, device=device, *args, **kwargs)
         self.max_mz=None
         self.mz = None
