@@ -73,7 +73,8 @@ class MolPropDataset(BaseDataset):
     @property
     def data(self):
         if self._data is None:
-            self._data = save_to_arrow(self.store, columns=self.columns, filters=self.filters)
+            self._data = save_to_arrow(self.store, columns=self.columns, filters=self.filters,
+                                       tempdir=self.config.paths.get('tempdir', None))
         return self._data
         
     def to_pandas(self):

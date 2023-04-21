@@ -81,14 +81,16 @@ class TandemArrowSearchDataset(SpectrumDataset):
     @property
     def data(self):
         if self._data is None:
-            table = save_to_arrow(self.store, columns=self.columns, filters=self.filters)
+            table = save_to_arrow(self.store, columns=self.columns, filters=self.filters,
+                                  tempdir=self.config.paths.get('tempdir', None))
             self._data = ArrowLibraryMap(table)
         return self._data
     
     @property
     def data_search(self):
         if self._data_search is None:
-            table = save_to_arrow(self.store_search, columns=self.columns, filters=self.filters_search)
+            table = save_to_arrow(self.store_search, columns=self.columns, filters=self.filters_search,
+                                  tempdir=self.config.paths.get('tempdir', None))
             self._data_search = ArrowLibraryMap(table)
         return self._data_search
 
