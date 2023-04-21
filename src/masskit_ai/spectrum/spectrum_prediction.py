@@ -1,4 +1,5 @@
 import copy
+from pathlib import Path
 import numpy as np
 import torch
 from masskit.spectrum.spectrum import HiResSpectrum, MassInfo, AccumulatorSpectrum
@@ -19,13 +20,14 @@ class PeptideSpectrumPredictor(Predictor):
         self.max_mz=None
         self.mz = None
         self.tolerance = None
+        output_prefix = str(Path(config.predict.output_prefix).expanduser())
         self.max_intensity = self.config.predict.get("max_intensity", 999.0)
         if "arrow" in self.config.predict.output_suffixes:
-            self.arrow = pa.OSFile(f'{config.predict.output_prefix}.arrow', 'wb')
+            self.arrow = pa.OSFile(f'{output_prefix}.arrow', 'wb')
         if "msp" in self.config.predict.output_suffixes:
-            self.msp = open(f"{config.predict.output_prefix}.msp", "w")
+            self.msp = open(f"{output_prefix}.msp", "w")
         if "mgf" in self.config.predict.output_suffixes:
-            self.mgf = open(f"{config.predict.output_prefix}.mgf", "w")
+            self.mgf = open(f"{output_prefix}.mgf", "w")
 
     def create_dataloaders(self, model):
         """
@@ -151,7 +153,7 @@ class PeptideSpectrumPredictor(Predictor):
             writer = pa.RecordBatchFileWriter(self.arrow, table.schema)
             writer.write_table(table)
         if "msp" in self.config.predict.output_suffixes:
-            spectra_to_msp(self.msp, items, annotate=True)
+            spectra_to_msp(self.msp, items, self.config.predict.get('annotate', False))
             self.msp.flush()
         if "mgf" in self.config.predict.output_suffixes:
             spectra_to_mgf(self.mgf, items)
