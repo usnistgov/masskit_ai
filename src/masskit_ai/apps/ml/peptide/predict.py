@@ -43,8 +43,9 @@ def main(config):
     dataloaders = predictor.create_dataloaders(model)
 
     # iterate through datasets
+    original_start = config.predict.get('start', 0)
     for dataloader in dataloaders:
-        start = config.predict.get('start', 0)
+        start = original_start
         # iterate through the batches
         while True:
             logging.info(f'starting batch at {start} for dataset of length {len(dataloader)}')
@@ -69,7 +70,7 @@ def main(config):
             predictor.write_items(spectra)
             # increment the batch if not at end
             start += predictor.row_group_size
-            if start >= len(dataloader) or start >= config.predict.num:
+            if start >= len(dataloader) or start - original_start >= config.predict.num:
                 break
 
         # if prediction_type == 'spectrum':
