@@ -12,6 +12,16 @@ from masskit.peptide.encoding import calc_precursor_mz
 from masskit_ai import _device
 import pyarrow as pa
 from masskit.utils.files import spectra_to_array, spectra_to_msp, spectra_to_mgf
+from multiprocessing import Pool
+from functools import partial
+
+def finalize_spectrum(spectrum, min_intensity, mz_window, upres=False):
+    spectrum.finalize()
+    spectrum.filter(min_intensity=min_intensity, inplace=True)
+    spectrum.products.windowed_filter(inplace=True, mz_window=mz_window)
+    if upres:
+        upres_peptide_spectrum(spectrum)
+    return spectrum
 
 class PeptideSpectrumPredictor(Predictor):
 
@@ -130,9 +140,6 @@ class PeptideSpectrumPredictor(Predictor):
         """
         self.items[idx].add(item)
 
-    def finalize_spectrum(self, item):
-            item.finalize()
-
     def finalize_items(self, dataset, start):
         """
         do final processing on a batch of predicted spectra
@@ -146,13 +153,9 @@ class PeptideSpectrumPredictor(Predictor):
         min_mz=self.config.predict.get('min_mz', 0),
         upres=self.config.predict.get("upres", False)
         
+        with Pool(self.config.predict.get('num_workers', 2)) as p:
+            self.items = p.map(partial(finalize_spectrum, min_intensity=min_intensity, mz_window=mz_window, upres=upres), self.items)
         for j in range(len(self.items)):
-            self.finalize_spectrum(self.items[j])
-            self.items[j].filter(min_intensity=min_intensity, inplace=True)
-            self.items[j].products.windowed_filter(inplace=True, mz_window=mz_window)
-            if upres:
-                upres_peptide_spectrum(self.items[j])
-
             row = dataset.dataset.data.getitem_by_row(start + j)
             if 'spectrum' in row and row['spectrum'] is not None and row['spectrum'].products.mz is not None:
                 self.items[j].cosine_score = self.items[j].cosine_score(
@@ -191,9 +194,6 @@ class SinglePeptideSpectrumPredictor(PeptideSpectrumPredictor):
     def add_item(self, idx, item):
         self.items[idx].products.mz = item.products.mz
         self.items[idx].products.intensity = item.products.intensity     
-
-    def finalize_spectrum(self, item):
-        pass
 
 
 def create_prediction_dataset_from_hitlist(model, hitlist, experimental_tablemap, set_to_load='test', num=0, copy_annotations=False,
