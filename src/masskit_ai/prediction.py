@@ -4,10 +4,10 @@ from abc import ABC, abstractmethod
 from masskit.utils.general import get_file
 from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
 class Predictor(ABC):
-    def __init__(self, config=None, row_batch_size=25000, device=None, *args, **kwargs):
+    def __init__(self, config=None, row_group_size=5000, device=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.config = config
-        self.row_batch_size = row_batch_size
+        self.row_group_size = row_group_size
         if device is None:
             self.device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
         else:

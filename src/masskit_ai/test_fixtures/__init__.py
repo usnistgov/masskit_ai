@@ -26,7 +26,7 @@ def config_predict_peptide(predicted_human_uniprot_trunc_parquet, create_peptide
                                  f"predict.output_prefix={predicted_human_uniprot_trunc_parquet}",
                                  "predict.output_suffixes=[arrow,msp]",
                                  "predict.num=6",
-                                 "predict.row_batch_size=2"])
+                                 "predict.row_group_size=2"])
         return cfg
 
 @pytest.fixture(scope="session")

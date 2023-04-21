@@ -15,8 +15,8 @@ from masskit.utils.files import spectra_to_array, spectra_to_msp, spectra_to_mgf
 
 class PeptideSpectrumPredictor(Predictor):
 
-    def __init__(self, config=None, row_batch_size=25000, device=None, *args, **kwargs):
-        super().__init__(config=config, row_batch_size=row_batch_size, device=device, *args, **kwargs)
+    def __init__(self, config=None, row_group_size=5000, device=None, *args, **kwargs):
+        super().__init__(config=config, row_group_size=row_group_size, device=device, *args, **kwargs)
         self.max_mz=None
         self.mz = None
         self.tolerance = None
@@ -62,9 +62,9 @@ class PeptideSpectrumPredictor(Predictor):
         table_map = loader.dataset.data
 
         if self.config.predict.num is not None and self.config.predict.num > 0:
-            end = min(start+self.row_batch_size, self.config.predict.num, len(table_map))
+            end = min(start+self.row_group_size, self.config.predict.num, len(table_map))
         else:
-            end = min(start+self.row_batch_size, len(table_map))
+            end = min(start+self.row_group_size, len(table_map))
 
         for i in range(start, end):
             row = table_map.getitem_by_row(i)

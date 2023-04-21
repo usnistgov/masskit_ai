@@ -34,7 +34,7 @@ def main(config):
     # single_prediction = class_for_name(config.paths.modules.prediction,
     #     config.predict.get("single_prediction", "single_spectrum_prediction"))
     
-    predictor = PeptideSpectrumPredictor(config, row_batch_size=config.predict.get('row_batch_size', 25000))
+    predictor = PeptideSpectrumPredictor(config, row_group_size=config.predict.get('row_group_size', 5000))
 
     # get the first model in order to load the datasets
     loaded_model = config.predict.model_ensemble[0]
@@ -68,7 +68,7 @@ def main(config):
             # write the batch out
             predictor.write_items(spectra)
             # increment the batch if not at end
-            start += predictor.row_batch_size
+            start += predictor.row_group_size
             if start >= len(dataloader) or start >= config.predict.num:
                 break
 
