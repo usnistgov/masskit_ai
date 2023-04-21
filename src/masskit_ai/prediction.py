@@ -3,15 +3,13 @@ import torch
 from abc import ABC, abstractmethod
 from masskit.utils.general import get_file
 from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
+
 class Predictor(ABC):
-    def __init__(self, config=None, row_group_size=5000, device=None, *args, **kwargs):
+    def __init__(self, config=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.config = config
-        self.row_group_size = row_group_size
-        if device is None:
-            self.device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-        else:
-            self.device = device
+        self.row_group_size = self.config.predict.get('row_group_size', 5000)
+        self.original_start = self.config.predict.get('start', 0)
 
     def apply_dropout(self, model):
         """
