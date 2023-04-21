@@ -1,15 +1,10 @@
 import logging
-import time
-from masskit.utils.general import class_for_name, get_file
+from masskit.utils.general import class_for_name
 from masskit_ai.loggers import filter_pytorch_lightning_warnings
-from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
 import hydra
 import pytorch_lightning as pl
 from masskit.utils.files import spectra_to_array, spectra_to_msp, spectra_to_mgf
-import torch
 from tqdm import tqdm
-
-from masskit_ai.spectrum.spectrum_prediction import PeptideSpectrumPredictor, SinglePeptideSpectrumPredictor
 
 # set up matplotlib to use a non-interactive back end
 try:
@@ -35,7 +30,8 @@ def main(config):
     # single_prediction = class_for_name(config.paths.modules.prediction,
     #     config.predict.get("single_prediction", "single_spectrum_prediction"))
     
-    predictor = SinglePeptideSpectrumPredictor(config)
+    predictor = class_for_name(config.paths.modules.prediction,
+                               config.predict.get("predictor", "SinglePeptideSpectrumPredictor"))(config)
 
     # get the first model in order to load the datasets
     loaded_model = config.predict.model_ensemble[0]

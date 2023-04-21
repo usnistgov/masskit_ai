@@ -50,15 +50,8 @@ predict:
   set_to_load: test  # data set to do predictions on
   row_group_size: 5000  # number of items to predict before writing to file
   annotate: False  # annotate the msp file?
-
-  # settings for create_peptide_library.py
-  min_length: 5
-  max_length: 30
-  min_charge: 1
-  max_charge: 8
-  min_ev: 10
-  max_ev: 60
-  mod_list: Acetyl#Methyl#Gln->pyro-Glu#Glu->pyro-Glu#Oxidation#Phospho#Pyro-carbamidomethyl#Carbamidomethyl#Oxidation#Deamidated
+  num_workers: 2  # the number of processes used to finalize the predictions
+  predictor: SinglePeptideSpectrumPredictor  # the class used for prediction
 
 
 # Information

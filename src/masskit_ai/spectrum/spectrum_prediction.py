@@ -16,6 +16,16 @@ from multiprocessing import Pool
 from functools import partial
 
 def finalize_spectrum(spectrum, min_intensity, mz_window, upres=False):
+    """
+    function to finalize a predicted spectrum.  Separated from the class
+    so can be used in multiprocessing
+
+    :param spectrum: spectrum to be finalized
+    :param min_intensity: minimum peak intensity for filtering
+    :param mz_window: size of window for filtering
+    :param upres: upres the resulting spectrum
+    :return: the finalized spectrum
+    """
     spectrum.finalize()
     spectrum.filter(min_intensity=min_intensity, inplace=True)
     spectrum.products.windowed_filter(inplace=True, mz_window=mz_window)
@@ -24,6 +34,10 @@ def finalize_spectrum(spectrum, min_intensity, mz_window, upres=False):
     return spectrum
 
 class PeptideSpectrumPredictor(Predictor):
+    """
+    class used to predict multiple spectra per record, which are averaged into
+    a single spectrum with a standard deviation
+    """
 
     def __init__(self, config=None, *args, **kwargs):
         super().__init__(config=config, *args, **kwargs)
@@ -180,6 +194,9 @@ class PeptideSpectrumPredictor(Predictor):
 
 
 class SinglePeptideSpectrumPredictor(PeptideSpectrumPredictor):
+    """
+    class used to predict a single spectrum per records
+    """
     def __init__(self, config=None, *args, **kwargs):
         super().__init__(config=config, *args, **kwargs)
     
