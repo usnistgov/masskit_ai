@@ -20,6 +20,7 @@ class PeptideSpectrumPredictor(Predictor):
         self.max_mz=None
         self.mz = None
         self.tolerance = None
+        self.items = []  # the items to predict
         output_prefix = str(Path(config.predict.output_prefix).expanduser())
         self.max_intensity = self.config.predict.get("max_intensity", 999.0)
         if "arrow" in self.config.predict.output_suffixes:
@@ -50,7 +51,10 @@ class PeptideSpectrumPredictor(Predictor):
 
         return datasets
     
-    def get_items(self, loader, start):
+    def make_spectrum(self, precursor_mz):
+        return AccumulatorSpectrum(mz=self.mz, tolerance=self.tolerance, precursor_mz=precursor_mz)
+
+    def create_items(self, loader, start):
         """
         for a given loader, return back a batch of accumulators
 
@@ -58,7 +62,7 @@ class PeptideSpectrumPredictor(Predictor):
         :param start: the start row of the batch
         :param length: the length of the batch
         """
-        spectra = []
+        self.items = []
         table_map = loader.dataset.data
 
         if self.config.predict.num is not None and self.config.predict.num > 0:
@@ -70,12 +74,12 @@ class PeptideSpectrumPredictor(Predictor):
             row = table_map.getitem_by_row(i)
             # we are assuming a peptide spectrum here.  To generalize, this needs to be put into the spectrum class.
             precursor_mz = calc_precursor_mz(row['peptide'], row['charge'], mod_names=row["mod_names"], mod_positions=row["mod_positions"])
-            new_spectrum = AccumulatorSpectrum(mz=self.mz, tolerance=self.tolerance, precursor_mz=precursor_mz)
+            new_spectrum = self.make_spectrum(precursor_mz)
             new_spectrum.copy_props_from_dict(row)
             new_spectrum.name = create_peptide_name(row['peptide'], row['charge'], row['mod_names'], row['mod_positions'], row.get('nce', None))
-            spectra.append(new_spectrum)
+            self.items.append(new_spectrum)
 
-        return spectra
+        return self.items
         
     def single_prediction(self, model, dataset_element):
         """
@@ -117,7 +121,19 @@ class PeptideSpectrumPredictor(Predictor):
         mz = np.linspace(model.config.ms.bin_size + shift, model.config.ms.max_mz + shift, model.model.bins, endpoint=True)
         return mz, tolerance
 
-    def finalize_items(self, items, dataset, start):
+    def add_item(self, idx, item):
+        """
+        add newly predicted item at index idx
+        
+        :param idx: index into items
+        :param item: item to add
+        """
+        self.items[idx].add(item)
+
+    def finalize_spectrum(self, item):
+            item.finalize()
+
+    def finalize_items(self, dataset, start):
         """
         do final processing on a batch of predicted spectra
 
@@ -130,34 +146,54 @@ class PeptideSpectrumPredictor(Predictor):
         min_mz=self.config.predict.get('min_mz', 0),
         upres=self.config.predict.get("upres", False)
         
-        for j in range(len(items)):
-            items[j].finalize()
-            items[j].filter(min_intensity=min_intensity, inplace=True)
-            items[j].products.windowed_filter(inplace=True, mz_window=mz_window)
+        for j in range(len(self.items)):
+            self.finalize_spectrum(self.items[j])
+            self.items[j].filter(min_intensity=min_intensity, inplace=True)
+            self.items[j].products.windowed_filter(inplace=True, mz_window=mz_window)
             if upres:
-                upres_peptide_spectrum(items[j])
+                upres_peptide_spectrum(self.items[j])
 
             row = dataset.dataset.data.getitem_by_row(start + j)
             if 'spectrum' in row and row['spectrum'] is not None and row['spectrum'].products.mz is not None:
-                items[j].cosine_score = items[j].cosine_score(
+                self.items[j].cosine_score = self.items[j].cosine_score(
                     row['spectrum'].filter(max_mz=self.max_mz, min_mz=min_mz), tiebreaker='mz')
     
-    def write_items(self, items):
+    def write_items(self):
         """
         write the spectra to files
         
         :param items: the spectra to write
         """
         if "arrow" in self.config.predict.output_suffixes:
-            table = spectra_to_array(items, write_starts_stops=self.config.predict.get("upres", False))
+            table = spectra_to_array(self.items, write_starts_stops=self.config.predict.get("upres", False))
             writer = pa.RecordBatchFileWriter(self.arrow, table.schema)
             writer.write_table(table)
         if "msp" in self.config.predict.output_suffixes:
-            spectra_to_msp(self.msp, items, self.config.predict.get('annotate', False))
+            spectra_to_msp(self.msp, self.items, self.config.predict.get('annotate', False))
             self.msp.flush()
         if "mgf" in self.config.predict.output_suffixes:
-            spectra_to_mgf(self.mgf, items)
+            spectra_to_mgf(self.mgf, self.items)
             self.mgf.flush()
+
+
+class SinglePeptideSpectrumPredictor(PeptideSpectrumPredictor):
+    def __init__(self, config=None, *args, **kwargs):
+        super().__init__(config=config, *args, **kwargs)
+    
+    def make_spectrum(self, precursor_mz):
+        spectrum = HiResSpectrum()
+        spectrum.from_arrays(self.mz, np.zeros_like(self.mz), 
+                        product_mass_info=MassInfo(self.tolerance, "daltons", "monoisotopic", evenly_spaced=True), 
+                        precursor_mz=precursor_mz, precursor_intensity=1.0,
+                        precursor_mass_info=MassInfo(0.0, "ppm", "monoisotopic"))
+        return spectrum
+
+    def add_item(self, idx, item):
+        self.items[idx].products.mz = item.products.mz
+        self.items[idx].products.intensity = item.products.intensity     
+
+    def finalize_spectrum(self, item):
+        pass
 
 
 def create_prediction_dataset_from_hitlist(model, hitlist, experimental_tablemap, set_to_load='test', num=0, copy_annotations=False,

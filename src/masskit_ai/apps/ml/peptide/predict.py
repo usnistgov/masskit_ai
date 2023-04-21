@@ -1,4 +1,5 @@
 import logging
+import time
 from masskit.utils.general import class_for_name, get_file
 from masskit_ai.loggers import filter_pytorch_lightning_warnings
 from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
@@ -8,7 +9,7 @@ from masskit.utils.files import spectra_to_array, spectra_to_msp, spectra_to_mgf
 import torch
 from tqdm import tqdm
 
-from masskit_ai.spectrum.spectrum_prediction import PeptideSpectrumPredictor
+from masskit_ai.spectrum.spectrum_prediction import PeptideSpectrumPredictor, SinglePeptideSpectrumPredictor
 
 # set up matplotlib to use a non-interactive back end
 try:
@@ -34,7 +35,7 @@ def main(config):
     # single_prediction = class_for_name(config.paths.modules.prediction,
     #     config.predict.get("single_prediction", "single_spectrum_prediction"))
     
-    predictor = PeptideSpectrumPredictor(config)
+    predictor = SinglePeptideSpectrumPredictor(config)
 
     # get the first model in order to load the datasets
     loaded_model = config.predict.model_ensemble[0]
@@ -48,7 +49,7 @@ def main(config):
         # iterate through the batches
         while True:
             logging.info(f'starting batch at {start} for dataset of length {len(dataloader)}')
-            spectra = predictor.get_items(dataloader, start)
+            predictor.create_items(dataloader, start)
             # iterate through the models
             for i in range(len(config.predict.model_ensemble)):
                 if loaded_model != config.predict.model_ensemble[i]:
@@ -56,17 +57,17 @@ def main(config):
                     model = predictor.load_model(loaded_model)
 
                 # iterate through the singletons
-                for idx in range(len(spectra)):
+                for idx in tqdm(range(len(predictor.items))):
                     # predict spectra with multiple draws
                     for _ in range(config.predict.model_draws):
                         # do the prediction
                         new_item = predictor.single_prediction(model, dataloader.dataset[start + idx])
-                        spectra[idx].add(new_item)
+                        predictor.add_item(idx, new_item)
 
             # finalize the batch TODO: how to subset to the predictions?
-            predictor.finalize_items(spectra, dataloader, start)
+            predictor.finalize_items(dataloader, start)
             # write the batch out
-            predictor.write_items(spectra)
+            predictor.write_items()
             # increment the batch if not at end
             start += predictor.row_group_size
             if start >= len(dataloader) or start - predictor.original_start >= config.predict.num:
