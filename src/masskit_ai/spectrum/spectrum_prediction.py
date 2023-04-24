@@ -45,14 +45,14 @@ class PeptideSpectrumPredictor(Predictor):
         self.mz = None
         self.tolerance = None
         self.items = []  # the items to predict
-        output_prefix = str(Path(config.predict.output_prefix).expanduser())
+        self.output_prefix = str(Path(config.predict.output_prefix).expanduser())
         self.max_intensity = self.config.predict.get("max_intensity", 999.0)
         if "arrow" in self.config.predict.output_suffixes:
-            self.arrow = pa.OSFile(f'{output_prefix}.arrow', 'wb')
+            self.arrow = None
         if "msp" in self.config.predict.output_suffixes:
-            self.msp = open(f"{output_prefix}.msp", "w")
+            self.msp = open(f"{self.output_prefix}.msp", "w")
         if "mgf" in self.config.predict.output_suffixes:
-            self.mgf = open(f"{output_prefix}.mgf", "w")
+            self.mgf = open(f"{self.output_prefix}.mgf", "w")
 
     def create_dataloaders(self, model):
         """
@@ -183,14 +183,23 @@ class PeptideSpectrumPredictor(Predictor):
         """
         if "arrow" in self.config.predict.output_suffixes:
             table = spectra_to_array(self.items, write_starts_stops=self.config.predict.get("upres", False))
-            writer = pa.RecordBatchFileWriter(self.arrow, table.schema)
-            writer.write_table(table)
+            if self.arrow is None:
+                self.arrow = pa.RecordBatchFileWriter(pa.OSFile(f'{self.output_prefix}.arrow', 'wb'), table.schema)
+            self.arrow.write_table(table)
         if "msp" in self.config.predict.output_suffixes:
             spectra_to_msp(self.msp, self.items, self.config.predict.get('annotate', False))
             self.msp.flush()
         if "mgf" in self.config.predict.output_suffixes:
             spectra_to_mgf(self.mgf, self.items)
             self.mgf.flush()
+
+    def __del__(self):
+        if "arrow" in self.config.predict.output_suffixes:
+            self.arrow.close()
+        if "msp" in self.config.predict.output_suffixes:
+            self.msp.close()
+        if "mgf" in self.config.predict.output_suffixes:
+            self.mgf.close()
 
 
 class SinglePeptideSpectrumPredictor(PeptideSpectrumPredictor):
