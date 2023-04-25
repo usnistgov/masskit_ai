@@ -1,4 +1,5 @@
 import copy
+import logging
 from pathlib import Path
 import numpy as np
 import torch
@@ -51,8 +52,12 @@ class PeptideSpectrumPredictor(Predictor):
             self.arrow = None
         if "msp" in self.config.predict.output_suffixes:
             self.msp = open(f"{self.output_prefix}.msp", "w")
+            if self.msp is None:
+                logging.error(f'Unable to open {self.output_prefix}.msp')
         if "mgf" in self.config.predict.output_suffixes:
             self.mgf = open(f"{self.output_prefix}.mgf", "w")
+            if self.mgf is None:
+                logging.error(f'Unable to open {self.output_prefix}.mgf')
 
     def create_dataloaders(self, model):
         """
@@ -185,21 +190,26 @@ class PeptideSpectrumPredictor(Predictor):
             table = spectra_to_array(self.items, write_starts_stops=self.config.predict.get("upres", False))
             if self.arrow is None:
                 self.arrow = pa.RecordBatchFileWriter(pa.OSFile(f'{self.output_prefix}.arrow', 'wb'), table.schema)
+                if self.arrow is None:
+                    logging.error(f'Unable to open {self.output_prefix}.arrow')
             self.arrow.write_table(table)
-        if "msp" in self.config.predict.output_suffixes:
+        if "msp" in self.config.predict.output_suffixes and self.msp is not None:
             spectra_to_msp(self.msp, self.items, self.config.predict.get('annotate', False))
             self.msp.flush()
-        if "mgf" in self.config.predict.output_suffixes:
+        if "mgf" in self.config.predict.output_suffixes and self.mgf is not None:
             spectra_to_mgf(self.mgf, self.items)
             self.mgf.flush()
 
     def __del__(self):
         if "arrow" in self.config.predict.output_suffixes:
-            self.arrow.close()
+            if self.arrow is not None:
+                self.arrow.close()
         if "msp" in self.config.predict.output_suffixes:
-            self.msp.close()
+            if self.msp is not None:
+                self.msp.close()
         if "mgf" in self.config.predict.output_suffixes:
-            self.mgf.close()
+            if self.mgf is not None:
+                self.mgf.close()
 
 
 class SinglePeptideSpectrumPredictor(PeptideSpectrumPredictor):
