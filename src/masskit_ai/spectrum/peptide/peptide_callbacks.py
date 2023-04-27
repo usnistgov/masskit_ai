@@ -6,7 +6,7 @@ import numpy as np
 import pytorch_lightning as pl
 import torch
 
-from masskit.spectrum.plotting import AnimateSpectrumPlot, multiple_spectrum_plot
+from masskit.spectrum.spectrum_plotting import AnimateSpectrumPlot, multiple_spectrum_plot
 
 
 class PeptideCB(pl.Callback):

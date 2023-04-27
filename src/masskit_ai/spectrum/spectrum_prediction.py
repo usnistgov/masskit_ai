@@ -3,7 +3,7 @@ import logging
 from pathlib import Path
 import numpy as np
 import torch
-from masskit.spectrum.spectrum import HiResSpectrum, MassInfo, AccumulatorSpectrum
+from masskit.spectrum.spectrum import Spectrum, MassInfo, AccumulatorSpectrum
 from masskit.peptide.spectrum_generator import create_peptide_name
 from masskit_ai.prediction import Predictor
 from masskit_ai.spectrum.peptide.peptide_prediction import upres_peptide_spectrum
@@ -129,7 +129,7 @@ class PeptideSpectrumPredictor(Predictor):
                 intensity = np.square(intensity)
             if self.max_intensity != 0:
                 intensity *= self.max_intensity / np.max(intensity)
-            spectrum = HiResSpectrum().from_arrays(
+            spectrum = Spectrum().from_arrays(
                 self.mz,
                 intensity,
                 product_mass_info=MassInfo(self.tolerance, "daltons", "monoisotopic", evenly_spaced=True),
@@ -220,7 +220,7 @@ class SinglePeptideSpectrumPredictor(PeptideSpectrumPredictor):
         super().__init__(config=config, *args, **kwargs)
     
     def make_spectrum(self, precursor_mz):
-        spectrum = HiResSpectrum()
+        spectrum = Spectrum()
         spectrum.from_arrays(self.mz, np.zeros_like(self.mz), 
                         product_mass_info=MassInfo(self.tolerance, "daltons", "monoisotopic", evenly_spaced=True), 
                         precursor_mz=precursor_mz, precursor_intensity=1.0,
