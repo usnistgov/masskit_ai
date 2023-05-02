@@ -57,7 +57,17 @@ def main(config):
                     # predict spectra with multiple draws
                     for _ in range(config.predict.model_draws):
                         # do the prediction
-                        new_item = predictor.single_prediction(model, dataloader.dataset[start + idx])
+                        # some implementation notes: the dataloader, since it iterates
+                        # over batches, doesn't have __getitem__, so we use the dataset instead
+                        # to get a single record. We use the collate_fn, perhaps incorrectly
+                        # to convert the input data to data for the model.  However, since we are
+                        # using the dataset to iterate, we have to explicitly call the collate_fn
+                        # putting the argument into a list to fake a batch of size 1, since collate_fn
+                        # is intended to work on batches.  In the future, we may wish to move the
+                        # collate_fn functionality into the dataset and also predict on batches
+                        # of size greater than one (may require a special purpose sampler to 
+                        # use start to set the start of the batch).
+                        new_item = predictor.single_prediction(model, dataloader.collate_fn([dataloader.dataset[start + idx]]))
                         predictor.add_item(idx, new_item)
 
             # finalize the batch TODO: how to subset to the predictions?

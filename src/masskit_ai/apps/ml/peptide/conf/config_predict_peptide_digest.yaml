@@ -51,6 +51,7 @@ predict:
   set_to_load: test  # data set to do predictions on
   no_spectra: True  # dataset does not have spectra
   copy_annotations: False  # copy annotations and precursor from experimental spectrum
+  predictor: SinglePeptideSpectrumPredictor  # the class used for prediction
 
   # settings for create_peptide_library.py
   min_length: 5

@@ -50,6 +50,21 @@
             "justMyCode": true
         },
         {
+            "name": "Python: predict.py ri",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/src/masskit_ai/apps/ml/peptide",
+            "program": "predict.py",
+            "args": [
+                "--config-name","config_predict_ri_2023",
+                "setup.num_workers=0",
+                "predict.num=100",
+                "predict.output_prefix=test",
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "name": "Python: predict_hitlist.py",
             "type": "python",
             "request": "launch",

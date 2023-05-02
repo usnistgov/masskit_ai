@@ -66,20 +66,11 @@ class PeptideSpectrumPredictor(Predictor):
         :param model: the model to use to predict spectrum
         :return: list of dataloader objects
         """
-        model.config.ms.dataloader = self.config.predict.dataloader
-        model.config.ms.columns = None
         self.mz, self.tolerance = self.create_mz_tolerance(model)
         self.max_mz = model.config.ms.get("max_mz", 2000)
 
-        loaders = MasskitDataModule(model.config).create_loader(self.config.predict.set_to_load)
+        return super().create_dataloaders(model)
 
-        if isinstance(loaders, list):
-            datasets = loaders
-        else:
-            datasets = [loaders]
-
-        return datasets
-    
     def make_spectrum(self, precursor_mz):
         return AccumulatorSpectrum(mz=self.mz, tolerance=self.tolerance, precursor_mz=precursor_mz)
 
@@ -123,7 +114,8 @@ class PeptideSpectrumPredictor(Predictor):
         l2norm=self.config.predict.get('l2norm', False)
         
         with torch.no_grad():
-            output = model([torch.unsqueeze(dataset_element.x, 0).to(device=_device)])
+            # output = model([torch.unsqueeze(dataset_element.x, 0).to(device=_device)])
+            output = model(torch.unsqueeze(dataset_element.x, 0).to(device=_device))
             intensity = output.y_prime[0, 0, :].detach().cpu().numpy()
             if take_sqrt:
                 intensity = np.square(intensity)

@@ -2,6 +2,7 @@ import numpy as np
 import torch
 from abc import ABC, abstractmethod
 from masskit.utils.general import get_file
+from masskit_ai.lightning import MasskitDataModule, setup_datamodule
 from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
 from masskit_ai import _device
 
@@ -56,8 +57,19 @@ class Predictor(ABC):
 
     @abstractmethod
     def create_dataloaders(self, model):
-        pass
+        model.config.ms.dataloader = self.config.predict.dataloader
+        model.config.ms.columns = None
 
+        # loaders = MasskitDataModule(model.config).create_loader(self.config.predict.set_to_load)
+        loaders = setup_datamodule(model.config).create_loader(self.config.predict.set_to_load)
+
+        if isinstance(loaders, list):
+            datasets = loaders
+        else:
+            datasets = [loaders]
+
+        return datasets
+    
     @abstractmethod
     def single_prediction(self, model, dataset_element):
         pass
