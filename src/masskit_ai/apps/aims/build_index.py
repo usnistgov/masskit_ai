@@ -4,7 +4,8 @@ import logging
 from omegaconf import DictConfig, OmegaConf
 from pyarrow import parquet as pq
 from masskit.data_specs.schemas import min_spectrum_fields
-from masskit.utils.index import ArrowLibraryMap, DescentIndex, PandasLibraryMap
+from masskit.utils.index import DescentIndex
+from masskit.utils.tablemap import ArrowLibraryMap, PandasLibraryMap
 from masskit.utils.general import class_for_name
 
 """

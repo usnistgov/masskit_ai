@@ -257,7 +257,7 @@ def create_prediction_dataset_from_hitlist(model, hitlist, experimental_tablemap
     df["cosine_score"] = None
     df['ev'] = [experimental_tablemap.getitem_by_id(id)['ev'] for id in df.index.get_level_values(0)]
     df['nce'] = [experimental_tablemap.getitem_by_id(id)['nce'] for id in df.index.get_level_values(0)]
-    df['spectrum'] = [experimental_tablemap.getspectrum_by_id(id) for id in df.index.get_level_values(0)]
+    df['spectrum'] = [experimental_tablemap.getitem_by_id(id)['spectrum'] for id in df.index.get_level_values(0)]
 
         # copy annotations and precursor
         # change to use tablemap and insert experimental spectrum

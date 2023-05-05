@@ -11,7 +11,7 @@ from masskit.data_specs.schemas import min_spectrum_fields
 from masskit.data_specs.spectral_library import LibraryAccessor
 from masskit.utils.files import load_msp2array, load_sdf2array, load_mgf2array
 from masskit.utils.hitlist import CosineScore
-from masskit.utils.index import ArrowLibraryMap, PandasLibraryMap
+from masskit.utils.tablemap import ArrowLibraryMap, PandasLibraryMap
 from masskit.utils.general import class_for_name, parse_filename
 
 """
@@ -65,12 +65,12 @@ def aims_app(config: DictConfig) -> None:
     id_list_query = None
     query_num = config.input.query.num if config.input.query.num else len(query_map)
     if config.input.query.ids:
-        queries = [query_map.getspectrum_by_id(x) for x in config.input.query.ids]
+        queries = [query_map.getitem_by_id(x)['spectrum'] for x in config.input.query.ids]
     elif config.input.query.id_file:
         # load in the queries from a search result file
         df_query = pd.read_pickle(to_absolute_path(config.input.query.id_file))
         query_ids = df_query.index.get_level_values(0).unique()
-        queries = [query_map.getspectrum_by_id(x) for x in query_ids]
+        queries = [query_map.getitem_by_id(x)['spectrum'] for x in query_ids]
     elif config.input.query.column_name:
         # this is a bit of a hack to allow searching feature vectors, etc., instead of spectra.  
         # all of the other clauses in the if-then statement generate spectrum objects
@@ -80,7 +80,7 @@ def aims_app(config: DictConfig) -> None:
         id_list_query = query_map.get_ids()
     else:
         # select a random set of query ids
-        queries = [query_map[x] for x in random.sample(range(len(query_map)), query_num)]
+        queries = [query_map[x]['spectrum'] for x in random.sample(range(len(query_map)), query_num)]
 
     # noise filter the queries
     # queries = [query.norm(max_intensity_in=1.0).filter(min_mz=0.01).windowed_filter() for query in queries]

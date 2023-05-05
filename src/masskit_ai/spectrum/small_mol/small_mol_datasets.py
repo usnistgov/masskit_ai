@@ -2,7 +2,8 @@ from masskit.utils.fingerprints import ECFPFingerprint
 import pyarrow as pa
 import numpy as np
 import torch
-from masskit.utils.index import ArrowLibraryMap, TanimotoIndex
+from masskit.utils.tablemap import ArrowLibraryMap
+from masskit.utils.index import TanimotoIndex
 from masskit.data_specs.spectral_library import *
 from masskit_ai.lightning import get_pytorch_ranks
 from masskit_ai.spectrum.spectrum_datasets import SpectrumDataset
@@ -134,7 +135,7 @@ class TandemArrowSearchDataset(SpectrumDataset):
         - 
         """
         # get fingerprint from store
-        query = self.data.getitem_by_row(index)
+        query = self.data[index]
         fp = query['ecfp4']
         # nce = query['nce']
         # ion_mode = query['ion_mode']
@@ -169,7 +170,7 @@ class TandemArrowSearchDataset(SpectrumDataset):
             if count >= hitlist_size:
                 break
             try:
-                results['hit_spectrum'][count] = self.data_search.getspectrum_by_id(row.Index[1])
+                results['hit_spectrum'][count] = self.data_search.getitem_by_id(row.Index[1])['spectrum']
             except IndexError:
                 # not all hits are in self.data_search as the index contains records that are filtered out
                 continue
@@ -177,8 +178,8 @@ class TandemArrowSearchDataset(SpectrumDataset):
             results['query_index'][count] = index            
             results['query_id'][count] = row.Index[0]
             results['hit_id'][count] = row.Index[1]
-            results['query_spectrum'][count] = self.data.getspectrum_by_row(index)
-            results['hit_spectrum'][count] = self.data_search.getspectrum_by_id(row.Index[1])
+            results['query_spectrum'][count] = self.data[index]['spectrum']
+            results['hit_spectrum'][count] = self.data_search.getitem_by_id(row.Index[1])['spectrum']
             results['tanimoto'][count] = row.tanimoto
             count += 1
         return results

@@ -1,6 +1,6 @@
 import logging
 from masskit.utils.hitlist import Hitlist, PeptideIdentityScore
-from masskit.utils.index import ArrowLibraryMap
+from masskit.utils.tablemap import ArrowLibraryMap
 from masskit.utils.general import parse_filename, get_file
 from masskit_ai.loggers import filter_pytorch_lightning_warnings
 from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule

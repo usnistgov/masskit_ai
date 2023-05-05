@@ -3,7 +3,7 @@ import hydra
 from hydra.utils import to_absolute_path
 import pyarrow as pa
 import pyarrow.parquet as pq
-from masskit.utils.index import ArrowLibraryMap
+from masskit.utils.tablemap import ArrowLibraryMap
 from masskit_ai.base_objects import ModelInput
 from masskit_ai.spectrum.small_mol.small_mol_lightning import SearchLightningModule
 import numpy as np
@@ -34,7 +34,7 @@ def create_feature_vector_app(config):
         
         shape = (1, int(model.config.ms.max_mz / model.config.ms.bin_size))
         spectrum_array = np.zeros(shape, dtype=np.float32)
-        spectrum = annotation_map.getspectrum_by_row(k)
+        spectrum = annotation_map[k]['spectrum']
         spectrum.products.ions2array(
             spectrum_array,
             0,
