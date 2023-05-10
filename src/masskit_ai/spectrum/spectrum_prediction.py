@@ -224,65 +224,63 @@ class SinglePeptideSpectrumPredictor(PeptideSpectrumPredictor):
         self.items[idx].products.intensity = item.products.intensity     
 
 
-def create_prediction_dataset_from_hitlist(model, hitlist, experimental_tablemap, set_to_load='test', num=0, copy_annotations=False,
-                              predicted_column='predicted_spectrum', return_singleton=True, **kwargs
-                              ):
-    """
-    Create pandas dataframe(s) that contains experimental spectra and can be used for predicting spectra
-    each dataframe corresponds to a single validation/test/train set.
+# def create_prediction_dataset_from_hitlist(model, hitlist, experimental_tablemap, set_to_load='test', num=0, copy_annotations=False,
+#                               predicted_column='predicted_spectrum', return_singleton=True, **kwargs
+#                               ):
+#     """
+#     Create pandas dataframe(s) that contains experimental spectra and can be used for predicting spectra
+#     each dataframe corresponds to a single validation/test/train set.
 
-    :param model: the model to use to predict spectrum
-    :param set_to_load: name of the set to use, e.g. "valid", "test", "train"
-    :param hitlist: the Hitlist object
-    :param experimental_spectra: TableMap containing the experimental spectra, used to get eV
-    :param num: the number of spectra to predict (0 = all)
-    :param copy_annotations: copy annotations and precursor from experimental spectra to predicted spectra
-    :param predicted_column: name of the column containing the predicted spectrum
-    :param return_singleton: if there is only one dataframe, don't return lists
-    :return: list of dataframes for doing predictions, list of dataset objects
-    """
-    mz, tolerance = create_mz_tolerance(model)
+#     :param model: the model to use to predict spectrum
+#     :param set_to_load: name of the set to use, e.g. "valid", "test", "train"
+#     :param hitlist: the Hitlist object
+#     :param experimental_spectra: TableMap containing the experimental spectra, used to get eV
+#     :param num: the number of spectra to predict (0 = all)
+#     :param copy_annotations: copy annotations and precursor from experimental spectra to predicted spectra
+#     :param predicted_column: name of the column containing the predicted spectrum
+#     :param return_singleton: if there is only one dataframe, don't return lists
+#     :return: list of dataframes for doing predictions, list of dataset objects
+#     """
+#     mz, tolerance = create_mz_tolerance(model)
     
-    df = hitlist.hitlist
+#     df = hitlist.hitlist
 
-    # truncate list of spectra if requested
-    if num > 0:
-        df = df.drop(df.index[num:])
-    # the final predicted spectra.  Will be a consensus of predicted_spectrum_list
-    df[predicted_column] = [
-        AccumulatorSpectrum(mz=mz, tolerance=tolerance)
-        for _ in range(len(df.index))
-        ]
-    # the cosine score
-    df["cosine_score"] = None
-    df['ev'] = [experimental_tablemap.getitem_by_id(id)['ev'] for id in df.index.get_level_values(0)]
-    df['nce'] = [experimental_tablemap.getitem_by_id(id)['nce'] for id in df.index.get_level_values(0)]
-    df['spectrum'] = [experimental_tablemap.getitem_by_id(id)['spectrum'] for id in df.index.get_level_values(0)]
+#     # truncate list of spectra if requested
+#     if num > 0:
+#         df = df.drop(df.index[num:])
+#     # the final predicted spectra.  Will be a consensus of predicted_spectrum_list
+#     df[predicted_column] = [
+#         AccumulatorSpectrum(mz=mz, tolerance=tolerance)
+#         for _ in range(len(df.index))
+#         ]
+#     # the cosine score
+#     df["cosine_score"] = None
+#     df['ev'] = [experimental_tablemap.getitem_by_id(id)['ev'] for id in df.index.get_level_values(0)]
+#     df['nce'] = [experimental_tablemap.getitem_by_id(id)['nce'] for id in df.index.get_level_values(0)]
+#     df['spectrum'] = [experimental_tablemap.getitem_by_id(id)['spectrum'] for id in df.index.get_level_values(0)]
 
-        # copy annotations and precursor
-        # change to use tablemap and insert experimental spectrum
-    if copy_annotations:
-        for row in df.itertuples():
-            getattr(row, predicted_column).precursor = copy.deepcopy(row.spectrum.precursor)
-            getattr(row, predicted_column).props = copy.deepcopy(row.spectrum.props)
-    else:
-        for row in df.itertuples():
-            # copy the precursor but set the props from columns
-            getattr(row, predicted_column).precursor = copy.deepcopy(row.spectrum.precursor)
-            getattr(row, predicted_column).charge = row.charge
-            getattr(row, predicted_column).mod_names = copy.deepcopy(row.mod_names)
-            getattr(row, predicted_column).mod_positions = copy.deepcopy(row.mod_positions)
-            getattr(row, predicted_column).peptide = copy.deepcopy(row.peptide)
-            getattr(row, predicted_column).peptide_len = len(row.peptide)
-            getattr(row, predicted_column).ev = row.ev
-            getattr(row, predicted_column).nce = row.nce
+#         # copy annotations and precursor
+#         # change to use tablemap and insert experimental spectrum
+#     if copy_annotations:
+#         for row in df.itertuples():
+#             getattr(row, predicted_column).precursor = copy.deepcopy(row.spectrum.precursor)
+#             getattr(row, predicted_column).props = copy.deepcopy(row.spectrum.props)
+#     else:
+#         for row in df.itertuples():
+#             # copy the precursor but set the props from columns
+#             getattr(row, predicted_column).precursor = copy.deepcopy(row.spectrum.precursor)
+#             getattr(row, predicted_column).charge = row.charge
+#             getattr(row, predicted_column).mod_names = copy.deepcopy(row.mod_names)
+#             getattr(row, predicted_column).mod_positions = copy.deepcopy(row.mod_positions)
+#             getattr(row, predicted_column).peptide = copy.deepcopy(row.peptide)
+#             getattr(row, predicted_column).peptide_len = len(row.peptide)
+#             getattr(row, predicted_column).ev = row.ev
+#             getattr(row, predicted_column).nce = row.nce
 
     
-    dataset = TandemDataframeDataset(df, model.config, set_to_load)
+#     dataset = TandemDataframeDataset(df, model.config, set_to_load)
 
-    if return_singleton:
-        return df, dataset
-    else:
-        return [df], [dataset]
-
-
+#     if return_singleton:
+#         return df, dataset
+#     else:
+#         return [df], [dataset]
