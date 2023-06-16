@@ -175,6 +175,7 @@ class MolPropPredictor(Predictor):
             # need to pass in dataset to write_items, along with start and end
             # end has to come from code in create items
             # also need the names of the new columns
+            raise NotImplementedError()
             table = None
             if self.arrow is None:
                 self.arrow = pa.RecordBatchFileWriter(pa.OSFile(f'{self.output_prefix}.arrow', 'wb'), table.schema)
@@ -182,8 +183,8 @@ class MolPropPredictor(Predictor):
                     logging.error(f'Unable to open {self.output_prefix}.arrow')
             # self.arrow.write_table(table)
         if "csv" in self.config.predict.output_suffixes and self.csv is not None:
-            for item in self.items():
-                print(f'{item.predicted_mean},{item.predicted_stddev}',fp=self.csv)
+            for item in self.items:
+                print(f'{item.predicted_mean},{item.predicted_stddev}',file=self.csv)
             self.csv.flush()
 
     def __del__(self):

@@ -1,8 +1,6 @@
 import pytest
 from hydra import compose, initialize
 from masskit_ai.apps.ml.peptide import predict
-import os
-from pathlib import Path
 
 """
 pytest fixtures
@@ -33,6 +31,17 @@ def config_predict_peptide(predicted_human_uniprot_trunc_parquet, create_peptide
         return cfg
 
 @pytest.fixture(scope="session")
-def create_predicted_peptide_arrow_file(config_predict_peptide):
-    predict.main(config_predict_peptide)
-    return config_predict_peptide.predict.output_prefix+"."+config_predict_peptide.predict.output_suffixes[0], config_predict_peptide.predict.output_prefix+"."+config_predict_peptide.predict.output_suffixes[1]
+def predicted_airi_parquet(tmpdir_factory):
+    return tmpdir_factory.mktemp('predicted_airi') / 'predicted_airi'
+
+@pytest.fixture(scope="session")
+def config_predict_airi(predicted_airi_parquet, batch_converted_smiles_path_file):
+    with initialize(version_base=None, config_path="../apps/ml/peptide/conf"):
+        cfg = compose(config_name="config_predict_ei_ri_2023",
+                      overrides=[f"input.test.spectral_library={batch_converted_smiles_path_file}.parquet",
+                                 f"predict.output_prefix={predicted_airi_parquet}",
+                                 "predict.output_suffixes=[csv]",   # [arrow,csv]
+                                 "predict.num=2",  # 6
+                                 ])
+        return cfg
+
