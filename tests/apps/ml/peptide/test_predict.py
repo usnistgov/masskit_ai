@@ -3,6 +3,8 @@ from pytest import approx
 import os
 import re
 from masskit_ai.apps.ml.peptide import predict
+from masskit.apps.process.libraries.batch_converter import batch_converter_app
+
 
 def test_predict_peptide(config_predict_peptide):
     predict.main(config_predict_peptide)
@@ -19,3 +21,8 @@ def test_predict_airi(config_predict_airi):
         data = f.read()
         assert re.search(r'1087\..*,21\..*',data) is not None
         assert re.search(r'1640\..*,65\..*', data) is not None
+
+
+# test should technically be in masskit unit tests, but needs a predicted file
+def test_batch_converter(config_batch_converter):
+    batch_converter_app(config_batch_converter)

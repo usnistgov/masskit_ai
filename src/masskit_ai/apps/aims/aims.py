@@ -7,8 +7,6 @@ import logging
 import pandas as pd
 from omegaconf import DictConfig
 import pyarrow.parquet as pq
-from masskit.data_specs.schemas import min_spectrum_fields
-from masskit.data_specs.spectral_library import LibraryAccessor
 from masskit.utils.files import load_msp2array, load_sdf2array, load_mgf2array
 from masskit.utils.hitlist import CosineScore
 from masskit.utils.tablemap import ArrowLibraryMap, PandasLibraryMap

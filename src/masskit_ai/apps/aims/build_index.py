@@ -1,11 +1,8 @@
 from pathlib import Path
 import hydra
-import logging
-from omegaconf import DictConfig, OmegaConf
+from omegaconf import DictConfig
 from pyarrow import parquet as pq
-from masskit.data_specs.schemas import min_spectrum_fields
-from masskit.utils.index import DescentIndex
-from masskit.utils.tablemap import ArrowLibraryMap, PandasLibraryMap
+from masskit.utils.tablemap import ArrowLibraryMap
 from masskit.utils.general import class_for_name
 
 """
@@ -17,13 +14,8 @@ create index for spectral searching
 def build_index_app(config: DictConfig) -> None:
 
     # load the library as a LibraryMap
-    columns = min_spectrum_fields.copy()
-    for x in [config.input.library.column_name, config.input.library.column_count_name]:
-        if x is not None:
-            columns.append(x)
     library_map = ArrowLibraryMap(
-        pq.read_table(Path(config.input.library.file).expanduser()),
-        column_name=config.input.library.column_name, num=config.input.library.num)
+        pq.read_table(Path(config.input.library.file).expanduser()), num=config.input.library.num)
 
     # initialize the index
     index = class_for_name(config.paths.modules.indices,
@@ -32,7 +24,7 @@ def build_index_app(config: DictConfig) -> None:
     if config.creation.index_type.input_type == 'fingerprint':
         index.create_from_fingerprint(library_map, config.input.library.column_name, config.input.library.column_count_name)
     else:
-        index.create(library_map)
+        index.create(library_map, column_name=config.input.library.column_name)
 
     # save the index to the file
     index.save(Path(file=config.output.file).expanduser())

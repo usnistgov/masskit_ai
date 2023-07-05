@@ -1,6 +1,8 @@
 import pytest
 from hydra import compose, initialize
 from masskit_ai.apps.ml.peptide import predict
+import masskit
+from pathlib import Path
 
 """
 pytest fixtures
@@ -45,3 +47,18 @@ def config_predict_airi(predicted_airi_parquet, batch_converted_smiles_path_file
                                  ])
         return cfg
 
+
+@pytest.fixture(scope="session")
+def batch_converted_files(tmpdir_factory):
+    return tmpdir_factory.mktemp('batch_converter') / 'batch_converted'
+
+@pytest.fixture(scope="session")
+def config_batch_converter(predicted_human_uniprot_trunc_parquet, batch_converted_files):
+    with initialize(version_base=None, config_path=Path(masskit.__file__).parent / "apps/process/libraries/conf"):
+        cfg = compose(config_name="config_batch_converter",
+                      overrides=[f"input.file.names={predicted_human_uniprot_trunc_parquet}.arrow",
+                                 f"output.file.name={batch_converted_files}",
+                                 f"output.file.types=[msp,arrow,parquet,mgf]",
+                                 f"conversion.row_batch_size=100",
+                                 f"input.file.spectrum_type=peptide"])
+        return cfg

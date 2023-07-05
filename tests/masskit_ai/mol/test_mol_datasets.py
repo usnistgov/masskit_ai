@@ -21,9 +21,9 @@ def config_ri():
     ])
     return cfg
 
-def test_MolPropDataset(config_ri):
-    ds = MolPropDataset('data/mainlib_2017_path_trunc.parquet', config_ri, 'train')
-    assert ds.get_data_row(0)['name'] == "Valeramide, 5-chloro-N-propyl-N-octyl-"
+def test_MolPropDataset(config_ri, SRM1950_lumos_short_parquet):
+    ds = MolPropDataset(SRM1950_lumos_short_parquet, config_ri, 'train')
+    assert ds.get_data_row(0)['mol'].GetProp('NAME') == "N-Acetyl-L-alanine"
 
 def test_SearchLightningModule(config_ri):
     model = SpectrumLightningModule(config_ri)
