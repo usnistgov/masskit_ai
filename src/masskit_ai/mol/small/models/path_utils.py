@@ -18,6 +18,8 @@ def get_path_input(mols, shortest_paths, max_atoms, args, output_tensor=True):
     path_input = []
     path_mask = []
     for mol_idx, mol in enumerate(mols):
+        if shortest_paths[mol_idx] is None:
+            raise ValueError('shortest path data is None')
         paths_dict, pointer_dict, ring_dict = shortest_paths[mol_idx]
 
         for atom_1 in range(max_atoms):

@@ -10,15 +10,16 @@ from masskit_ai.lightning import MasskitDataModule
 
 
 @pytest.fixture()
-def config_ri():
+def config_ri(test_new_sdf_parquet):
     GlobalHydra.instance().clear()
     initialize(config_path='.', version_base=None)
-    cfg = compose(config_name="config_ri", overrides=['input.train.spectral_library=data/mainlib_2017_path_trunc.parquet',
-        'input.train.where=null',
-        'input.valid.spectral_library=data/mainlib_2017_path_trunc.parquet',
-        'input.valid.where=null',
-        'setup.num_workers=0',
-    ])
+    cfg = compose(config_name="config_ri",
+                  overrides=[f'input.train.spectral_library={test_new_sdf_parquet}',
+                             'input.train.where=null',
+                             f'input.valid.spectral_library={test_new_sdf_parquet}',
+                             'input.valid.where=null',
+                             'setup.num_workers=0',
+                            ])
     return cfg
 
 def test_MolPropDataset(config_ri, SRM1950_lumos_short_parquet):

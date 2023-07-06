@@ -90,3 +90,30 @@ def config_predict_airi(tmpdir_factory, data_dir, predicted_airi_parquet):
                                  ])
         return cfg
 
+
+@pytest.fixture(scope="session")
+def test_new_sdf_parquet(data_dir, tmpdir_factory):
+    test_new_sdf_parquet_prefix = tmpdir_factory.mktemp('batch_converter') / 'batch_converted_sdf'
+    subprocess.run(['batch_converter', 
+                    f"input.file.names={data_dir / 'test.new.sdf'}",
+                    f"output.file.name={test_new_sdf_parquet_prefix}",
+                    f"output.file.types=[parquet]",
+                    f"conversion.row_batch_size=100",
+                    f"input.file.spectrum_type=mol"], check=True)
+    test_new_sdf_path_parquet = f'{test_new_sdf_parquet_prefix}_path.parquet'
+    subprocess.run(["shortest_path",
+                f'input.file.name={test_new_sdf_parquet_prefix}.parquet',
+                f"output.file.name={test_new_sdf_path_parquet}"], check=True)
+
+    return test_new_sdf_path_parquet
+
+
+@pytest.fixture(scope="session")
+def SRM1950_lumos_short_parquet(data_dir, tmpdir_factory):
+    SRM1950_lumos_short_parquet_prefix = tmpdir_factory.mktemp('batch_converter') / 'batch_converted_sdf'
+    subprocess.run(['batch_converter', 
+                    f"input.file.names={data_dir / 'SRM1950_lumos_short.sdf'}",
+                    f"output.file.name={SRM1950_lumos_short_parquet_prefix}",
+                    f"output.file.types=[parquet]",
+                    f"input.file.spectrum_type=mol"], check=True)
+    return SRM1950_lumos_short_parquet_prefix + ".parquet"
