@@ -3,7 +3,6 @@ from masskit.utils.general import class_for_name
 from masskit_ai.loggers import filter_pytorch_lightning_warnings
 import hydra
 import pytorch_lightning as pl
-from masskit.utils.files import spectra_to_array, spectra_to_msp, spectra_to_mgf
 from tqdm import tqdm
 
 # set up matplotlib to use a non-interactive back end
@@ -19,16 +18,6 @@ except ImportError:
 def main(config):
 
     pl.seed_everything(config.setup.reproducable_seed)
-
-    # find prediction apis
-    # there are separate function instead of one class to simplify use from a jupyter notebook
-    # prediction_type = config.predict.get("prediction_type", "spectrum")
-    # create_prediction_dataset = class_for_name(config.paths.modules.prediction,
-    #     config.predict.get("create_prediction_dataset", "create_prediction_dataset"))
-    # finalize_prediction_dataset = class_for_name(config.paths.modules.prediction,
-    #     config.predict.get("finalize_prediction_dataset", "finalize_prediction_dataset"))
-    # single_prediction = class_for_name(config.paths.modules.prediction,
-    #     config.predict.get("single_prediction", "single_spectrum_prediction"))
     
     predictor = class_for_name(config.paths.modules.prediction,
                                config.predict.get("predictor", "SinglePeptideSpectrumPredictor"))(config)

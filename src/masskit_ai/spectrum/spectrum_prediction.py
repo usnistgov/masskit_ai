@@ -215,7 +215,7 @@ class SinglePeptideSpectrumPredictor(PeptideSpectrumPredictor):
         spectrum = Spectrum()
         spectrum.from_arrays(self.mz, np.zeros_like(self.mz), 
                         product_mass_info=MassInfo(self.tolerance, "daltons", "monoisotopic", evenly_spaced=True), 
-                        precursor_mz=precursor_mz, precursor_intensity=1.0,
+                        precursor_mz=precursor_mz, precursor_intensity=999.0,
                         precursor_mass_info=MassInfo(0.0, "ppm", "monoisotopic"))
         return spectrum
 

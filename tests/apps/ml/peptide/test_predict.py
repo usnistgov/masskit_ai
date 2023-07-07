@@ -1,9 +1,7 @@
-import pytest
 from pytest import approx
 import os
 import re
 from masskit_ai.apps.ml.peptide import predict
-from masskit.apps.process.libraries.batch_converter import batch_converter_app
 
 
 def test_predict_peptide(config_predict_peptide):
