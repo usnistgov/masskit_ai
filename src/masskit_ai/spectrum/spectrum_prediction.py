@@ -1,4 +1,3 @@
-import copy
 import logging
 from pathlib import Path
 import numpy as np
@@ -7,14 +6,14 @@ from masskit.spectrum.spectrum import Spectrum, MassInfo, AccumulatorSpectrum
 from masskit.peptide.spectrum_generator import create_peptide_name
 from masskit_ai.prediction import Predictor
 from masskit_ai.spectrum.peptide.peptide_prediction import upres_peptide_spectrum
-from masskit_ai.spectrum.spectrum_datasets import TandemDataframeDataset
-from masskit_ai.lightning import MasskitDataModule
 from masskit.peptide.encoding import calc_precursor_mz
 from masskit_ai import _device
 import pyarrow as pa
 from masskit.utils.files import spectra_to_array, spectra_to_msp, spectra_to_mgf
 from multiprocessing import Pool
 from functools import partial
+from masskit_ai.base_objects import ModelInput
+
 
 def finalize_spectrum(spectrum, min_intensity, mz_window, upres=False):
     """
@@ -110,13 +109,26 @@ class PeptideSpectrumPredictor(Predictor):
         :param item_idx: the index of item in the current dataset
         :param dataloader_idx: the index of the dataloader in self.dataloaders
         """
-        # send input to model, adding a batch dimension
+        # some implementation notes: the dataloader, since it iterates
+        # over batches, doesn't have __getitem__, so we use the dataset instead
+        # to get a single record. We use the collate_fn, perhaps incorrectly
+        # to convert the input data to data for the model.  However, since we are
+        # using the dataset to iterate, we have to explicitly call the collate_fn
+        # putting the argument into a list to fake a batch of size 1, since collate_fn
+        # is intended to work on batches.  In the future, we may wish to move the
+        # collate_fn functionality into the dataset and also predict on batches
+        # of size greater than one (may require a special purpose sampler to 
+        # use start to set the start of the batch).
+
         take_sqrt=self.config.ms.get('take_sqrt', False)
         l2norm=self.config.predict.get('l2norm', False)
-        dataset_element = self.dataloaders[dataloader_idx].collate_fn([self.dataloaders[dataloader_idx].dataset[item_idx]])
+        # don't use __item__ to avoid trying to load y target values, which may not be available
+        data_row = self.dataloaders[dataloader_idx].dataset.get_data_row(item_idx)
+        input = ModelInput(x=self.dataloaders[dataloader_idx].dataset.get_x(data_row), y={}, index=item_idx)
+        dataset_element = self.dataloaders[dataloader_idx].collate_fn([input])
 
         with torch.no_grad():
-            # output = model([torch.unsqueeze(dataset_element.x, 0).to(device=_device)])
+            # send input to model, adding a batch dimension
             output = model(torch.unsqueeze(dataset_element.x, 0).to(device=_device))
             intensity = output.y_prime[0, 0, :].detach().cpu().numpy()
             if take_sqrt:

@@ -45,8 +45,12 @@ def predicted_human_uniprot_trunc_parquet(tmpdir_factory):
     return tmpdir_factory.mktemp('predict_peptides') / 'human_uniprot_trunc'
 
 @pytest.fixture(scope="session")
-def predicted_airi_parquet(tmpdir_factory):
-    return tmpdir_factory.mktemp('predicted_airi') / 'predicted_airi'
+def predicted_airi_smiles(tmpdir_factory):
+    return tmpdir_factory.mktemp('predicted_airi') / 'predicted_airi_smiles'
+
+@pytest.fixture(scope="session")
+def predicted_airi_csv(tmpdir_factory):
+    return tmpdir_factory.mktemp('predicted_airi') / 'predicted_airi_csv'
 
 @pytest.fixture(scope="session")
 def test_new_sdf_parquet(data_dir, tmpdir_factory):
@@ -93,7 +97,7 @@ def config_predict_peptide(predicted_human_uniprot_trunc_parquet, human_uniprot_
     
 
 @pytest.fixture(scope="session")
-def config_predict_airi(tmpdir_factory, data_dir, predicted_airi_parquet):
+def config_predict_airi_smiles(tmpdir_factory, data_dir, predicted_airi_smiles):
     batch_converted_smiles_files = tmpdir_factory.mktemp('batch_converter') / 'batch_converted_smiles'
     test_smiles =  data_dir / "test.smiles"
     subprocess.run(['batch_converter', 
@@ -111,10 +115,35 @@ def config_predict_airi(tmpdir_factory, data_dir, predicted_airi_parquet):
         cfg = compose(config_name="config_predict_ei_ri_2023",
                       overrides=[f"input.test.spectral_library={batch_converted_smiles_path_file}",
                                  f"input.test.where=null",
-                                 f"predict.output_prefix={predicted_airi_parquet}",
+                                 f"predict.output_prefix={predicted_airi_smiles}",
                                  "predict.output_suffixes=[csv]",   # [arrow,csv]
                                  "predict.num=3",
                                  "predict.set_to_load=test"
                                  ])
         return cfg
 
+@pytest.fixture(scope="session")
+def config_predict_airi_csv(tmpdir_factory, data_dir, predicted_airi_csv):
+    batch_converted_csv_files = tmpdir_factory.mktemp('batch_converter') / 'batch_converted_csv'
+    test_csv =  data_dir / "test.csv"
+    subprocess.run(['batch_converter', 
+     f"input.file.names={test_csv}",
+     f"output.file.name={batch_converted_csv_files}",
+     f"output.file.types=[parquet]",
+     f"conversion.row_batch_size=100",
+     f"input.file.spectrum_type=mol"], check=True)
+    batch_converted_csv_path_file = tmpdir_factory.mktemp('batch_converter') / 'batch_converted_csv_path_file.parquet'
+    subprocess.run(["shortest_path",
+                    f'input.file.name={batch_converted_csv_files}.parquet',
+                    f"output.file.name={batch_converted_csv_path_file}"], check=True)
+
+    with initialize(version_base=None, config_path="../apps/ml/peptide/conf"):
+        cfg = compose(config_name="config_predict_ei_ri_2023",
+                      overrides=[f"input.test.spectral_library={batch_converted_csv_path_file}",
+                                 f"input.test.where=null",
+                                 f"predict.output_prefix={predicted_airi_csv}",
+                                 "predict.output_suffixes=[csv,arrow]",
+                                 "predict.num=3",
+                                 "predict.set_to_load=test"
+                                 ])
+        return cfg

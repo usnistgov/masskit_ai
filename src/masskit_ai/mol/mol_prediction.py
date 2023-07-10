@@ -2,10 +2,11 @@ import torch
 from masskit.accumulator import AccumulatorProperty
 import logging
 from pathlib import Path
+from masskit_ai.base_objects import ModelInput
 from masskit_ai.prediction import Predictor
 from masskit_ai import _device
 import pyarrow as pa
-from pyarrow import csv
+from pyarrow import csv as pacsv
 import numpy as np
 from masskit.data_specs.file_schemas import csv_drop_fields
 
@@ -63,7 +64,21 @@ class MolPropPredictor(Predictor):
         :param dataloader_idx: the index of the dataloader in self.dataloaders
         :return: the predicted spectrum
         """
-        dataset_element = self.dataloaders[dataloader_idx].collate_fn([self.dataloaders[dataloader_idx].dataset[item_idx]])
+        # some implementation notes: the dataloader, since it iterates
+        # over batches, doesn't have __getitem__, so we use the dataset instead
+        # to get a single record. We use the collate_fn, perhaps incorrectly
+        # to convert the input data to data for the model.  However, since we are
+        # using the dataset to iterate, we have to explicitly call the collate_fn
+        # putting the argument into a list to fake a batch of size 1, since collate_fn
+        # is intended to work on batches.  In the future, we may wish to move the
+        # collate_fn functionality into the dataset and also predict on batches
+        # of size greater than one (may require a special purpose sampler to 
+        # use start to set the start of the batch).
+
+        # don't use __item__ to avoid trying to load y target values, which may not be available
+        data_row = self.dataloaders[dataloader_idx].dataset.get_data_row(item_idx)
+        input = ModelInput(x=self.dataloaders[dataloader_idx].dataset.get_x(data_row), y=None, index=item_idx)
+        dataset_element = self.dataloaders[dataloader_idx].collate_fn([input])
         # send input to model, adding a batch dimension
         with torch.no_grad():
             output = model([dataset_element.x]) # no .to(device) as this is a python molGraph handled in collate_fn
@@ -96,36 +111,37 @@ class MolPropPredictor(Predictor):
         :param dataloader_idx: the index of the dataloader in self.dataloaders
         :param start: position of the start of the batch
         """
+
+        # combine the dataset.data with two new columns
+        # containing the property and std dev
+        table = self.dataloaders[dataloader_idx].dataset.data.to_arrow()
+        null_means = pa.nulls(start, type=pa.float64())
+        means_out = np.empty((len(self.items,)), dtype=np.float64)
+        null_stddev = pa.nulls(start, type=pa.float64())
+        stddev_out = np.empty((len(self.items,)), dtype=np.float64)
+        for item_idx in range(len(self.items)):
+            means_out[item_idx] = self.items[item_idx].predicted_mean
+            stddev_out[item_idx] = self.items[item_idx].predicted_stddev
+        table = table.append_column('predicted_ri', 
+                                    pa.concat_arrays([null_means, pa.array(means_out)]))
+        table = table.append_column('predicted_ri_stddev', 
+                                    pa.concat_arrays([null_stddev, pa.array(stddev_out)]))
+
         if "arrow" in self.config.predict.output_suffixes:
-            # here we want to combine the dataset.data with two new columns
-            # containing the property and std dev
-            # need to pass in dataset to write_items, along with start and end
-            # end has to come from code in create items
-            # also need the names of the new columns
-            raise NotImplementedError()
-            table = None
             if self.arrow is None:
-                self.arrow = pa.RecordBatchFileWriter(pa.OSFile(f'{self.output_prefix}.arrow', 'wb'), table.schema)
+                self.arrow = pa.RecordBatchFileWriter(pa.OSFile(f'{self.output_prefix}.arrow', 'wb'),
+                                                      table.schema)
                 if self.arrow is None:
                     logging.error(f'Unable to open {self.output_prefix}.arrow')
-            # self.arrow.write_table(table)
+            self.arrow.write_table(table)
         if "csv" in self.config.predict.output_suffixes:
-            table = self.dataloaders[dataloader_idx].dataset.data.to_arrow()
-            null_means = pa.nulls(start, type=pa.float64())
-            means_out = np.empty((len(self.items,)), dtype=np.float64)
-            null_stddev = pa.nulls(start, type=pa.float64())
-            stddev_out = np.empty((len(self.items,)), dtype=np.float64)
-            for item_idx in range(len(self.items)):
-                means_out[item_idx] = self.items[item_idx].predicted_mean
-                stddev_out[item_idx] = self.items[item_idx].predicted_stddev
-            table = table.append_column('predicted_ri', 
-                                        pa.concat_arrays([null_means, pa.array(means_out)]))
-            table = table.append_column('predicted_ri_stddev', 
-                                        pa.concat_arrays([null_stddev, pa.array(stddev_out)]))
+            # delete completely null columns
+            table = table.drop([table.column_names[i] for i in range(table.num_columns)
+                                if table.column(i).null_count == len(table)])
             # cut out large list fields
             table = table.drop([name for name in csv_drop_fields if name in table.column_names])
             if self.csv is None:
-                self.csv = csv.CSVWriter(f"{self.output_prefix}.csv", table.schema)
+                self.csv = pacsv.CSVWriter(f"{self.output_prefix}.csv", table.schema)
                 if self.csv is None:
                     logging.error(f'Unable to open {self.output_prefix}.csv')
             self.csv.write_table(table)

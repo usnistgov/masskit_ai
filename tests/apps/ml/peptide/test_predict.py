@@ -13,11 +13,16 @@ def test_predict_peptide(config_predict_peptide):
         assert re.search(r'1817\.9044\t0\.11.*"y16\+i/0.0ppm"', data) is not None
         assert data.count('Name:') == 6
 
-def test_predict_airi(config_predict_airi):
-    predict.main(config_predict_airi)
-    with open(config_predict_airi.predict.output_prefix+'.'+config_predict_airi.predict.output_suffixes[0]) as f:
+def test_predict_airi_smiles(config_predict_airi_smiles):
+    predict.main(config_predict_airi_smiles)
+    with open(config_predict_airi_smiles.predict.output_prefix+'.'+config_predict_airi_smiles.predict.output_suffixes[0]) as f:
         data = f.read()
         assert re.search(r'1525\..*,9\..*',data) is not None
         assert re.search(r'629\..*,31\..*', data) is not None
 
-
+def test_predict_airi_csv(config_predict_airi_csv):
+    predict.main(config_predict_airi_csv)
+    with open(config_predict_airi_csv.predict.output_prefix+'.'+config_predict_airi_csv.predict.output_suffixes[0]) as f:
+        data = f.read()
+        assert re.search(r'1525\..*,9\..*',data) is not None
+        assert re.search(r'629\..*,31\..*', data) is not None
