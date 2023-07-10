@@ -74,45 +74,47 @@ class PeptideSpectrumPredictor(Predictor):
     def make_spectrum(self, precursor_mz):
         return AccumulatorSpectrum(mz=self.mz, tolerance=self.tolerance, precursor_mz=precursor_mz)
 
-    def create_items(self, loader, start):
+    def create_items(self, dataloader_idx, start):
         """
         for a given loader, return back a batch of accumulators
 
-        :param loader: the input loader, assume to contain a TableMap
+        :param dataloader_idx: the index of the dataloader in self.dataloaders
         :param start: the start row of the batch
-        :param length: the length of the batch
         """
         self.items = []
-        table_map = loader.dataset.data
+        table_map = self.dataloaders[dataloader_idx].dataset.data
 
         if self.config.predict.num is not None and self.config.predict.num > 0:
             end = min(start+self.row_group_size, self.config.predict.num + self.original_start, len(table_map))
         else:
             end = min(start+self.row_group_size, len(table_map))
 
-        for i in range(start, end):
-            row = table_map.getitem_by_row(i)
+        for j in range(start, end):
+            row = table_map.getitem_by_row(j)
             # we are assuming a peptide spectrum here.  To generalize, this needs to be put into the spectrum class.
-            precursor_mz = calc_precursor_mz(row['peptide'], row['charge'], mod_names=row["mod_names"], mod_positions=row["mod_positions"])
+            precursor_mz = calc_precursor_mz(row['peptide'], row['charge'], mod_names=row["mod_names"],
+                                             mod_positions=row["mod_positions"])
             new_spectrum = self.make_spectrum(precursor_mz)
             new_spectrum.copy_props_from_dict(row)
-            new_spectrum.name = create_peptide_name(row['peptide'], row['charge'], row['mod_names'], row['mod_positions'], row.get('nce', None))
+            new_spectrum.name = create_peptide_name(row['peptide'], row['charge'], row['mod_names'],
+                                                    row['mod_positions'], row.get('nce', None))
             self.items.append(new_spectrum)
 
         return self.items
         
-    def single_prediction(self, model, dataset_element):
+    def single_prediction(self, model, item_idx, dataloader_idx):
         """
         predict a single spectrum
 
         :param model: the prediction model
-        :param dataset_element: dataset element
-        :return: the predicted spectrum
+        :param item_idx: the index of item in the current dataset
+        :param dataloader_idx: the index of the dataloader in self.dataloaders
         """
         # send input to model, adding a batch dimension
         take_sqrt=self.config.ms.get('take_sqrt', False)
         l2norm=self.config.predict.get('l2norm', False)
-        
+        dataset_element = self.dataloaders[dataloader_idx].collate_fn([self.dataloaders[dataloader_idx].dataset[item_idx]])
+
         with torch.no_grad():
             # output = model([torch.unsqueeze(dataset_element.x, 0).to(device=_device)])
             output = model(torch.unsqueeze(dataset_element.x, 0).to(device=_device))
@@ -142,21 +144,20 @@ class PeptideSpectrumPredictor(Predictor):
         mz = np.linspace(model.config.ms.bin_size + shift, model.config.ms.max_mz + shift, model.model.bins, endpoint=True)
         return mz, tolerance
 
-    def add_item(self, idx, item):
+    def add_item(self, item_idx, item):
         """
         add newly predicted item at index idx
         
-        :param idx: index into items
+        :param item_idx: index into items
         :param item: item to add
         """
-        self.items[idx].add(item)
+        self.items[item_idx].add(item)
 
-    def finalize_items(self, dataset, start):
+    def finalize_items(self, dataloader_idx, start):
         """
         do final processing on a batch of predicted spectra
 
-        :param items: ListLike of spectra
-        :param dataset: dataset containing experimental spectra
+        :param dataloader_idx: the index of the dataloader in self.dataloaders
         :param start: position of the start of the batch
         """
         min_intensity=self.config.predict.get('min_intensity', 0), 
@@ -165,18 +166,20 @@ class PeptideSpectrumPredictor(Predictor):
         upres=self.config.predict.get("upres", False)
         
         with Pool(self.config.predict.get('num_workers', 2)) as p:
-            self.items = p.map(partial(finalize_spectrum, min_intensity=min_intensity, mz_window=mz_window, upres=upres), self.items)
+            self.items = p.map(partial(finalize_spectrum, min_intensity=min_intensity, mz_window=mz_window,
+                                       upres=upres), self.items)
         for j in range(len(self.items)):
-            row = dataset.dataset.data.getitem_by_row(start + j)
+            row = self.dataloaders[dataloader_idx].dataset.data.getitem_by_row(start + j)
             if 'spectrum' in row and row['spectrum'] is not None and row['spectrum'].products.mz is not None:
                 self.items[j].cosine_score = self.items[j].cosine_score(
                     row['spectrum'].filter(max_mz=self.max_mz, min_mz=min_mz), tiebreaker='mz')
     
-    def write_items(self):
+    def write_items(self, dataloader_idx, start):
         """
         write the spectra to files
         
-        :param items: the spectra to write
+        :param dataloader_idx: the index of the dataloader in self.dataloaders
+        :param start: position of the start of the batch
         """
         if "arrow" in self.config.predict.output_suffixes:
             table = spectra_to_array(self.items, write_starts_stops=self.config.predict.get("upres", False))

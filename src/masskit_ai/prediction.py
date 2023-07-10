@@ -12,6 +12,8 @@ class Predictor(ABC):
         self.config = config
         self.row_group_size = self.config.predict.get('row_group_size', 5000)
         self.original_start = self.config.predict.get('start', 0)
+        # list of dataloaders
+        self.dataloaders = None
 
     def apply_dropout(self, model):
         """
@@ -52,7 +54,13 @@ class Predictor(ABC):
         return model
     
     @abstractmethod
-    def create_items(self, loader, start):
+    def create_items(self, dataloader_idx, start):
+        """
+        create items for holding predictions
+        
+        :param dataloader_idx: the index of the dataloader in self.dataloaders
+        :param start: the start row of the batch
+        """
         pass
 
     @abstractmethod
@@ -60,29 +68,26 @@ class Predictor(ABC):
         model.config.ms.dataloader = self.config.predict.dataloader
         model.config.ms.columns = None
 
-        # loaders = MasskitDataModule(model.config).create_loader(self.config.predict.set_to_load)
         loaders = setup_datamodule(model.config).create_loader(self.config.predict.set_to_load)
 
         if isinstance(loaders, list):
-            datasets = loaders
+            self.dataloaders = loaders
         else:
-            datasets = [loaders]
-
-        return datasets
+            self.dataloaders = [loaders]
     
     @abstractmethod
-    def single_prediction(self, model, dataset_element):
+    def single_prediction(self, model, item_idx, dataloader_idx):
         pass
     
     @abstractmethod
-    def add_item(self, idx, item):
+    def add_item(self, item_idx, item):
         pass
 
     @abstractmethod
-    def finalize_items(self, dataset, start):
+    def finalize_items(self, dataloader_idx, start):
         pass
 
     @abstractmethod
-    def write_items(self):
+    def write_items(self, dataloader_idx, start):
         pass
 

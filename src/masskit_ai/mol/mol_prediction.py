@@ -5,81 +5,9 @@ from pathlib import Path
 from masskit_ai.prediction import Predictor
 from masskit_ai import _device
 import pyarrow as pa
-
-
-# def create_molprop_prediction_dataset(model, set_to_load='test', dataloader='MolPropDataset', num=0,
-#                               predicted_column='predicted_property', return_singleton=True, **kwargs):
-#     """
-#     Create pandas dataframe(s) that contains mols and can predict a property.
-
-#     :param dataloader: name of the dataloader class, e.g. TandemArrowDataset
-#     :param set_to_load: name of the set to use, e.g. "valid", "test", "train"
-#     :param model: the model to use to predict spectrum
-#     :param num: the number of spectra to predict (0 = all)
-#     :param predicted_column: name of the column containing the predicted spectrum
-#     :param return_singleton: if there is only one dataframe, don't return lists
-#     :return: list of dataframes for doing predictions, list of dataset objects
-#     """
-#     if dataloader is not None:
-#         model.config.ms.dataloader = dataloader
-#     # load in all columns
-#     model.config.ms.columns = None
-
-#     loaders = setup_datamodule(model.config).create_loader(set_to_load)
-
-#     if isinstance(loaders, list):
-#         dfs = [x.dataset.to_pandas() for x in loaders]
-#         datasets = loaders
-#     else:
-#         dfs = [loaders.dataset.to_pandas()]
-#         datasets = [loaders]
-#     # truncate list if requested
-#     if num > 0:
-#         for i in range(len(dfs)):
-#             dfs[i] = dfs[i].drop(dfs[i].index[num:])
-#     # the final predicted spectra.  Will be a consensus of predicted_spectrum_list
-#     for df in dfs:
-#         df[predicted_column] = [
-#             AccumulatorProperty()
-#             for _ in range(len(df.index))
-#         ]
-#         # standard deviation column
-#         df[predicted_column + "_stddev"] = None
-
-#     if return_singleton and len(dfs) == 1:
-#         return dfs[0], datasets[0]
-#     else:
-#         return dfs, datasets
-
-
-# def single_molprop_prediction(model, dataset_element, device=None, **kwargs):
-#     """
-#     predict a single spectrum
-
-#     :param model: the prediction model
-#     :param dataset_element: dataset element
-#     :return: the predicted spectrum
-#     """
-    
-#     with torch.no_grad():
-#         output = model([dataset_element.x]) # no .to(device) as this is a python molGraph handled in collate_fn
-#         property = output.y_prime[0].item() * 10000.0
-#     return property
-
-
-# def finalize_molprop_prediction_dataset(df, predicted_column='predicted_property', **kwargs):
-#     """
-#     do final processing on the predicted spectra
-
-#     :param df: dataframe containing spectra
-#     :param predicted_column:  name of the predicted spectrum column
-#     """
-#     for j in range(len(df.index)):
-#         accumulator = df[predicted_column].iat[j]
-#         accumulator.finalize()
-#         df[predicted_column].iat[j] = accumulator.predicted_mean
-#         df[predicted_column + '_stddev'].iat[j] = accumulator.predicted_stddev
-#     df[predicted_column] = df[predicted_column].astype(float)
+from pyarrow import csv
+import numpy as np
+from masskit.data_specs.file_schemas import csv_drop_fields
 
 
 class MolPropPredictor(Predictor):
@@ -93,9 +21,7 @@ class MolPropPredictor(Predictor):
         self.items = []  # the items to predict
         self.output_prefix = str(Path(config.predict.output_prefix).expanduser())
         if "csv" in self.config.predict.output_suffixes:
-            self.csv = open(f"{self.output_prefix}.csv", "w")
-            if self.csv is None:
-                logging.error(f'Unable to open {self.output_prefix}.csv')
+            self.csv = None
         if "arrow" in self.config.predict.output_suffixes:
             self.arrow = None
 
@@ -108,66 +34,67 @@ class MolPropPredictor(Predictor):
         """
         return super().create_dataloaders(model)
     
-
-    def create_items(self, loader, start):
+    def create_items(self, dataloader_idx, start):
         """
         for a given loader, return back a batch of accumulators
 
-        :param loader: the input loader, assume to contain a TableMap
+        :param dataloader_idx: the index of the dataloader in self.dataloaders
         :param start: the start row of the batch
-        :param length: the length of the batch
         """
         self.items = []
 
         if self.config.predict.num is not None and self.config.predict.num > 0:
-            end = min(start+self.row_group_size, self.config.predict.num + self.original_start, len(loader.dataset.data))
+            end = min(start+self.row_group_size, self.config.predict.num + self.original_start,
+                      len(self.dataloaders[dataloader_idx].dataset.data))
         else:
-            end = min(start+self.row_group_size, len(loader.dataset.data))
+            end = min(start+self.row_group_size, len(self.dataloaders[dataloader_idx].dataset.data))
 
         for i in range(start, end):
             self.items.append(AccumulatorProperty()) 
 
         return self.items
         
-    def single_prediction(self, model, dataset_element):
+    def single_prediction(self, model, item_idx, dataloader_idx):
         """
         predict a single spectrum
 
         :param model: the prediction model
-        :param dataset_element: dataset element
+        :param item_idx: the index of item in the current dataset
+        :param dataloader_idx: the index of the dataloader in self.dataloaders
         :return: the predicted spectrum
         """
+        dataset_element = self.dataloaders[dataloader_idx].collate_fn([self.dataloaders[dataloader_idx].dataset[item_idx]])
         # send input to model, adding a batch dimension
         with torch.no_grad():
             output = model([dataset_element.x]) # no .to(device) as this is a python molGraph handled in collate_fn
             property = output.y_prime[0].item() * 10000.0
             return property
 
-    def add_item(self, idx, item):
+    def add_item(self, item_idx, item):
         """
         add newly predicted item at index idx
         
-        :param idx: index into items
+        :param item_idx: index into items
         :param item: item to add
         """
-        self.items[idx].add(item)
+        self.items[item_idx].add(item)
 
-    def finalize_items(self, dataset, start):
+    def finalize_items(self, dataloader_idx, start):
         """
         do final processing on a batch of predicted spectra
 
-        :param items: ListLike of spectra
-        :param dataset: dataset containing experimental spectra
+        :param dataloader_idx: the index of the dataloader in self.dataloaders
         :param start: position of the start of the batch
         """       
         for j in range(len(self.items)):
             self.items[j].finalize()
 
-    def write_items(self):
+    def write_items(self, dataloader_idx, start):
         """
         write the spectra to files
         
-        :param items: the spectra to write
+        :param dataloader_idx: the index of the dataloader in self.dataloaders
+        :param start: position of the start of the batch
         """
         if "arrow" in self.config.predict.output_suffixes:
             # here we want to combine the dataset.data with two new columns
@@ -182,10 +109,27 @@ class MolPropPredictor(Predictor):
                 if self.arrow is None:
                     logging.error(f'Unable to open {self.output_prefix}.arrow')
             # self.arrow.write_table(table)
-        if "csv" in self.config.predict.output_suffixes and self.csv is not None:
-            for item in self.items:
-                print(f'{item.predicted_mean},{item.predicted_stddev}',file=self.csv)
-            self.csv.flush()
+        if "csv" in self.config.predict.output_suffixes:
+            table = self.dataloaders[dataloader_idx].dataset.data.to_arrow()
+            null_means = pa.nulls(start, type=pa.float64())
+            means_out = np.empty((len(self.items,)), dtype=np.float64)
+            null_stddev = pa.nulls(start, type=pa.float64())
+            stddev_out = np.empty((len(self.items,)), dtype=np.float64)
+            for item_idx in range(len(self.items)):
+                means_out[item_idx] = self.items[item_idx].predicted_mean
+                stddev_out[item_idx] = self.items[item_idx].predicted_stddev
+            table = table.append_column('predicted_ri', 
+                                        pa.concat_arrays([null_means, pa.array(means_out)]))
+            table = table.append_column('predicted_ri_stddev', 
+                                        pa.concat_arrays([null_stddev, pa.array(stddev_out)]))
+            # cut out large list fields
+            table = table.drop([name for name in csv_drop_fields if name in table.column_names])
+            if self.csv is None:
+                self.csv = csv.CSVWriter(f"{self.output_prefix}.csv", table.schema)
+                if self.csv is None:
+                    logging.error(f'Unable to open {self.output_prefix}.csv')
+            self.csv.write_table(table)
+            # self.csv.flush()
 
     def __del__(self):
         # if "arrow" in self.config.predict.output_suffixes:

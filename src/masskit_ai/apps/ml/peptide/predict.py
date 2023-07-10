@@ -26,19 +26,19 @@ def main(config):
     loaded_model = config.predict.model_ensemble[0]
     model = predictor.load_model(loaded_model)
     #  get the dataloaders
-    dataloaders = predictor.create_dataloaders(model)
+    predictor.create_dataloaders(model)
 
     # iterate through datasets
-    for dataloader in dataloaders:
+    for dataloader_idx in range(len(predictor.dataloaders)):
         start = predictor.original_start
         # iterate through the batches
         while True:
-            logging.info(f'starting batch at {start} for dataset of length {len(dataloader)}')
-            predictor.create_items(dataloader, start)
+            logging.info(f'starting batch at {start} for dataset of length {len(predictor.dataloaders[dataloader_idx])}')
+            predictor.create_items(dataloader_idx, start)
             # iterate through the models
-            for i in range(len(config.predict.model_ensemble)):
-                if loaded_model != config.predict.model_ensemble[i]:
-                    loaded_model = config.predict.model_ensemble[i]
+            for model_idx in range(len(config.predict.model_ensemble)):
+                if loaded_model != config.predict.model_ensemble[model_idx]:
+                    loaded_model = config.predict.model_ensemble[model_idx]
                     model = predictor.load_model(loaded_model)
 
                 # iterate through the singletons
@@ -56,16 +56,17 @@ def main(config):
                         # collate_fn functionality into the dataset and also predict on batches
                         # of size greater than one (may require a special purpose sampler to 
                         # use start to set the start of the batch).
-                        new_item = predictor.single_prediction(model, dataloader.collate_fn([dataloader.dataset[start + idx]]))
+                        new_item = predictor.single_prediction(model, start + idx, dataloader_idx)
                         predictor.add_item(idx, new_item)
 
             # finalize the batch TODO: how to subset to the predictions?
-            predictor.finalize_items(dataloader, start)
+            predictor.finalize_items(dataloader_idx, start)
             # write the batch out
-            predictor.write_items()
+            predictor.write_items(dataloader_idx, start)
             # increment the batch if not at end
             start += predictor.row_group_size
-            if start >= len(dataloader) or start - predictor.original_start >= config.predict.num:
+            if start >= len(predictor.dataloaders[dataloader_idx]) or \
+                start - predictor.original_start >= config.predict.num:
                 break
 
         # if prediction_type == 'spectrum':
