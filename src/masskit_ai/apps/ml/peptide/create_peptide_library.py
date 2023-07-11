@@ -26,7 +26,7 @@ def main(config):
         table = spectra_to_array(df['spectrum'])
         pq.write_table(table, f"{config.predict.output_prefix}.parquet", row_group_size=5000)
     if "msp" in config.predict.output_suffixes:
-        df.lib.to_msp(f"{config.predict.output_prefix}.msp", spectrum_column='spectrum', annotate=True)
+        df['spectrum'].array.to_msp(f"{config.predict.output_prefix}.msp", annotate_peptide=True)
 
 if __name__ == "__main__":
     filter_pytorch_lightning_warnings()

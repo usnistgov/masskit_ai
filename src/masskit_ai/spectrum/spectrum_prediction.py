@@ -201,7 +201,7 @@ class PeptideSpectrumPredictor(Predictor):
                     logging.error(f'Unable to open {self.output_prefix}.arrow')
             self.arrow.write_table(table)
         if "msp" in self.config.predict.output_suffixes and self.msp is not None:
-            spectra_to_msp(self.msp, self.items, self.config.predict.get('annotate', False))
+            spectra_to_msp(self.msp, self.items, annotate_peptide=self.config.predict.get('annotate', False))
             self.msp.flush()
         if "mgf" in self.config.predict.output_suffixes and self.mgf is not None:
             spectra_to_mgf(self.mgf, self.items)
