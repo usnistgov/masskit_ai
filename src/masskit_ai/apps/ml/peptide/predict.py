@@ -15,7 +15,7 @@ except ImportError:
 
 
 @hydra.main(config_path="conf", config_name="config_predict", version_base=None)
-def main(config):
+def predict_app(config):
 
     pl.seed_everything(config.setup.reproducable_seed)
     
@@ -66,4 +66,4 @@ def main(config):
 
 if __name__ == "__main__":
     filter_pytorch_lightning_warnings()
-    main()
+    predict_app()

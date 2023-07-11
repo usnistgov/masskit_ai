@@ -5,7 +5,6 @@ from masskit.utils.general import parse_filename, get_file
 from masskit_ai.loggers import filter_pytorch_lightning_warnings
 from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
 import hydra
-from omegaconf import DictConfig, open_dict
 from masskit_ai.spectrum.spectrum_prediction import (
     create_prediction_dataset_from_hitlist,
     single_spectrum_prediction, finalize_prediction_dataset, )
@@ -14,7 +13,6 @@ from masskit_ai.spectrum.peptide.peptide_prediction import upres_peptide_spectra
 from tqdm import tqdm
 import pytorch_lightning as pl
 from masskit.utils.files import load_mzTab
-import pyarrow.parquet as pq
 import pandas as pd
 import torch
 
@@ -25,9 +23,8 @@ todo:
 
 """
 
-
 @hydra.main(config_path="conf", config_name="config_predict_hitlist", version_base=None)
-def main(config):
+def predict_hitlist_app(config):
 
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     pl.seed_everything(config.setup.reproducable_seed)
@@ -101,4 +98,4 @@ def main(config):
 
 if __name__ == "__main__":
     filter_pytorch_lightning_warnings()
-    main()
+    predict_hitlist_app()
