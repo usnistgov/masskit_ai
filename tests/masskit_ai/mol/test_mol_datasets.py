@@ -22,8 +22,8 @@ def config_ri(test_new_sdf_parquet):
                             ])
     return cfg
 
-def test_MolPropDataset(config_ri, SRM1950_lumos_short_parquet):
-    ds = MolPropDataset(SRM1950_lumos_short_parquet, config_ri, 'train')
+def test_MolPropDataset(config_ri, SRM1950_lumos_short_parquet_ai):
+    ds = MolPropDataset(SRM1950_lumos_short_parquet_ai, config_ri, 'train')
     assert ds.get_data_row(0)['mol'].GetProp('NAME') == "N-Acetyl-L-alanine"
 
 def test_SearchLightningModule(config_ri):

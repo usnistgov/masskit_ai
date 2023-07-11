@@ -69,8 +69,8 @@ def test_new_sdf_parquet(data_dir, tmpdir_factory):
     return test_new_sdf_path_parquet
 
 @pytest.fixture(scope="session")
-def SRM1950_lumos_short_parquet(data_dir, tmpdir_factory):
-    SRM1950_lumos_short_parquet_prefix = tmpdir_factory.mktemp('batch_converter') / 'batch_converted_sdf'
+def SRM1950_lumos_short_parquet_ai(data_dir, tmpdir_factory):
+    SRM1950_lumos_short_parquet_prefix = tmpdir_factory.mktemp('batch_converter') / 'SRM1950_lumos_short_ai'
     subprocess.run(['batch_converter', 
                     f"input.file.names={data_dir / 'SRM1950_lumos_short.sdf'}",
                     f"output.file.name={SRM1950_lumos_short_parquet_prefix}",
