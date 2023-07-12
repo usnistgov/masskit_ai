@@ -1,0 +1,69 @@
+
+# the defaults list let you override settings using config files from subdirectories
+# for models, specify the model name on the left hand side (which corresponds to a subdirectory)
+# and the name on the right hand side specifies one of the config files in that subdirectory.
+# This lets you have different sets of options for a model
+
+# in the case of predict.py, the defaults will replace the configuration stored with the model
+
+defaults:
+  - input: null_input # input data set
+  - setup: single_gpu_noworkers  # experiment setup parameters that are not typical hyperparameters
+  - paths: standard  # places to look for data and code
+  - ms: ei_ri  # mass spec parameters
+  - override hydra/job_logging: default
+  - _self_
+
+hydra:
+  run:
+    # working directory
+    dir: hydra_output/${hydra.job.name}/${now:%Y-%m-%d_%H-%M-%S}
+  output_subdir: hydra
+  sweep:
+    dir: hydra_sweep
+  searchpath:
+    - pkg://masskit_ai.conf
+  job:
+    chdir: False
+
+
+predict:
+  # for ensembles, add a list to model_ensemble of paths to the checkpoints
+  model_ensemble:
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_1.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_2.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_3.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_4.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_5.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_6.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_7.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/airi_model_8.tgz
+  model_draws: 1  # number of draws per model
+  num: 0 # number of values to predict
+  dropout: False  # turn on dropout
+  predicted_column: predicted_ri
+  output_prefix: null  # name of the output file
+  output_suffixes:  # different file types to write out
+    - csv
+  dataloader: MolPropDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
+  set_to_load: test  # data set to do predictions on
+  predictor: MolPropPredictor  # the class used for prediction
+
+# Information
+#
+# this configuration file is parsed by the hydra library.  See https://hydra.cc/ for info
+#
+# Notes:
+# - environment variables can be retrieved via ${oc.env:MY_ENV_VARIABLE} notation
+# - null values are translated to None values in python
+# - values within the specification can be accessed via ${my_top_level.my_config_value} notation
+#
+# - Some hydra terminology:
+#   - config:  a configuration file.  there are input configs arranged in a directory structure and one output config
+#   - config_group : A path to a set of configs.
+#       The path is relative to the containing config. It can be made absolute by prefixing it with a /.
+#        The path separator is / regardless of the operating system.
+#   - package : Where to place the content of the config within the output config. It is relative to the package of
+#     the containing config by default.
+#   - dot.notation: location of a key in the config
+#

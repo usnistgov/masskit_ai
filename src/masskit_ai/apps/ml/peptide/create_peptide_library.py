@@ -3,7 +3,6 @@ from masskit.peptide.spectrum_generator import generate_peptide_library
 from masskit.utils.files import spectra_to_array
 import pyarrow.parquet as pq
 from masskit_ai.loggers import filter_pytorch_lightning_warnings
-from masskit.data_specs.spectral_library import LibraryAccessor
 
 """
 command line for creating a theoretical peptide spectra library for pretraining

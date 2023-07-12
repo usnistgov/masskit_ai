@@ -94,6 +94,20 @@
             "console": "integratedTerminal",
         },
         {
+            "name": "Python: predict.py csv",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/src/masskit_ai/apps/ml/peptide",
+            "program": "predict.py",
+            "args": [
+                "--config-name","config_predict_ri",
+                "input.test.spectral_library=${userHome}/temp/my_csv_path.parquet",
+                "predict.output_prefix=my_csv_predicted", 
+                "predict.output_suffixes=[csv]"
+            ],
+            "console": "integratedTerminal",
+        },
+        {
             "name": "Python: predict.py fasta 2",
             "type": "python",
             "request": "launch",
