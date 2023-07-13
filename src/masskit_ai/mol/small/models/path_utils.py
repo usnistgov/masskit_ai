@@ -56,7 +56,9 @@ def get_path_input(mols, shortest_paths, max_atoms, args, output_tensor=True):
 
 
 def merge_path_inputs(path_inputs, path_masks, max_atoms, args):
-    """Merge path input matrices. Does not create CUDA tensors intentionally"""
+    """
+    Merge path input matrices. Does not create CUDA tensors intentionally
+    """
     # device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     # don't put tensors on cuda as this doesn't work with forked processes
 
@@ -82,7 +84,9 @@ def merge_path_inputs(path_inputs, path_masks, max_atoms, args):
 
 
 def get_num_path_features(args):
-    """Returns the number of path features for the model."""
+    """
+    Returns the number of path features for the model.
+    """
     num_features = 0
     num_features = args.max_path_length * mol_features.N_BOND_FEATS
     if args.p_embed:
@@ -98,15 +102,12 @@ def get_path_atoms(atom_1, atom_2, paths_dict, pointer_dict, max_path_length,
                    truncate=True, self_attn=False):
     """Given a pair of atom indices, returns the list of atoms on the path.
 
-    Args:
-        atom_1: The start atom on the path.
-        atom_2: The end atom on the path.
-        paths_dict: A mapping from atom pairs to paths.
-        pointer_dict: A mapping from atom pairs to truncated paths. The values
-            of the dict is the atom ending the truncated path
-        max_path_length: The maximum path length to return.
-        truncate: Boolean determining whether or not paths above the max length
-            should be truncated (returned as no path)
+    :param atom_1: The start atom on the path.
+    :param atom_2: The end atom on the path.
+    :param paths_dict: A mapping from atom pairs to paths.
+    :param pointer_dict: A mapping from atom pairs to truncated paths. The values of the dict is the atom ending the truncated path
+    :param max_path_length: The maximum path length to return.
+    :param truncate: Boolean determining whether or not paths above the max length should be truncated (returned as no path)
     """
     path_start, path_end = atom_1, atom_2
     path_greater_max = False  # Indicator for path length exceeding max
@@ -145,12 +146,11 @@ def get_path_features(rd_mol, path_atoms, path_length, max_path_length,
                       p_embed=False):
     """Returns a feature array for the path.
 
-    Args:
-        rd_mol: The rdkit mol object, used to extract features.
-        path_atoms: A list of atoms in the path. If no path exist, empty array.
-        path_length: The length of the path.
-        max_path_length: The maximum length of the path considered.
-        p_embed: Whether or not to use position embedding.
+    :param rd_mol: The rdkit mol object, used to extract features.
+    :param path_atoms: A list of atoms in the path. If no path exist, empty array.
+    :param path_length: The length of the path.
+    :param max_path_length: The maximum length of the path considered.
+    :param p_embed: Whether or not to use position embedding.
     """
     # Compute the list of bonds from the path atoms
     path_bonds = []

@@ -509,7 +509,6 @@ class BaseFairseqModel(nn.Module):
     def make_generation_fast_(self, **kwargs):
         """
         Legacy entry point to optimize model for faster generation.
-        Prefer prepare_for_inference_.
         """
         if self._is_generation_fast:
             return  # only apply once

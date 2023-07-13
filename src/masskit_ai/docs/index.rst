@@ -14,9 +14,6 @@ Welcome to masskit_ai's documentation!
    README
    recipes
 
-.. automodule:: modules
-    :members:
-
 
 Indices and tables
 ==================
