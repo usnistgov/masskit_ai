@@ -13,3 +13,7 @@ dataset_columns:
   - mol
   - experimental_ri
   - set
+# value used to normalize molecular properties
+normalization: 10000.0
+# value used to clip lower bound of molecular properties
+clip: 23.0

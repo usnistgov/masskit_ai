@@ -82,7 +82,7 @@ class MolPropPredictor(Predictor):
         # send input to model, adding a batch dimension
         with torch.no_grad():
             output = model([dataset_element.x]) # no .to(device) as this is a python molGraph handled in collate_fn
-            property = output.y_prime[0].item() * 10000.0
+            property = output.y_prime[0].item() * self.config.ms.normalization
             return property
 
     def add_item(self, item_idx, item):
@@ -122,11 +122,16 @@ class MolPropPredictor(Predictor):
         for item_idx in range(len(self.items)):
             means_out[item_idx] = self.items[item_idx].predicted_mean
             stddev_out[item_idx] = self.items[item_idx].predicted_stddev
+        means_out = pa.array(means_out)
+        stddev_out = pa.array(stddev_out)
         table = table.append_column('predicted_ri', 
-                                    pa.concat_arrays([null_means, pa.array(means_out)]))
+                                    pa.concat_arrays([null_means, means_out]))
         table = table.append_column('predicted_ri_stddev', 
-                                    pa.concat_arrays([null_stddev, pa.array(stddev_out)]))
-
+                                    pa.concat_arrays([null_stddev, stddev_out]))
+        clipped_stddev = pa.compute.if_else(pa.compute.less(stddev_out,  self.config.ms.clip),
+                                             self.config.ms.clip, stddev_out)
+        table = table.append_column('predicted_ri_stddev_clip', 
+                                    pa.concat_arrays([null_stddev, clipped_stddev]))
         if "arrow" in self.config.predict.output_suffixes:
             if self.arrow is None:
                 self.arrow = pa.RecordBatchFileWriter(pa.OSFile(f'{self.output_prefix}.arrow', 'wb'),

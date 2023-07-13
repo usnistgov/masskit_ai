@@ -233,6 +233,7 @@ def patn_collator(config):
     collation function factory for PATN
     """
     args = config.ml.model.PropPredictor
+    normalization = config.ms.get('normalization', 10000.0)
 
     def inner_func(items):
         """
@@ -255,7 +256,7 @@ def patn_collator(config):
         # todo: get rid of normalization hack
         if y[0] == None:
             y = (0.0,)
-        y = torch.tensor(y, dtype=torch.float32, device=device)/10000.0
+        y = torch.tensor(y, dtype=torch.float32, device=device)/normalization
         index = torch.tensor(index, dtype=torch.int64, device=device)
         return ModelInput(x=mol_graphs, y=y, index=index)
 

@@ -36,18 +36,21 @@ def predict_app(config):
             logging.info(f'starting batch at {start} for dataset of length {len(predictor.dataloaders[dataloader_idx])}')
             predictor.create_items(dataloader_idx, start)
             # iterate through the models
-            for model_idx in range(len(config.predict.model_ensemble)):
-                if loaded_model != config.predict.model_ensemble[model_idx]:
-                    loaded_model = config.predict.model_ensemble[model_idx]
-                    model = predictor.load_model(loaded_model)
+            with tqdm(range(len(config.predict.model_ensemble)), desc="model") as pbar:
+                for model_idx in pbar:
+                    if loaded_model != config.predict.model_ensemble[model_idx]:
+                        loaded_model = config.predict.model_ensemble[model_idx]
+                        model = predictor.load_model(loaded_model)
 
-                # iterate through the singletons
-                for idx in tqdm(range(len(predictor.items))):
-                    # predict spectra with multiple draws
-                    for _ in range(config.predict.model_draws):
-                        # do the prediction
-                        new_item = predictor.single_prediction(model, start + idx, dataloader_idx)
-                        predictor.add_item(idx, new_item)
+                    # iterate through the singletons
+                    
+                    for idx in range(len(predictor.items)):
+                        pbar.set_postfix(inner_loop=idx, refresh=True)
+                        # predict spectra with multiple draws
+                        for _ in range(config.predict.model_draws):
+                            # do the prediction
+                            new_item = predictor.single_prediction(model, start + idx, dataloader_idx)
+                            predictor.add_item(idx, new_item)
 
             # finalize the batch TODO: how to subset to the predictions?
             predictor.finalize_items(dataloader_idx, start)
