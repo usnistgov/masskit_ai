@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>masskit_ai.spectrum package &#8212; masskit_ai 1.0.0-20-gde6df15 documentation</title>
+    <title>masskit_ai.spectrum package &#8212; masskit_ai 1.0.0-57-g7c937ec documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -56,7 +56,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-57-g7c937ec documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.spectrum package</a></li> 
       </ul>
     </div>  
@@ -734,8 +734,24 @@ omits constants in log likelihood</p>
 <span id="masskit-ai-spectrum-spectrum-prediction-module"></span><h2>masskit_ai.spectrum.spectrum_prediction module<a class="headerlink" href="#module-masskit_ai.spectrum.spectrum_prediction" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.spectrum.spectrum_prediction.</span></span><span class="sig-name descname"><span class="pre">PeptideSpectrumPredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.spectrum.spectrum_prediction.</span></span><span class="sig-name descname"><span class="pre">PeptideSpectrumPredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="masskit_ai.html#masskit_ai.prediction.Predictor" title="masskit_ai.prediction.Predictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Predictor</span></code></a></p>
+<p>class used to predict multiple spectra per record, which are averaged into
+a single spectrum with a standard deviation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.add_item">
+<span class="sig-name descname"><span class="pre">add_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.add_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>add newly predicted item at index idx</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>item_idx</strong> – index into items</p></li>
+<li><p><strong>item</strong> – item to add</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.create_dataloaders">
 <span class="sig-name descname"><span class="pre">create_dataloaders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.create_dataloaders" title="Permalink to this definition">¶</a></dt>
@@ -746,6 +762,20 @@ omits constants in log likelihood</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>list of dataloader objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.create_items">
+<span class="sig-name descname"><span class="pre">create_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataloader_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.create_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>for a given loader, return back a batch of accumulators</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataloader_idx</strong> – the index of the dataloader in self.dataloaders</p></li>
+<li><p><strong>start</strong> – the start row of the batch</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -766,13 +796,12 @@ omits constants in log likelihood</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.finalize_items">
-<span class="sig-name descname"><span class="pre">finalize_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.finalize_items" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">finalize_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataloader_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.finalize_items" title="Permalink to this definition">¶</a></dt>
 <dd><p>do final processing on a batch of predicted spectra</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>items</strong> – ListLike of spectra</p></li>
-<li><p><strong>dataset</strong> – dataset containing experimental spectra</p></li>
+<li><p><strong>dataloader_idx</strong> – the index of the dataloader in self.dataloaders</p></li>
 <li><p><strong>start</strong> – position of the start of the batch</p></li>
 </ul>
 </dd>
@@ -780,70 +809,83 @@ omits constants in log likelihood</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.get_items">
-<span class="sig-name descname"><span class="pre">get_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.get_items" title="Permalink to this definition">¶</a></dt>
-<dd><p>for a given loader, return back a batch of accumulators</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>loader</strong> – the input loader, assume to contain a TableMap</p></li>
-<li><p><strong>start</strong> – the start row of the batch</p></li>
-<li><p><strong>length</strong> – the length of the batch</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
+<dt class="sig sig-object py" id="masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.make_spectrum">
+<span class="sig-name descname"><span class="pre">make_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">precursor_mz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.make_spectrum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.single_prediction">
-<span class="sig-name descname"><span class="pre">single_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_element</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.single_prediction" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">single_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataloader_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.single_prediction" title="Permalink to this definition">¶</a></dt>
 <dd><p>predict a single spectrum</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – the prediction model</p></li>
-<li><p><strong>dataset_element</strong> – dataset element</p></li>
+<li><p><strong>item_idx</strong> – the index of item in the current dataset</p></li>
+<li><p><strong>dataloader_idx</strong> – the index of the dataloader in self.dataloaders</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>the predicted spectrum</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.write_items">
-<span class="sig-name descname"><span class="pre">write_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.write_items" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">write_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataloader_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.write_items" title="Permalink to this definition">¶</a></dt>
 <dd><p>write the spectra to files</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>items</strong> – the spectra to write</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataloader_idx</strong> – the index of the dataloader in self.dataloaders</p></li>
+<li><p><strong>start</strong> – position of the start of the batch</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="masskit_ai.spectrum.spectrum_prediction.create_prediction_dataset_from_hitlist">
-<span class="sig-prename descclassname"><span class="pre">masskit_ai.spectrum.spectrum_prediction.</span></span><span class="sig-name descname"><span class="pre">create_prediction_dataset_from_hitlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hitlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experimental_tablemap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_to_load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'test'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_annotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predicted_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'predicted_spectrum'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_singleton</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.create_prediction_dataset_from_hitlist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create pandas dataframe(s) that contains experimental spectra and can be used for predicting spectra
-each dataframe corresponds to a single validation/test/train set.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="masskit_ai.spectrum.spectrum_prediction.SinglePeptideSpectrumPredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.spectrum.spectrum_prediction.</span></span><span class="sig-name descname"><span class="pre">SinglePeptideSpectrumPredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.SinglePeptideSpectrumPredictor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor" title="masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeptideSpectrumPredictor</span></code></a></p>
+<p>class used to predict a single spectrum per records</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.spectrum.spectrum_prediction.SinglePeptideSpectrumPredictor.add_item">
+<span class="sig-name descname"><span class="pre">add_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.SinglePeptideSpectrumPredictor.add_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>add newly predicted item at index idx</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> – the model to use to predict spectrum</p></li>
-<li><p><strong>set_to_load</strong> – name of the set to use, e.g. “valid”, “test”, “train”</p></li>
-<li><p><strong>hitlist</strong> – the Hitlist object</p></li>
-<li><p><strong>experimental_spectra</strong> – TableMap containing the experimental spectra, used to get eV</p></li>
-<li><p><strong>num</strong> – the number of spectra to predict (0 = all)</p></li>
-<li><p><strong>copy_annotations</strong> – copy annotations and precursor from experimental spectra to predicted spectra</p></li>
-<li><p><strong>predicted_column</strong> – name of the column containing the predicted spectrum</p></li>
-<li><p><strong>return_singleton</strong> – if there is only one dataframe, don’t return lists</p></li>
+<li><p><strong>item_idx</strong> – index into items</p></li>
+<li><p><strong>item</strong> – item to add</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.spectrum.spectrum_prediction.SinglePeptideSpectrumPredictor.make_spectrum">
+<span class="sig-name descname"><span class="pre">make_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">precursor_mz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.SinglePeptideSpectrumPredictor.make_spectrum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.spectrum.spectrum_prediction.finalize_spectrum">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.spectrum.spectrum_prediction.</span></span><span class="sig-name descname"><span class="pre">finalize_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_intensity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mz_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upres</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.spectrum.spectrum_prediction.finalize_spectrum" title="Permalink to this definition">¶</a></dt>
+<dd><p>function to finalize a predicted spectrum.  Separated from the class
+so can be used in multiprocessing</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectrum</strong> – spectrum to be finalized</p></li>
+<li><p><strong>min_intensity</strong> – minimum peak intensity for filtering</p></li>
+<li><p><strong>mz_window</strong> – size of window for filtering</p></li>
+<li><p><strong>upres</strong> – upres the resulting spectrum</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>list of dataframes for doing predictions, list of dataset objects</p>
+<dd class="field-even"><p>the finalized spectrum</p>
 </dd>
 </dl>
 </dd></dl>
@@ -909,7 +951,7 @@ each dataframe corresponds to a single validation/test/train set.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-57-g7c937ec documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.spectrum package</a></li> 
       </ul>
     </div>

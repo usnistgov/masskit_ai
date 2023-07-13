@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>masskit_ai package &#8212; masskit_ai 1.0.0-20-gde6df15 documentation</title>
+    <title>masskit_ai package &#8212; masskit_ai 1.0.0-57-g7c937ec documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -56,7 +56,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-57-g7c937ec documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai package</a></li> 
       </ul>
     </div>  
@@ -77,10 +77,10 @@ $(document).ready(function(){
 <li class="toctree-l3"><a class="reference internal" href="masskit_ai.apps.aims.html">masskit_ai.apps.aims package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="masskit_ai.apps.aims.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="masskit_ai.apps.aims.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="masskit_ai.apps.aims.html#masskit-ai-apps-aims-aims-module">masskit_ai.apps.aims.aims module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="masskit_ai.apps.aims.html#masskit-ai-apps-aims-build-index-module">masskit_ai.apps.aims.build_index module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="masskit_ai.apps.aims.html#masskit-ai-apps-aims-compare-search-results-module">masskit_ai.apps.aims.compare_search_results module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="masskit_ai.apps.aims.html#masskit-ai-apps-aims-create-feature-vector-module">masskit_ai.apps.aims.create_feature_vector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.apps.aims.html#module-masskit_ai.apps.aims.aims">masskit_ai.apps.aims.aims module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.apps.aims.html#module-masskit_ai.apps.aims.build_index">masskit_ai.apps.aims.build_index module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.apps.aims.html#module-masskit_ai.apps.aims.compare_search_results">masskit_ai.apps.aims.compare_search_results module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.apps.aims.html#module-masskit_ai.apps.aims.create_feature_vector">masskit_ai.apps.aims.create_feature_vector module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="masskit_ai.apps.aims.html#module-masskit_ai.apps.aims">Module contents</a></li>
 </ul>
 </li>
@@ -177,7 +177,7 @@ $(document).ready(function(){
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="masskit_ai.test_fixtures.html">masskit_ai.test_fixtures package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.test_fixtures.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.test_fixtures.html#module-masskit_ai.test_fixtures">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -1032,8 +1032,13 @@ optional: <a class="reference external" href="https://github.com/PyTorchLightnin
 <span id="masskit-ai-prediction-module"></span><h2>masskit_ai.prediction module<a class="headerlink" href="#module-masskit_ai.prediction" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="masskit_ai.prediction.Predictor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.prediction.</span></span><span class="sig-name descname"><span class="pre">Predictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.prediction.Predictor" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">masskit_ai.prediction.</span></span><span class="sig-name descname"><span class="pre">Predictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.prediction.Predictor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="masskit_ai.prediction.Predictor.add_item">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.prediction.Predictor.add_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="masskit_ai.prediction.Predictor.apply_dropout">
 <span class="sig-name descname"><span class="pre">apply_dropout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.prediction.Predictor.apply_dropout" title="Permalink to this definition">¶</a></dt>
@@ -1051,13 +1056,22 @@ optional: <a class="reference external" href="https://github.com/PyTorchLightnin
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="masskit_ai.prediction.Predictor.finalize_items">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">finalize_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.prediction.Predictor.finalize_items" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="masskit_ai.prediction.Predictor.create_items">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataloader_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.prediction.Predictor.create_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>create items for holding predictions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataloader_idx</strong> – the index of the dataloader in self.dataloaders</p></li>
+<li><p><strong>start</strong> – the start row of the batch</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="masskit_ai.prediction.Predictor.get_items">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.prediction.Predictor.get_items" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="masskit_ai.prediction.Predictor.finalize_items">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">finalize_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataloader_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.prediction.Predictor.finalize_items" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1067,14 +1081,13 @@ optional: <a class="reference external" href="https://github.com/PyTorchLightnin
 
 <dl class="py method">
 <dt class="sig sig-object py" id="masskit_ai.prediction.Predictor.prep_model_for_prediction">
-<span class="sig-name descname"><span class="pre">prep_model_for_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.prediction.Predictor.prep_model_for_prediction" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">prep_model_for_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.prediction.Predictor.prep_model_for_prediction" title="Permalink to this definition">¶</a></dt>
 <dd><p>prepare the model for inference</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – the model</p></li>
 <li><p><strong>dropout</strong> – should dropout be turned on?</p></li>
-<li><p><strong>model</strong> – place model on cpu?</p></li>
 </ul>
 </dd>
 </dl>
@@ -1082,12 +1095,12 @@ optional: <a class="reference external" href="https://github.com/PyTorchLightnin
 
 <dl class="py method">
 <dt class="sig sig-object py" id="masskit_ai.prediction.Predictor.single_prediction">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">single_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_element</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.prediction.Predictor.single_prediction" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">single_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataloader_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.prediction.Predictor.single_prediction" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="masskit_ai.prediction.Predictor.write_items">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.prediction.Predictor.write_items" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataloader_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.prediction.Predictor.write_items" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1214,7 +1227,7 @@ that is exclusive to it.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-57-g7c937ec documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai package</a></li> 
       </ul>
     </div>

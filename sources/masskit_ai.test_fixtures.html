@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>masskit_ai.test_fixtures package &#8212; masskit_ai 1.0.0-20-gde6df15 documentation</title>
+    <title>masskit_ai.test_fixtures package &#8212; masskit_ai 1.0.0-57-g7c937ec documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -56,7 +56,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-57-g7c937ec documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.test_fixtures package</a></li> 
       </ul>
     </div>  
@@ -68,8 +68,68 @@ $(document).ready(function(){
             
   <section id="masskit-ai-test-fixtures-package">
 <h1>masskit_ai.test_fixtures package<a class="headerlink" href="#masskit-ai-test-fixtures-package" title="Permalink to this heading">¶</a></h1>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
+<section id="module-masskit_ai.test_fixtures">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-masskit_ai.test_fixtures" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.test_fixtures.SRM1950_lumos_short_parquet_ai">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.test_fixtures.</span></span><span class="sig-name descname"><span class="pre">SRM1950_lumos_short_parquet_ai</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmpdir_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.test_fixtures.SRM1950_lumos_short_parquet_ai" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.test_fixtures.config_predict_airi_csv">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.test_fixtures.</span></span><span class="sig-name descname"><span class="pre">config_predict_airi_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmpdir_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predicted_airi_csv</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.test_fixtures.config_predict_airi_csv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.test_fixtures.config_predict_airi_smiles">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.test_fixtures.</span></span><span class="sig-name descname"><span class="pre">config_predict_airi_smiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmpdir_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predicted_airi_smiles</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.test_fixtures.config_predict_airi_smiles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.test_fixtures.config_predict_peptide">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.test_fixtures.</span></span><span class="sig-name descname"><span class="pre">config_predict_peptide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicted_human_uniprot_trunc_parquet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">human_uniprot_trunc_parquet</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.test_fixtures.config_predict_peptide" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.test_fixtures.data_dir">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.test_fixtures.</span></span><span class="sig-name descname"><span class="pre">data_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.test_fixtures.data_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>the directory containing the test data files</p>
+<p>Note that trying to get data from the masskit/tests/data directory is not straightforward
+as there is no generic way to find the path to this directory as it is not installed.
+The workaround is to copy the needed datafiles from masskit/tests/data to 
+masskit_ai/tests/data</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.test_fixtures.human_uniprot_trunc_fasta">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.test_fixtures.</span></span><span class="sig-name descname"><span class="pre">human_uniprot_trunc_fasta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.test_fixtures.human_uniprot_trunc_fasta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.test_fixtures.human_uniprot_trunc_parquet">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.test_fixtures.</span></span><span class="sig-name descname"><span class="pre">human_uniprot_trunc_parquet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">human_uniprot_trunc_fasta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmpdir_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.test_fixtures.human_uniprot_trunc_parquet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.test_fixtures.predicted_airi_csv">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.test_fixtures.</span></span><span class="sig-name descname"><span class="pre">predicted_airi_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmpdir_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.test_fixtures.predicted_airi_csv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.test_fixtures.predicted_airi_smiles">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.test_fixtures.</span></span><span class="sig-name descname"><span class="pre">predicted_airi_smiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmpdir_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.test_fixtures.predicted_airi_smiles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.test_fixtures.predicted_human_uniprot_trunc_parquet">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.test_fixtures.</span></span><span class="sig-name descname"><span class="pre">predicted_human_uniprot_trunc_parquet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmpdir_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.test_fixtures.predicted_human_uniprot_trunc_parquet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.test_fixtures.test_new_sdf_parquet">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.test_fixtures.</span></span><span class="sig-name descname"><span class="pre">test_new_sdf_parquet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmpdir_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.test_fixtures.test_new_sdf_parquet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </section>
 </section>
 
@@ -84,7 +144,7 @@ $(document).ready(function(){
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">masskit_ai.test_fixtures package</a><ul>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.test_fixtures">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -120,7 +180,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-57-g7c937ec documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.test_fixtures package</a></li> 
       </ul>
     </div>

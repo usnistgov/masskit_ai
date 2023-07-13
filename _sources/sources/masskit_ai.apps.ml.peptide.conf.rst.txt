@@ -1,6 +1,14 @@
 masskit\_ai.apps.ml.peptide.conf package
 ========================================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   masskit_ai.apps.ml.peptide.conf.hydra
+
 Module contents
 ---------------
 

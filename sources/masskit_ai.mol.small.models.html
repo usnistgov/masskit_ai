@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>masskit_ai.mol.small.models package &#8212; masskit_ai 1.0.0-20-gde6df15 documentation</title>
+    <title>masskit_ai.mol.small.models package &#8212; masskit_ai 1.0.0-57-g7c937ec documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -56,7 +56,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-57-g7c937ec documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.mol.small.models package</a></li> 
       </ul>
     </div>  
@@ -119,8 +119,7 @@ $(document).ready(function(){
 <dl class="py method">
 <dt class="sig sig-object py" id="masskit_ai.mol.small.models.gf.BaseFairseqModel.make_generation_fast_">
 <span class="sig-name descname"><span class="pre">make_generation_fast_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.make_generation_fast_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Legacy entry point to optimize model for faster generation.
-Prefer <a href="#id1"><span class="problematic" id="id2">prepare_for_inference_</span></a>.</p>
+<dd><p>Legacy entry point to optimize model for faster generation.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -745,19 +744,16 @@ max_atoms: The maximum number of atoms for padding purposes</p>
 <dt class="sig sig-object py" id="masskit_ai.mol.small.models.path_utils.get_path_atoms">
 <span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.path_utils.</span></span><span class="sig-name descname"><span class="pre">get_path_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointer_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_path_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">self_attn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.path_utils.get_path_atoms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a pair of atom indices, returns the list of atoms on the path.</p>
-<dl>
-<dt>Args:</dt><dd><p>atom_1: The start atom on the path.
-atom_2: The end atom on the path.
-paths_dict: A mapping from atom pairs to paths.
-pointer_dict: A mapping from atom pairs to truncated paths. The values</p>
-<blockquote>
-<div><p>of the dict is the atom ending the truncated path</p>
-</div></blockquote>
-<p>max_path_length: The maximum path length to return.
-truncate: Boolean determining whether or not paths above the max length</p>
-<blockquote>
-<div><p>should be truncated (returned as no path)</p>
-</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>atom_1</strong> – The start atom on the path.</p></li>
+<li><p><strong>atom_2</strong> – The end atom on the path.</p></li>
+<li><p><strong>paths_dict</strong> – A mapping from atom pairs to paths.</p></li>
+<li><p><strong>pointer_dict</strong> – A mapping from atom pairs to truncated paths. The values of the dict is the atom ending the truncated path</p></li>
+<li><p><strong>max_path_length</strong> – The maximum path length to return.</p></li>
+<li><p><strong>truncate</strong> – Boolean determining whether or not paths above the max length should be truncated (returned as no path)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -766,12 +762,15 @@ truncate: Boolean determining whether or not paths above the max length</p>
 <dt class="sig sig-object py" id="masskit_ai.mol.small.models.path_utils.get_path_features">
 <span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.path_utils.</span></span><span class="sig-name descname"><span class="pre">get_path_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rd_mol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_path_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_embed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.path_utils.get_path_features" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a feature array for the path.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>rd_mol: The rdkit mol object, used to extract features.
-path_atoms: A list of atoms in the path. If no path exist, empty array.
-path_length: The length of the path.
-max_path_length: The maximum length of the path considered.
-p_embed: Whether or not to use position embedding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rd_mol</strong> – The rdkit mol object, used to extract features.</p></li>
+<li><p><strong>path_atoms</strong> – A list of atoms in the path. If no path exist, empty array.</p></li>
+<li><p><strong>path_length</strong> – The length of the path.</p></li>
+<li><p><strong>max_path_length</strong> – The maximum length of the path considered.</p></li>
+<li><p><strong>p_embed</strong> – Whether or not to use position embedding.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -903,7 +902,7 @@ p_embed: Whether or not to use position embedding.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-57-g7c937ec documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.mol.small.models package</a></li> 
       </ul>
     </div>

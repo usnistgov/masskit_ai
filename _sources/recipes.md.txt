@@ -7,7 +7,7 @@
 To generate a library of peptides, which is typically the first step in generating a peptide
 spectral library, use the program `predict`. This program takes a peptide library in parquet
 format and generates a spectral library using an AI network.  The peptide library can be generated using
-[fasta2peptide](https://pages.nist.gov/masskit/recipes.html#library-generation).
+[fasta2peptide](https://pages.nist.gov/masskit/recipes.html#protein-sequences-to-peptide-library).
 The default configuration for this program is contained in
 `masskit_ai/src/masskit_ai/apps/ml/peptide/conf/config_predict.yaml`.
 
@@ -24,3 +24,20 @@ the command line.
   * `predict.upres=True` perform upresolution on the spectra
 
 An example command line: `predict input.test.spectral_library=uniprot_peptides.parquet predict.output_prefix=uniprot_peptides predict.output_suffixes=[mgf,msp]`
+
+## Predicting RI values using AIRI
+
+The first step in prediction is to use [`batch_converter`](https://pages.nist.gov/masskit/recipes.html#library-import) to convert SDF molfiles or CSV files containing SMILES to parquet format,
+which is the standard format Masskit uses for processing.
+
+Once parquet files are generated, molecular bond path information, which is a feature used by the
+AIRI model, should be calculated and added to the parquet file:
+`shortest_path input.file.name=my_csv.parquet output.file.name=my_csv_path.parquet`
+
+Finally, the AIRI predictions can be performed:
+`predict --config-name config_predict_ri input.test.spectral_library=my_csv_path.parquet predict.output_prefix=my_csv_predicted predict.output_suffixes=[csv]`
+The output from this command is a CSV file, which has columns that correspond to either the columns
+in the original csv file or the fields in the SDF file plus some computed molecular descriptors. 
+Each row corresponds to one molecular structure and has two added columns, `predicted_ri` and `predicted_ri_stddev`, which correspond to the predicted RI value as well as the standard deviation of the predicted RI.
+
+

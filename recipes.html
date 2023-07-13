@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Recipes &#8212; masskit_ai 1.0.0-20-gde6df15 documentation</title>
+    <title>Recipes &#8212; masskit_ai 1.0.0-57-g7c937ec documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/nature.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -60,7 +60,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="README.html" title="Masskit_ai use and architecture"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-57-g7c937ec documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Recipes</a></li> 
       </ul>
     </div>  
@@ -79,7 +79,7 @@ $(document).ready(function(){
 <p>To generate a library of peptides, which is typically the first step in generating a peptide
 spectral library, use the program <code class="docutils literal notranslate"><span class="pre">predict</span></code>. This program takes a peptide library in parquet
 format and generates a spectral library using an AI network.  The peptide library can be generated using
-<a class="reference external" href="https://pages.nist.gov/masskit/recipes.html#library-generation">fasta2peptide</a>.
+<a class="reference external" href="https://pages.nist.gov/masskit/recipes.html#protein-sequences-to-peptide-library">fasta2peptide</a>.
 The default configuration for this program is contained in
 <code class="docutils literal notranslate"><span class="pre">masskit_ai/src/masskit_ai/apps/ml/peptide/conf/config_predict.yaml</span></code>.</p>
 <ul class="simple">
@@ -104,6 +104,19 @@ the command line.</p>
 <p>An example command line: <code class="docutils literal notranslate"><span class="pre">predict</span> <span class="pre">input.test.spectral_library=uniprot_peptides.parquet</span> <span class="pre">predict.output_prefix=uniprot_peptides</span> <span class="pre">predict.output_suffixes=[mgf,msp]</span></code></p>
 </section>
 </section>
+<section id="predicting-ri-values-using-airi">
+<h2>Predicting RI values using AIRI<a class="headerlink" href="#predicting-ri-values-using-airi" title="Permalink to this heading">¶</a></h2>
+<p>The first step in prediction is to use <a class="reference external" href="https://pages.nist.gov/masskit/recipes.html#library-import"><code class="docutils literal notranslate"><span class="pre">batch_converter</span></code></a> to convert SDF molfiles or CSV files containing SMILES to parquet format,
+which is the standard format Masskit uses for processing.</p>
+<p>Once parquet files are generated, molecular bond path information, which is a feature used by the
+AIRI model, should be calculated and added to the parquet file:
+<code class="docutils literal notranslate"><span class="pre">shortest_path</span> <span class="pre">input.file.name=my_csv.parquet</span> <span class="pre">output.file.name=my_csv_path.parquet</span></code></p>
+<p>Finally, the AIRI predictions can be performed:
+<code class="docutils literal notranslate"><span class="pre">predict</span> <span class="pre">--config-name</span> <span class="pre">config_predict_ri</span> <span class="pre">input.test.spectral_library=my_csv_path.parquet</span> <span class="pre">predict.output_prefix=my_csv_predicted</span> <span class="pre">predict.output_suffixes=[csv]</span></code>
+The output from this command is a CSV file, which has columns that correspond to either the columns
+in the original csv file or the fields in the SDF file plus some computed molecular descriptors.
+Each row corresponds to one molecular structure and has two added columns, <code class="docutils literal notranslate"><span class="pre">predicted_ri</span></code> and <code class="docutils literal notranslate"><span class="pre">predicted_ri_stddev</span></code>, which correspond to the predicted RI value as well as the standard deviation of the predicted RI.</p>
+</section>
 </section>
 
 
@@ -121,6 +134,7 @@ the command line.</p>
 <li><a class="reference internal" href="#peptide-library-to-spectral-library">Peptide library to spectral library</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#predicting-ri-values-using-airi">Predicting RI values using AIRI</a></li>
 </ul>
 </li>
 </ul>
@@ -164,7 +178,7 @@ the command line.</p>
         <li class="right" >
           <a href="README.html" title="Masskit_ai use and architecture"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-20-gde6df15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-57-g7c937ec documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Recipes</a></li> 
       </ul>
     </div>
