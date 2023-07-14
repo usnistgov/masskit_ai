@@ -19,20 +19,41 @@ Masskit AI is a Python package that uses the [Masskit](https://github.com/usnist
 
 ## Installation
 
-Masskit is currently only supported in a Python conda environment. If you do not have one installed we highly recommend installing [mambaforge](https://github.com/conda-forge/miniforge#mambaforge)
+### Requirements
 
-On a Linux or macOS computer that has Conda and [Git](https://git-scm.com/) installed
+- Masskit is installed using the package managers [`conda`](https://conda.io/) and [`mamba`](https://mamba.readthedocs.io/).
+If you do not have either installed we recommend installing [mambaforge](https://github.com/conda-forge/miniforge#mambaforge).
 
-- first install [Masskit](https://github.com/usnistgov/masskit).
-- change to a directory that will hold the masskit_ai directory
-- run `git clone https://github.com/usnistgov/masskit_ai.git`
-- run `cd masskit_ai`
-- run `pip install .`
+### Windows
 
-On a Windows computer that has Conda installed, download the latest masskit windows zip file from the
-[Releases](https://github.com/usnistgov/masskit_ai/releases) page and extract the contents. Then run the
-following from the Conda prompt:
+- Download the latest Masskit Windows zip file from the
+[Releases](https://github.com/usnistgov/masskit_ai/releases) page.
+- Extract the contents of the file to a directory on your computer by navigating explorer to the
+Downloads folder, right clicking on the zip file, and selecting `Extract all...`.
+- Run `Miniforge Prompt` or `Anaconda Prompt` from the Start menu depending on whether you
+installed `mambaforge` or a `conda`` distribution.
+- In the prompt window, use `cd` to change to the directory starting with `masskit` in
+the directory you extracted the downloads to.
+- Run `call init_masskit.bat /cpu` to create the `masskit_ai_cpu` package environment.
+  - Alternatively, if you know you have an Nvidia GPU of sufficient power
+  run `call init_masskit.bat /ml` to create the `masskit_ai` package environment.
+- Run `pip install masskit-1.1.0-py3-none-any.whl masskit_ai-1.1.0-py3-none-any.whl`.
 
-- change to the directory that contains the extracted files.
-- if you have a GPU of sufficient power, run `call init_masskit.bat /ml`, otherwise run `call init_masskit.bat /cpu`
-- run `pip install masskit-1.1.0-py3-none-any.whl masskit_ai-1.1.0-py3-none-any.whl`
+Whenever using the programs in Masskit, please make sure you initialize the appropriate package environment:
+
+- If you installed `mambaforge` run `Miniforge Prompt` from the Start menu otherwise run `Anaconda Prompt` from the Start menu.
+- If you installed the CPU only version package environment run `conda activate masskit_ai_cpu`.
+- If you installed the GPU version package environment run `conda activate masskit_ai`
+
+### Linux or macOS
+
+- first install [Masskit](https://github.com/usnistgov/masskit) using [these instructions](https://github.com/usnistgov/masskit#installation).
+- Change to a directory that will hold the masskit_ai directory.
+- Run `git clone https://github.com/usnistgov/masskit_ai.git`.
+- Run `cd masskit_ai`.
+- Run `pip install .`.
+
+Whenever using the programs in Masskit, please make sure you initialize the appropriate package environment:
+
+- If you installed the CPU only version package environment run `conda activate masskit_ai_cpu`.
+- If you installed the GPU version package environment run `conda activate masskit_ai`
