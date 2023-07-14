@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Recipes &#8212; masskit_ai 1.0.0-57-g7c937ec documentation</title>
+    <title>Recipes &#8212; masskit_ai 1.0.0-60-ge055069 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/nature.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -60,7 +60,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="README.html" title="Masskit_ai use and architecture"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-57-g7c937ec documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Recipes</a></li> 
       </ul>
     </div>  
@@ -80,7 +80,7 @@ $(document).ready(function(){
 spectral library, use the program <code class="docutils literal notranslate"><span class="pre">predict</span></code>. This program takes a peptide library in parquet
 format and generates a spectral library using an AI network.  The peptide library can be generated using
 <a class="reference external" href="https://pages.nist.gov/masskit/recipes.html#protein-sequences-to-peptide-library">fasta2peptide</a>.
-The default configuration for this program is contained in
+The default configuration for the <code class="docutils literal notranslate"><span class="pre">predict</span></code> program is contained in
 <code class="docutils literal notranslate"><span class="pre">masskit_ai/src/masskit_ai/apps/ml/peptide/conf/config_predict.yaml</span></code>.</p>
 <ul class="simple">
 <li><p>to change the name of the input file, specify <code class="docutils literal notranslate"><span class="pre">input.test.spectral_library=myfilename.parquet</span></code> on the
@@ -88,7 +88,7 @@ command line.</p></li>
 <li><p>the prefix of the output file(s) is specified using <code class="docutils literal notranslate"><span class="pre">predict.output_prefix=myfilename</span></code> on
 the command line.</p>
 <ul>
-<li><p>the program outputs the following formats <a class="reference external" href="https://chemdata.nist.gov/dokuwiki/lib/exe/fetch.php?media=chemdata:nist17:nistms_ver23man.pdf">msp</a> (NIST Text Format of Individual Spectra), <a class="reference external" href="http://www.matrixscience.com/help/data_file_help.html#GEN">mgf</a>, csv, and pkl (pickled pandas dataframe) by setting <code class="docutils literal notranslate"><span class="pre">predict.output_suffixes=[mgf,csv]</span></code></p></li>
+<li><p>the program outputs the following formats <a class="reference external" href="https://chemdata.nist.gov/dokuwiki/lib/exe/fetch.php?media=chemdata:nist17:nistms_ver23man.pdf">msp</a> (NIST Text Format of Individual Spectra), <a class="reference external" href="http://www.matrixscience.com/help/data_file_help.html#GEN">mgf</a>, and <a class="reference external" href="https://arrow.apache.org/docs/python/feather.html">arrow</a> by setting <code class="docutils literal notranslate"><span class="pre">predict.output_suffixes=[mgf,csv]</span></code></p></li>
 </ul>
 </li>
 <li><p>the program supports the following options:</p>
@@ -101,7 +101,12 @@ the command line.</p>
 </ul>
 </li>
 </ul>
-<p>An example command line: <code class="docutils literal notranslate"><span class="pre">predict</span> <span class="pre">input.test.spectral_library=uniprot_peptides.parquet</span> <span class="pre">predict.output_prefix=uniprot_peptides</span> <span class="pre">predict.output_suffixes=[mgf,msp]</span></code></p>
+<p>Example set of commands to predict spectra from a fasta file <code class="docutils literal notranslate"><span class="pre">uniprot.fasta</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fasta2peptides input.file<span class="o">=</span>uniprot.fasta output.file<span class="o">=</span>uniprot_peptides.parquet
+predict input.test.spectral_library<span class="o">=</span>uniprot_peptides.parquet predict.output_prefix<span class="o">=</span>uniprot_peptides predict.output_suffixes<span class="o">=[</span>mgf,msp<span class="o">]</span>
+</pre></div>
+</div>
+<p>The predicted spectra are found in the files <code class="docutils literal notranslate"><span class="pre">uniprot_peptides.msp</span></code> and <code class="docutils literal notranslate"><span class="pre">uniprot_peptides.mgf</span></code></p>
 </section>
 </section>
 <section id="predicting-ri-values-using-airi">
@@ -109,13 +114,35 @@ the command line.</p>
 <p>The first step in prediction is to use <a class="reference external" href="https://pages.nist.gov/masskit/recipes.html#library-import"><code class="docutils literal notranslate"><span class="pre">batch_converter</span></code></a> to convert SDF molfiles or CSV files containing SMILES to parquet format,
 which is the standard format Masskit uses for processing.</p>
 <p>Once parquet files are generated, molecular bond path information, which is a feature used by the
-AIRI model, should be calculated and added to the parquet file:
-<code class="docutils literal notranslate"><span class="pre">shortest_path</span> <span class="pre">input.file.name=my_csv.parquet</span> <span class="pre">output.file.name=my_csv_path.parquet</span></code></p>
-<p>Finally, the AIRI predictions can be performed:
-<code class="docutils literal notranslate"><span class="pre">predict</span> <span class="pre">--config-name</span> <span class="pre">config_predict_ri</span> <span class="pre">input.test.spectral_library=my_csv_path.parquet</span> <span class="pre">predict.output_prefix=my_csv_predicted</span> <span class="pre">predict.output_suffixes=[csv]</span></code>
+AIRI model, should be calculated and added to the parquet file using the program <code class="docutils literal notranslate"><span class="pre">shortest_path</span></code>.</p>
+<p>Finally, the AIRI predictions can be performed using the <code class="docutils literal notranslate"><span class="pre">predict</span></code> command line.
 The output from this command is a CSV file, which has columns that correspond to either the columns
 in the original csv file or the fields in the SDF file plus some computed molecular descriptors.
-Each row corresponds to one molecular structure and has two added columns, <code class="docutils literal notranslate"><span class="pre">predicted_ri</span></code> and <code class="docutils literal notranslate"><span class="pre">predicted_ri_stddev</span></code>, which correspond to the predicted RI value as well as the standard deviation of the predicted RI.</p>
+Each row corresponds to one molecular structure and has three added columns, <code class="docutils literal notranslate"><span class="pre">predicted_ri</span></code>, <code class="docutils literal notranslate"><span class="pre">predicted_ri_stddev</span></code> and <code class="docutils literal notranslate"><span class="pre">predicted_ri_stddev_clip</span></code>, which correspond to the predicted RI value as well as the standard deviation of the predicted RI and the standard deviation clipped at a lower bound
+to generate a more normal distribution of RI values.</p>
+<section id="example-set-of-commands-to-calculate-airi-values-from-a-csv-file-my-csv-csv-with-smiles-in-the-molecules-column">
+<h3>Example set of commands to calculate AIRI values from a CSV file <code class="docutils literal notranslate"><span class="pre">my_csv.csv</span></code> with SMILES in the <code class="docutils literal notranslate"><span class="pre">molecules</span></code> column<a class="headerlink" href="#example-set-of-commands-to-calculate-airi-values-from-a-csv-file-my-csv-csv-with-smiles-in-the-molecules-column" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>batch_converter input.file.names<span class="o">=</span>my_csv.csv output.file.name<span class="o">=</span>my_csv output.file.types<span class="o">=[</span>parquet<span class="o">]</span> conversion.csv.smiles_column_name<span class="o">=</span>molecules
+shortest_path input.file.name<span class="o">=</span>my_csv.parquet output.file.name<span class="o">=</span>my_csv_path.parquet
+predict --config-name config_predict_ri input.test.spectral_library<span class="o">=</span>my_csv_path.parquet predict.output_prefix<span class="o">=</span>my_csv_predicted predict.output_suffixes<span class="o">=[</span>csv<span class="o">]</span>
+</pre></div>
+</div>
+<p>The AIRI values are found in the file <code class="docutils literal notranslate"><span class="pre">my_csv_predicted.csv</span></code></p>
+</section>
+<section id="example-set-of-commands-to-calculate-airi-values-from-an-sdf-molfile-my-sdf-sdf">
+<h3>Example set of commands to calculate AIRI values from an SDF molfile <code class="docutils literal notranslate"><span class="pre">my_sdf.sdf</span></code><a class="headerlink" href="#example-set-of-commands-to-calculate-airi-values-from-an-sdf-molfile-my-sdf-sdf" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>batch_converter input.file.names<span class="o">=</span>my_sdf.sdf output.file.name<span class="o">=</span>my_sdf output.file.types<span class="o">=[</span>parquet<span class="o">]</span>
+shortest_path input.file.name<span class="o">=</span>my_sdf.parquet output.file.name<span class="o">=</span>my_sdf_path.parquet
+predict --config-name config_predict_ri input.test.spectral_library<span class="o">=</span>my_sdf_path.parquet predict.output_prefix<span class="o">=</span>my_sdf_predicted predict.output_suffixes<span class="o">=[</span>csv<span class="o">]</span>
+</pre></div>
+</div>
+<p>The AIRI values are found in the file <code class="docutils literal notranslate"><span class="pre">my_sdf_predicted.csv</span></code></p>
+<p>If the SDF file includes latin-1 encoded characters or is a pre v2000 version SDF file,
+use the program <code class="docutils literal notranslate"><span class="pre">rewrite_sdf</span></code> to create a corrected SDF file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rewrite_sdf input.file.name<span class="o">=</span>my_orginal_sdf.sdf output.file.name<span class="o">=</span>my_sdf.sdf
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -134,7 +161,11 @@ Each row corresponds to one molecular structure and has two added columns, <code
 <li><a class="reference internal" href="#peptide-library-to-spectral-library">Peptide library to spectral library</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#predicting-ri-values-using-airi">Predicting RI values using AIRI</a></li>
+<li><a class="reference internal" href="#predicting-ri-values-using-airi">Predicting RI values using AIRI</a><ul>
+<li><a class="reference internal" href="#example-set-of-commands-to-calculate-airi-values-from-a-csv-file-my-csv-csv-with-smiles-in-the-molecules-column">Example set of commands to calculate AIRI values from a CSV file <code class="docutils literal notranslate"><span class="pre">my_csv.csv</span></code> with SMILES in the <code class="docutils literal notranslate"><span class="pre">molecules</span></code> column</a></li>
+<li><a class="reference internal" href="#example-set-of-commands-to-calculate-airi-values-from-an-sdf-molfile-my-sdf-sdf">Example set of commands to calculate AIRI values from an SDF molfile <code class="docutils literal notranslate"><span class="pre">my_sdf.sdf</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -178,7 +209,7 @@ Each row corresponds to one molecular structure and has two added columns, <code
         <li class="right" >
           <a href="README.html" title="Masskit_ai use and architecture"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-57-g7c937ec documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Recipes</a></li> 
       </ul>
     </div>
