@@ -29,7 +29,7 @@ after every epoch, so this mechanism doesn't require the job to terminate normal
 #### Creating predictions on a local linux machine
 
 * `conda activate masskit_ai`
-* `cd masskit_ai/apps/ml/peptide` or wherever you have cloned msdc_services
+* `cd masskit_ai/apps/ml/peptide` or wherever you have cloned masskit_ai
 * `git pull origin master` to pull in any changes to the library
 * prediction configuration is found in conf/config_predict.yaml.  
   * put the checkpoint of the model to use in prediction as an entry under `model_ensemble:`
