@@ -31,7 +31,7 @@ If you do not have either installed we recommend installing [mambaforge](https:/
 - Extract the contents of the file to a directory on your computer by navigating explorer to the
 Downloads folder, right clicking on the zip file, and selecting `Extract all...`.
 - Run `Miniforge Prompt` or `Anaconda Prompt` from the Start menu depending on whether you
-installed `mambaforge` or a `conda`` distribution.
+installed `mambaforge` or a `conda` distribution.
 - In the prompt window, use `cd` to change to the directory starting with `masskit` in
 the directory you extracted the downloads to.
 - Run `call init_masskit.bat /cpu` to create the `masskit_ai_cpu` package environment.
