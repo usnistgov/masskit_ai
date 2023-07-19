@@ -23,7 +23,12 @@ def data_dir():
     The workaround is to copy the needed datafiles from masskit/tests/data to 
     masskit_ai/tests/data
     """
-    return Path("data")
+    if Path("tests/data").exists():
+        return Path("tests/data")
+    elif Path("data").exists():
+        return Path("data")
+    else:
+        raise FileNotFoundError(f'Unable to find test data directory, cwd={os.getcwd()}')
 
 @pytest.fixture(scope="session")
 def human_uniprot_trunc_fasta(data_dir):
@@ -45,10 +50,6 @@ def predicted_human_uniprot_trunc_parquet(tmpdir_factory):
     return tmpdir_factory.mktemp('predict_peptides') / 'human_uniprot_trunc'
 
 @pytest.fixture(scope="session")
-def predicted_airi_smiles(tmpdir_factory):
-    return tmpdir_factory.mktemp('predicted_airi') / 'predicted_airi_smiles'
-
-@pytest.fixture(scope="session")
 def predicted_airi_csv(tmpdir_factory):
     return tmpdir_factory.mktemp('predicted_airi') / 'predicted_airi_csv'
 
@@ -60,7 +61,7 @@ def test_new_sdf_parquet(data_dir, tmpdir_factory):
                     f"output.file.name={test_new_sdf_parquet_prefix}",
                     f"output.file.types=[parquet]",
                     f"conversion.row_batch_size=100",
-                    f"input.file.spectrum_type=mol"], check=True)
+                   ], check=True)
     test_new_sdf_path_parquet = f'{test_new_sdf_parquet_prefix}_path.parquet'
     subprocess.run(["shortest_path",
                 f'input.file.name={test_new_sdf_parquet_prefix}.parquet',
@@ -75,7 +76,7 @@ def SRM1950_lumos_short_parquet_ai(data_dir, tmpdir_factory):
                     f"input.file.names={data_dir / 'SRM1950_lumos_short.sdf'}",
                     f"output.file.name={SRM1950_lumos_short_parquet_prefix}",
                     f"output.file.types=[parquet]",
-                    f"input.file.spectrum_type=mol"], check=True)
+                   ], check=True)
     return SRM1950_lumos_short_parquet_prefix + ".parquet"
 
 
@@ -96,31 +97,6 @@ def config_predict_peptide(predicted_human_uniprot_trunc_parquet, human_uniprot_
         return cfg
     
 
-@pytest.fixture(scope="session")
-def config_predict_airi_smiles(tmpdir_factory, data_dir, predicted_airi_smiles):
-    batch_converted_smiles_files = tmpdir_factory.mktemp('batch_converter') / 'batch_converted_smiles'
-    test_smiles =  data_dir / "test.smiles"
-    subprocess.run(['batch_converter', 
-     f"input.file.names={test_smiles}",
-     f"output.file.name={batch_converted_smiles_files}",
-     f"output.file.types=[parquet]",
-     f"conversion.row_batch_size=100",
-     f"input.file.spectrum_type=mol"], check=True)
-    batch_converted_smiles_path_file = tmpdir_factory.mktemp('batch_converter') / 'batch_converted_smiles_path_file.parquet'
-    subprocess.run(["shortest_path",
-                    f'input.file.name={batch_converted_smiles_files}.parquet',
-                    f"output.file.name={batch_converted_smiles_path_file}"], check=True)
-
-    with initialize(version_base=None, config_path="../apps/ml/peptide/conf"):
-        cfg = compose(config_name="config_predict_ei_ri_2023",
-                      overrides=[f"input.test.spectral_library={batch_converted_smiles_path_file}",
-                                 f"input.test.where=null",
-                                 f"predict.output_prefix={predicted_airi_smiles}",
-                                 "predict.output_suffixes=[csv]",   # [arrow,csv]
-                                 "predict.num=3",
-                                 "predict.set_to_load=test"
-                                 ])
-        return cfg
 
 @pytest.fixture(scope="session")
 def config_predict_airi_csv(tmpdir_factory, data_dir, predicted_airi_csv):
@@ -131,7 +107,7 @@ def config_predict_airi_csv(tmpdir_factory, data_dir, predicted_airi_csv):
      f"output.file.name={batch_converted_csv_files}",
      f"output.file.types=[parquet]",
      f"conversion.row_batch_size=100",
-     f"input.file.spectrum_type=mol"], check=True)
+    ], check=True)
     batch_converted_csv_path_file = tmpdir_factory.mktemp('batch_converter') / 'batch_converted_csv_path_file.parquet'
     subprocess.run(["shortest_path",
                     f'input.file.name={batch_converted_csv_files}.parquet',

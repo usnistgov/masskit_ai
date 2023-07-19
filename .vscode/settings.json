@@ -1,4 +1,3 @@
 {
-    "cmake.configureOnOpen": false,
-    "python.testing.cwd": "${workspaceFolder:masskit_ai}/tests"
+    "cmake.configureOnOpen": false
 }
