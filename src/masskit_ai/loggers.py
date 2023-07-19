@@ -274,3 +274,8 @@ def filter_pytorch_lightning_warnings():
         UserWarning,
         "pytorch_lightning",
     )
+    warnings.filterwarnings(
+        "ignore",
+        r"No seed found, seed set to .*",
+        UserWarning,
+    )

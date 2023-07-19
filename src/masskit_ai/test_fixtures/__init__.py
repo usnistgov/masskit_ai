@@ -2,6 +2,7 @@ import pytest
 from pathlib import Path
 import subprocess
 from hydra import compose, initialize
+import os
 
 """
 pytest fixtures
@@ -61,6 +62,7 @@ def test_new_sdf_parquet(data_dir, tmpdir_factory):
                     f"output.file.name={test_new_sdf_parquet_prefix}",
                     f"output.file.types=[parquet]",
                     f"conversion.row_batch_size=100",
+                    f"conversion/sdf=sdf_nist_mol"
                    ], check=True)
     test_new_sdf_path_parquet = f'{test_new_sdf_parquet_prefix}_path.parquet'
     subprocess.run(["shortest_path",
@@ -76,6 +78,7 @@ def SRM1950_lumos_short_parquet_ai(data_dir, tmpdir_factory):
                     f"input.file.names={data_dir / 'SRM1950_lumos_short.sdf'}",
                     f"output.file.name={SRM1950_lumos_short_parquet_prefix}",
                     f"output.file.types=[parquet]",
+                    f"conversion/sdf=sdf_nist_mol"
                    ], check=True)
     return SRM1950_lumos_short_parquet_prefix + ".parquet"
 

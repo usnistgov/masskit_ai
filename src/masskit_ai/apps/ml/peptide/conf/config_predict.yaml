@@ -29,7 +29,7 @@ hydra:
     # directory to store log files and yaml config for multiruns
     dir: hydra_sweep
   searchpath:
-    - pkg://masskit.conf
+    - pkg://masskit_ai.conf
   job:
     # change directory to output_subdir?
     chdir: False

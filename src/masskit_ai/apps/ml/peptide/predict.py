@@ -4,6 +4,8 @@ from masskit_ai.loggers import filter_pytorch_lightning_warnings
 import hydra
 import pytorch_lightning as pl
 from tqdm import tqdm
+import numpy as np
+import random
 
 # set up matplotlib to use a non-interactive back end
 try:
@@ -17,7 +19,10 @@ except ImportError:
 @hydra.main(config_path="conf", config_name="config_predict", version_base=None)
 def predict_app(config):
 
-    pl.seed_everything(config.setup.reproducable_seed)
+    if config.setup.reproducable_seed is None:
+        pl.seed_everything(random.randint(np.iinfo(np.uint32).min, np.iinfo(np.uint32).max))
+    else:
+        pl.seed_everything(config.setup.reproducable_seed)
     
     predictor = class_for_name(config.paths.modules.prediction,
                                config.predict.get("predictor", "SinglePeptideSpectrumPredictor"))(config)
