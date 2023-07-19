@@ -88,7 +88,7 @@ def set_torch_config(torch_device=None) -> None:
         # cuda can't be reinitialized in a forked process, so only do the decoration in the main thread
         # and avoid it in the data loaders
         if torch.utils.data.get_worker_info() is None:
-            DeviceMode.push(_device).__enter__()
+            DeviceMode(_device).__enter__()
 
         # if _device.type == "mps":
         #     DeviceMode.push(_device).__enter__()
