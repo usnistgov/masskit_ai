@@ -5,7 +5,7 @@
 # This lets you have different sets of options for a model
 
 defaults:
-  - input: 2022_consensus  # input data set
+  - input: null_input  # input data set
   - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
   - logging: mlflow_tensorboard_local  # logging setup
   - ml/model: FlipyFlopy  # model parameters.  model is searched for in paths.modules.models. The filename on the right hand side doesn't have to be the name of the model class.

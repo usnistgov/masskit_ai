@@ -7,7 +7,7 @@
 # in the case of predict.py, the defaults will replace the configuration stored with the model
 
 defaults:
-  - input: 2022_consensus # input data set
+  - input: null_input # input data set
   - setup: single_gpu_noworkers  # experiment setup parameters that are not typical hyperparameters
   - logging: mlflow_tensorboard_local  # logging setup
   - paths: standard  # places to look for data and code
@@ -48,10 +48,9 @@ predict:
   l2norm: False  # L2 normalize the predicted spectra
   predicted_column: predicted_spectrum
   upres: True  # up resolution peptide spectra
-  output_prefix: ~/data/nist/aiomics/rebuttal/rebuttal_test  # name of the output file
+  output_prefix: predicted_spectra  # name of the output file
   output_suffixes:  # different file types to write out
     - msp
-    - arrow
   dataloader: TandemArrowDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
   set_to_load: test  # data set to do predictions on
   row_group_size: 5000  # number of items to predict before writing to file

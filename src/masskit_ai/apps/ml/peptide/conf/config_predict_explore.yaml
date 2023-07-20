@@ -7,7 +7,7 @@
 # in the case of predict.py, the defaults will replace the configuration stored with the model
 
 defaults:
-  - input: 2022_consensus # input data set
+  - input: null_input # input data set
   - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
   - logging: mlflow_tensorboard_local  # logging setup
   - paths: standard  # places to look for data and code
