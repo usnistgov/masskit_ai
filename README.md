@@ -37,7 +37,7 @@ the directory you extracted the downloads to.
 - Run `call init_masskit.bat /cpu` to create the `masskit_ai_cpu` package environment.
   - Alternatively, if you know you have an Nvidia GPU of sufficient power
   run `call init_masskit.bat /ml` to create the `masskit_ai` package environment.
-- Run `pip install masskit*.whl`.
+- Run `pip install --find-links=. masskit masskit_ai`.
 
 Whenever using the programs in Masskit, please make sure you initialize the appropriate package environment:
 
