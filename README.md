@@ -22,7 +22,7 @@ Masskit AI is a Python package that uses the [Masskit](https://github.com/usnist
 ### Requirements
 
 - Masskit is installed using the package managers [`conda`](https://conda.io/) and [`mamba`](https://mamba.readthedocs.io/).
-If you do not have either installed we recommend installing [mambaforge](https://github.com/conda-forge/miniforge#mambaforge).
+If you do not have either installed we recommend installing [mambaforge](https://github.com/conda-forge/miniforge#mambaforge). Detailed installation instructions for macOS and Linux can be found [here](https://github.com/robotology/robotology-superbuild/blob/master/doc/install-mambaforge.md).
 
 ### Windows
 
@@ -32,12 +32,12 @@ If you do not have either installed we recommend installing [mambaforge](https:/
 Downloads folder, right clicking on the zip file, and selecting `Extract all...`.
 - Run `Miniforge Prompt` or `Anaconda Prompt` from the Start menu depending on whether you
 installed `mambaforge` or a `conda` distribution.
-- In the prompt window, use `cd` to change to the directory starting with `masskit` in
+- In the prompt window, use `cd masskit*` to change to the directory starting with `masskit` in
 the directory you extracted the downloads to.
 - Run `call init_masskit.bat /cpu` to create the `masskit_ai_cpu` package environment.
   - Alternatively, if you know you have an Nvidia GPU of sufficient power
   run `call init_masskit.bat /ml` to create the `masskit_ai` package environment.
-- Run `pip install masskit-1.1.0-py3-none-any.whl masskit_ai-1.1.0-py3-none-any.whl`.
+- Run `pip install masskit*.whl`.
 
 Whenever using the programs in Masskit, please make sure you initialize the appropriate package environment:
 
@@ -53,7 +53,7 @@ Whenever using the programs in Masskit, please make sure you initialize the appr
 - Run `cd masskit_ai`.
 - Run `pip install .`.
 
-Whenever using the programs in Masskit, please make sure you initialize the appropriate package environment:
+Whenever using the programs in Masskit, please make sure you have initialized the appropriate package environment:
 
 - If you installed the CPU only version package environment run `conda activate masskit_ai_cpu`.
-- If you installed the GPU version package environment run `conda activate masskit_ai`
+- If you installed the GPU only version package environment run `conda activate masskit_ai`.
