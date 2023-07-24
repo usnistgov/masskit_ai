@@ -40,6 +40,7 @@ class MSMLFlowLogger(MLFlowLogger):
         super().__init__(
             experiment_name=config.experiment_name,
             tracking_uri=config.logging.MSMLFlowLogger.tracking_uri,
+            run_name=config.get('run_name', None),
             *args,
             **kwargs,
         )
