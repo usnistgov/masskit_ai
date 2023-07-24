@@ -77,7 +77,7 @@ def setup_loggers(config, model, loader, artifacts):
 
 # to override the config file, use --config-name.  To override the config path, use --config-path
 @hydra.main(config_path="conf", config_name="config", version_base=None)
-def main(config: DictConfig):
+def train_app(config: DictConfig):
 
     start_time = time.time()
 
@@ -168,4 +168,4 @@ def main(config: DictConfig):
 
 if __name__ == "__main__":
     filter_pytorch_lightning_warnings()
-    main()
+    train_app()
