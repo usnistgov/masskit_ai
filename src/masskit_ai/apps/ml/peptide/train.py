@@ -142,7 +142,6 @@ def train_app(config: DictConfig):
             max_epochs=config.ml.max_epochs,
             accelerator=config.setup.accelerator,
             callbacks=callbacks,
-            replace_sampler_ddp=False,
             limit_train_batches=config.ml.limit_train_batches,
             limit_val_batches=config.ml.get('limit_val_batches', 1.0),
             precision=precision,

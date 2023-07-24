@@ -290,6 +290,9 @@ class MasskitDataModule(BaseDataModule):
             # note that DistributedSamplerWrapper requires that ddp be initialized via
             # torch.distributed.init_process_group, which is presumably called by pytorch lightning.
             if self.config.setup.gpus > 1:
+                # since Trainer(replace_sampler_ddp=False) was depricated in lightning 2.0, need to replace the
+                # flag with use_distributed_sampler=True and check that it works
+                raise NotImplementedError("Distributed sampling not supported")
                 pytorch_sampler = DistributedSamplerWrapper(pytorch_sampler)
 
             return torch.utils.data.DataLoader(
