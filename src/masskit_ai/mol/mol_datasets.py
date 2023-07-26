@@ -232,7 +232,7 @@ def patn_collator(config):
     """
     collation function factory for PATN
     """
-    args = config.ml.model.PropPredictor
+    args = dict(config.ml.model.PropPredictor)
     normalization = config.ms.get('normalization', 10000.0)
 
     def inner_func(items):

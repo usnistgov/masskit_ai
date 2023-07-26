@@ -240,6 +240,8 @@ class EmbedPATNMol(Embed):
 
     def __init__(self, config):
         super().__init__(config)
+        # cache PropPredictor settings as the config conversion is expensive
+        self.PropPredictor = dict(self.config.ml.model.PropPredictor)
 
     def mol_path_embed(self, row):
         """
@@ -252,7 +254,7 @@ class EmbedPATNMol(Embed):
         n_atoms = mol.GetNumAtoms()
 
         path_input, path_mask = path_utils.get_path_input(
-            [mol], [row['shortest_paths']], n_atoms, self.config.ml.model.PropPredictor, output_tensor=False)
+            [mol], [row['shortest_paths']], n_atoms, self.PropPredictor, output_tensor=False)
         path_input = path_input.squeeze(0)  # Remove batch dimension
         path_mask = path_mask.squeeze(0)  # Remove batch dimension
 

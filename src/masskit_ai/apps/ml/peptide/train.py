@@ -3,6 +3,7 @@ import os
 from datetime import date
 import pytorch_lightning as pl
 from masskit.utils.general import class_for_name
+import torch
 from masskit_ai.lightning import setup_datamodule
 from masskit_ai.loggers import filter_pytorch_lightning_warnings, MSMLFlowLogger
 from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
@@ -86,7 +87,9 @@ def train_app(config: DictConfig):
     
     # set precision
     precision = config.ml.get('precision', 32)
-
+    # if set to "high" or "medium" will used mixed precision tensor cores. "highest" will be pure 32 bit
+    torch.set_float32_matmul_precision(config.ml.get("float32_matmul_precision", "high"))
+    
     # artifact directories to log
     artifacts = {}  
 
