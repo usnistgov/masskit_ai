@@ -8,7 +8,7 @@
 defaults:
   - input: 2021-04-20_nist  # input data set
   - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
-  - logging: mlflow_tensorboard_local  # logging setup
+  - logging: mlflow_local  # logging setup
   - ml/model: xor_model  # model parameters.  model is searched for in paths.modules.models. The filename on the right hand side doesn't have to be the name of the model class.
   - ml/embedding: xor_embedding # embedding to use
   - ms: xor_input  # mass spec parameters

@@ -7,7 +7,7 @@
 defaults:
   - input: 2022_tandem_search  # input data set
   - setup: single_gpu  # experiment setup parameters that are not typical hyperparameters
-  - logging: mlflow_tensorboard_local  # logging setup
+  - logging: mlflow_local  # logging setup
   - ml/model: AIMSNet  # model parameters.  model is searched for in paths.modules.models. The filename on the right hand side doesn't have to be the name of the model class.
   - ml/embedding: search_embedding  # embedding to use
   - ms: tandem_search  # mass spec parameters

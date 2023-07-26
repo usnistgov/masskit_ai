@@ -1,0 +1,26 @@
+image_epoch_interval: 1  # log images every n epochs.  0 is none.  plotting is very slow
+# settings for images logged
+images:
+  num_images: 16  # number of images to log
+  dpi: 200  # dpi of images logged
+  animate: True  # log animated gifs of training progress
+  intensity_norm: 1.0
+user: ${oc.env:USER}  # MLFLOW_USER
+source:
+  name: null  # MLFLOW_SOURCE_NAME
+git:
+  commit: null  # MLFLOW_GIT_COMMIT
+note:
+  content: null
+loggers:  # list the logger that logs artifacts last
+  - MSMLFlowLogger
+MSMLFlowLogger:
+  tracking_uri: null  # http://10.208.85.216:5000/
+#  log-model:
+#    history: ${ml.model_class}  # MLFLOW_LOGGED_MODELS
+MSTensorBoardLogger:
+  log_dir: tb_logs
+# save the top k best model checkpoints.  if -1, saves all model checkpoints
+save_top_k: 1
+# if set, save an untrained but initialized model (set save_top_k to -1)
+save_untrained: False

@@ -9,7 +9,7 @@
 defaults:
   - input: null_input # input data set
   - setup: single_gpu_noworkers  # experiment setup parameters that are not typical hyperparameters
-  - logging: mlflow_tensorboard_local  # logging setup
+  - logging: mlflow_local  # logging setup
   - paths: standard  # places to look for data and code
   - ms: tandem  # mass spec parameters
   - override hydra/hydra_logging: none

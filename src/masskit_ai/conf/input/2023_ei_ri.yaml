@@ -12,11 +12,11 @@ train:
   log_ids: False
 valid:
   spectral_library: ~/data/nist/ei/2023/mainlib_2023_path.parquet
-  where: "[('experimental_ri', '>', 0.0),('experimental_ri', '<=', 6280.0)]"
+  where: "[('set', '=', 'valid'),('experimental_ri', '>', 0.0),('experimental_ri', '<=', 6280.0)]"
   # number of datapoints in set. If null, compute
   num: null
 test:
   spectral_library: ~/data/nist/ei/2023/mainlib_2023_path.parquet
-  where: "[('experimental_ri', '>', 0.0),('experimental_ri', '<=', 6280.0)]"
+  where: "[('set', '=', 'test'),('experimental_ri', '>', 0.0),('experimental_ri', '<=', 6280.0)]"
   # number of datapoints in set. If null, compute
   num: null
