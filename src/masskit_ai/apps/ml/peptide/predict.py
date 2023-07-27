@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import logging
 from masskit.utils.general import class_for_name
 from masskit_ai.loggers import filter_pytorch_lightning_warnings
@@ -6,6 +7,12 @@ import pytorch_lightning as pl
 from tqdm import tqdm
 import numpy as np
 import random
+from masskit.utils.general import MassKitSearchPathPlugin
+from hydra.core.plugins import Plugins
+
+
+Plugins.instance().register(MassKitSearchPathPlugin)
+
 
 # set up matplotlib to use a non-interactive back end
 try:
@@ -20,10 +27,11 @@ except ImportError:
 def predict_app(config):
 
     if config.setup.reproducable_seed is None:
-        pl.seed_everything(random.randint(np.iinfo(np.uint32).min, np.iinfo(np.uint32).max))
+        pl.seed_everything(random.randint(
+            np.iinfo(np.uint32).min, np.iinfo(np.uint32).max))
     else:
         pl.seed_everything(config.setup.reproducable_seed)
-    
+
     predictor = class_for_name(config.paths.modules.prediction,
                                config.predict.get("predictor", "SinglePeptideSpectrumPredictor"))(config)
 
@@ -38,7 +46,8 @@ def predict_app(config):
         start = predictor.original_start
         # iterate through the batches
         while True:
-            logging.info(f'starting batch at {start} for dataset of length {len(predictor.dataloaders[dataloader_idx])}')
+            logging.info(
+                f'starting batch at {start} for dataset of length {len(predictor.dataloaders[dataloader_idx])}')
             predictor.create_items(dataloader_idx, start)
             # iterate through the models
             with tqdm(range(len(config.predict.model_ensemble)), desc="model") as pbar:
@@ -48,13 +57,14 @@ def predict_app(config):
                         model = predictor.load_model(loaded_model)
 
                     # iterate through the singletons
-                    
+
                     for idx in range(len(predictor.items)):
                         pbar.set_postfix(inner_loop=idx, refresh=True)
                         # predict spectra with multiple draws
                         for _ in range(config.predict.model_draws):
                             # do the prediction
-                            new_item = predictor.single_prediction(model, start + idx, dataloader_idx)
+                            new_item = predictor.single_prediction(
+                                model, start + idx, dataloader_idx)
                             predictor.add_item(idx, new_item)
 
             # finalize the batch TODO: how to subset to the predictions?
@@ -64,7 +74,7 @@ def predict_app(config):
             # increment the batch if not at end
             start += predictor.row_group_size
             if start >= len(predictor.dataloaders[dataloader_idx]) or \
-                start - predictor.original_start >= config.predict.num:
+                    start - predictor.original_start >= config.predict.num:
                 break
 
         # if prediction_type == 'spectrum':

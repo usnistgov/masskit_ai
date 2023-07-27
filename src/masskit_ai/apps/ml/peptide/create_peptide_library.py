@@ -1,8 +1,14 @@
+#!/usr/bin/env python
 import hydra
 from masskit.peptide.spectrum_generator import generate_peptide_library
 from masskit.utils.files import spectra_to_array
 import pyarrow.parquet as pq
 from masskit_ai.loggers import filter_pytorch_lightning_warnings
+from masskit.utils.general import MassKitSearchPathPlugin
+from hydra.core.plugins import Plugins
+
+
+Plugins.instance().register(MassKitSearchPathPlugin)
 
 """
 command line for creating a theoretical peptide spectra library for pretraining
@@ -10,7 +16,7 @@ command line for creating a theoretical peptide spectra library for pretraining
 
 
 @hydra.main(config_path="conf", config_name="config_predict", version_base=None)
-def main(config):
+def create_peptide_library_app(config):
 
     df = generate_peptide_library(num=config.predict.num, min_length=config.predict.min_length, max_length=config.predict.max_length,
                                   min_charge=config.predict.min_charge, max_charge=config.predict.max_charge,
@@ -23,10 +29,13 @@ def main(config):
         df.to_pickle(f"{config.predict.output_prefix}.pkl")
     if "parquet" in config.predict.output_suffixes:
         table = spectra_to_array(df['spectrum'])
-        pq.write_table(table, f"{config.predict.output_prefix}.parquet", row_group_size=5000)
+        pq.write_table(
+            table, f"{config.predict.output_prefix}.parquet", row_group_size=5000)
     if "msp" in config.predict.output_suffixes:
-        df['spectrum'].array.to_msp(f"{config.predict.output_prefix}.msp", annotate_peptide=True)
+        df['spectrum'].array.to_msp(
+            f"{config.predict.output_prefix}.msp", annotate_peptide=True)
+
 
 if __name__ == "__main__":
     filter_pytorch_lightning_warnings()
-    main()
+    create_peptide_library_app()

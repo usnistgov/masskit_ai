@@ -6,8 +6,7 @@ from masskit.utils.general import class_for_name
 import torch
 from masskit_ai.lightning import setup_datamodule
 from masskit_ai.loggers import filter_pytorch_lightning_warnings, MSMLFlowLogger
-from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
-from omegaconf import DictConfig, open_dict
+from omegaconf import DictConfig
 import hydra
 from masskit_ai.callbacks import ConcatenateIdLogs, ModelCheckpointOnStart
 from masskit_ai.spectrum.peptide.peptide_callbacks import PeptideCB
@@ -22,6 +21,12 @@ try:
 except ImportError:
     matplotlib = None
 
+from masskit.utils.general import MassKitSearchPathPlugin
+from hydra.core.plugins import Plugins
+
+
+Plugins.instance().register(MassKitSearchPathPlugin)
+
 
 """
 train a spectrum prediction model
@@ -35,8 +40,10 @@ def create_experiment_name(config):
     :param config: configuration
     """
     if config.experiment_name == "default_name":
-        config.experiment_name = (str(date.today()) + '_' + config.logging.user ) if config.logging.user else str(date.today())
-        config.experiment_name +=  '_' + list(config.ml.model)[0] + "_" + config.ml.loss.loss_function
+        config.experiment_name = (str(date.today(
+        )) + '_' + config.logging.user) if config.logging.user else str(date.today())
+        config.experiment_name += '_' + \
+            list(config.ml.model)[0] + "_" + config.ml.loss.loss_function
 
 
 def setup_loggers(config, model, loader, artifacts):
@@ -50,7 +57,7 @@ def setup_loggers(config, model, loader, artifacts):
         }
     else:
         loggers = {}
-        
+
     if 'output_type' in config.ml.model and config.ml.model.output_type == 'spectra':
         # graphing callback
         callbacks = [PeptideCB(config, loggers=loggers)]
@@ -65,12 +72,13 @@ def setup_loggers(config, model, loader, artifacts):
     if "MSMLFlowLogger" in loggers:
         checkpoint_logger = ModelCheckpointOnStart(
             config=config,
-                monitor="val_loss",
-                save_top_k=config.logging.save_top_k,
-                filename=config.experiment_name + '_' + loggers["MSMLFlowLogger"].run_id + "_{val_loss:.4f}_{epoch:03d}",
-                mode="min",
-                dirpath='best_model/' + loggers["MSMLFlowLogger"].run_id
-            )
+            monitor="val_loss",
+            save_top_k=config.logging.save_top_k,
+            filename=config.experiment_name + '_' +
+            loggers["MSMLFlowLogger"].run_id + "_{val_loss:.4f}_{epoch:03d}",
+            mode="min",
+            dirpath='best_model/' + loggers["MSMLFlowLogger"].run_id
+        )
         callbacks.append(checkpoint_logger)
 
     return loggers, callbacks
@@ -84,16 +92,18 @@ def train_app(config: DictConfig):
 
     # turn on debugging
     set_detect_anomaly = config.setup.get('set_detect_anomaly', False)
-    
+
     # set precision
     precision = config.ml.get('precision', 32)
     # if set to "high" or "medium" will used mixed precision tensor cores. "highest" will be pure 32 bit
-    torch.set_float32_matmul_precision(config.ml.get("float32_matmul_precision", "high"))
-    
-    # artifact directories to log
-    artifacts = {}  
+    torch.set_float32_matmul_precision(
+        config.ml.get("float32_matmul_precision", "high"))
 
-    config.setup.reproducable_seed = pl.seed_everything(config.setup.reproducable_seed)
+    # artifact directories to log
+    artifacts = {}
+
+    config.setup.reproducable_seed = pl.seed_everything(
+        config.setup.reproducable_seed)
     # in future editions of pl, consider adding workers=True
 
     trainer = None
@@ -103,40 +113,43 @@ def train_app(config: DictConfig):
     loader = setup_datamodule(config)
     # set up lightning module
     lightning_module = class_for_name(config.paths.modules.lightning_modules,
-                            config.ms.get("lightning_module", "SpectrumLightningModule"))
+                                      config.ms.get("lightning_module", "SpectrumLightningModule"))
 
     if not config.ml.transfer_learning and config.input.checkpoint_in is not None:
         # resume training from checkpoint
         model = lightning_module(config)
         # update reproducable_seed to get logging to work correctly
         model.config.setup.reproducable_seed = config.setup.reproducable_seed
-        
+
         loggers, callbacks = setup_loggers(config, model, loader, artifacts)
-        
+
         trainer = pl.Trainer(
-            accelerator=config.setup.accelerator, 
+            accelerator=config.setup.accelerator,
             devices=config.setup.gpus,
             num_nodes=config.setup.num_nodes,
             detect_anomaly=set_detect_anomaly,
             logger=loggers.values(),
             callbacks=callbacks,
         )
-        trainer.fit(model, ckpt_path=config.input.checkpoint_in, datamodule=loader)
+        trainer.fit(model, ckpt_path=config.input.checkpoint_in,
+                    datamodule=loader)
 
     else:
         if config.ml.transfer_learning:
             # transfer learning
-            model = lightning_module.load_from_checkpoint(config.input.checkpoint_in)
+            model = lightning_module.load_from_checkpoint(
+                config.input.checkpoint_in)
             # optionally call a function that updates the model
             if "model_modifier" in config.ml.model and config.ml.model.model_modifier is not None:
-                model_modifier = class_for_name(config.paths.modules.model_modifiers, config.ml.model.model_modifier)
+                model_modifier = class_for_name(
+                    config.paths.modules.model_modifiers, config.ml.model.model_modifier)
                 model = model_modifier(model, config)
         else:
             # normal training
             model = lightning_module(config)
-            
+
         loggers, callbacks = setup_loggers(config, model, loader, artifacts)
-        
+
         # train the model
         trainer = pl.Trainer(
             devices=config.setup.gpus,
@@ -159,14 +172,18 @@ def train_app(config: DictConfig):
         if isinstance(logger, MSMLFlowLogger):
             for callback in trainer.callbacks:
                 if isinstance(callback, ModelCheckpoint) and callback.best_model_path:
-                    logger.experiment.log_artifact(logger.run_id, callback.best_model_path)
-                    logging.info(f'path to best model is {callback.best_model_path}')
+                    logger.experiment.log_artifact(
+                        logger.run_id, callback.best_model_path)
+                    logging.info(
+                        f'path to best model is {callback.best_model_path}')
                     # for use in testing.  use +create_symlink=best_model
                     if 'create_symlink' in config:
-                        os.symlink(callback.best_model_path, config.create_symlink)
+                        os.symlink(callback.best_model_path,
+                                   config.create_symlink)
         logger.close(artifacts=artifacts)
 
     logging.info(f"elapsed wall clock time={time.time() - start_time} sec")
+
 
 if __name__ == "__main__":
     filter_pytorch_lightning_warnings()
