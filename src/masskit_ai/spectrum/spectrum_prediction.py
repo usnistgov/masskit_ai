@@ -194,7 +194,7 @@ class PeptideSpectrumPredictor(Predictor):
         :param start: position of the start of the batch
         """
         if "arrow" in self.config.predict.output_suffixes:
-            table = spectra_to_array(self.items, write_starts_stops=self.config.predict.get("upres", False))
+            table = spectra_to_array(self.items, write_tolerance=self.config.predict.get("upres", False))
             if self.arrow is None:
                 self.arrow = pa.RecordBatchFileWriter(pa.OSFile(f'{self.output_prefix}.arrow', 'wb'), table.schema)
                 if self.arrow is None:

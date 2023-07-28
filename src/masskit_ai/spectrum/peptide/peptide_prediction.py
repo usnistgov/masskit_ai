@@ -2,6 +2,7 @@ from masskit.peptide.spectrum_generator import add_theoretical_spectra
 from masskit.spectrum.join import Join
 from masskit.spectrum.theoretical_spectrum import TheoreticalPeptideSpectrum
 import copy
+import numpy as np
 
 def upres_peptide_spectrum(predicted_spectrum, ion_types=None):
     """
@@ -19,15 +20,13 @@ def upres_peptide_spectrum(predicted_spectrum, ion_types=None):
                                                       analysis_annotations=True,
                                                       )
     result = Join.join_2_spectra(predicted_spectrum, theoretical_spectrum, tiebreaker='delete')
-    starts = predicted_spectrum.products.starts
-    stops = predicted_spectrum.products.stops
+    tolerance = predicted_spectrum.products.tolerance
     mz = predicted_spectrum.products.mz
     for i in range(len(result[0])):
         if result[0][i] is not None and result[1][i] is not None:
             theo_mz = theoretical_spectrum.products.mz[result[1][i]]
             mz[result[0][i]] = theo_mz
-            starts[result[0][i]] =  theo_mz
-            stops[result[0][i]] =  theo_mz
+            tolerance[result[0][i]] =  np.full_like(theo_mz, 0.0, dtype=np.float64)
     predicted_spectrum.precursor.mz = copy.deepcopy(theoretical_spectrum.precursor.mz)
     predicted_spectrum.precursor_mass_info = copy.deepcopy(theoretical_spectrum.precursor.mass_info)
     
