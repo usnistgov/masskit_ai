@@ -116,24 +116,19 @@ class MolPropPredictor(Predictor):
 
         # combine the dataset.data with two new columns
         # containing the property and std dev
-        table = self.dataloaders[dataloader_idx].dataset.data.to_arrow()
-        null_means = pa.nulls(start, type=pa.float64())
+        table = self.dataloaders[dataloader_idx].dataset.data.to_arrow().slice(start, self.row_group_size)
         means_out = np.empty((len(self.items,)), dtype=np.float64)
-        null_stddev = pa.nulls(start, type=pa.float64())
         stddev_out = np.empty((len(self.items,)), dtype=np.float64)
         for item_idx in range(len(self.items)):
             means_out[item_idx] = self.items[item_idx].predicted_mean
             stddev_out[item_idx] = self.items[item_idx].predicted_stddev
         means_out = pa.array(means_out)
         stddev_out = pa.array(stddev_out)
-        table = table.append_column('predicted_ri', 
-                                    pa.concat_arrays([null_means, means_out]))
-        table = table.append_column('predicted_ri_stddev', 
-                                    pa.concat_arrays([null_stddev, stddev_out]))
+        table = table.append_column('predicted_ri', means_out)
+        table = table.append_column('predicted_ri_stddev', stddev_out)
         clipped_stddev = pa.compute.if_else(pa.compute.less(stddev_out,  self.config.ms.clip),
                                              self.config.ms.clip, stddev_out)
-        table = table.append_column('predicted_ri_stddev_clip', 
-                                    pa.concat_arrays([null_stddev, clipped_stddev]))
+        table = table.append_column('predicted_ri_stddev_clip', clipped_stddev)
         if "arrow" in self.config.predict.output_suffixes:
             if self.arrow is None:
                 self.arrow = pa.RecordBatchFileWriter(pa.OSFile(f'{self.output_prefix}.arrow', 'wb'),
