@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
           {
             "name": "Python: Pytest",
             "type": "python",
@@ -23,6 +24,24 @@
             "args": ["--config-name","config_ei_ri","setup.num_workers=1","ml.max_epochs=1", "ml.limit_train_batches=10"],
             "console": "integratedTerminal",
             "justMyCode": true
+        },
+        {
+            "name": "Python: train.py profile (snakeviz to view)",
+            "type": "python",
+            "request": "launch",
+            "module": "cProfile",
+            "cwd": "${workspaceFolder}/src/masskit_ai/apps/ml/peptide",
+            "args": ["-o",
+            "/tmp/tmp.prof",
+            "train.py",
+            "--config-name",
+            "config_ei_ri",
+            "input=2023_ei_ri",
+            "setup.num_workers=0",
+            "ml.max_epochs=1", 
+            "ml.limit_train_batches=20",
+            "+ml.limit_val_batches=20",
+            "logging=null_logging"],
         },
         {
             "name": "Python: train.py peptide",
@@ -50,16 +69,17 @@
             "justMyCode": true
         },
         {
-            "name": "Python: predict.py ri",
+            "name": "Python: predict.py replib",
             "type": "python",
             "request": "launch",
             "cwd": "${workspaceFolder}/src/masskit_ai/apps/ml/peptide",
             "program": "predict.py",
             "args": [
-                "--config-name","config_predict_ri_2023",
+                "--config-name","config_predict_ei_rep_ri_2023",
                 "setup.num_workers=0",
-                "predict.num=100",
+                "+predict.row_group_size=100",
                 "predict.output_prefix=test",
+                "predict.output_suffixes=[parquet]",
             ],
             "console": "integratedTerminal",
             "justMyCode": true
