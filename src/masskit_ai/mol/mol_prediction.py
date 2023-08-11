@@ -25,6 +25,8 @@ class MolPropPredictor(Predictor):
             self.csv = None
         if "arrow" in self.config.predict.output_suffixes:
             self.arrow = None
+        if "parquet" in self.config.predict.output_suffixes:
+            self.parquet = None
 
     def create_dataloaders(self, model):
         """
@@ -139,6 +141,13 @@ class MolPropPredictor(Predictor):
                 if self.arrow is None:
                     logging.error(f'Unable to open {self.output_prefix}.arrow')
             self.arrow.write_table(table)
+        if "parquet" in self.config.predict.output_suffixes:
+            if self.parquet is None:
+                self.parquet = pa.parquet.ParquetWriter(pa.OSFile(f'{self.output_prefix}.parquet', 'wb'),
+                                                      table.schema)
+                if self.parquet is None:
+                    logging.error(f'Unable to open {self.output_prefix}.parquet')
+            self.parquet.write_table(table)
         if "csv" in self.config.predict.output_suffixes:
             # delete completely null columns
             table = table.drop([table.column_names[i] for i in range(table.num_columns)
