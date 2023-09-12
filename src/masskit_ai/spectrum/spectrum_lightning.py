@@ -142,7 +142,7 @@ class BaseSpectrumLightningModule(pl.LightningModule, ABC):
             outputs = [outputs]
         losses = []
         for i, output in enumerate(outputs):
-            losses.append(torch.cat(output, dim=0).mean().item())
+            losses.append(torch.tensor(output).mean().item())
         self.log(f'{loop}_loss', losses[0], prog_bar=True)
         for i in range(1, len(losses)):
             self.log(f'{loop}_loss_{i}', losses[i], prog_bar=True)
@@ -211,13 +211,14 @@ class SpectrumLightningModule(BaseSpectrumLightningModule):
             loss = 0.0
             for step in range(self.config.ml.bayesian_network.sample_nbr):
                 output = self.model(batch)
-                outputs.append(output.y_prime)
+                # outputs.append(output.y_prime)
                 loss += self.calc_loss(output, batch, params={'loop': loop})
             loss /= self.config.ml.bayesian_network.sample_nbr
         else:
             output = self.model(batch)
-            outputs.append(output.y_prime)
+            # outputs.append(output.y_prime)
             loss = self.calc_loss(output, batch, params={'loop': loop})
+        outputs.append(loss)
 
         for metric, metric_function in self.valid_metrics.items():
             # required to evaluate metric in each batch

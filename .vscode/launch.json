@@ -21,7 +21,7 @@
             "request": "launch",
             "cwd": "${workspaceFolder}/src/masskit_ai/apps/ml/peptide",
             "program": "train.py",
-            "args": ["--config-name","config_ei_ri","setup.num_workers=1","ml.max_epochs=1", "ml.limit_train_batches=10"],
+            "args": ["--config-name","config_ei_ri","input=2023_ei_ri","setup.num_workers=1","ml.max_epochs=5", "ml.limit_train_batches=20"],
             "console": "integratedTerminal",
             "justMyCode": true
         },
