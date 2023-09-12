@@ -19,6 +19,10 @@ def get_path_input(mols, shortest_paths, max_atoms, args, output_tensor=True):
     batch_size, max_path_length = len(shortest_paths), get_value_attr(args, 'max_path_length')
     n_path_features = get_num_path_features(args)
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    no_truncate = get_value_attr(args, 'no_truncate')
+    self_attn=get_value_attr(args, 'self_attn')
+    p_embed = get_value_attr(args,'p_embed')
+    ring_embed = get_value_attr(args, 'ring_embed')
 
     path_input = []
     path_mask = []
@@ -31,12 +35,12 @@ def get_path_input(mols, shortest_paths, max_atoms, args, output_tensor=True):
             for atom_2 in range(max_atoms):
                 path_atoms, path_length, mask_ind = get_path_atoms(
                     atom_1, atom_2, paths_dict, pointer_dict, max_path_length,
-                    truncate=not get_value_attr(args, 'no_truncate'), self_attn=get_value_attr(args, 'self_attn'))
+                    truncate=not no_truncate, self_attn=self_attn)
 
                 path_features = get_path_features(
                     mol, path_atoms, path_length, max_path_length,
-                    get_value_attr(args,'p_embed'))
-                if get_value_attr(args, 'ring_embed'):
+                    p_embed)
+                if ring_embed:
                     ring_features = get_ring_features(
                         ring_dict, ordered_pair(atom_1, atom_2))
                     path_features = np.concatenate(
