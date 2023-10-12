@@ -1,18 +1,23 @@
 import logging
-from pathlib import Path
-import numpy as np
-import torch
-from masskit.spectrum.spectrum import Spectrum, MassInfo, AccumulatorSpectrum
-from masskit.peptide.spectrum_generator import create_peptide_name
-from masskit_ai.prediction import Predictor
-from masskit_ai.spectrum.peptide.peptide_prediction import upres_peptide_spectrum
-from masskit.peptide.encoding import calc_precursor_mz
-from masskit_ai import _device
-import pyarrow as pa
-from masskit.utils.files import spectra_to_array, spectra_to_msp, spectra_to_mgf
-from multiprocessing import Pool
 from functools import partial
+from multiprocessing import Pool
+from pathlib import Path
+
+import numpy as np
+import pyarrow as pa
+import torch
+from masskit.peptide.encoding import calc_precursor_mz
+from masskit.peptide.spectrum_generator import create_peptide_name
+from masskit.spectra import AccumulatorSpectrum, Spectrum
+from masskit.spectra.ions import MassInfo
+from masskit.utils.files import spectra_to_array
+from masskit.utils.spectrum_writers import spectra_to_mgf, spectra_to_msp
+
+from masskit_ai import _device
 from masskit_ai.base_objects import ModelInput
+from masskit_ai.prediction import Predictor
+from masskit_ai.spectrum.peptide.peptide_prediction import \
+    upres_peptide_spectrum
 
 
 def finalize_spectrum(spectrum, min_intensity, mz_window, upres=False):

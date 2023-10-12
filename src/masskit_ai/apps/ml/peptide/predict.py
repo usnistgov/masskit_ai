@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 import logging
-from masskit.utils.general import class_for_name
-from masskit_ai.loggers import filter_pytorch_lightning_warnings
+import random
+
 import hydra
+import numpy as np
 import pytorch_lightning as pl
+from hydra.core.plugins import Plugins
+from masskit.utils.general import MassKitSearchPathPlugin, class_for_name
 from tqdm import tqdm
 from tqdm.contrib.logging import logging_redirect_tqdm
-import numpy as np
-import random
-from masskit.utils.general import MassKitSearchPathPlugin
-from hydra.core.plugins import Plugins
 
+from masskit_ai.loggers import filter_pytorch_lightning_warnings
 
 Plugins.instance().register(MassKitSearchPathPlugin)
 
