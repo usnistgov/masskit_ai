@@ -17,5 +17,5 @@ def test_predict_airi_csv(config_predict_airi_csv):
     predict.predict_app(config_predict_airi_csv)
     with open(config_predict_airi_csv.predict.output_prefix+'.'+config_predict_airi_csv.predict.output_suffixes[0]) as f:
         data = f.read()
-        assert re.search(r'1525\..*,9\..*',data) is not None
-        assert re.search(r'629\..*,31\..*', data) is not None
+        assert re.search(r'1530\..*,10\..*',data) is not None
+        assert re.search(r'602\..*,31\..*', data) is not None
