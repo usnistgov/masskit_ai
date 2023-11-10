@@ -98,6 +98,7 @@ def config_predict_peptide(predicted_human_uniprot_trunc_parquet, human_uniprot_
                                  "predict.upres=True",  # True
                                  ])
         return cfg
+    assert False
     
 
 
@@ -126,3 +127,4 @@ def config_predict_airi_csv(tmpdir_factory, data_dir, predicted_airi_csv):
                                  "predict.set_to_load=test"
                                  ])
         return cfg
+    assert False
