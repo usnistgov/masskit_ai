@@ -26,7 +26,7 @@ build masskit_ai:
 test masskit_ai:
   stage: test
   dependencies:
-    - build masskit
+    - build masskit_ai
   script:
     - source $HOME/miniconda3/bin/activate
     - conda activate masskit_ai_cpu_${CI_COMMIT_BRANCH}
