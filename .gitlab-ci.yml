@@ -1,0 +1,44 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build masskit_ai:
+  stage: build
+  needs:
+    - project: msdc/masskit
+      job: test masskit
+      artifacts: true
+  script:
+    - source $HOME/miniconda3/bin/activate
+    - conda activate masskit_ai_cpu_${CI_COMMIT_BRANCH}
+    - pip install --force-reinstall masskit-*.whl
+    - VERBOSE=1 pip wheel --no-build-isolation .
+  tags:
+    - linux
+    - masskit
+  artifacts:
+    paths:
+      - masskit_ai*.whl
+
+test masskit_ai:
+  stage: test
+  dependencies:
+    - build masskit
+  needs:
+    - project: msdc/masskit
+      job: test masskit
+      artifacts: true
+  script:
+    - source $HOME/miniconda3/bin/activate
+    - conda activate masskit_ai_cpu_${CI_COMMIT_BRANCH}
+    - pip install --force-reinstall masskit-*.whl
+    - cd tests
+    - pytest
+    - pip uninstall -y masskit masskit_ai
+  tags:
+    - linux
+    - masskit
+  artifacts:
+    paths:
+      - masskit_ai*.whl
