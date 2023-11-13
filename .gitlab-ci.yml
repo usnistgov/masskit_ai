@@ -8,6 +8,7 @@ build masskit_ai:
   needs:
     - project: msdc/masskit
       job: test masskit
+      ref: main
       artifacts: true
   script:
     - source $HOME/miniconda3/bin/activate
