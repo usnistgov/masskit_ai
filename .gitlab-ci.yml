@@ -28,11 +28,13 @@ test masskit_ai:
   needs:
     - project: msdc/masskit
       job: test masskit
+      ref: main
       artifacts: true
   script:
     - source $HOME/miniconda3/bin/activate
     - conda activate masskit_ai_cpu_${CI_COMMIT_BRANCH}
     - pip install --force-reinstall masskit-*.whl
+    - pip install --force-reinstall masskit_ai-*.whl
     - cd tests
     - pytest
     - pip uninstall -y masskit masskit_ai
