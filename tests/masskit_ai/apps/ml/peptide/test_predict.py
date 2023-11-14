@@ -1,6 +1,8 @@
-from pytest import approx
 import os
 import re
+
+from pytest import approx
+
 from masskit_ai.apps.ml.peptide import predict
 
 

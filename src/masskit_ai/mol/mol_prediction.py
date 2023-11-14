@@ -1,14 +1,16 @@
-import torch
-from masskit.accumulator import AccumulatorProperty
 import logging
 from pathlib import Path
+
+import numpy as np
+import pyarrow as pa
+import torch
+from masskit.utils.accumulator import AccumulatorProperty
+from masskit.data_specs.file_schemas import csv_drop_fields
+from pyarrow import csv as pacsv
+
+from masskit_ai import _device
 from masskit_ai.base_objects import ModelInput
 from masskit_ai.prediction import Predictor
-from masskit_ai import _device
-import pyarrow as pa
-from pyarrow import csv as pacsv
-import numpy as np
-from masskit.data_specs.file_schemas import csv_drop_fields
 
 
 class MolPropPredictor(Predictor):

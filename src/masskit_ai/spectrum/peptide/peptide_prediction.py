@@ -1,8 +1,10 @@
-from masskit.peptide.spectrum_generator import add_theoretical_spectra
-from masskit.spectrum.join import Join
-from masskit.spectrum.theoretical_spectrum import TheoreticalPeptideSpectrum
 import copy
+
 import numpy as np
+from masskit.peptide.spectrum_generator import add_theoretical_spectra
+from masskit.spectra.join import Join
+from masskit.spectra.theoretical_spectrum import TheoreticalPeptideSpectrum
+
 
 def upres_peptide_spectrum(predicted_spectrum, ion_types=None):
     """
