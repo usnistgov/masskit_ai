@@ -24,8 +24,9 @@ build masskit_ai:
 
 test masskit_ai:
   stage: test
-  dependencies:
-    - build masskit_ai
+  needs:
+    - job: build masskit_ai
+      artifacts: true
   needs:
     - project: msdc/masskit
       job: build masskit
