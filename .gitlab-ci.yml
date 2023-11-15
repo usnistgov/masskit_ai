@@ -3,7 +3,7 @@ stages:
   - test
   - deploy
 
-build masskit_ai:
+build:masskit_ai:
   stage: build
   needs:
     - project: msdc/masskit
@@ -22,14 +22,12 @@ build masskit_ai:
     paths:
       - masskit_ai*.whl
 
-test masskit_ai:
+test:masskit_ai:
   stage: test
-  needs:
-    - job: build masskit_ai
-      artifacts: true
+  needs: ["build:masskit_ai"]
   needs:
     - project: msdc/masskit
-      job: build masskit
+      job: "build:masskit"
       ref: main
       artifacts: true
   script:
