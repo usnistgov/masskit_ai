@@ -7,7 +7,7 @@ build masskit_ai:
   stage: build
   needs:
     - project: msdc/masskit
-      job: test masskit
+      job: build masskit
       ref: main
       artifacts: true
   script:
@@ -20,13 +20,17 @@ build masskit_ai:
     - masskit
   artifacts:
     paths:
-      - masskit-*.whl
       - masskit_ai*.whl
 
 test masskit_ai:
   stage: test
   dependencies:
     - build masskit_ai
+  needs:
+    - project: msdc/masskit
+      job: build masskit
+      ref: main
+      artifacts: true
   script:
     - source $HOME/miniconda3/bin/activate
     - conda activate masskit_ai_cpu_${CI_COMMIT_BRANCH}
@@ -38,6 +42,3 @@ test masskit_ai:
   tags:
     - linux
     - masskit
-  artifacts:
-    paths:
-      - masskit_ai*.whl
