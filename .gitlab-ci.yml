@@ -24,8 +24,8 @@ build:masskit_ai:
 
 test:masskit_ai:
   stage: test
-  needs: ["build:masskit_ai"]
-  needs:
+  needs: 
+    - job: "build:masskit_ai"
     - project: msdc/masskit
       job: "build:masskit"
       ref: main
