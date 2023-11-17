@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Masskit_ai use and architecture &#8212; masskit_ai 1.0.0-60-ge055069 documentation</title>
+    <title>Masskit_ai use and architecture &#8212; masskit_ai 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/nature.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -14,6 +14,7 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -64,7 +65,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="index.html" title="Welcome to masskit_ai’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Masskit_ai use and architecture</a></li> 
       </ul>
     </div>  
@@ -115,7 +116,7 @@ after every epoch, so this mechanism doesn’t require the job to terminate norm
 <h4>Creating predictions on a local linux machine<a class="headerlink" href="#creating-predictions-on-a-local-linux-machine" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">masskit_ai</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">masskit_ai/apps/ml/peptide</span></code> or wherever you have cloned msdc_services</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">masskit_ai/apps/ml/peptide</span></code> or wherever you have cloned masskit_ai</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span> <span class="pre">master</span></code> to pull in any changes to the library</p></li>
 <li><p>prediction configuration is found in conf/config_predict.yaml.</p>
 <ul>
@@ -146,13 +147,13 @@ The hydra configuration can be found in <span class="xref myst">apps/ml/peptide/
 which contain yaml files, are used to organize the configuration into logical submodules.</p>
 <p>The top level configuration file is <span class="xref myst">apps/ml/peptide/conf/config.yaml</span>.  It has a <code class="docutils literal notranslate"><span class="pre">defaults</span></code> section that
 includes yaml files from subdirectories:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2021-04-20_nist</span><span class="w">  </span><span class="c1"># input data </span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">setup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">single_gpu</span><span class="w">  </span><span class="c1"># experiment setup parameters that are not typical hyperparameters</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logging</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mlflow_server</span><span class="w">  </span><span class="c1"># logging setup. mlflow_server will log to the mlflow server.  </span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ml/model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AIomicsModel</span><span class="w">  </span><span class="c1"># model parameters</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ml/embedding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">peptide_basic_mods</span><span class="w">  </span><span class="c1"># embedding to use</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tandem</span><span class="w">  </span><span class="c1"># mass spec parameters</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">defaults</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2021-04-20_nist</span><span class="w">  </span><span class="c1"># input data </span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">setup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">single_gpu</span><span class="w">  </span><span class="c1"># experiment setup parameters that are not typical hyperparameters</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logging</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mlflow_server</span><span class="w">  </span><span class="c1"># logging setup. mlflow_server will log to the mlflow server.  </span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ml/model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AIomicsModel</span><span class="w">  </span><span class="c1"># model parameters</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ml/embedding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">peptide_basic_mods</span><span class="w">  </span><span class="c1"># embedding to use</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tandem</span><span class="w">  </span><span class="c1"># mass spec parameters</span>
 </pre></div>
 </div>
 <p>The keys to the left are both keys in the top level of the configuration and the names of subdirectories under
@@ -160,13 +161,13 @@ conf/.  The values to the right are the yaml file names without the <code class=
 the configuration.  So to swap out portions of the config, you just specify a different file name.
 For example, to first run the AIomicsModel on tandem spectra and then run it on EI spectra is
 just a process of changing two file names:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2021-01-01_nist_ei</span><span class="w">  </span><span class="c1"># input data </span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">setup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">single_gpu</span><span class="w">  </span><span class="c1"># experiment setup parameters that are not typical hyperparameters</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logging</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mlflow_server</span><span class="w">  </span><span class="c1"># logging setup</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ml/model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AIomicsModel</span><span class="w">  </span><span class="c1"># model parameters</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ml/embedding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">peptide_basic_mods</span><span class="w">  </span><span class="c1"># embedding to use</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ei</span><span class="w">  </span><span class="c1"># mass spec parameters</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">defaults</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2021-01-01_nist_ei</span><span class="w">  </span><span class="c1"># input data </span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">setup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">single_gpu</span><span class="w">  </span><span class="c1"># experiment setup parameters that are not typical hyperparameters</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logging</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mlflow_server</span><span class="w">  </span><span class="c1"># logging setup</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ml/model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AIomicsModel</span><span class="w">  </span><span class="c1"># model parameters</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ml/embedding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">peptide_basic_mods</span><span class="w">  </span><span class="c1"># embedding to use</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ei</span><span class="w">  </span><span class="c1"># mass spec parameters</span>
 </pre></div>
 </div>
 <p>Note that as discussed above, the value of ml/model is a filename and is not required to be the name of the model
@@ -590,7 +591,7 @@ filenames of form <code class="docutils literal notranslate"><span class="pre">l
         <li class="right" >
           <a href="index.html" title="Welcome to masskit_ai’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Masskit_ai use and architecture</a></li> 
       </ul>
     </div>

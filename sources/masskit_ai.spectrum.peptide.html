@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>masskit_ai.spectrum.peptide package &#8212; masskit_ai 1.0.0-60-ge055069 documentation</title>
+    <title>masskit_ai.spectrum.peptide package &#8212; masskit_ai 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -14,6 +14,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -56,7 +57,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.spectrum.peptide package</a></li> 
       </ul>
     </div>  
@@ -74,10 +75,84 @@ $(document).ready(function(){
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html">masskit_ai.spectrum.peptide.models package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#module-masskit_ai.spectrum.peptide.models.AIomicsRNN">masskit_ai.spectrum.peptide.models.AIomicsRNN module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#module-masskit_ai.spectrum.peptide.models.aiomic">masskit_ai.spectrum.peptide.models.aiomic module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#module-masskit_ai.spectrum.peptide.models.dense">masskit_ai.spectrum.peptide.models.dense module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#module-masskit_ai.spectrum.peptide.models.flipyflopy">masskit_ai.spectrum.peptide.models.flipyflopy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#module-masskit_ai.spectrum.peptide.models.AIomicsRNN">masskit_ai.spectrum.peptide.models.AIomicsRNN module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.AIomicsRNN.AIomicsRNN"><code class="docutils literal notranslate"><span class="pre">AIomicsRNN</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.AIomicsRNN.AIomicsRNN.forward"><code class="docutils literal notranslate"><span class="pre">AIomicsRNN.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.AIomicsRNN.AIomicsRNN.total_params"><code class="docutils literal notranslate"><span class="pre">AIomicsRNN.total_params()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#module-masskit_ai.spectrum.peptide.models.aiomic">masskit_ai.spectrum.peptide.models.aiomic module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.AIomicsModel"><code class="docutils literal notranslate"><span class="pre">AIomicsModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.AIomicsModel.forward"><code class="docutils literal notranslate"><span class="pre">AIomicsModel.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.AIomicsModel.total_params"><code class="docutils literal notranslate"><span class="pre">AIomicsModel.total_params()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.AIomicsModelUnc"><code class="docutils literal notranslate"><span class="pre">AIomicsModelUnc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.AIomicsModelUnc.forward"><code class="docutils literal notranslate"><span class="pre">AIomicsModelUnc.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.AIomicsModelUnc.total_params"><code class="docutils literal notranslate"><span class="pre">AIomicsModelUnc.total_params()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.CompoundConv"><code class="docutils literal notranslate"><span class="pre">CompoundConv</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.CompoundConv.forward"><code class="docutils literal notranslate"><span class="pre">CompoundConv.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.PFCompoundConv"><code class="docutils literal notranslate"><span class="pre">PFCompoundConv</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.PFCompoundConv.forward"><code class="docutils literal notranslate"><span class="pre">PFCompoundConv.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.PredFull"><code class="docutils literal notranslate"><span class="pre">PredFull</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.PredFull.forward"><code class="docutils literal notranslate"><span class="pre">PredFull.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.PredFull.total_params"><code class="docutils literal notranslate"><span class="pre">PredFull.total_params()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.ResBlock"><code class="docutils literal notranslate"><span class="pre">ResBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.ResBlock.forward"><code class="docutils literal notranslate"><span class="pre">ResBlock.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.SqEx"><code class="docutils literal notranslate"><span class="pre">SqEx</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.SqEx.forward"><code class="docutils literal notranslate"><span class="pre">SqEx.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.pfblock"><code class="docutils literal notranslate"><span class="pre">pfblock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.pfblock.forward"><code class="docutils literal notranslate"><span class="pre">pfblock.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.test_modifier"><code class="docutils literal notranslate"><span class="pre">test_modifier()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#module-masskit_ai.spectrum.peptide.models.dense">masskit_ai.spectrum.peptide.models.dense module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.dense.DenseSpectrumNet"><code class="docutils literal notranslate"><span class="pre">DenseSpectrumNet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.dense.DenseSpectrumNet.forward"><code class="docutils literal notranslate"><span class="pre">DenseSpectrumNet.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.dense.XorModel"><code class="docutils literal notranslate"><span class="pre">XorModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.dense.XorModel.forward"><code class="docutils literal notranslate"><span class="pre">XorModel.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#module-masskit_ai.spectrum.peptide.models.flipyflopy">masskit_ai.spectrum.peptide.models.flipyflopy module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.flipyflopy.FFN"><code class="docutils literal notranslate"><span class="pre">FFN</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.flipyflopy.FFN.forward"><code class="docutils literal notranslate"><span class="pre">FFN.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.flipyflopy.FlipyFlopy"><code class="docutils literal notranslate"><span class="pre">FlipyFlopy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.flipyflopy.FlipyFlopy.forward"><code class="docutils literal notranslate"><span class="pre">FlipyFlopy.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.flipyflopy.Init"><code class="docutils literal notranslate"><span class="pre">Init()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.flipyflopy.TalkingHeads"><code class="docutils literal notranslate"><span class="pre">TalkingHeads</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.flipyflopy.TalkingHeads.forward"><code class="docutils literal notranslate"><span class="pre">TalkingHeads.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.flipyflopy.TransBlock"><code class="docutils literal notranslate"><span class="pre">TransBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.flipyflopy.TransBlock.forward"><code class="docutils literal notranslate"><span class="pre">TransBlock.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.peptide.models.html#module-masskit_ai.spectrum.peptide.models">Module contents</a></li>
 </ul>
 </li>
@@ -339,11 +414,49 @@ the predicted spectrum. If there are more than one matches to a predicted spectr
 <li><a class="reference internal" href="#">masskit_ai.spectrum.peptide package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.spectrum.peptide.peptide_callbacks">masskit_ai.spectrum.peptide.peptide_callbacks module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.spectrum.peptide.peptide_callbacks">masskit_ai.spectrum.peptide.peptide_callbacks module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_callbacks.PeptideCB"><code class="docutils literal notranslate"><span class="pre">PeptideCB</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_callbacks.PeptideCB.on_validation_batch_end"><code class="docutils literal notranslate"><span class="pre">PeptideCB.on_validation_batch_end()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-masskit_ai.spectrum.peptide.peptide_constants">masskit_ai.spectrum.peptide.peptide_constants module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.spectrum.peptide.peptide_embed">masskit_ai.spectrum.peptide.peptide_embed module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.spectrum.peptide.peptide_prediction">masskit_ai.spectrum.peptide.peptide_prediction module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.spectrum.peptide.peptide_samplers">masskit_ai.spectrum.peptide.peptide_samplers module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.spectrum.peptide.peptide_embed">masskit_ai.spectrum.peptide.peptide_embed module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_embed.EmbedPeptide"><code class="docutils literal notranslate"><span class="pre">EmbedPeptide</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_embed.EmbedPeptide.get_mod_list"><code class="docutils literal notranslate"><span class="pre">EmbedPeptide.get_mod_list()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_embed.EmbedPeptide.mods_channels"><code class="docutils literal notranslate"><span class="pre">EmbedPeptide.mods_channels()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_embed.EmbedPeptide.mods_embed"><code class="docutils literal notranslate"><span class="pre">EmbedPeptide.mods_embed()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_embed.EmbedPeptide.mods_singleton_channels"><code class="docutils literal notranslate"><span class="pre">EmbedPeptide.mods_singleton_channels()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_embed.EmbedPeptide.mods_singleton_embed"><code class="docutils literal notranslate"><span class="pre">EmbedPeptide.mods_singleton_embed()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_embed.EmbedPeptide.peptide_channels"><code class="docutils literal notranslate"><span class="pre">EmbedPeptide.peptide_channels()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_embed.EmbedPeptide.peptide_embed"><code class="docutils literal notranslate"><span class="pre">EmbedPeptide.peptide_embed()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_embed.EmbedPeptide.peptide_singleton_channels"><code class="docutils literal notranslate"><span class="pre">EmbedPeptide.peptide_singleton_channels()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_embed.EmbedPeptide.peptide_singleton_embed"><code class="docutils literal notranslate"><span class="pre">EmbedPeptide.peptide_singleton_embed()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.spectrum.peptide.peptide_prediction">masskit_ai.spectrum.peptide.peptide_prediction module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_prediction.upres_peptide_spectra"><code class="docutils literal notranslate"><span class="pre">upres_peptide_spectra()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_prediction.upres_peptide_spectrum"><code class="docutils literal notranslate"><span class="pre">upres_peptide_spectrum()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.spectrum.peptide.peptide_samplers">masskit_ai.spectrum.peptide.peptide_samplers module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_samplers.LengthSampler"><code class="docutils literal notranslate"><span class="pre">LengthSampler</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_samplers.LengthSampler.probability"><code class="docutils literal notranslate"><span class="pre">LengthSampler.probability()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_samplers.LengthSampler2"><code class="docutils literal notranslate"><span class="pre">LengthSampler2</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_samplers.LengthSampler2.probability"><code class="docutils literal notranslate"><span class="pre">LengthSampler2.probability()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_samplers.LengthSampler3"><code class="docutils literal notranslate"><span class="pre">LengthSampler3</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.peptide.peptide_samplers.LengthSampler3.probability"><code class="docutils literal notranslate"><span class="pre">LengthSampler3.probability()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-masskit_ai.spectrum.peptide">Module contents</a></li>
 </ul>
 </li>
@@ -380,7 +493,7 @@ the predicted spectrum. If there are more than one matches to a predicted spectr
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.spectrum.peptide package</a></li> 
       </ul>
     </div>

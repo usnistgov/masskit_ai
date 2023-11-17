@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>masskit_ai.mol package &#8212; masskit_ai 1.0.0-60-ge055069 documentation</title>
+    <title>masskit_ai.mol package &#8212; masskit_ai 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -14,6 +14,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -56,7 +57,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.mol package</a></li> 
       </ul>
     </div>  
@@ -449,9 +450,55 @@ a single spectrum with a standard deviation</p>
 <li><a class="reference internal" href="#">masskit_ai.mol package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.mol.mol_datasets">masskit_ai.mol.mol_datasets module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.mol.mol_embed">masskit_ai.mol.mol_embed module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.mol.mol_prediction">masskit_ai.mol.mol_prediction module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.mol_datasets">masskit_ai.mol.mol_datasets module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_datasets.MolPropDataset"><code class="docutils literal notranslate"><span class="pre">MolPropDataset</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_datasets.MolPropDataset.data"><code class="docutils literal notranslate"><span class="pre">MolPropDataset.data</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_datasets.MolPropDataset.get_column"><code class="docutils literal notranslate"><span class="pre">MolPropDataset.get_column()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_datasets.MolPropDataset.get_data_row"><code class="docutils literal notranslate"><span class="pre">MolPropDataset.get_data_row()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_datasets.MolPropDataset.get_y"><code class="docutils literal notranslate"><span class="pre">MolPropDataset.get_y()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_datasets.MolPropDataset.to_pandas"><code class="docutils literal notranslate"><span class="pre">MolPropDataset.to_pandas()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_datasets.graphormer_collator"><code class="docutils literal notranslate"><span class="pre">graphormer_collator()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_datasets.pad_1d_unsqueeze"><code class="docutils literal notranslate"><span class="pre">pad_1d_unsqueeze()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_datasets.pad_2d_unsqueeze"><code class="docutils literal notranslate"><span class="pre">pad_2d_unsqueeze()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_datasets.pad_3d_unsqueeze"><code class="docutils literal notranslate"><span class="pre">pad_3d_unsqueeze()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_datasets.pad_attn_bias_unsqueeze"><code class="docutils literal notranslate"><span class="pre">pad_attn_bias_unsqueeze()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_datasets.pad_edge_type_unsqueeze"><code class="docutils literal notranslate"><span class="pre">pad_edge_type_unsqueeze()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_datasets.pad_spatial_pos_unsqueeze"><code class="docutils literal notranslate"><span class="pre">pad_spatial_pos_unsqueeze()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_datasets.patn_collator"><code class="docutils literal notranslate"><span class="pre">patn_collator()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.mol_embed">masskit_ai.mol.mol_embed module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_embed.EmbedGraphormerMol"><code class="docutils literal notranslate"><span class="pre">EmbedGraphormerMol</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_embed.EmbedGraphormerMol.embed"><code class="docutils literal notranslate"><span class="pre">EmbedGraphormerMol.embed()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_embed.EmbedGraphormerMol.mol_channels"><code class="docutils literal notranslate"><span class="pre">EmbedGraphormerMol.mol_channels()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_embed.EmbedGraphormerMol.mol_embed"><code class="docutils literal notranslate"><span class="pre">EmbedGraphormerMol.mol_embed()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_embed.EmbedPATNMol"><code class="docutils literal notranslate"><span class="pre">EmbedPATNMol</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_embed.EmbedPATNMol.embed"><code class="docutils literal notranslate"><span class="pre">EmbedPATNMol.embed()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_embed.EmbedPATNMol.mol_channels"><code class="docutils literal notranslate"><span class="pre">EmbedPATNMol.mol_channels()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_embed.EmbedPATNMol.mol_path_embed"><code class="docutils literal notranslate"><span class="pre">EmbedPATNMol.mol_path_embed()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_embed.convert_to_single_emb"><code class="docutils literal notranslate"><span class="pre">convert_to_single_emb()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_embed.from_mol"><code class="docutils literal notranslate"><span class="pre">from_mol()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_embed.preprocess_item"><code class="docutils literal notranslate"><span class="pre">preprocess_item()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.mol_prediction">masskit_ai.mol.mol_prediction module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_prediction.MolPropPredictor"><code class="docutils literal notranslate"><span class="pre">MolPropPredictor</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_prediction.MolPropPredictor.add_item"><code class="docutils literal notranslate"><span class="pre">MolPropPredictor.add_item()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_prediction.MolPropPredictor.create_dataloaders"><code class="docutils literal notranslate"><span class="pre">MolPropPredictor.create_dataloaders()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_prediction.MolPropPredictor.create_items"><code class="docutils literal notranslate"><span class="pre">MolPropPredictor.create_items()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_prediction.MolPropPredictor.finalize_items"><code class="docutils literal notranslate"><span class="pre">MolPropPredictor.finalize_items()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_prediction.MolPropPredictor.single_prediction"><code class="docutils literal notranslate"><span class="pre">MolPropPredictor.single_prediction()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.mol_prediction.MolPropPredictor.write_items"><code class="docutils literal notranslate"><span class="pre">MolPropPredictor.write_items()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-masskit_ai.mol">Module contents</a></li>
 </ul>
 </li>
@@ -488,7 +535,7 @@ a single spectrum with a standard deviation</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.mol package</a></li> 
       </ul>
     </div>

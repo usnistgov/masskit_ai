@@ -40,6 +40,7 @@ class MSMLFlowLogger(MLFlowLogger):
         super().__init__(
             experiment_name=config.experiment_name,
             tracking_uri=config.logging.MSMLFlowLogger.tracking_uri,
+            run_name=config.get('run_name', None),
             *args,
             **kwargs,
         )
@@ -134,6 +135,22 @@ class MSMLFlowLogger(MLFlowLogger):
             self.mlf_set_tag("ip", ip)
         except Exception as e:
             pass
+
+        # log some useful environment variables
+        for env_variable in ['SLURM_JOB_NAME', 
+                             'SLURM_JOB_ID', 
+                             'SLURM_ARRAY_JOB_ID', 
+                             'SLURM_ARRAY_TASK_ID',
+                             'SLURM_SUBMIT_HOST',
+                             'SLURM_SUBMIT_DIR',
+                             ]:
+            try:
+                self.mlf_set_tag(env_variable, os.environ.get(env_variable))
+            except KeyError as e:
+                pass
+        
+        self.mlf_set_tag("cwd", os.getcwd())
+        self.mlf_set_tag("command_line", ' '.join(sys.argv))
 
         # model information tag is MLFLOW_LOGGED_MODELS, but needs to be of the form
         # https://github.com/mlflow/mlflow/blob/1790dfaa01ca51dc200b1d2bff66162d90abbff8/mlflow/server/js/src/common/utils/Utils.js#L592
@@ -273,4 +290,9 @@ def filter_pytorch_lightning_warnings():
         r"No correct seed found, seed set to",
         UserWarning,
         "pytorch_lightning",
+    )
+    warnings.filterwarnings(
+        "ignore",
+        r"No seed found, seed set to .*",
+        UserWarning,
     )

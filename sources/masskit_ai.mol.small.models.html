@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>masskit_ai.mol.small.models package &#8212; masskit_ai 1.0.0-60-ge055069 documentation</title>
+    <title>masskit_ai.mol.small.models package &#8212; masskit_ai 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -14,6 +14,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -56,7 +57,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.mol.small.models package</a></li> 
       </ul>
     </div>  
@@ -786,6 +787,11 @@ max_atoms: The maximum number of atoms for padding purposes</p>
 <dd></dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="masskit_ai.mol.small.models.path_utils.get_value_attr">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.path_utils.</span></span><span class="sig-name descname"><span class="pre">get_value_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">some_thing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">some_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.path_utils.get_value_attr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="masskit_ai.mol.small.models.path_utils.merge_path_inputs">
 <span class="sig-prename descclassname"><span class="pre">masskit_ai.mol.small.models.path_utils.</span></span><span class="sig-name descname"><span class="pre">merge_path_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.mol.small.models.path_utils.merge_path_inputs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Merge path input matrices. Does not create CUDA tensors intentionally</p>
@@ -860,12 +866,164 @@ max_atoms: The maximum number of atoms for padding purposes</p>
 <li><a class="reference internal" href="#">masskit_ai.mol.small.models package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#masskit-ai-mol-small-models-algos-module">masskit_ai.mol.small.models.algos module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.gf">masskit_ai.mol.small.models.gf module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.model_utils">masskit_ai.mol.small.models.model_utils module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.mol_features">masskit_ai.mol.small.models.mol_features module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.mol_graph">masskit_ai.mol.small.models.mol_graph module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.path_utils">masskit_ai.mol.small.models.path_utils module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.patn">masskit_ai.mol.small.models.patn module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.gf">masskit_ai.mol.small.models.gf module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel"><code class="docutils literal notranslate"><span class="pre">BaseFairseqModel</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.build_model"><code class="docutils literal notranslate"><span class="pre">BaseFairseqModel.build_model()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.extract_features"><code class="docutils literal notranslate"><span class="pre">BaseFairseqModel.extract_features()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.get_normalized_probs"><code class="docutils literal notranslate"><span class="pre">BaseFairseqModel.get_normalized_probs()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.get_normalized_probs_scriptable"><code class="docutils literal notranslate"><span class="pre">BaseFairseqModel.get_normalized_probs_scriptable()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.get_targets"><code class="docutils literal notranslate"><span class="pre">BaseFairseqModel.get_targets()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.hub_models"><code class="docutils literal notranslate"><span class="pre">BaseFairseqModel.hub_models()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.make_generation_fast_"><code class="docutils literal notranslate"><span class="pre">BaseFairseqModel.make_generation_fast_()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.max_positions"><code class="docutils literal notranslate"><span class="pre">BaseFairseqModel.max_positions()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.prepare_for_inference_"><code class="docutils literal notranslate"><span class="pre">BaseFairseqModel.prepare_for_inference_()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.prepare_for_onnx_export_"><code class="docutils literal notranslate"><span class="pre">BaseFairseqModel.prepare_for_onnx_export_()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.BaseFairseqModel.set_num_updates"><code class="docutils literal notranslate"><span class="pre">BaseFairseqModel.set_num_updates()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqDropout"><code class="docutils literal notranslate"><span class="pre">FairseqDropout</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqDropout.forward"><code class="docutils literal notranslate"><span class="pre">FairseqDropout.forward()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqDropout.make_generation_fast_"><code class="docutils literal notranslate"><span class="pre">FairseqDropout.make_generation_fast_()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqEncoder"><code class="docutils literal notranslate"><span class="pre">FairseqEncoder</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqEncoder.forward"><code class="docutils literal notranslate"><span class="pre">FairseqEncoder.forward()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqEncoder.forward_non_torchscript"><code class="docutils literal notranslate"><span class="pre">FairseqEncoder.forward_non_torchscript()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqEncoder.forward_torchscript"><code class="docutils literal notranslate"><span class="pre">FairseqEncoder.forward_torchscript()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqEncoder.max_positions"><code class="docutils literal notranslate"><span class="pre">FairseqEncoder.max_positions()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqEncoder.reorder_encoder_out"><code class="docutils literal notranslate"><span class="pre">FairseqEncoder.reorder_encoder_out()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqEncoder.set_num_updates"><code class="docutils literal notranslate"><span class="pre">FairseqEncoder.set_num_updates()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqEncoder.upgrade_state_dict_named"><code class="docutils literal notranslate"><span class="pre">FairseqEncoder.upgrade_state_dict_named()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqEncoderModel"><code class="docutils literal notranslate"><span class="pre">FairseqEncoderModel</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqEncoderModel.forward"><code class="docutils literal notranslate"><span class="pre">FairseqEncoderModel.forward()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqEncoderModel.get_normalized_probs"><code class="docutils literal notranslate"><span class="pre">FairseqEncoderModel.get_normalized_probs()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.FairseqEncoderModel.max_positions"><code class="docutils literal notranslate"><span class="pre">FairseqEncoderModel.max_positions()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphAttnBias"><code class="docutils literal notranslate"><span class="pre">GraphAttnBias</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphAttnBias.forward"><code class="docutils literal notranslate"><span class="pre">GraphAttnBias.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphNodeFeature"><code class="docutils literal notranslate"><span class="pre">GraphNodeFeature</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphNodeFeature.forward"><code class="docutils literal notranslate"><span class="pre">GraphNodeFeature.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerEncoder"><code class="docutils literal notranslate"><span class="pre">GraphormerEncoder</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerEncoder.forward"><code class="docutils literal notranslate"><span class="pre">GraphormerEncoder.forward()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerEncoder.max_nodes"><code class="docutils literal notranslate"><span class="pre">GraphormerEncoder.max_nodes()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerEncoder.reset_output_layer_parameters"><code class="docutils literal notranslate"><span class="pre">GraphormerEncoder.reset_output_layer_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerEncoder.upgrade_state_dict_named"><code class="docutils literal notranslate"><span class="pre">GraphormerEncoder.upgrade_state_dict_named()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoder"><code class="docutils literal notranslate"><span class="pre">GraphormerGraphEncoder</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoder.build_graphormer_graph_encoder_layer"><code class="docutils literal notranslate"><span class="pre">GraphormerGraphEncoder.build_graphormer_graph_encoder_layer()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoder.forward"><code class="docutils literal notranslate"><span class="pre">GraphormerGraphEncoder.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer"><code class="docutils literal notranslate"><span class="pre">GraphormerGraphEncoderLayer</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer.build_fc1"><code class="docutils literal notranslate"><span class="pre">GraphormerGraphEncoderLayer.build_fc1()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer.build_fc2"><code class="docutils literal notranslate"><span class="pre">GraphormerGraphEncoderLayer.build_fc2()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer.build_self_attention"><code class="docutils literal notranslate"><span class="pre">GraphormerGraphEncoderLayer.build_self_attention()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerGraphEncoderLayer.forward"><code class="docutils literal notranslate"><span class="pre">GraphormerGraphEncoderLayer.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerModel"><code class="docutils literal notranslate"><span class="pre">GraphormerModel</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerModel.build_model"><code class="docutils literal notranslate"><span class="pre">GraphormerModel.build_model()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerModel.forward"><code class="docutils literal notranslate"><span class="pre">GraphormerModel.forward()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.GraphormerModel.max_nodes"><code class="docutils literal notranslate"><span class="pre">GraphormerModel.max_nodes()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.Graphormer_slim"><code class="docutils literal notranslate"><span class="pre">Graphormer_slim</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.Graphormer_slim.forward"><code class="docutils literal notranslate"><span class="pre">Graphormer_slim.forward()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.Graphormer_slim.total_params"><code class="docutils literal notranslate"><span class="pre">Graphormer_slim.total_params()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.LayerDropModuleList"><code class="docutils literal notranslate"><span class="pre">LayerDropModuleList</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.LayerNorm"><code class="docutils literal notranslate"><span class="pre">LayerNorm()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.MultiheadAttention"><code class="docutils literal notranslate"><span class="pre">MultiheadAttention</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.MultiheadAttention.apply_sparse_mask"><code class="docutils literal notranslate"><span class="pre">MultiheadAttention.apply_sparse_mask()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.MultiheadAttention.forward"><code class="docutils literal notranslate"><span class="pre">MultiheadAttention.forward()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.MultiheadAttention.prepare_for_onnx_export_"><code class="docutils literal notranslate"><span class="pre">MultiheadAttention.prepare_for_onnx_export_()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.MultiheadAttention.reset_parameters"><code class="docutils literal notranslate"><span class="pre">MultiheadAttention.reset_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.MultiheadAttention.upgrade_state_dict_named"><code class="docutils literal notranslate"><span class="pre">MultiheadAttention.upgrade_state_dict_named()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.base_architecture"><code class="docutils literal notranslate"><span class="pre">base_architecture()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.check_type"><code class="docutils literal notranslate"><span class="pre">check_type()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.gelu"><code class="docutils literal notranslate"><span class="pre">gelu()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.gelu_accurate"><code class="docutils literal notranslate"><span class="pre">gelu_accurate()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.get_activation_fn"><code class="docutils literal notranslate"><span class="pre">get_activation_fn()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.graphormer_slim_architecture"><code class="docutils literal notranslate"><span class="pre">graphormer_slim_architecture()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.init_graphormer_params"><code class="docutils literal notranslate"><span class="pre">init_graphormer_params()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.init_params"><code class="docutils literal notranslate"><span class="pre">init_params()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.quant_noise"><code class="docutils literal notranslate"><span class="pre">quant_noise()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.relu_squared"><code class="docutils literal notranslate"><span class="pre">relu_squared()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.safe_hasattr"><code class="docutils literal notranslate"><span class="pre">safe_hasattr()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.gf.softmax"><code class="docutils literal notranslate"><span class="pre">softmax()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.model_utils">masskit_ai.mol.small.models.model_utils module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.model_utils.compute_max_atoms"><code class="docutils literal notranslate"><span class="pre">compute_max_atoms()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.model_utils.convert_to_2D"><code class="docutils literal notranslate"><span class="pre">convert_to_2D()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.model_utils.convert_to_3D"><code class="docutils literal notranslate"><span class="pre">convert_to_3D()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.mol_features">masskit_ai.mol.small.models.mol_features module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_features.bt_index_to_float"><code class="docutils literal notranslate"><span class="pre">bt_index_to_float()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_features.get_atom_features"><code class="docutils literal notranslate"><span class="pre">get_atom_features()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_features.get_bond_features"><code class="docutils literal notranslate"><span class="pre">get_bond_features()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_features.get_bt_feature"><code class="docutils literal notranslate"><span class="pre">get_bt_feature()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_features.get_bt_index"><code class="docutils literal notranslate"><span class="pre">get_bt_index()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_features.get_path_bond_feature"><code class="docutils literal notranslate"><span class="pre">get_path_bond_feature()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_features.onek_unk_encoding"><code class="docutils literal notranslate"><span class="pre">onek_unk_encoding()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.mol_graph">masskit_ai.mol.small.models.mol_graph module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_graph.Atom"><code class="docutils literal notranslate"><span class="pre">Atom</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_graph.Atom.add_bond"><code class="docutils literal notranslate"><span class="pre">Atom.add_bond()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_graph.Bond"><code class="docutils literal notranslate"><span class="pre">Bond</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_graph.MolGraph"><code class="docutils literal notranslate"><span class="pre">MolGraph</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_graph.MolGraph.get_atom_inputs"><code class="docutils literal notranslate"><span class="pre">MolGraph.get_atom_inputs()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_graph.MolGraph.get_graph_inputs"><code class="docutils literal notranslate"><span class="pre">MolGraph.get_graph_inputs()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_graph.MolGraph.get_n_atoms"><code class="docutils literal notranslate"><span class="pre">MolGraph.get_n_atoms()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_graph.Molecule"><code class="docutils literal notranslate"><span class="pre">Molecule</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.mol_graph.Molecule.get_bond"><code class="docutils literal notranslate"><span class="pre">Molecule.get_bond()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.path_utils">masskit_ai.mol.small.models.path_utils module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.path_utils.get_num_path_features"><code class="docutils literal notranslate"><span class="pre">get_num_path_features()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.path_utils.get_path_atoms"><code class="docutils literal notranslate"><span class="pre">get_path_atoms()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.path_utils.get_path_features"><code class="docutils literal notranslate"><span class="pre">get_path_features()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.path_utils.get_path_input"><code class="docutils literal notranslate"><span class="pre">get_path_input()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.path_utils.get_ring_features"><code class="docutils literal notranslate"><span class="pre">get_ring_features()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.path_utils.get_value_attr"><code class="docutils literal notranslate"><span class="pre">get_value_attr()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.path_utils.merge_path_inputs"><code class="docutils literal notranslate"><span class="pre">merge_path_inputs()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.path_utils.ordered_pair"><code class="docutils literal notranslate"><span class="pre">ordered_pair()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.mol.small.models.patn">masskit_ai.mol.small.models.patn module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.patn.MolTransformer"><code class="docutils literal notranslate"><span class="pre">MolTransformer</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.patn.MolTransformer.avg_attn"><code class="docutils literal notranslate"><span class="pre">MolTransformer.avg_attn()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.patn.MolTransformer.compute_attn_probs"><code class="docutils literal notranslate"><span class="pre">MolTransformer.compute_attn_probs()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.patn.MolTransformer.forward"><code class="docutils literal notranslate"><span class="pre">MolTransformer.forward()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.patn.MolTransformer.get_attn_input"><code class="docutils literal notranslate"><span class="pre">MolTransformer.get_attn_input()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.patn.PropPredictor"><code class="docutils literal notranslate"><span class="pre">PropPredictor</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.patn.PropPredictor.aggregate_atom_h"><code class="docutils literal notranslate"><span class="pre">PropPredictor.aggregate_atom_h()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.mol.small.models.patn.PropPredictor.forward"><code class="docutils literal notranslate"><span class="pre">PropPredictor.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-masskit_ai.mol.small.models">Module contents</a></li>
 </ul>
 </li>
@@ -902,7 +1060,7 @@ max_atoms: The maximum number of atoms for padding purposes</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.mol.small.models package</a></li> 
       </ul>
     </div>

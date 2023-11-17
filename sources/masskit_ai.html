@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>masskit_ai package &#8212; masskit_ai 1.0.0-60-ge055069 documentation</title>
+    <title>masskit_ai package &#8212; masskit_ai 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -14,6 +14,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -56,7 +57,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai package</a></li> 
       </ul>
     </div>  
@@ -136,9 +137,55 @@ $(document).ready(function(){
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="masskit_ai.mol.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.mol.html#module-masskit_ai.mol.mol_datasets">masskit_ai.mol.mol_datasets module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.mol.html#module-masskit_ai.mol.mol_embed">masskit_ai.mol.mol_embed module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.mol.html#module-masskit_ai.mol.mol_prediction">masskit_ai.mol.mol_prediction module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.mol.html#module-masskit_ai.mol.mol_datasets">masskit_ai.mol.mol_datasets module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_datasets.MolPropDataset"><code class="docutils literal notranslate"><span class="pre">MolPropDataset</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_datasets.MolPropDataset.data"><code class="docutils literal notranslate"><span class="pre">MolPropDataset.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_datasets.MolPropDataset.get_column"><code class="docutils literal notranslate"><span class="pre">MolPropDataset.get_column()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_datasets.MolPropDataset.get_data_row"><code class="docutils literal notranslate"><span class="pre">MolPropDataset.get_data_row()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_datasets.MolPropDataset.get_y"><code class="docutils literal notranslate"><span class="pre">MolPropDataset.get_y()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_datasets.MolPropDataset.to_pandas"><code class="docutils literal notranslate"><span class="pre">MolPropDataset.to_pandas()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_datasets.graphormer_collator"><code class="docutils literal notranslate"><span class="pre">graphormer_collator()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_datasets.pad_1d_unsqueeze"><code class="docutils literal notranslate"><span class="pre">pad_1d_unsqueeze()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_datasets.pad_2d_unsqueeze"><code class="docutils literal notranslate"><span class="pre">pad_2d_unsqueeze()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_datasets.pad_3d_unsqueeze"><code class="docutils literal notranslate"><span class="pre">pad_3d_unsqueeze()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_datasets.pad_attn_bias_unsqueeze"><code class="docutils literal notranslate"><span class="pre">pad_attn_bias_unsqueeze()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_datasets.pad_edge_type_unsqueeze"><code class="docutils literal notranslate"><span class="pre">pad_edge_type_unsqueeze()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_datasets.pad_spatial_pos_unsqueeze"><code class="docutils literal notranslate"><span class="pre">pad_spatial_pos_unsqueeze()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_datasets.patn_collator"><code class="docutils literal notranslate"><span class="pre">patn_collator()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.mol.html#module-masskit_ai.mol.mol_embed">masskit_ai.mol.mol_embed module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_embed.EmbedGraphormerMol"><code class="docutils literal notranslate"><span class="pre">EmbedGraphormerMol</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_embed.EmbedGraphormerMol.embed"><code class="docutils literal notranslate"><span class="pre">EmbedGraphormerMol.embed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_embed.EmbedGraphormerMol.mol_channels"><code class="docutils literal notranslate"><span class="pre">EmbedGraphormerMol.mol_channels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_embed.EmbedGraphormerMol.mol_embed"><code class="docutils literal notranslate"><span class="pre">EmbedGraphormerMol.mol_embed()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_embed.EmbedPATNMol"><code class="docutils literal notranslate"><span class="pre">EmbedPATNMol</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_embed.EmbedPATNMol.embed"><code class="docutils literal notranslate"><span class="pre">EmbedPATNMol.embed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_embed.EmbedPATNMol.mol_channels"><code class="docutils literal notranslate"><span class="pre">EmbedPATNMol.mol_channels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_embed.EmbedPATNMol.mol_path_embed"><code class="docutils literal notranslate"><span class="pre">EmbedPATNMol.mol_path_embed()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_embed.convert_to_single_emb"><code class="docutils literal notranslate"><span class="pre">convert_to_single_emb()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_embed.from_mol"><code class="docutils literal notranslate"><span class="pre">from_mol()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_embed.preprocess_item"><code class="docutils literal notranslate"><span class="pre">preprocess_item()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.mol.html#module-masskit_ai.mol.mol_prediction">masskit_ai.mol.mol_prediction module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_prediction.MolPropPredictor"><code class="docutils literal notranslate"><span class="pre">MolPropPredictor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_prediction.MolPropPredictor.add_item"><code class="docutils literal notranslate"><span class="pre">MolPropPredictor.add_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_prediction.MolPropPredictor.create_dataloaders"><code class="docutils literal notranslate"><span class="pre">MolPropPredictor.create_dataloaders()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_prediction.MolPropPredictor.create_items"><code class="docutils literal notranslate"><span class="pre">MolPropPredictor.create_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_prediction.MolPropPredictor.finalize_items"><code class="docutils literal notranslate"><span class="pre">MolPropPredictor.finalize_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_prediction.MolPropPredictor.single_prediction"><code class="docutils literal notranslate"><span class="pre">MolPropPredictor.single_prediction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.mol.html#masskit_ai.mol.mol_prediction.MolPropPredictor.write_items"><code class="docutils literal notranslate"><span class="pre">MolPropPredictor.write_items()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="masskit_ai.mol.html#module-masskit_ai.mol">Module contents</a></li>
 </ul>
 </li>
@@ -167,17 +214,142 @@ $(document).ready(function(){
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_base_objects">masskit_ai.spectrum.spectrum_base_objects module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_datasets">masskit_ai.spectrum.spectrum_datasets module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_embed">masskit_ai.spectrum.spectrum_embed module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_lightning">masskit_ai.spectrum.spectrum_lightning module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_losses">masskit_ai.spectrum.spectrum_losses module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_prediction">masskit_ai.spectrum.spectrum_prediction module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_base_objects">masskit_ai.spectrum.spectrum_base_objects module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_base_objects.SpectrumModel"><code class="docutils literal notranslate"><span class="pre">SpectrumModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_base_objects.SpectrumModel.channels"><code class="docutils literal notranslate"><span class="pre">SpectrumModel.channels</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_base_objects.SpectrumModule"><code class="docutils literal notranslate"><span class="pre">SpectrumModule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_base_objects.SpectrumModule.bins"><code class="docutils literal notranslate"><span class="pre">SpectrumModule.bins</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_datasets">masskit_ai.spectrum.spectrum_datasets module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_datasets.SpectrumDataset"><code class="docutils literal notranslate"><span class="pre">SpectrumDataset</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_datasets.SpectrumDataset.get_y"><code class="docutils literal notranslate"><span class="pre">SpectrumDataset.get_y()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_datasets.TandemArrowDataset"><code class="docutils literal notranslate"><span class="pre">TandemArrowDataset</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_datasets.TandemArrowDataset.data"><code class="docutils literal notranslate"><span class="pre">TandemArrowDataset.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_datasets.TandemArrowDataset.get_column"><code class="docutils literal notranslate"><span class="pre">TandemArrowDataset.get_column()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_datasets.TandemArrowDataset.get_data_row"><code class="docutils literal notranslate"><span class="pre">TandemArrowDataset.get_data_row()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_datasets.TandemArrowDataset.to_pandas"><code class="docutils literal notranslate"><span class="pre">TandemArrowDataset.to_pandas()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_datasets.TandemDataframeDataset"><code class="docutils literal notranslate"><span class="pre">TandemDataframeDataset</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_embed">masskit_ai.spectrum.spectrum_embed module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_embed.Embed1D"><code class="docutils literal notranslate"><span class="pre">Embed1D</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_embed.Embed1D.charge_channels"><code class="docutils literal notranslate"><span class="pre">Embed1D.charge_channels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_embed.Embed1D.charge_embed"><code class="docutils literal notranslate"><span class="pre">Embed1D.charge_embed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_embed.Embed1D.charge_singleton_channels"><code class="docutils literal notranslate"><span class="pre">Embed1D.charge_singleton_channels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_embed.Embed1D.charge_singleton_embed"><code class="docutils literal notranslate"><span class="pre">Embed1D.charge_singleton_embed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_embed.Embed1D.ev_channels"><code class="docutils literal notranslate"><span class="pre">Embed1D.ev_channels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_embed.Embed1D.ev_embed"><code class="docutils literal notranslate"><span class="pre">Embed1D.ev_embed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_embed.Embed1D.ev_singleton_channels"><code class="docutils literal notranslate"><span class="pre">Embed1D.ev_singleton_channels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_embed.Embed1D.ev_singleton_embed"><code class="docutils literal notranslate"><span class="pre">Embed1D.ev_singleton_embed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_embed.Embed1D.nce_channels"><code class="docutils literal notranslate"><span class="pre">Embed1D.nce_channels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_embed.Embed1D.nce_embed"><code class="docutils literal notranslate"><span class="pre">Embed1D.nce_embed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_embed.Embed1D.nce_singleton_channels"><code class="docutils literal notranslate"><span class="pre">Embed1D.nce_singleton_channels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_embed.Embed1D.nce_singleton_embed"><code class="docutils literal notranslate"><span class="pre">Embed1D.nce_singleton_embed()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_lightning">masskit_ai.spectrum.spectrum_lightning module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLightningModule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule.calc_loss"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLightningModule.calc_loss()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule.configure_optimizers"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLightningModule.configure_optimizers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule.forward"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLightningModule.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule.on_test_epoch_end"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLightningModule.on_test_epoch_end()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule.on_train_epoch_end"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLightningModule.on_train_epoch_end()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule.on_validation_epoch_end"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLightningModule.on_validation_epoch_end()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule.test_step"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLightningModule.test_step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule.training_step"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLightningModule.training_step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule.training_step_end"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLightningModule.training_step_end()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule.validation_step"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLightningModule.validation_step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule.validation_test_epoch_end"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLightningModule.validation_test_epoch_end()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule.validation_test_step"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLightningModule.validation_test_step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.SpectrumLightningModule"><code class="docutils literal notranslate"><span class="pre">SpectrumLightningModule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.SpectrumLightningModule.training_step"><code class="docutils literal notranslate"><span class="pre">SpectrumLightningModule.training_step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.SpectrumLightningModule.validation_test_step"><code class="docutils literal notranslate"><span class="pre">SpectrumLightningModule.validation_test_step()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_losses">masskit_ai.spectrum.spectrum_losses module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.BaseSpectrumLoss"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLoss</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.BaseSpectrumLoss.extract_spectra"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLoss.extract_spectra()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.BaseSpectrumLoss.extract_variance"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLoss.extract_variance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.BaseSpectrumLoss.forward"><code class="docutils literal notranslate"><span class="pre">BaseSpectrumLoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.SpectrumCosineKLLoss"><code class="docutils literal notranslate"><span class="pre">SpectrumCosineKLLoss</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.SpectrumCosineKLLoss.forward"><code class="docutils literal notranslate"><span class="pre">SpectrumCosineKLLoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.SpectrumCosineLoss"><code class="docutils literal notranslate"><span class="pre">SpectrumCosineLoss</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.SpectrumCosineLoss.forward"><code class="docutils literal notranslate"><span class="pre">SpectrumCosineLoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.SpectrumLogCosineKLLoss"><code class="docutils literal notranslate"><span class="pre">SpectrumLogCosineKLLoss</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.SpectrumLogCosineKLLoss.forward"><code class="docutils literal notranslate"><span class="pre">SpectrumLogCosineKLLoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.SpectrumMSEKLLoss"><code class="docutils literal notranslate"><span class="pre">SpectrumMSEKLLoss</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.SpectrumMSEKLLoss.forward"><code class="docutils literal notranslate"><span class="pre">SpectrumMSEKLLoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.SpectrumMSELoss"><code class="docutils literal notranslate"><span class="pre">SpectrumMSELoss</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.SpectrumMSELoss.forward"><code class="docutils literal notranslate"><span class="pre">SpectrumMSELoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.SpectrumNormalNLL"><code class="docutils literal notranslate"><span class="pre">SpectrumNormalNLL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_losses.SpectrumNormalNLL.forward"><code class="docutils literal notranslate"><span class="pre">SpectrumNormalNLL.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum.spectrum_prediction">masskit_ai.spectrum.spectrum_prediction module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor"><code class="docutils literal notranslate"><span class="pre">PeptideSpectrumPredictor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.add_item"><code class="docutils literal notranslate"><span class="pre">PeptideSpectrumPredictor.add_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.create_dataloaders"><code class="docutils literal notranslate"><span class="pre">PeptideSpectrumPredictor.create_dataloaders()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.create_items"><code class="docutils literal notranslate"><span class="pre">PeptideSpectrumPredictor.create_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.create_mz_tolerance"><code class="docutils literal notranslate"><span class="pre">PeptideSpectrumPredictor.create_mz_tolerance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.finalize_items"><code class="docutils literal notranslate"><span class="pre">PeptideSpectrumPredictor.finalize_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.make_spectrum"><code class="docutils literal notranslate"><span class="pre">PeptideSpectrumPredictor.make_spectrum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.single_prediction"><code class="docutils literal notranslate"><span class="pre">PeptideSpectrumPredictor.single_prediction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.write_items"><code class="docutils literal notranslate"><span class="pre">PeptideSpectrumPredictor.write_items()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_prediction.SinglePeptideSpectrumPredictor"><code class="docutils literal notranslate"><span class="pre">SinglePeptideSpectrumPredictor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_prediction.SinglePeptideSpectrumPredictor.add_item"><code class="docutils literal notranslate"><span class="pre">SinglePeptideSpectrumPredictor.add_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_prediction.SinglePeptideSpectrumPredictor.make_spectrum"><code class="docutils literal notranslate"><span class="pre">SinglePeptideSpectrumPredictor.make_spectrum()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_prediction.finalize_spectrum"><code class="docutils literal notranslate"><span class="pre">finalize_spectrum()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.html#module-masskit_ai.spectrum">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="masskit_ai.test_fixtures.html">masskit_ai.test_fixtures package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.test_fixtures.html#module-masskit_ai.test_fixtures">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.test_fixtures.html#module-masskit_ai.test_fixtures">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.test_fixtures.html#masskit_ai.test_fixtures.SRM1950_lumos_short_parquet_ai"><code class="docutils literal notranslate"><span class="pre">SRM1950_lumos_short_parquet_ai()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.test_fixtures.html#masskit_ai.test_fixtures.config_predict_airi_csv"><code class="docutils literal notranslate"><span class="pre">config_predict_airi_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.test_fixtures.html#masskit_ai.test_fixtures.config_predict_peptide"><code class="docutils literal notranslate"><span class="pre">config_predict_peptide()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.test_fixtures.html#masskit_ai.test_fixtures.data_dir"><code class="docutils literal notranslate"><span class="pre">data_dir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.test_fixtures.html#masskit_ai.test_fixtures.human_uniprot_trunc_fasta"><code class="docutils literal notranslate"><span class="pre">human_uniprot_trunc_fasta()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.test_fixtures.html#masskit_ai.test_fixtures.human_uniprot_trunc_parquet"><code class="docutils literal notranslate"><span class="pre">human_uniprot_trunc_parquet()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.test_fixtures.html#masskit_ai.test_fixtures.predicted_airi_csv"><code class="docutils literal notranslate"><span class="pre">predicted_airi_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.test_fixtures.html#masskit_ai.test_fixtures.predicted_human_uniprot_trunc_parquet"><code class="docutils literal notranslate"><span class="pre">predicted_human_uniprot_trunc_parquet()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.test_fixtures.html#masskit_ai.test_fixtures.test_new_sdf_parquet"><code class="docutils literal notranslate"><span class="pre">test_new_sdf_parquet()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1181,17 +1353,188 @@ that is exclusive to it.</p>
 <li><a class="reference internal" href="#">masskit_ai package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.base_datasets">masskit_ai.base_datasets module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.base_losses">masskit_ai.base_losses module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.base_objects">masskit_ai.base_objects module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.callbacks">masskit_ai.callbacks module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.embed">masskit_ai.embed module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.lightning">masskit_ai.lightning module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.loggers">masskit_ai.loggers module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.metrics">masskit_ai.metrics module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.prediction">masskit_ai.prediction module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.samplers">masskit_ai.samplers module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai">Module contents</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.base_datasets">masskit_ai.base_datasets module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.base_datasets.BaseDataset"><code class="docutils literal notranslate"><span class="pre">BaseDataset</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.base_datasets.BaseDataset.data"><code class="docutils literal notranslate"><span class="pre">BaseDataset.data</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.base_datasets.BaseDataset.get_data_row"><code class="docutils literal notranslate"><span class="pre">BaseDataset.get_data_row()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.base_datasets.BaseDataset.get_x"><code class="docutils literal notranslate"><span class="pre">BaseDataset.get_x()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.base_datasets.BaseDataset.get_y"><code class="docutils literal notranslate"><span class="pre">BaseDataset.get_y()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.base_datasets.BaseDataset.init_copy"><code class="docutils literal notranslate"><span class="pre">BaseDataset.init_copy()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.base_datasets.BaseDataset.to_pandas"><code class="docutils literal notranslate"><span class="pre">BaseDataset.to_pandas()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.base_datasets.DataframeDataset"><code class="docutils literal notranslate"><span class="pre">DataframeDataset</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.base_datasets.DataframeDataset.get_data_row"><code class="docutils literal notranslate"><span class="pre">DataframeDataset.get_data_row()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.base_datasets.DataframeDataset.get_y"><code class="docutils literal notranslate"><span class="pre">DataframeDataset.get_y()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.base_datasets.DataframeDataset.to_pandas"><code class="docutils literal notranslate"><span class="pre">DataframeDataset.to_pandas()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.base_losses">masskit_ai.base_losses module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.base_losses.BaseLoss"><code class="docutils literal notranslate"><span class="pre">BaseLoss</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.base_losses.BaseLoss.forward"><code class="docutils literal notranslate"><span class="pre">BaseLoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.base_losses.L1Loss"><code class="docutils literal notranslate"><span class="pre">L1Loss</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.base_losses.L1Loss.forward"><code class="docutils literal notranslate"><span class="pre">L1Loss.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.base_losses.MSEKLLoss"><code class="docutils literal notranslate"><span class="pre">MSEKLLoss</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.base_losses.MSEKLLoss.forward"><code class="docutils literal notranslate"><span class="pre">MSEKLLoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.base_losses.MSELoss"><code class="docutils literal notranslate"><span class="pre">MSELoss</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.base_losses.MSELoss.forward"><code class="docutils literal notranslate"><span class="pre">MSELoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.base_losses.get_namedtuple_dict"><code class="docutils literal notranslate"><span class="pre">get_namedtuple_dict()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.base_objects">masskit_ai.base_objects module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.base_objects.ModelInput"><code class="docutils literal notranslate"><span class="pre">ModelInput</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.base_objects.ModelInput.index"><code class="docutils literal notranslate"><span class="pre">ModelInput.index</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.base_objects.ModelInput.x"><code class="docutils literal notranslate"><span class="pre">ModelInput.x</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.base_objects.ModelInput.y"><code class="docutils literal notranslate"><span class="pre">ModelInput.y</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.base_objects.ModelOutput"><code class="docutils literal notranslate"><span class="pre">ModelOutput</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.base_objects.ModelOutput.score"><code class="docutils literal notranslate"><span class="pre">ModelOutput.score</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.base_objects.ModelOutput.var"><code class="docutils literal notranslate"><span class="pre">ModelOutput.var</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.base_objects.ModelOutput.y_prime"><code class="docutils literal notranslate"><span class="pre">ModelOutput.y_prime</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.callbacks">masskit_ai.callbacks module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.callbacks.ConcatenateIdLogs"><code class="docutils literal notranslate"><span class="pre">ConcatenateIdLogs</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.callbacks.ConcatenateIdLogs.on_train_epoch_end"><code class="docutils literal notranslate"><span class="pre">ConcatenateIdLogs.on_train_epoch_end()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.callbacks.ModelCheckpointOnStart"><code class="docutils literal notranslate"><span class="pre">ModelCheckpointOnStart</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.callbacks.ModelCheckpointOnStart.on_train_start"><code class="docutils literal notranslate"><span class="pre">ModelCheckpointOnStart.on_train_start()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.embed">masskit_ai.embed module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.embed.BasicEmbed"><code class="docutils literal notranslate"><span class="pre">BasicEmbed</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.embed.BasicEmbed.channels"><code class="docutils literal notranslate"><span class="pre">BasicEmbed.channels</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.embed.BasicEmbed.embed"><code class="docutils literal notranslate"><span class="pre">BasicEmbed.embed()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.embed.BasicEmbed.list2one_hot"><code class="docutils literal notranslate"><span class="pre">BasicEmbed.list2one_hot()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.embed.Embed"><code class="docutils literal notranslate"><span class="pre">Embed</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.embed.Embed.channels"><code class="docutils literal notranslate"><span class="pre">Embed.channels</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.embed.Embed.embed"><code class="docutils literal notranslate"><span class="pre">Embed.embed()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.embed.EmbedXor"><code class="docutils literal notranslate"><span class="pre">EmbedXor</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.embed.EmbedXor.xor_channels"><code class="docutils literal notranslate"><span class="pre">EmbedXor.xor_channels()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.embed.EmbedXor.xor_embed"><code class="docutils literal notranslate"><span class="pre">EmbedXor.xor_embed()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.lightning">masskit_ai.lightning module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.lightning.BaseDataModule"><code class="docutils literal notranslate"><span class="pre">BaseDataModule</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.lightning.BaseDataModule.create_loader"><code class="docutils literal notranslate"><span class="pre">BaseDataModule.create_loader()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.lightning.BaseDataModule.setup"><code class="docutils literal notranslate"><span class="pre">BaseDataModule.setup()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.lightning.BaseDataModule.test_dataloader"><code class="docutils literal notranslate"><span class="pre">BaseDataModule.test_dataloader()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.lightning.BaseDataModule.train_dataloader"><code class="docutils literal notranslate"><span class="pre">BaseDataModule.train_dataloader()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.lightning.BaseDataModule.val_dataloader"><code class="docutils literal notranslate"><span class="pre">BaseDataModule.val_dataloader()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.lightning.MasskitDataModule"><code class="docutils literal notranslate"><span class="pre">MasskitDataModule</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.lightning.MasskitDataModule.create_loader"><code class="docutils literal notranslate"><span class="pre">MasskitDataModule.create_loader()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.lightning.MasskitDataModule.get_subsets"><code class="docutils literal notranslate"><span class="pre">MasskitDataModule.get_subsets()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.lightning.SpectrumDataModule"><code class="docutils literal notranslate"><span class="pre">SpectrumDataModule</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.lightning.XORDataModule"><code class="docutils literal notranslate"><span class="pre">XORDataModule</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.lightning.XORDataModule.create_loader"><code class="docutils literal notranslate"><span class="pre">XORDataModule.create_loader()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.lightning.get_pytorch_ranks"><code class="docutils literal notranslate"><span class="pre">get_pytorch_ranks()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.lightning.log_worker_start"><code class="docutils literal notranslate"><span class="pre">log_worker_start()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.lightning.seed_worker"><code class="docutils literal notranslate"><span class="pre">seed_worker()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.lightning.setup_datamodule"><code class="docutils literal notranslate"><span class="pre">setup_datamodule()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.loggers">masskit_ai.loggers module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.loggers.MSMLFlowLogger"><code class="docutils literal notranslate"><span class="pre">MSMLFlowLogger</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.loggers.MSMLFlowLogger.close"><code class="docutils literal notranslate"><span class="pre">MSMLFlowLogger.close()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.loggers.MSMLFlowLogger.log_figure"><code class="docutils literal notranslate"><span class="pre">MSMLFlowLogger.log_figure()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.loggers.MSMLFlowLogger.log_image_file"><code class="docutils literal notranslate"><span class="pre">MSMLFlowLogger.log_image_file()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.loggers.MSMLFlowLogger.log_params_from_omegaconf_dict"><code class="docutils literal notranslate"><span class="pre">MSMLFlowLogger.log_params_from_omegaconf_dict()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.loggers.MSMLFlowLogger.log_params_to_mlflow"><code class="docutils literal notranslate"><span class="pre">MSMLFlowLogger.log_params_to_mlflow()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.loggers.MSMLFlowLogger.mlf_log_string"><code class="docutils literal notranslate"><span class="pre">MSMLFlowLogger.mlf_log_string()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.loggers.MSMLFlowLogger.mlf_set_tag"><code class="docutils literal notranslate"><span class="pre">MSMLFlowLogger.mlf_set_tag()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.loggers.MSMLFlowLogger.mlf_setup_tags"><code class="docutils literal notranslate"><span class="pre">MSMLFlowLogger.mlf_setup_tags()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.loggers.MSTensorBoardLogger"><code class="docutils literal notranslate"><span class="pre">MSTensorBoardLogger</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.loggers.MSTensorBoardLogger.close"><code class="docutils literal notranslate"><span class="pre">MSTensorBoardLogger.close()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.loggers.MSTensorBoardLogger.log_figure"><code class="docutils literal notranslate"><span class="pre">MSTensorBoardLogger.log_figure()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.loggers.MSTensorBoardLogger.log_image_file"><code class="docutils literal notranslate"><span class="pre">MSTensorBoardLogger.log_image_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.loggers.filter_pytorch_lightning_warnings"><code class="docutils literal notranslate"><span class="pre">filter_pytorch_lightning_warnings()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.metrics">masskit_ai.metrics module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.metrics.BaseLossMetric"><code class="docutils literal notranslate"><span class="pre">BaseLossMetric</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.metrics.BaseLossMetric.compute"><code class="docutils literal notranslate"><span class="pre">BaseLossMetric.compute()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.metrics.BaseLossMetric.update"><code class="docutils literal notranslate"><span class="pre">BaseLossMetric.update()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.metrics.BaseMetric"><code class="docutils literal notranslate"><span class="pre">BaseMetric</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.metrics.BaseMetric.compute"><code class="docutils literal notranslate"><span class="pre">BaseMetric.compute()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.metrics.BaseMetric.extract_spectra"><code class="docutils literal notranslate"><span class="pre">BaseMetric.extract_spectra()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.metrics.BaseMetric.update"><code class="docutils literal notranslate"><span class="pre">BaseMetric.update()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.metrics.KLMetric"><code class="docutils literal notranslate"><span class="pre">KLMetric</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.metrics.KLMetric.compute"><code class="docutils literal notranslate"><span class="pre">KLMetric.compute()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.metrics.KLMetric.update"><code class="docutils literal notranslate"><span class="pre">KLMetric.update()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.metrics.L1Metric"><code class="docutils literal notranslate"><span class="pre">L1Metric</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.metrics.MSEMetric"><code class="docutils literal notranslate"><span class="pre">MSEMetric</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.metrics.SpectrumCosineMetric"><code class="docutils literal notranslate"><span class="pre">SpectrumCosineMetric</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.metrics.SpectrumMSEMetric"><code class="docutils literal notranslate"><span class="pre">SpectrumMSEMetric</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.metrics.SpectrumNormalNLLMetric"><code class="docutils literal notranslate"><span class="pre">SpectrumNormalNLLMetric</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.prediction">masskit_ai.prediction module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.prediction.Predictor"><code class="docutils literal notranslate"><span class="pre">Predictor</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.prediction.Predictor.add_item"><code class="docutils literal notranslate"><span class="pre">Predictor.add_item()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.prediction.Predictor.apply_dropout"><code class="docutils literal notranslate"><span class="pre">Predictor.apply_dropout()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.prediction.Predictor.create_dataloaders"><code class="docutils literal notranslate"><span class="pre">Predictor.create_dataloaders()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.prediction.Predictor.create_items"><code class="docutils literal notranslate"><span class="pre">Predictor.create_items()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.prediction.Predictor.finalize_items"><code class="docutils literal notranslate"><span class="pre">Predictor.finalize_items()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.prediction.Predictor.load_model"><code class="docutils literal notranslate"><span class="pre">Predictor.load_model()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.prediction.Predictor.prep_model_for_prediction"><code class="docutils literal notranslate"><span class="pre">Predictor.prep_model_for_prediction()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.prediction.Predictor.single_prediction"><code class="docutils literal notranslate"><span class="pre">Predictor.single_prediction()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.prediction.Predictor.write_items"><code class="docutils literal notranslate"><span class="pre">Predictor.write_items()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.samplers">masskit_ai.samplers module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.samplers.BaseSampler"><code class="docutils literal notranslate"><span class="pre">BaseSampler</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.samplers.BaseSampler.probability"><code class="docutils literal notranslate"><span class="pre">BaseSampler.probability()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.samplers.DatasetFromSampler"><code class="docutils literal notranslate"><span class="pre">DatasetFromSampler</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.samplers.DistributedSamplerWrapper"><code class="docutils literal notranslate"><span class="pre">DistributedSamplerWrapper</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai">Module contents</a><ul>
+<li><a class="reference internal" href="#masskit_ai.DeviceMode"><code class="docutils literal notranslate"><span class="pre">DeviceMode</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.set_torch_config"><code class="docutils literal notranslate"><span class="pre">set_torch_config()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1227,7 +1570,7 @@ that is exclusive to it.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai package</a></li> 
       </ul>
     </div>

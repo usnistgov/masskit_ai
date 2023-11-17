@@ -1,8 +1,10 @@
-import torch
-from masskit.peptide.encoding import Uniprot21, mod_masses
-import masskit_ai.spectrum.peptide.peptide_constants as constants
 import logging
+
 import numpy as np
+import torch
+from masskit.data import Uniprot21, mod_masses
+
+import masskit_ai.spectrum.peptide.peptide_constants as constants
 from masskit_ai.spectrum.spectrum_embed import Embed1D
 
 """

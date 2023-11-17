@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; masskit_ai 1.0.0-60-ge055069 documentation</title>
+    <title>Index &#8212; masskit_ai 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/nature.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -13,6 +13,7 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
@@ -55,7 +56,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Index</a></li> 
       </ul>
     </div>  
@@ -240,8 +241,6 @@ $(document).ready(function(){
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="sources/masskit_ai.test_fixtures.html#masskit_ai.test_fixtures.config_predict_airi_smiles">config_predict_airi_smiles() (in module masskit_ai.test_fixtures)</a>
-</li>
       <li><a href="sources/masskit_ai.test_fixtures.html#masskit_ai.test_fixtures.config_predict_peptide">config_predict_peptide() (in module masskit_ai.test_fixtures)</a>
 </li>
       <li><a href="sources/masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule.configure_optimizers">configure_optimizers() (masskit_ai.spectrum.spectrum_lightning.BaseSpectrumLightningModule method)</a>
@@ -287,6 +286,8 @@ $(document).ready(function(){
 </li>
       </ul></li>
       <li><a href="sources/masskit_ai.spectrum.html#masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor.create_mz_tolerance">create_mz_tolerance() (masskit_ai.spectrum.spectrum_prediction.PeptideSpectrumPredictor method)</a>
+</li>
+      <li><a href="sources/masskit_ai.apps.ml.peptide.html#masskit_ai.apps.ml.peptide.create_peptide_library.create_peptide_library_app">create_peptide_library_app() (in module masskit_ai.apps.ml.peptide.create_peptide_library)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -594,6 +595,8 @@ $(document).ready(function(){
       </ul></li>
       <li><a href="sources/masskit_ai.mol.small.models.html#masskit_ai.mol.small.models.gf.BaseFairseqModel.get_targets">get_targets() (masskit_ai.mol.small.models.gf.BaseFairseqModel method)</a>
 </li>
+      <li><a href="sources/masskit_ai.mol.small.models.html#masskit_ai.mol.small.models.path_utils.get_value_attr">get_value_attr() (in module masskit_ai.mol.small.models.path_utils)</a>
+</li>
       <li><a href="sources/masskit_ai.html#masskit_ai.base_datasets.BaseDataset.get_x">get_x() (masskit_ai.base_datasets.BaseDataset method)</a>
 
       <ul>
@@ -726,12 +729,6 @@ $(document).ready(function(){
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="sources/masskit_ai.apps.ml.peptide.html#masskit_ai.apps.ml.peptide.create_peptide_library.main">main() (in module masskit_ai.apps.ml.peptide.create_peptide_library)</a>
-
-      <ul>
-        <li><a href="sources/masskit_ai.apps.ml.peptide.html#masskit_ai.apps.ml.peptide.train.main">(in module masskit_ai.apps.ml.peptide.train)</a>
-</li>
-      </ul></li>
       <li><a href="sources/masskit_ai.mol.small.models.html#masskit_ai.mol.small.models.gf.BaseFairseqModel.make_generation_fast_">make_generation_fast_() (masskit_ai.mol.small.models.gf.BaseFairseqModel method)</a>
 
       <ul>
@@ -1178,8 +1175,6 @@ $(document).ready(function(){
         <li><a href="sources/masskit_ai.spectrum.small_mol.models.html#module-masskit_ai.spectrum.small_mol.models">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     masskit_ai.spectrum.small_mol.models.small_mol_models
 
@@ -1187,6 +1182,8 @@ $(document).ready(function(){
         <li><a href="sources/masskit_ai.spectrum.small_mol.models.html#module-masskit_ai.spectrum.small_mol.models.small_mol_models">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     masskit_ai.spectrum.small_mol.small_mol_datasets
 
@@ -1560,17 +1557,15 @@ $(document).ready(function(){
 </li>
       <li><a href="sources/masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.pfblock">pfblock (class in masskit_ai.spectrum.peptide.models.aiomic)</a>
 </li>
-      <li><a href="sources/masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.PFCompoundConv">PFCompoundConv (class in masskit_ai.spectrum.peptide.models.aiomic)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="sources/masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.PFCompoundConv">PFCompoundConv (class in masskit_ai.spectrum.peptide.models.aiomic)</a>
+</li>
       <li><a href="sources/masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.aiomic.PredFull">PredFull (class in masskit_ai.spectrum.peptide.models.aiomic)</a>
 </li>
       <li><a href="sources/masskit_ai.apps.ml.peptide.html#masskit_ai.apps.ml.peptide.predict.predict_app">predict_app() (in module masskit_ai.apps.ml.peptide.predict)</a>
 </li>
       <li><a href="sources/masskit_ai.test_fixtures.html#masskit_ai.test_fixtures.predicted_airi_csv">predicted_airi_csv() (in module masskit_ai.test_fixtures)</a>
-</li>
-      <li><a href="sources/masskit_ai.test_fixtures.html#masskit_ai.test_fixtures.predicted_airi_smiles">predicted_airi_smiles() (in module masskit_ai.test_fixtures)</a>
 </li>
       <li><a href="sources/masskit_ai.test_fixtures.html#masskit_ai.test_fixtures.predicted_human_uniprot_trunc_parquet">predicted_human_uniprot_trunc_parquet() (in module masskit_ai.test_fixtures)</a>
 </li>
@@ -1764,6 +1759,8 @@ $(document).ready(function(){
         <li><a href="sources/masskit_ai.spectrum.peptide.models.html#masskit_ai.spectrum.peptide.models.AIomicsRNN.AIomicsRNN.total_params">(masskit_ai.spectrum.peptide.models.AIomicsRNN.AIomicsRNN method)</a>
 </li>
       </ul></li>
+      <li><a href="sources/masskit_ai.apps.ml.peptide.html#masskit_ai.apps.ml.peptide.train.train_app">train_app() (in module masskit_ai.apps.ml.peptide.train)</a>
+</li>
       <li><a href="sources/masskit_ai.html#masskit_ai.lightning.BaseDataModule.train_dataloader">train_dataloader() (masskit_ai.lightning.BaseDataModule method)</a>
 </li>
       <li><a href="sources/masskit_ai.spectrum.small_mol.html#masskit_ai.spectrum.small_mol.small_mol_lightning.SearchLightningModule.training_step">training_step() (masskit_ai.spectrum.small_mol.small_mol_lightning.SearchLightningModule method)</a>
@@ -1908,7 +1905,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Index</a></li> 
       </ul>
     </div>

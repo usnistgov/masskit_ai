@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>masskit_ai.spectrum.small_mol package &#8212; masskit_ai 1.0.0-60-ge055069 documentation</title>
+    <title>masskit_ai.spectrum.small_mol package &#8212; masskit_ai 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -14,6 +14,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -56,7 +57,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.spectrum.small_mol package</a></li> 
       </ul>
     </div>  
@@ -74,7 +75,54 @@ $(document).ready(function(){
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html">masskit_ai.spectrum.small_mol.models package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#module-masskit_ai.spectrum.small_mol.models.small_mol_models">masskit_ai.spectrum.small_mol.models.small_mol_models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#module-masskit_ai.spectrum.small_mol.models.small_mol_models">masskit_ai.spectrum.small_mol.models.small_mol_models module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.AIMSNet"><code class="docutils literal notranslate"><span class="pre">AIMSNet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.AIMSNet.forward"><code class="docutils literal notranslate"><span class="pre">AIMSNet.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.BasicBlock"><code class="docutils literal notranslate"><span class="pre">BasicBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.BasicBlock.forward"><code class="docutils literal notranslate"><span class="pre">BasicBlock.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.Conv1dSamePadding"><code class="docutils literal notranslate"><span class="pre">Conv1dSamePadding</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.Conv1dSamePadding.forward"><code class="docutils literal notranslate"><span class="pre">Conv1dSamePadding.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.ConvBlock"><code class="docutils literal notranslate"><span class="pre">ConvBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.ConvBlock.forward"><code class="docutils literal notranslate"><span class="pre">ConvBlock.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.LocalLinear"><code class="docutils literal notranslate"><span class="pre">LocalLinear</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.LocalLinear.forward"><code class="docutils literal notranslate"><span class="pre">LocalLinear.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.MyConv1dPadSame"><code class="docutils literal notranslate"><span class="pre">MyConv1dPadSame</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.MyConv1dPadSame.forward"><code class="docutils literal notranslate"><span class="pre">MyConv1dPadSame.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.MyMaxPool1dPadSame"><code class="docutils literal notranslate"><span class="pre">MyMaxPool1dPadSame</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.MyMaxPool1dPadSame.forward"><code class="docutils literal notranslate"><span class="pre">MyMaxPool1dPadSame.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.ResNetBaseline"><code class="docutils literal notranslate"><span class="pre">ResNetBaseline</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.ResNetBaseline.forward"><code class="docutils literal notranslate"><span class="pre">ResNetBaseline.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.ResNetBaseline_new"><code class="docutils literal notranslate"><span class="pre">ResNetBaseline_new</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.ResNetBaseline_new.forward"><code class="docutils literal notranslate"><span class="pre">ResNetBaseline_new.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.ResNetBlock"><code class="docutils literal notranslate"><span class="pre">ResNetBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.ResNetBlock.forward"><code class="docutils literal notranslate"><span class="pre">ResNetBlock.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.SimpleNet"><code class="docutils literal notranslate"><span class="pre">SimpleNet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.SimpleNet.forward"><code class="docutils literal notranslate"><span class="pre">SimpleNet.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#masskit_ai.spectrum.small_mol.models.small_mol_models.conv1d_same_padding"><code class="docutils literal notranslate"><span class="pre">conv1d_same_padding()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="masskit_ai.spectrum.small_mol.models.html#module-masskit_ai.spectrum.small_mol.models">Module contents</a></li>
 </ul>
 </li>
@@ -319,9 +367,41 @@ assumes:
 <li><a class="reference internal" href="#">masskit_ai.spectrum.small_mol package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.spectrum.small_mol.small_mol_datasets">masskit_ai.spectrum.small_mol.small_mol_datasets module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.spectrum.small_mol.small_mol_lightning">masskit_ai.spectrum.small_mol.small_mol_lightning module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.spectrum.small_mol.small_mol_losses">masskit_ai.spectrum.small_mol.small_mol_losses module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.spectrum.small_mol.small_mol_datasets">masskit_ai.spectrum.small_mol.small_mol_datasets module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_datasets.TandemArrowSearchDataset"><code class="docutils literal notranslate"><span class="pre">TandemArrowSearchDataset</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_datasets.TandemArrowSearchDataset.data"><code class="docutils literal notranslate"><span class="pre">TandemArrowSearchDataset.data</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_datasets.TandemArrowSearchDataset.data_search"><code class="docutils literal notranslate"><span class="pre">TandemArrowSearchDataset.data_search</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_datasets.TandemArrowSearchDataset.get_data_row"><code class="docutils literal notranslate"><span class="pre">TandemArrowSearchDataset.get_data_row()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_datasets.TandemArrowSearchDataset.get_x"><code class="docutils literal notranslate"><span class="pre">TandemArrowSearchDataset.get_x()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_datasets.TandemArrowSearchDataset.get_y"><code class="docutils literal notranslate"><span class="pre">TandemArrowSearchDataset.get_y()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_datasets.TandemArrowSearchDataset.index"><code class="docutils literal notranslate"><span class="pre">TandemArrowSearchDataset.index</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_datasets.TandemArrowSearchDataset.row2id"><code class="docutils literal notranslate"><span class="pre">TandemArrowSearchDataset.row2id</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_datasets.TandemArrowSearchDataset.row2id_search"><code class="docutils literal notranslate"><span class="pre">TandemArrowSearchDataset.row2id_search</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_datasets.TandemArrowSearchDataset.spectrum2array"><code class="docutils literal notranslate"><span class="pre">TandemArrowSearchDataset.spectrum2array()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.spectrum.small_mol.small_mol_lightning">masskit_ai.spectrum.small_mol.small_mol_lightning module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_lightning.SearchLightningModule"><code class="docutils literal notranslate"><span class="pre">SearchLightningModule</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_lightning.SearchLightningModule.pairwise_search_model"><code class="docutils literal notranslate"><span class="pre">SearchLightningModule.pairwise_search_model()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_lightning.SearchLightningModule.training_step"><code class="docutils literal notranslate"><span class="pre">SearchLightningModule.training_step()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_lightning.SearchLightningModule.validation_test_step"><code class="docutils literal notranslate"><span class="pre">SearchLightningModule.validation_test_step()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_lightning.SmallMolSearchDataModule"><code class="docutils literal notranslate"><span class="pre">SmallMolSearchDataModule</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_lightning.SmallMolSearchDataModule.get_subsets"><code class="docutils literal notranslate"><span class="pre">SmallMolSearchDataModule.get_subsets()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-masskit_ai.spectrum.small_mol.small_mol_losses">masskit_ai.spectrum.small_mol.small_mol_losses module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_losses.SearchLoss"><code class="docutils literal notranslate"><span class="pre">SearchLoss</span></code></a><ul>
+<li><a class="reference internal" href="#masskit_ai.spectrum.small_mol.small_mol_losses.SearchLoss.forward"><code class="docutils literal notranslate"><span class="pre">SearchLoss.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-masskit_ai.spectrum.small_mol">Module contents</a></li>
 </ul>
 </li>
@@ -358,7 +438,7 @@ assumes:
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.spectrum.small_mol package</a></li> 
       </ul>
     </div>

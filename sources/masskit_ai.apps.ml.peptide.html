@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>masskit_ai.apps.ml.peptide package &#8212; masskit_ai 1.0.0-60-ge055069 documentation</title>
+    <title>masskit_ai.apps.ml.peptide package &#8212; masskit_ai 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -14,6 +14,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -56,7 +57,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.apps.ml.peptide package</a></li> 
       </ul>
     </div>  
@@ -93,8 +94,8 @@ $(document).ready(function(){
 <section id="module-masskit_ai.apps.ml.peptide.create_peptide_library">
 <span id="masskit-ai-apps-ml-peptide-create-peptide-library-module"></span><h2>masskit_ai.apps.ml.peptide.create_peptide_library module<a class="headerlink" href="#module-masskit_ai.apps.ml.peptide.create_peptide_library" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="masskit_ai.apps.ml.peptide.create_peptide_library.main">
-<span class="sig-prename descclassname"><span class="pre">masskit_ai.apps.ml.peptide.create_peptide_library.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.apps.ml.peptide.create_peptide_library.main" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="masskit_ai.apps.ml.peptide.create_peptide_library.create_peptide_library_app">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.apps.ml.peptide.create_peptide_library.</span></span><span class="sig-name descname"><span class="pre">create_peptide_library_app</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.apps.ml.peptide.create_peptide_library.create_peptide_library_app" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>
@@ -129,13 +130,13 @@ $(document).ready(function(){
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="masskit_ai.apps.ml.peptide.train.main">
-<span class="sig-prename descclassname"><span class="pre">masskit_ai.apps.ml.peptide.train.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">omegaconf.DictConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.apps.ml.peptide.train.main" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="masskit_ai.apps.ml.peptide.train.setup_loggers">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.apps.ml.peptide.train.</span></span><span class="sig-name descname"><span class="pre">setup_loggers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifacts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.apps.ml.peptide.train.setup_loggers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="masskit_ai.apps.ml.peptide.train.setup_loggers">
-<span class="sig-prename descclassname"><span class="pre">masskit_ai.apps.ml.peptide.train.</span></span><span class="sig-name descname"><span class="pre">setup_loggers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifacts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.apps.ml.peptide.train.setup_loggers" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="masskit_ai.apps.ml.peptide.train.train_app">
+<span class="sig-prename descclassname"><span class="pre">masskit_ai.apps.ml.peptide.train.</span></span><span class="sig-name descname"><span class="pre">train_app</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">omegaconf.DictConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#masskit_ai.apps.ml.peptide.train.train_app" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>
@@ -157,12 +158,23 @@ $(document).ready(function(){
 <li><a class="reference internal" href="#">masskit_ai.apps.ml.peptide package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.apps.ml.peptide.create_peptide_library">masskit_ai.apps.ml.peptide.create_peptide_library module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.apps.ml.peptide.create_peptide_library">masskit_ai.apps.ml.peptide.create_peptide_library module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.apps.ml.peptide.create_peptide_library.create_peptide_library_app"><code class="docutils literal notranslate"><span class="pre">create_peptide_library_app()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#masskit-ai-apps-ml-peptide-experimental-divide-module">masskit_ai.apps.ml.peptide.experimental_divide module</a></li>
 <li><a class="reference internal" href="#module-masskit_ai.apps.ml.peptide.experimental_join">masskit_ai.apps.ml.peptide.experimental_join module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.apps.ml.peptide.predict">masskit_ai.apps.ml.peptide.predict module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.apps.ml.peptide.predict">masskit_ai.apps.ml.peptide.predict module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.apps.ml.peptide.predict.predict_app"><code class="docutils literal notranslate"><span class="pre">predict_app()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#masskit-ai-apps-ml-peptide-predict-hitlist-module">masskit_ai.apps.ml.peptide.predict_hitlist module</a></li>
-<li><a class="reference internal" href="#module-masskit_ai.apps.ml.peptide.train">masskit_ai.apps.ml.peptide.train module</a></li>
+<li><a class="reference internal" href="#module-masskit_ai.apps.ml.peptide.train">masskit_ai.apps.ml.peptide.train module</a><ul>
+<li><a class="reference internal" href="#masskit_ai.apps.ml.peptide.train.create_experiment_name"><code class="docutils literal notranslate"><span class="pre">create_experiment_name()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.apps.ml.peptide.train.setup_loggers"><code class="docutils literal notranslate"><span class="pre">setup_loggers()</span></code></a></li>
+<li><a class="reference internal" href="#masskit_ai.apps.ml.peptide.train.train_app"><code class="docutils literal notranslate"><span class="pre">train_app()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-masskit_ai.apps.ml.peptide">Module contents</a></li>
 </ul>
 </li>
@@ -199,7 +211,7 @@ $(document).ready(function(){
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.0.0-60-ge055069 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">masskit_ai 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">masskit_ai.apps.ml.peptide package</a></li> 
       </ul>
     </div>
