@@ -37,14 +37,14 @@ hydra:
 predict:
   # for ensembles, add a list to model_ensemble of paths to the checkpoints
   model_ensemble:
-    - https://github.com/usnistgov/masskit_ai/releases/download/v.1.2.0/airi_model_v3_1.tgz
-    - https://github.com/usnistgov/masskit_ai/releases/download/v.1.2.0/airi_model_v3_2.tgz
-    - https://github.com/usnistgov/masskit_ai/releases/download/v.1.2.0/airi_model_v3_3.tgz
-    - https://github.com/usnistgov/masskit_ai/releases/download/v.1.2.0/airi_model_v3_4.tgz
-    - https://github.com/usnistgov/masskit_ai/releases/download/v.1.2.0/airi_model_v3_5.tgz
-    - https://github.com/usnistgov/masskit_ai/releases/download/v.1.2.0/airi_model_v3_6.tgz
-    - https://github.com/usnistgov/masskit_ai/releases/download/v.1.2.0/airi_model_v3_7.tgz
-    - https://github.com/usnistgov/masskit_ai/releases/download/v.1.2.0/airi_model_v3_8.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.2.0/airi_model_v3_1.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.2.0/airi_model_v3_2.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.2.0/airi_model_v3_3.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.2.0/airi_model_v3_4.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.2.0/airi_model_v3_5.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.2.0/airi_model_v3_6.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.2.0/airi_model_v3_7.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.2.0/airi_model_v3_8.tgz
   model_draws: 1  # number of draws per model
   num: 0 # number of values to predict
   dropout: False  # turn on dropout

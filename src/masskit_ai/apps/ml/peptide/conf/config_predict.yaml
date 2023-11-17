@@ -37,7 +37,7 @@ hydra:
 predict:
   # for ensembles, add a list to model_ensemble of paths to the checkpoints
   model_ensemble:
-    - https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/aiomics_model.tgz
+    - https://github.com/usnistgov/masskit_ai/releases/download/v1.2.0/aiomics_model.tgz
   model_draws: 1  # number of draws per model
   num: 0  # number of spectra to predict
   start: 0  # row # of the first spectrum to predict
