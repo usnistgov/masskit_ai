@@ -23,14 +23,16 @@ the command line.
   * `predict.model_ensemble=[https://github.com/usnistgov/masskit_ai/releases/download/v1.0.0/aiomics_model.tgz]` is a list of AI networks to use for prediction
   * `predict.upres=True` perform upresolution on the spectra
 
-Example set of commands to predict spectra from a fasta file `uniprot.fasta`:
+To get additional help on options for these programs, run the program using the `-h` option.
+
+#### Example set of commands to predict spectra from a fasta file `uniprot.fasta`
 
 ```bash
 fasta2peptides input.file=uniprot.fasta output.file=uniprot_peptides.parquet
 predict input.test.spectral_library=uniprot_peptides.parquet predict.output_prefix=uniprot_peptides predict.output_suffixes=[mgf,msp]
 ```
 
-The predicted spectra are found in the files `uniprot_peptides.msp` and `uniprot_peptides.mgf`
+The predicted spectra are found in the files `uniprot_peptides.msp` and `uniprot_peptides.mgf`.
 
 ## Predicting RI values using AIRI
 
@@ -50,11 +52,15 @@ to generate a more normal distribution of RI values.
 
 ```bash
 batch_converter input.file.names=my_csv.csv output.file.name=my_csv output.file.types=[parquet] conversion.csv.smiles_column_name=molecules
-shortest_path input.file.name=my_csv.parquet output.file.name=my_csv_path.parquet
+reactor input.file.name=my_csv.parquet output.file.name=my_csv_derivatized.parquet conversion.num_tautomers=5 conversion.mass_range=[0,5000] conversion.reactant_names=[trimethylsilylation] 
+shortest_path input.file.name=my_csv_derivatized.parquet output.file.name=my_csv_path.parquet
 predict --config-name config_predict_ri input.test.spectral_library=my_csv_path.parquet predict.output_prefix=my_csv_predicted predict.output_suffixes=[csv]
 ```
 
-The AIRI values are found in the file `my_csv_predicted.csv`
+The AIRI values are found in the file `my_csv_predicted.csv`. The use of `reactor` to derivatize molecules is optional.
+If `reactor` is removed from the list of commands, use the output from `batch_converter`
+as the input file to `shortest_path`, e.g.`shortest_path input.file.name=my_csv.parquet output.file.name=my_csv_path.parquet`.
+To get additional help on options for these programs, run the program using the `-h` option.
 
 ### Example set of commands to calculate AIRI values from an SDF molfile `my_sdf.sdf`
 

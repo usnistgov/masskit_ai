@@ -9,7 +9,7 @@ from masskit_ai.base_objects import ModelInput
 from masskit_ai.spectrum.small_mol.small_mol_lightning import SearchLightningModule
 import numpy as np
 import torch
-from masskit.utils.general import MassKitSearchPathPlugin
+from masskit.utils.general import MassKitSearchPathPlugin, read_arrow, write_arrow
 from hydra.core.plugins import Plugins
 
 
@@ -28,7 +28,7 @@ def create_feature_vector_app(config):
     parquet_file = Path(to_absolute_path(config.input.file)).expanduser()
 
     # load the library as a LibraryMap
-    table = pq.read_table(parquet_file)
+    table = read_arrow(parquet_file)
     annotation_map = ArrowLibraryMap(table)
 
     # lightning module has to be configurable
@@ -73,8 +73,7 @@ def create_feature_vector_app(config):
     table = table.cast(table.schema.set(i, table.schema.field(i).with_metadata(
         {"fp_size": feature_vector_size.to_bytes(8, byteorder='big')})))
 
-    pq.write_table(table, Path(config.output.file).expanduser(),
-                   row_group_size=5000)
+    write_arrow(table, Path(config.output.file).expanduser(), row_group_size=5000)
 
 
 if __name__ == "__main__":
