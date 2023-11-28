@@ -6,6 +6,7 @@ import pyarrow as pa
 import torch
 from masskit.utils.accumulator import AccumulatorProperty
 from masskit.data_specs.file_schemas import csv_drop_fields
+from masskit.utils.general import class_for_name
 from pyarrow import csv as pacsv
 
 from masskit_ai import _device
@@ -22,6 +23,11 @@ class MolPropPredictor(Predictor):
     def __init__(self, config=None, *args, **kwargs):
         super().__init__(config=config, *args, **kwargs)
         self.items = []  # the items to predict
+        # the accumulator class
+        self.accumulator = class_for_name(config.paths.modules.prediction,
+                                          config.predict.get("accumulator", 
+                                                             "AccumulatorProperty"))
+
         self.output_prefix = str(Path(config.predict.output_prefix).expanduser())
         if "csv" in self.config.predict.output_suffixes:
             self.csv = None
@@ -55,7 +61,7 @@ class MolPropPredictor(Predictor):
             end = min(start+self.row_group_size, len(self.dataloaders[dataloader_idx].dataset.data))
 
         for i in range(start, end):
-            self.items.append(AccumulatorProperty()) 
+            self.items.append(self.accumulator()) 
 
         return self.items
         
@@ -167,5 +173,60 @@ class MolPropPredictor(Predictor):
                 self.csv.close()
 
 
-# for command line, need to take original compounds and tautomerize and derivatize them
-# would be nice to display a graph.
+class AccumulatorAIRI(AccumulatorProperty):
+    """
+    accumulator with the AIRI predicted standard deviation correction from Geer et al. 2024
+    """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.corrections = [
+            3.3025433724785307,
+            2.106851096543382,
+            1.6125795977955588,
+            1.3811891225110602,
+            1.257337617482262,
+            1.198053135796777,
+            1.1555841253757473,
+            1.0978786961593128,
+            1.083984534298343,
+            1.0643445858640375,
+            1.0537509166216747,
+            1.0109826383137996,
+            0.9930032511483983,
+            0.991049752547334,
+            0.9796592787796974, 
+            0.9475810609426271, 
+            0.9209559852985938, 
+            1.0298742018601368, 
+            0.8491898961202649, 
+            0.919136405411796, 
+            1.028022270964323, 
+            0.9525348786923363, 
+            0.9655304623288548, 
+            0.961960139659409, 
+            1.0352858813567667, 
+            0.9197595302255215, 
+            1.0286739978644306, 
+            1.1100359022427024, 
+            1.0283136145494205, 
+            1.0760922588908612, 
+            1.0992211363911804, 
+            0.9113198257028539, 
+            1.1407931723731588, 
+            1.2338976143312628, 
+            1.2295029908697706, 
+            1.3243341631437622, 
+            1.3660884050112316
+            ]
+        self.correction_step = 2
+
+
+    def finalize(self):
+        """
+        finalize the std deviation after all the the spectra have been added, 
+        then apply a correction. Corrections generated from analysis in analyze_new_model.ipynb
+        """
+        super().finalize()
+        i = int(max(0, min(len(self.corrections)-1, self.predicted_stddev // self.correction_step)))
+        self.predicted_stddev *= self.corrections[i]
+

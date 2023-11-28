@@ -53,3 +53,4 @@ modules:
   prediction:
     - masskit_ai.spectrum.spectrum_prediction
     - masskit_ai.mol.mol_prediction
+    - masskit.utils.accumulator

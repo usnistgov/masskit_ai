@@ -49,6 +49,7 @@ predict:
   dataloader: MolPropDataset  # the class name of the dataloader to use.  searches in paths.modules.dataloaders
   set_to_load: train  # data set to do predictions on
   predictor: MolPropPredictor  # the class used for prediction
+  accumulator: AccumulatorAIRI  # processes outputs from the model to get mean and corrected stddev
 
 # Information
 #
