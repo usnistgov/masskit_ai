@@ -1,10 +1,14 @@
+import pathlib
+from abc import ABC, abstractmethod
+
 import numpy as np
 import torch
-from abc import ABC, abstractmethod
 from masskit.utils.general import get_file
+
+from masskit_ai import _device
 from masskit_ai.lightning import MasskitDataModule, setup_datamodule
 from masskit_ai.spectrum.spectrum_lightning import SpectrumLightningModule
-from masskit_ai import _device
+
 
 class Predictor(ABC):
     def __init__(self, config=None, *args, **kwargs):
@@ -39,7 +43,14 @@ class Predictor(ABC):
         filename = get_file(model_name, search_path=self.config.paths.search_path, tgz_extension='.ckpt')
         if filename is None:
             raise ValueError(f'model {model_name} is not found')
-        model = SpectrumLightningModule.load_from_checkpoint(filename, map_location=_device)
+        try:
+            model = SpectrumLightningModule.load_from_checkpoint(filename, map_location=_device)
+        except NotImplementedError:
+            posix_backup = pathlib.PosixPath
+            pathlib.PosixPath = pathlib.WindowsPath
+            model = SpectrumLightningModule.load_from_checkpoint(filename, map_location=_device)
+            pathlib.PosixPath = posix_backup
+
         # for some reason, pytorch lightning insists on loading model to cpu even though state dict is on gpu
         # so force it onto the current device
         model.to(device=_device)
