@@ -38,6 +38,10 @@ The predicted spectra are found in the files `uniprot_peptides.msp` and `uniprot
 
 The first step in prediction is to use [`batch_converter`](https://pages.nist.gov/masskit/recipes.html#library-import) to convert SDF molfiles or CSV files containing SMILES to parquet format,
 which is the standard format Masskit uses for processing.
+When reading from an sdf file, you can specify the field used as the ID by setting
+conversion.sdf.id.field to the field name, e.g. `conversion.sdf.id.field=NISTNO`.
+
+The program `reactor` can be optionally used to derivatize and generate tautomers of the original structures.
 
 Once parquet files are generated, molecular bond path information, which is a feature used by the
 AIRI model, should be calculated and added to the parquet file using the program `shortest_path`.
@@ -66,6 +70,7 @@ To get additional help on options for these programs, run the program using the 
 
 ```bash
 batch_converter input.file.names=my_sdf.sdf output.file.name=my_sdf output.file.types=[parquet]
+reactor input.file.name=my_sdf.parquet output.file.name=my_csv_derivatized.parquet conversion.num_tautomers=5 conversion.mass_range=[0,5000] conversion.reactant_names=[trimethylsilylation]
 shortest_path input.file.name=my_sdf.parquet output.file.name=my_sdf_path.parquet
 predict --config-name config_predict_ri input.test.spectral_library=my_sdf_path.parquet predict.output_prefix=my_sdf_predicted predict.output_suffixes=[csv]
 ```
