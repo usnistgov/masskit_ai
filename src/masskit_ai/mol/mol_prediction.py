@@ -130,13 +130,13 @@ class MolPropPredictor(Predictor):
         for item_idx in range(len(self.items)):
             means_out[item_idx] = self.items[item_idx].predicted_mean
             stddev_out[item_idx] = self.items[item_idx].predicted_stddev
-        means_out = pa.array(means_out)
-        stddev_out = pa.array(stddev_out)
-        table = table.append_column('predicted_ri', means_out)
-        table = table.append_column('predicted_ri_stddev', stddev_out)
-        clipped_stddev = pa.compute.if_else(pa.compute.less(stddev_out,  self.config.ms.clip),
-                                             self.config.ms.clip, stddev_out)
-        table = table.append_column('predicted_ri_stddev_clip', clipped_stddev)
+        table = table.append_column('predicted_ri', pa.array(means_out))
+        table = table.append_column('predicted_ri_stddev', pa.array(stddev_out))
+        if isinstance(self.items[item_idx], AccumulatorAIRI):
+            confidence_interval = np.empty((len(self.items,)), dtype=np.float64)
+            for item_idx in range(len(self.items)):
+                confidence_interval[item_idx] = self.items[item_idx].confidence_interval
+            table = table.append_column('confidence_interval', pa.array(confidence_interval))
         if "arrow" in self.config.predict.output_suffixes:
             if self.arrow is None:
                 self.arrow = pa.RecordBatchFileWriter(pa.OSFile(f'{self.output_prefix}.arrow', 'wb'),
@@ -219,6 +219,8 @@ class AccumulatorAIRI(AccumulatorProperty):
             1.3660884050112316
             ]
         self.correction_step = 2
+        # 95th percentile confidence interval
+        self.confidence_interval = None
 
 
     def finalize(self):
@@ -229,4 +231,5 @@ class AccumulatorAIRI(AccumulatorProperty):
         super().finalize()
         i = int(max(0, min(len(self.corrections)-1, self.predicted_stddev // self.correction_step)))
         self.predicted_stddev *= self.corrections[i]
+        self.confidence_interval = self.predicted_stddev * 2.04635  # from analyze_new_model.ipynb
 

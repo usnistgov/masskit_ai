@@ -28,15 +28,6 @@ except ImportError:
 @hydra.main(config_path="conf", config_name="config_predict", version_base=None)
 def predict_app(config):
 
-    # Quick fix for the following error message:
-    #
-    #   RuntimeWarning: pickle-based deserialization of pyarrow.PyExtensionType subclasses is disabled by default; 
-    #   if you only ingest trusted data files, you may re-enable this using `pyarrow.PyExtensionType.set_auto_load(True)`.
-    #   In the future, Python-defined extension subclasses should derive from pyarrow.ExtensionType 
-    #   (not pyarrow.PyExtensionType) and implement their own serialization mechanism.
-    # TODO: needs to be fixed right
-    pa.PyExtensionType.set_auto_load(True)
-
     with logging_redirect_tqdm():
 
         if config.setup.reproducable_seed is None:
