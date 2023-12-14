@@ -11,8 +11,9 @@ build:masskit_ai:
       ref: main
       artifacts: true
   script:
+    - '[ -z "$CI_COMMIT_BRANCH" ] && CONDA_SUFFIX=main || CONDA_SUFFIX=$CI_COMMIT_BRANCH'
     - source $HOME/miniconda3/bin/activate
-    - conda activate masskit_ai_cpu_${CI_COMMIT_BRANCH}
+    - conda activate masskit_ai_cpu_${CONDA_SUFFIX}
     - pip install --force-reinstall masskit-*.whl
     - VERBOSE=1 pip wheel --no-build-isolation .
   tags:
@@ -31,8 +32,9 @@ test:masskit_ai:
       ref: main
       artifacts: true
   script:
+    - '[ -z "$CI_COMMIT_BRANCH" ] && CONDA_SUFFIX=main || CONDA_SUFFIX=$CI_COMMIT_BRANCH'
     - source $HOME/miniconda3/bin/activate
-    - conda activate masskit_ai_cpu_${CI_COMMIT_BRANCH}
+    - conda activate masskit_ai_cpu_${CONDA_SUFFIX}
     - pip install --force-reinstall masskit-*.whl
     - pip install --force-reinstall masskit_ai-*.whl
     - cd tests
