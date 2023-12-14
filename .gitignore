@@ -21,6 +21,8 @@ __pycache__/
 *.egg-info
 # python build directories
 libraries/build/
+build/
+*.whl
 # sphinx document build directories
 _build/
 **/docs/sources/
